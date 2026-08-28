@@ -1,0 +1,11 @@
+project:
+  type: website
+
+website:
+  repo-url: https://github.com/dundeemath/Maths_Week_Scotland/
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
