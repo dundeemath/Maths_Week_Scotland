@@ -1,0 +1,86 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Maths Week Scotland - Dundee University",
+    "section": "",
+    "text": "Welcome!"
+  },
+  {
+    "objectID": "phyllotaxis.html",
+    "href": "phyllotaxis.html",
+    "title": "Phyllotaxis",
+    "section": "",
+    "text": "Plants space their leaves using specific divergence angles (the angular degree separation between successive leaves on a stem), which is known as phyllotaxis. Phyllotaxis has common characteristic across plant species, which are mathematically characterised in a small number of phyllotactic patterns.\nWhich of the following leaf arrangement pattern do you find in this plant?"
+  },
+  {
+    "objectID": "phyllotaxis.html#distichous-180circ",
+    "href": "phyllotaxis.html#distichous-180circ",
+    "title": "Phyllotaxis",
+    "section": "Distichous (\\(180^\\circ\\))",
+    "text": "Distichous (\\(180^\\circ\\))\nLeaves alternate on opposite sides of the stem in a single flat plane."
+  },
+  {
+    "objectID": "phyllotaxis.html#fibonacci-spiral-137.5circ",
+    "href": "phyllotaxis.html#fibonacci-spiral-137.5circ",
+    "title": "Phyllotaxis",
+    "section": "Fibonacci Spiral (\\(137.5^\\circ\\))",
+    "text": "Fibonacci Spiral (\\(137.5^\\circ\\))\nLeaves wind in a tight spiral using the golden angle, maximising space and light efficiency."
+  },
+  {
+    "objectID": "phyllotaxis.html#decussate-90circ",
+    "href": "phyllotaxis.html#decussate-90circ",
+    "title": "Phyllotaxis",
+    "section": "Decussate (\\(90^\\circ\\))",
+    "text": "Decussate (\\(90^\\circ\\))\nSuccessive pairs of leaves sit at right angles to each other."
+  },
+  {
+    "objectID": "phyllotaxis.html#tricussate-60circ",
+    "href": "phyllotaxis.html#tricussate-60circ",
+    "title": "Phyllotaxis",
+    "section": "Tricussate (\\(60^\\circ\\))",
+    "text": "Tricussate (\\(60^\\circ\\))\nWhorls feature three leaves per node, rotated evenly around the stem.\nImage from the University of Tokyo that shows the classification patterns:\n\n\n\nPhyllotactic Patterns"
+  },
+  {
+    "objectID": "phyllotaxis_stats.html",
+    "href": "phyllotaxis_stats.html",
+    "title": "Phyllotaxis Statistics",
+    "section": "",
+    "text": "Plant species optimize their solar capture and space packing using specific evolutionary patterns. While the golden angle (\\(137.5^\\circ\\)) is famous, species also commonly exhibit alternate patterns like distichous (\\(180^\\circ\\)), decussate (\\(90^\\circ\\)), or tristichous (\\(120^\\circ\\)) arrangements. In this hands-on investigation, your team will act as field data scientists to harvest real-world biological samples, aggregate multi-species raw tallies, and build a categorical frequency distribution to determine which divergence architecture dominates the local ecosystem."
+  },
+  {
+    "objectID": "phyllotaxis_stats.html#requirements-and-setup",
+    "href": "phyllotaxis_stats.html#requirements-and-setup",
+    "title": "Phyllotaxis Statistics",
+    "section": "Requirements and Setup",
+    "text": "Requirements and Setup\nTBC"
+  },
+  {
+    "objectID": "phyllotaxis_stats.html#data-harvest-protocol",
+    "href": "phyllotaxis_stats.html#data-harvest-protocol",
+    "title": "Phyllotaxis Statistics",
+    "section": "Data Harvest Protocol",
+    "text": "Data Harvest Protocol\nIdeally interactive setup so that visitor can enter their collection data to the website"
+  },
+  {
+    "objectID": "phyllotaxis_stats.html#field-data-log",
+    "href": "phyllotaxis_stats.html#field-data-log",
+    "title": "Phyllotaxis Statistics",
+    "section": "Field Data Log",
+    "text": "Field Data Log\nTBC"
+  },
+  {
+    "objectID": "phyllotaxis_stats.html#data-science-and-statistical-pipeline",
+    "href": "phyllotaxis_stats.html#data-science-and-statistical-pipeline",
+    "title": "Phyllotaxis Statistics",
+    "section": "Data Science and Statistical Pipeline",
+    "text": "Data Science and Statistical Pipeline\nTBC"
+  },
+  {
+    "objectID": "phyllotaxis_stats.html#critical-analytics-lab-prompts",
+    "href": "phyllotaxis_stats.html#critical-analytics-lab-prompts",
+    "title": "Phyllotaxis Statistics",
+    "section": "Critical Analytics Lab Prompts",
+    "text": "Critical Analytics Lab Prompts\nTBC\n\n\n\nPhyllotaxis Divergence Distribution"
+  }
+]
