@@ -3,7 +3,7 @@ title: Maths Week Scotland - Dundee University
 ---
 
 Welcome! This site was created in 2026 at the University of Dundee for our
-[Maths Trial at the Dundee Botanic Gardens](https://www.dundee.ac.uk/events/maths-trail-dundee-botanic-garden),
+[Maths Trail at the Dundee Botanic Gardens](https://www.dundee.ac.uk/events/maths-trail-dundee-botanic-garden),
 as part of the wider [Maths Week Scotland](https://mathsweek.scot) programme of events.
 It is designed to be used while exploring the [Botanic Gardens](https://www.dundee.ac.uk/botanic)
 and using a smart-phone to scan QR barcodes taking you to individual pages here.
