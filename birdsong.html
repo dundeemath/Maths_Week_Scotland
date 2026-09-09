@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Phyllotaxis Statistics</title>
+<title>Bird Song</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -73,35 +73,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -113,25 +84,15 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#requirements-and-setup" id="toc-requirements-and-setup" class="nav-link active" data-scroll-target="#requirements-and-setup">Requirements and Setup</a></li>
-  <li><a href="#data-harvest-protocol" id="toc-data-harvest-protocol" class="nav-link" data-scroll-target="#data-harvest-protocol">Data Harvest Protocol</a></li>
-  <li><a href="#field-data-log" id="toc-field-data-log" class="nav-link" data-scroll-target="#field-data-log">Field Data Log</a></li>
-  <li><a href="#data-science-and-statistical-pipeline" id="toc-data-science-and-statistical-pipeline" class="nav-link" data-scroll-target="#data-science-and-statistical-pipeline">Data Science and Statistical Pipeline</a></li>
-  <li><a href="#critical-analytics-lab-prompts" id="toc-critical-analytics-lab-prompts" class="nav-link" data-scroll-target="#critical-analytics-lab-prompts">Critical Analytics Lab Prompts</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Phyllotaxis Statistics</h1>
+<h1 class="title">Bird Song</h1>
 </div>
 
 
@@ -148,35 +109,9 @@ window.Quarto = {
 </header>
 
 
-<p>Plant species optimize their solar capture and space packing using specific evolutionary patterns. While the golden angle (<span class="math inline">\(137.5^\circ\)</span>) is famous, species also commonly exhibit alternate patterns like distichous (<span class="math inline">\(180^\circ\)</span>), decussate (<span class="math inline">\(90^\circ\)</span>), or tristichous (<span class="math inline">\(120^\circ\)</span>) arrangements. In this hands-on investigation, your team will act as field data scientists to harvest real-world biological samples, aggregate multi-species raw tallies, and build a categorical frequency distribution to determine which divergence architecture dominates the local ecosystem.</p>
-<section id="requirements-and-setup" class="level2">
-<h2 class="anchored" data-anchor-id="requirements-and-setup">Requirements and Setup</h2>
-<p>TBC</p>
-</section>
-<section id="data-harvest-protocol" class="level2">
-<h2 class="anchored" data-anchor-id="data-harvest-protocol">Data Harvest Protocol</h2>
-<p>Ideally interactive setup so that visitor can enter their collection data to the website</p>
-</section>
-<section id="field-data-log" class="level2">
-<h2 class="anchored" data-anchor-id="field-data-log">Field Data Log</h2>
-<p>TBC</p>
-</section>
-<section id="data-science-and-statistical-pipeline" class="level2">
-<h2 class="anchored" data-anchor-id="data-science-and-statistical-pipeline">Data Science and Statistical Pipeline</h2>
-<p>TBC</p>
-</section>
-<section id="critical-analytics-lab-prompts" class="level2">
-<h2 class="anchored" data-anchor-id="critical-analytics-lab-prompts">Critical Analytics Lab Prompts</h2>
-<p>TBC</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/phyllotaxis_divergence_distribution.png" class="img-fluid figure-img"></p>
-<figcaption>Phyllotaxis Divergence Distribution</figcaption>
-</figure>
-</div>
+<p>Listen to the birds!</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -1,5 +1,131 @@
 [
   {
+    "objectID": "symmetry.html",
+    "href": "symmetry.html",
+    "title": "Symmetry in Plants",
+    "section": "",
+    "text": "Links to Group Theory."
+  },
+  {
+    "objectID": "curvature.html",
+    "href": "curvature.html",
+    "title": "Growth Laws for Wrinkly Surfaces",
+    "section": "",
+    "text": "The difference between a perfectly flat leaf and a wavy, wrinkly one comes down to a battle between differntial growth and elastic energy minimisation. The shapes of leaves are governed by the laws of non-Euclidean elasticity and differential geometry.\nTo understand why a leaf wrinkles, we can look at Gaussian curvature (K), which is the product of the two principal curvature of a surface.\n\nFlat leaves (\\(K=0\\))\nWrinkly leaves (\\(K\\neq 0\\))"
+  },
+  {
+    "objectID": "logarithmic_spiral.html",
+    "href": "logarithmic_spiral.html",
+    "title": "Logarithmic Spiral",
+    "section": "",
+    "text": "Logarithmic spirals in plants are a striking example of geometry in nature, where botanical structures grow according to the Golden Ratio and the Fibonacci sequence."
+  },
+  {
+    "objectID": "logarithmic_spiral.html#spiralling-succulents",
+    "href": "logarithmic_spiral.html#spiralling-succulents",
+    "title": "Logarithmic Spiral",
+    "section": "Spiralling Succulents",
+    "text": "Spiralling Succulents\nMany varieties of succulents arrange their leaves outward from a central point along an expanding logarithmic trajectry to ensure uniform access to sunlight and water collection.\nmage from the Fractal Dimensions in Circular and Spiral Phenomena that shows logarithmic spiral in Aloe Polyphylla:\n\n\n\nLogarithmic spiral in Aloe Polyphylla"
+  },
+  {
+    "objectID": "logarithmic_spiral.html#sunflower-seed-heads",
+    "href": "logarithmic_spiral.html#sunflower-seed-heads",
+    "title": "Logarithmic Spiral",
+    "section": "Sunflower Seed Heads",
+    "text": "Sunflower Seed Heads\nThe packing of seeds in a sunflower head features two sets of overlapping logarithmic spirals - one running clockwise and the other anticlockwise - maximising the number of seeds that can fit into the centre."
+  },
+  {
+    "objectID": "logarithmic_spiral.html#pinecone-scale-arrangements",
+    "href": "logarithmic_spiral.html#pinecone-scale-arrangements",
+    "title": "Logarithmic Spiral",
+    "section": "Pinecone Scale Arrangements",
+    "text": "Pinecone Scale Arrangements\nPinecones exhibit steep logarithmic spirals formed by their scaling bracts, tightly safeguarding the seeds inside."
+  },
+  {
+    "objectID": "fractal.html",
+    "href": "fractal.html",
+    "title": "Fractal",
+    "section": "",
+    "text": "A fractal is a structure that possessed the property of . Specifically, it refers to a structure where the exact same shape repeatedly appears when the entire figure is broken down into several smaller parts.\n\n\n\nFractal pattern in fern leave\n\n\nWhile fractal patterns and shapes appear complex at first glance, they are actually the result of repeating simple rules and operations.\nWhile fractals are a concept rooted in geometry, the fractal approach can also be applied to analyse various phenomena, such as stock prices, currency fluctuations, and social structures.\nMany examples of fractals can also be observed in the natural world. These include a wide variety of examples, such as , (like turbn shells and nautiluses), the shapes of cumulonimbus clouds, and the circulatory system in the human body (including the heart, blood vessels, and lymphatic vessels)."
+  },
+  {
+    "objectID": "konigsverg.html",
+    "href": "konigsverg.html",
+    "title": "Seven Bridges of Königsberg",
+    "section": "",
+    "text": "Topic in Graph Theory."
+  },
+  {
+    "objectID": "analemma.html",
+    "href": "analemma.html",
+    "title": "The Analemma Project",
+    "section": "",
+    "text": "Artist Lucy Smith created the Analemma Project sculpture. She completed her PhD “Making the Conceptual Tangible: The Role of Art in Communicating Science” here at the University of Dundee.\nThe Analemma is an unequal figure-of-eight shape, created by tracking the sun’s position in the sky at the same time each day over a period of one year."
+  },
+  {
+    "objectID": "circadian.html",
+    "href": "circadian.html",
+    "title": "Circadian Rhythm",
+    "section": "",
+    "text": "Periodic rhythm obseved in plants. Related to synchronisation phenomena."
+  },
+  {
+    "objectID": "phyllotaxis.html",
+    "href": "phyllotaxis.html",
+    "title": "Phyllotaxis",
+    "section": "",
+    "text": "Plants arrange their leaves around a stem in regular patterns. The angle between one leaf and the next is called the divergence angle, and this pattern of leaf arrangement is known as phyllotaxis. Many different plant species share similar phyllotaxis patterns, and these can be described using a small number of mathematical patterns.\nWhich of the following leaf arrangement pattern do you find in this plant? Please record the number of each leaf arrangement pattern in the table provided on the Maths Trail map."
+  },
+  {
+    "objectID": "phyllotaxis.html#distichous-180circ",
+    "href": "phyllotaxis.html#distichous-180circ",
+    "title": "Phyllotaxis",
+    "section": "Distichous (\\(180^\\circ\\))",
+    "text": "Distichous (\\(180^\\circ\\))\nLeaves grow on alternating sides of the stem, forming a flat, two-sided pattern."
+  },
+  {
+    "objectID": "phyllotaxis.html#fibonacci-spiral-137.5circ",
+    "href": "phyllotaxis.html#fibonacci-spiral-137.5circ",
+    "title": "Phyllotaxis",
+    "section": "Fibonacci Spiral (\\(137.5^\\circ\\))",
+    "text": "Fibonacci Spiral (\\(137.5^\\circ\\))\nLeaves grow around the stem in a tight spiral, using the golden angle to make the best use of space and get as much light as possible."
+  },
+  {
+    "objectID": "phyllotaxis.html#decussate-90circ",
+    "href": "phyllotaxis.html#decussate-90circ",
+    "title": "Phyllotaxis",
+    "section": "Decussate (\\(90^\\circ\\))",
+    "text": "Decussate (\\(90^\\circ\\))\nLeaves grow in pairs, with each pair turned at a right angle to the pair below."
+  },
+  {
+    "objectID": "phyllotaxis.html#tricussate-60circ",
+    "href": "phyllotaxis.html#tricussate-60circ",
+    "title": "Phyllotaxis",
+    "section": "Tricussate (\\(60^\\circ\\))",
+    "text": "Tricussate (\\(60^\\circ\\))\nThree leaves grow from the same point on the stem, spaced evenly around it. Each group of three is rotated \\(60^\\circ\\) around the stem from the group below.\nImage from the University of Tokyo that shows the classification patterns:\n\n\n\nPhyllotactic Patterns"
+  },
+  {
+    "objectID": "helicopter.html",
+    "href": "helicopter.html",
+    "title": "Helicopter Seeds",
+    "section": "",
+    "text": "The seeds from maple, elm and ash trees have curved wings to let them stay in the air longer. The wind will pick up these seeds and carry them to suitable groud. These seeds twirl and spin around. They will then drop and sprount a new tree. Some people call these seeds because they look like and can spin like a propeller.\nHere you will learn how to make your own spinner.\n\nFold the middle flap in the opposite direction of the other two flaps. Put the paper clip on the end of the middle flap.\nFind a maple seed spinner. Drop both spinners from the same height and compare how they spind. Does your spinner work as well as nature’s?"
+  },
+  {
+    "objectID": "birdsong.html",
+    "href": "birdsong.html",
+    "title": "Bird Song",
+    "section": "",
+    "text": "Listen to the birds!"
+  },
+  {
+    "objectID": "questionnaire.html",
+    "href": "questionnaire.html",
+    "title": "End of Maths Trail Questionnaire",
+    "section": "",
+    "text": "Display at the end of Maths Trail (near the reception?). Links to Microsoft form, which asks feedback and also asks to enter the counted numbers for Phyllotaxis patterns."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Maths Week Scotland - Dundee University",
@@ -7,80 +133,38 @@
     "text": "Welcome! This site was created in 2026 at the University of Dundee for our Maths Trail at the Dundee Botanic Gardens, as part of the wider Maths Week Scotland programme of events. It is designed to be used while exploring the Botanic Gardens and using a smart-phone to scan QR barcodes taking you to individual pages here."
   },
   {
-    "objectID": "phyllotaxis.html",
-    "href": "phyllotaxis.html",
-    "title": "Phyllotaxis",
+    "objectID": "salesman.html",
+    "href": "salesman.html",
+    "title": "Travelling Salesman Problem",
     "section": "",
-    "text": "Plants space their leaves using specific divergence angles (the angular degree separation between successive leaves on a stem), which is known as phyllotaxis. Phyllotaxis has common characteristic across plant species, which are mathematically characterised in a small number of phyllotactic patterns.\nWhich of the following leaf arrangement pattern do you find in this plant?"
+    "text": "Link to App created by Philip."
   },
   {
-    "objectID": "phyllotaxis.html#distichous-180circ",
-    "href": "phyllotaxis.html#distichous-180circ",
-    "title": "Phyllotaxis",
-    "section": "Distichous (\\(180^\\circ\\))",
-    "text": "Distichous (\\(180^\\circ\\))\nLeaves alternate on opposite sides of the stem in a single flat plane."
-  },
-  {
-    "objectID": "phyllotaxis.html#fibonacci-spiral-137.5circ",
-    "href": "phyllotaxis.html#fibonacci-spiral-137.5circ",
-    "title": "Phyllotaxis",
-    "section": "Fibonacci Spiral (\\(137.5^\\circ\\))",
-    "text": "Fibonacci Spiral (\\(137.5^\\circ\\))\nLeaves wind in a tight spiral using the golden angle, maximising space and light efficiency."
-  },
-  {
-    "objectID": "phyllotaxis.html#decussate-90circ",
-    "href": "phyllotaxis.html#decussate-90circ",
-    "title": "Phyllotaxis",
-    "section": "Decussate (\\(90^\\circ\\))",
-    "text": "Decussate (\\(90^\\circ\\))\nSuccessive pairs of leaves sit at right angles to each other."
-  },
-  {
-    "objectID": "phyllotaxis.html#tricussate-60circ",
-    "href": "phyllotaxis.html#tricussate-60circ",
-    "title": "Phyllotaxis",
-    "section": "Tricussate (\\(60^\\circ\\))",
-    "text": "Tricussate (\\(60^\\circ\\))\nWhorls feature three leaves per node, rotated evenly around the stem.\nImage from the University of Tokyo that shows the classification patterns:\n\n\n\nPhyllotactic Patterns"
-  },
-  {
-    "objectID": "phyllotaxis_stats.html",
-    "href": "phyllotaxis_stats.html",
-    "title": "Phyllotaxis Statistics",
+    "objectID": "fibonacci.html",
+    "href": "fibonacci.html",
+    "title": "Fibonacci Numbers",
     "section": "",
-    "text": "Plant species optimize their solar capture and space packing using specific evolutionary patterns. While the golden angle (\\(137.5^\\circ\\)) is famous, species also commonly exhibit alternate patterns like distichous (\\(180^\\circ\\)), decussate (\\(90^\\circ\\)), or tristichous (\\(120^\\circ\\)) arrangements. In this hands-on investigation, your team will act as field data scientists to harvest real-world biological samples, aggregate multi-species raw tallies, and build a categorical frequency distribution to determine which divergence architecture dominates the local ecosystem."
+    "text": "Look at a pinecone from the bottom. How many spirals go in the clockwise direction (green lines)? How many spirals go in the counter-clockwise direction (yellow lines)? Wouldn’t you expect that they would be the same?\nImage from the MENSA for Kids that shows Fibonacci numbers in pinecone:\nThe number of spirals found on pinecones are almost always Fibonacci numbers, which are ."
   },
   {
-    "objectID": "phyllotaxis_stats.html#requirements-and-setup",
-    "href": "phyllotaxis_stats.html#requirements-and-setup",
-    "title": "Phyllotaxis Statistics",
-    "section": "Requirements and Setup",
-    "text": "Requirements and Setup\nTBC"
+    "objectID": "fibonacci.html#fibonacci-sequence",
+    "href": "fibonacci.html#fibonacci-sequence",
+    "title": "Fibonacci Numbers",
+    "section": "Fibonacci Sequence",
+    "text": "Fibonacci Sequence\n\\(0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, \\ldots\\)"
   },
   {
-    "objectID": "phyllotaxis_stats.html#data-harvest-protocol",
-    "href": "phyllotaxis_stats.html#data-harvest-protocol",
-    "title": "Phyllotaxis Statistics",
-    "section": "Data Harvest Protocol",
-    "text": "Data Harvest Protocol\nIdeally interactive setup so that visitor can enter their collection data to the website"
+    "objectID": "fibonacci.html#why-fibonacci-numbers-appear",
+    "href": "fibonacci.html#why-fibonacci-numbers-appear",
+    "title": "Fibonacci Numbers",
+    "section": "Why Fibonacci numbers appear?",
+    "text": "Why Fibonacci numbers appear?"
   },
   {
-    "objectID": "phyllotaxis_stats.html#field-data-log",
-    "href": "phyllotaxis_stats.html#field-data-log",
-    "title": "Phyllotaxis Statistics",
-    "section": "Field Data Log",
-    "text": "Field Data Log\nTBC"
-  },
-  {
-    "objectID": "phyllotaxis_stats.html#data-science-and-statistical-pipeline",
-    "href": "phyllotaxis_stats.html#data-science-and-statistical-pipeline",
-    "title": "Phyllotaxis Statistics",
-    "section": "Data Science and Statistical Pipeline",
-    "text": "Data Science and Statistical Pipeline\nTBC"
-  },
-  {
-    "objectID": "phyllotaxis_stats.html#critical-analytics-lab-prompts",
-    "href": "phyllotaxis_stats.html#critical-analytics-lab-prompts",
-    "title": "Phyllotaxis Statistics",
-    "section": "Critical Analytics Lab Prompts",
-    "text": "Critical Analytics Lab Prompts\nTBC\n\n\n\nPhyllotaxis Divergence Distribution"
+    "objectID": "trigonometry.html",
+    "href": "trigonometry.html",
+    "title": "Estimating the Height of a Tree using Trigonometry",
+    "section": "",
+    "text": "Visitors wouldn’t be able to measure a distance and angle. Demonstration of a method."
   }
 ]

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Phyllotaxis</title>
+<title>Logarithmic Spiral</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -73,35 +73,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -118,10 +89,9 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#distichous-180circ" id="toc-distichous-180circ" class="nav-link active" data-scroll-target="#distichous-180circ">Distichous (<span class="math inline">\(180^\circ\)</span>)</a></li>
-  <li><a href="#fibonacci-spiral-137.5circ" id="toc-fibonacci-spiral-137.5circ" class="nav-link" data-scroll-target="#fibonacci-spiral-137.5circ">Fibonacci Spiral (<span class="math inline">\(137.5^\circ\)</span>)</a></li>
-  <li><a href="#decussate-90circ" id="toc-decussate-90circ" class="nav-link" data-scroll-target="#decussate-90circ">Decussate (<span class="math inline">\(90^\circ\)</span>)</a></li>
-  <li><a href="#tricussate-60circ" id="toc-tricussate-60circ" class="nav-link" data-scroll-target="#tricussate-60circ">Tricussate (<span class="math inline">\(60^\circ\)</span>)</a></li>
+  <li><a href="#spiralling-succulents" id="toc-spiralling-succulents" class="nav-link active" data-scroll-target="#spiralling-succulents">Spiralling Succulents</a></li>
+  <li><a href="#sunflower-seed-heads" id="toc-sunflower-seed-heads" class="nav-link" data-scroll-target="#sunflower-seed-heads">Sunflower Seed Heads</a></li>
+  <li><a href="#pinecone-scale-arrangements" id="toc-pinecone-scale-arrangements" class="nav-link" data-scroll-target="#pinecone-scale-arrangements">Pinecone Scale Arrangements</a></li>
   </ul>
 </nav>
     </div>
@@ -130,7 +100,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Phyllotaxis</h1>
+<h1 class="title">Logarithmic Spiral</h1>
 </div>
 
 
@@ -147,30 +117,25 @@ window.Quarto = {
 </header>
 
 
-<p>Plants arrange their leaves around a stem in regular patterns. The angle between one leaf and the next is called the divergence angle, and this pattern of leaf arrangement is known as phyllotaxis. Many different plant species share similar phyllotaxis patterns, and these can be described using a small number of mathematical patterns.</p>
-<p>Which of the following leaf arrangement pattern do you find in this plant? Please record the number of each leaf arrangement pattern in the table provided on the Maths Trail map.</p>
-<section id="distichous-180circ" class="level2">
-<h2 class="anchored" data-anchor-id="distichous-180circ">Distichous (<span class="math inline">\(180^\circ\)</span>)</h2>
-<p>Leaves grow on alternating sides of the stem, forming a flat, two-sided pattern.</p>
-</section>
-<section id="fibonacci-spiral-137.5circ" class="level2">
-<h2 class="anchored" data-anchor-id="fibonacci-spiral-137.5circ">Fibonacci Spiral (<span class="math inline">\(137.5^\circ\)</span>)</h2>
-<p>Leaves grow around the stem in a tight spiral, using the golden angle to make the best use of space and get as much light as possible.</p>
-</section>
-<section id="decussate-90circ" class="level2">
-<h2 class="anchored" data-anchor-id="decussate-90circ">Decussate (<span class="math inline">\(90^\circ\)</span>)</h2>
-<p>Leaves grow in pairs, with each pair turned at a right angle to the pair below.</p>
-</section>
-<section id="tricussate-60circ" class="level2">
-<h2 class="anchored" data-anchor-id="tricussate-60circ">Tricussate (<span class="math inline">\(60^\circ\)</span>)</h2>
-<p>Three leaves grow from the same point on the stem, spaced evenly around it. Each group of three is rotated <span class="math inline">\(60^\circ\)</span> around the stem from the group below.</p>
-<p>Image from the <a href="https://www.u-tokyo.ac.jp/focus/en/press/z0508_00047.html">University of Tokyo</a> that shows the classification patterns:</p>
+<p>Logarithmic spirals in plants are a striking example of geometry in nature, where botanical structures grow according to the Golden Ratio and the Fibonacci sequence.</p>
+<section id="spiralling-succulents" class="level2">
+<h2 class="anchored" data-anchor-id="spiralling-succulents">Spiralling Succulents</h2>
+<p>Many varieties of succulents arrange their leaves outward from a central point along an expanding logarithmic trajectry to ensure uniform access to sunlight and water collection.</p>
+<p>mage from the <a href="https://www.techrxiv.org/doi/full/10.36227/techrxiv.21766706.v1">Fractal Dimensions in Circular and Spiral Phenomena</a> that shows logarithmic spiral in Aloe Polyphylla:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/phase-locking.jpg" class="img-fluid figure-img"></p>
-<figcaption>Phyllotactic Patterns</figcaption>
+<p><img src="figures/Spiral-Aloe.png" class="img-fluid figure-img"></p>
+<figcaption>Logarithmic spiral in Aloe Polyphylla</figcaption>
 </figure>
 </div>
+</section>
+<section id="sunflower-seed-heads" class="level2">
+<h2 class="anchored" data-anchor-id="sunflower-seed-heads">Sunflower Seed Heads</h2>
+<p>The packing of seeds in a sunflower head features two sets of overlapping logarithmic spirals - one running clockwise and the other anticlockwise - maximising the number of seeds that can fit into the centre.</p>
+</section>
+<section id="pinecone-scale-arrangements" class="level2">
+<h2 class="anchored" data-anchor-id="pinecone-scale-arrangements">Pinecone Scale Arrangements</h2>
+<p>Pinecones exhibit steep logarithmic spirals formed by their scaling bracts, tightly safeguarding the seeds inside.</p>
 
 
 </section>
