@@ -1,40 +1,5 @@
 [
   {
-    "objectID": "spirals.html",
-    "href": "spirals.html",
-    "title": "Logarithmic Spiral",
-    "section": "",
-    "text": "Logarithmic spirals in plants are a striking example of geometry in nature, where botanical structures grow according to the Golden Ratio and the Fibonacci sequence."
-  },
-  {
-    "objectID": "spirals.html#spiralling-succulents",
-    "href": "spirals.html#spiralling-succulents",
-    "title": "Logarithmic Spiral",
-    "section": "Spiralling Succulents",
-    "text": "Spiralling Succulents\nMany varieties of succulents arrange their leaves outward from a central point along an expanding logarithmic trajectry to ensure uniform access to sunlight and water collection.\nmage from the Fractal Dimensions in Circular and Spiral Phenomena that shows logarithmic spiral in Aloe Polyphylla:\n\n\n\nLogarithmic spiral in Aloe Polyphylla"
-  },
-  {
-    "objectID": "spirals.html#sunflower-seed-heads",
-    "href": "spirals.html#sunflower-seed-heads",
-    "title": "Logarithmic Spiral",
-    "section": "Sunflower Seed Heads",
-    "text": "Sunflower Seed Heads\nThe packing of seeds in a sunflower head features two sets of overlapping logarithmic spirals - one running clockwise and the other anticlockwise - maximising the number of seeds that can fit into the centre."
-  },
-  {
-    "objectID": "spirals.html#pinecone-scale-arrangements",
-    "href": "spirals.html#pinecone-scale-arrangements",
-    "title": "Logarithmic Spiral",
-    "section": "Pinecone Scale Arrangements",
-    "text": "Pinecone Scale Arrangements\nPinecones exhibit steep logarithmic spirals formed by their scaling bracts, tightly safeguarding the seeds inside."
-  },
-  {
-    "objectID": "trigonometry.html",
-    "href": "trigonometry.html",
-    "title": "Estimating the Height of a Tree using Trigonometry",
-    "section": "",
-    "text": "Visitors wouldn’t be able to measure a distance and angle. Demonstration of a method."
-  },
-  {
     "objectID": "fibonacci.html",
     "href": "fibonacci.html",
     "title": "Fibonacci Numbers",
@@ -56,32 +21,11 @@
     "text": "Why Fibonacci numbers appear?"
   },
   {
-    "objectID": "fractal.html",
-    "href": "fractal.html",
-    "title": "Fractal",
+    "objectID": "helicopter.html",
+    "href": "helicopter.html",
+    "title": "Helicopter Seeds",
     "section": "",
-    "text": "A fractal is a structure that possessed the property of . Specifically, it refers to a structure where the exact same shape repeatedly appears when the entire figure is broken down into several smaller parts.\n\n\n\nFractal pattern in fern leave\n\n\nWhile fractal patterns and shapes appear complex at first glance, they are actually the result of repeating simple rules and operations.\nWhile fractals are a concept rooted in geometry, the fractal approach can also be applied to analyse various phenomena, such as stock prices, currency fluctuations, and social structures.\nMany examples of fractals can also be observed in the natural world. These include a wide variety of examples, such as , (like turbn shells and nautiluses), the shapes of cumulonimbus clouds, and the circulatory system in the human body (including the heart, blood vessels, and lymphatic vessels)."
-  },
-  {
-    "objectID": "questionnaire.html",
-    "href": "questionnaire.html",
-    "title": "End of Maths Trail Questionnaire",
-    "section": "",
-    "text": "Display at the end of Maths Trail (near the reception?). Links to Microsoft form, which asks feedback and also asks to enter the counted numbers for Phyllotaxis patterns."
-  },
-  {
-    "objectID": "analemma.html",
-    "href": "analemma.html",
-    "title": "The Analemma Project",
-    "section": "",
-    "text": "Artist Lucy Smith created the Analemma Project sculpture. She completed her PhD “Making the Conceptual Tangible: The Role of Art in Communicating Science” here at the University of Dundee.\nThe Analemma is an unequal figure-of-eight shape, created by tracking the sun’s position in the sky at the same time each day over a period of one year."
-  },
-  {
-    "objectID": "circadian.html",
-    "href": "circadian.html",
-    "title": "Circadian Rhythm",
-    "section": "",
-    "text": "Periodic rhythm obseved in plants. Related to synchronisation phenomena."
+    "text": "The seeds from maple, elm and ash trees have curved wings to let them stay in the air longer. The wind will pick up these seeds and carry them to suitable groud. These seeds twirl and spin around. They will then drop and sprount a new tree. Some people call these seeds because they look like and can spin like a propeller.\nHere you will learn how to make your own spinner.\n\nFold the middle flap in the opposite direction of the other two flaps. Put the paper clip on the end of the middle flap.\nFind a maple seed spinner. Drop both spinners from the same height and compare how they spind. Does your spinner work as well as nature’s?"
   },
   {
     "objectID": "phyllotaxis.html",
@@ -119,32 +63,18 @@
     "text": "Tricussate (\\(60^\\circ\\))\nThree leaves grow from the same point on the stem, spaced evenly around it. Each group of three is rotated \\(60^\\circ\\) around the stem from the group below.\nImage from the University of Tokyo that shows the classification patterns:\n\n\n\nPhyllotactic Patterns"
   },
   {
-    "objectID": "helicopter.html",
-    "href": "helicopter.html",
-    "title": "Helicopter Seeds",
+    "objectID": "analemma.html",
+    "href": "analemma.html",
+    "title": "The Analemma Project",
     "section": "",
-    "text": "The seeds from maple, elm and ash trees have curved wings to let them stay in the air longer. The wind will pick up these seeds and carry them to suitable groud. These seeds twirl and spin around. They will then drop and sprount a new tree. Some people call these seeds because they look like and can spin like a propeller.\nHere you will learn how to make your own spinner.\n\nFold the middle flap in the opposite direction of the other two flaps. Put the paper clip on the end of the middle flap.\nFind a maple seed spinner. Drop both spinners from the same height and compare how they spind. Does your spinner work as well as nature’s?"
+    "text": "Artist Lucy Smith created the Analemma Project sculpture. She completed her PhD “Making the Conceptual Tangible: The Role of Art in Communicating Science” here at the University of Dundee.\nThe Analemma is an unequal figure-of-eight shape, created by tracking the sun’s position in the sky at the same time each day over a period of one year."
   },
   {
-    "objectID": "birdsong.html",
-    "href": "birdsong.html",
-    "title": "Bird Song",
+    "objectID": "symmetry.html",
+    "href": "symmetry.html",
+    "title": "Symmetry in Plants",
     "section": "",
-    "text": "Listen to the birds!"
-  },
-  {
-    "objectID": "konigsberg.html",
-    "href": "konigsberg.html",
-    "title": "Seven Bridges of Königsberg",
-    "section": "",
-    "text": "Topic in Graph Theory."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Maths Week Scotland - Dundee University",
-    "section": "",
-    "text": "Welcome! This site was created in 2026 at the University of Dundee for our Maths Trail at the Dundee Botanic Gardens, as part of the wider Maths Week Scotland programme of events. It is designed to be used while exploring the Botanic Gardens and using a smart-phone to scan QR barcodes taking you to individual pages here."
+    "text": "Links to Group Theory."
   },
   {
     "objectID": "salesman.html",
@@ -154,6 +84,34 @@
     "text": "Link to App created by Philip."
   },
   {
+    "objectID": "trigonometry.html",
+    "href": "trigonometry.html",
+    "title": "Estimating the Height of a Tree using Trigonometry",
+    "section": "",
+    "text": "Visitors wouldn’t be able to measure a distance and angle. Demonstration of a method."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Maths Week Scotland - Dundee University",
+    "section": "",
+    "text": "Welcome! This site was created in 2026 at the University of Dundee for our Maths Trail at the Dundee Botanic Gardens, as part of the wider Maths Week Scotland programme of events. It is designed to be used while exploring the Botanic Gardens and using a smart-phone to scan QR barcodes taking you to individual pages here."
+  },
+  {
+    "objectID": "questionnaire.html",
+    "href": "questionnaire.html",
+    "title": "End of Maths Trail Questionnaire",
+    "section": "",
+    "text": "Display at the end of Maths Trail (near the reception?). Links to Microsoft form, which asks feedback and also asks to enter the counted numbers for Phyllotaxis patterns."
+  },
+  {
+    "objectID": "birdsong.html",
+    "href": "birdsong.html",
+    "title": "Bird Song",
+    "section": "",
+    "text": "Listen to the birds!"
+  },
+  {
     "objectID": "curvature.html",
     "href": "curvature.html",
     "title": "Growth Laws for Wrinkly Surfaces",
@@ -161,10 +119,52 @@
     "text": "The difference between a perfectly flat leaf and a wavy, wrinkly one comes down to a battle between differntial growth and elastic energy minimisation. The shapes of leaves are governed by the laws of non-Euclidean elasticity and differential geometry.\nTo understand why a leaf wrinkles, we can look at Gaussian curvature (K), which is the product of the two principal curvature of a surface.\n\nFlat leaves (\\(K=0\\))\nWrinkly leaves (\\(K\\neq 0\\))"
   },
   {
-    "objectID": "symmetry.html",
-    "href": "symmetry.html",
-    "title": "Symmetry in Plants",
+    "objectID": "spirals.html",
+    "href": "spirals.html",
+    "title": "Logarithmic Spiral",
     "section": "",
-    "text": "Links to Group Theory."
+    "text": "Logarithmic spirals in plants are a striking example of geometry in nature, where botanical structures grow according to the Golden Ratio and the Fibonacci sequence."
+  },
+  {
+    "objectID": "spirals.html#spiralling-succulents",
+    "href": "spirals.html#spiralling-succulents",
+    "title": "Logarithmic Spiral",
+    "section": "Spiralling Succulents",
+    "text": "Spiralling Succulents\nMany varieties of succulents arrange their leaves outward from a central point along an expanding logarithmic trajectry to ensure uniform access to sunlight and water collection.\nmage from the Fractal Dimensions in Circular and Spiral Phenomena that shows logarithmic spiral in Aloe Polyphylla:\n\n\n\nLogarithmic spiral in Aloe Polyphylla"
+  },
+  {
+    "objectID": "spirals.html#sunflower-seed-heads",
+    "href": "spirals.html#sunflower-seed-heads",
+    "title": "Logarithmic Spiral",
+    "section": "Sunflower Seed Heads",
+    "text": "Sunflower Seed Heads\nThe packing of seeds in a sunflower head features two sets of overlapping logarithmic spirals - one running clockwise and the other anticlockwise - maximising the number of seeds that can fit into the centre."
+  },
+  {
+    "objectID": "spirals.html#pinecone-scale-arrangements",
+    "href": "spirals.html#pinecone-scale-arrangements",
+    "title": "Logarithmic Spiral",
+    "section": "Pinecone Scale Arrangements",
+    "text": "Pinecone Scale Arrangements\nPinecones exhibit steep logarithmic spirals formed by their scaling bracts, tightly safeguarding the seeds inside."
+  },
+  {
+    "objectID": "konigsberg.html",
+    "href": "konigsberg.html",
+    "title": "Seven Bridges of Königsberg",
+    "section": "",
+    "text": "Topic in Graph Theory."
+  },
+  {
+    "objectID": "circadian.html",
+    "href": "circadian.html",
+    "title": "Circadian Rhythm",
+    "section": "",
+    "text": "Periodic rhythm obseved in plants. Related to synchronisation phenomena."
+  },
+  {
+    "objectID": "fractal.html",
+    "href": "fractal.html",
+    "title": "Fractal",
+    "section": "",
+    "text": "A fractal is a structure that possessed the property of . Specifically, it refers to a structure where the exact same shape repeatedly appears when the entire figure is broken down into several smaller parts.\n\n\n\nFractal pattern in fern leave\n\n\nWhile fractal patterns and shapes appear complex at first glance, they are actually the result of repeating simple rules and operations.\nWhile fractals are a concept rooted in geometry, the fractal approach can also be applied to analyse various phenomena, such as stock prices, currency fluctuations, and social structures.\nMany examples of fractals can also be observed in the natural world. These include a wide variety of examples, such as , (like turbn shells and nautiluses), the shapes of cumulonimbus clouds, and the circulatory system in the human body (including the heart, blood vessels, and lymphatic vessels)."
   }
 ]
