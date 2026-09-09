@@ -4,7 +4,7 @@ format: html
 code-fold: True
 ---
 
-Look at a pinecone from the bottom. How many spirals go in the clockwise direction (green lines)? How many spirals go in the counter-clockwise direction (yellow lines)? Wouldn't you expect that they would be the same? 
+Look at a pinecone from the bottom. How many spirals go in the clockwise direction (green lines in the photo)? How many spirals go in the counter-clockwise direction (yellow lines)? Wouldn't you expect that they would be the same? 
 
 Image from the [MENSA for Kids](https://www.mensaforkids.org/teach/lesson-plans/fabulous-fibonacci/) that shows Fibonacci numbers in pinecone:
 
