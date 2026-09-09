@@ -47,6 +47,15 @@ jobs:
 
       # See more at https://github.com/quarto-dev/quarto-actions/blob/main/examples/example-03-dependencies.md
 
+      - name: Build Quarto site
+        run: quarto render
+
+      - name: Upload Quarto site artifact
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "docs/"
+
   deploy:
     if: github.ref == 'refs/heads/main'
     needs: build
@@ -56,38 +65,14 @@ jobs:
       pages: write      # to deploy to Pages
       id-token: write   # to verify the deployment originates from an appropriate source
 
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     # Specify runner + deployment step
     runs-on: ubuntu-latest
     steps:
-      # To publish to Netlify, RStudio Connect, or GitHub Pages, uncomment
-      # the appropriate block below
-      
-      # - name: Publish to Netlify (and render)
-      #   uses: quarto-dev/quarto-actions/publish@v2
-      #   with:
-      #     target: netlify
-      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        
-      # - name: Publish to RStudio Connect (and render)
-      #   uses: quarto-dev/quarto-actions/publish@v2
-      #   with:
-      #     target: connect
-      #     CONNECT_SERVER: enter-the-server-url-here
-      #     CONNECT_API_KEY: ${{ secrets.CONNECT_API_KEY }} 
-
-      # NOTE: If Publishing to GitHub Pages, set the permissions correctly (see top of this yaml)
-      - name: Publish to GitHub Pages (and render) 
-        uses: quarto-dev/quarto-actions/publish@v2
-        with:
-          target: gh-pages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # this secret is always available for github actions
-
-      # - name: Publish to confluence
-      #   uses: quarto-dev/quarto-actions/publish@v2
-      #   with:
-      #     target: confluence
-      #   env: 
-      #     CONFLUENCE_USER_EMAIL: ${{ secrets.CONFLUENCE_USER_EMAIL }}
-      #     CONFLUENCE_AUTH_TOKEN: ${{ secrets.CONFLUENCE_AUTH_TOKEN }}
-      #     CONFLUENCE_DOMAIN: ${{ secrets.CONFLUENCE_DOMAIN }}
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
