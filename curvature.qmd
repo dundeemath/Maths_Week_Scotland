@@ -3,266 +3,280 @@ title: "Why leaves crinkle: differential growth in a disc"
 format: html
 image: 'leaf_preview.png'
 categories: [Differential equations, Geometry, Calculus]
-filters:
-  - shinylive
 ---
 
 Why are some leaves more wrinkled than others? And what causes this to happen?
 
-Consider a sphere. The surface area is $4\pi R ^2$. Now imagine distorting the sphere so that is wrinkled. The surface area will now be larger.
+Consider a circular disc 
+of radius, $R$.
 
-In the plant at this stop, notice that the leaves are wrinkled rather than smooth.
+The perimeter  is $2\pi R$ whilst the area of the circle is $\pi R^2$.
+It can be shown that this circle is the most efficient way to contain the area $\pi R^2$.
+
+Now imagine distorting the disc so that the circumference is wrinkled. The cirumference of the wrinkled shape is larger than $2 \pi R$. 
+
+In the plant at this stop, notice that the leaves are wrinkled rather than smooth. Why does evolution find this shape for this particular plant and how does it happen?
 ![](bg_wrinkle_crop.png)
 
-A question that then arises is how biology can make wrinkled surfaces? One way to do this is using differential growth rates. Essentially, take a smooth surface and allow one part of it to grow at a faster rate than the other whilst keeping the surface as a single connected object. The effect of the differential growth is that the faster growing region wrinkles. 
 
-
-
+One way to make a wrinkled surface is to have different regions of the surface grow at different rates. Essentially, take a circle  and allow the outer region  to grow at a faster rate than the inner region. The effect of the differential growth is that the faster growing region wrinkles. 
 
 ::: {#fig-leaf-growth}
-```{shinylive-python}
-#| standalone: true
-#| components: [viewer]
-#| viewerHeight: 720
 
-## file: app.py
-import math
+```{=html}
+<div id="leaf-app" style="display:flex; flex-wrap:wrap; gap:24px; align-items:flex-start; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; max-width:960px;">
+  <div style="flex: 0 0 260px; min-width:220px;">
+    <h5 style="margin:0 0 8px 0;">Growth</h5>
+    <label for="leaf-krim" style="display:block; font-size:14px; margin-bottom:4px;">Rim growth rate, relative to the centre: <strong id="leaf-krim-val">1.6</strong></label>
+    <input id="leaf-krim" type="range" min="1.0" max="3.0" step="0.1" value="1.6" style="width:100%;">
+    <label for="leaf-m" style="display:block; font-size:14px; margin:14px 0 4px 0;">Number of ripples around the rim: <strong id="leaf-m-val">7</strong></label>
+    <input id="leaf-m" type="range" min="3" max="16" step="1" value="7" style="width:100%;">
+    <hr style="margin:16px 0; border:none; border-top:1px solid #ddd;">
+    <div id="leaf-summary" style="font-size:14px; line-height:1.6;"></div>
+  </div>
+  <div style="flex: 1 1 420px; min-width:320px;">
+    <canvas id="leaf-surface" width="640" height="480" style="width:100%; max-width:640px; height:auto; display:block;"></canvas>
+  </div>
+</div>
 
-import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 -- registers the 3d projection
+<script>
+(function () {
+  "use strict";
 
-from shiny import App, Inputs, Outputs, Session, render, ui
+  // -------------------------------------------------------------------
+  // Differential growth in a disc -- the maths (ported 1:1 from the
+  // original Python/Shinylive version, no numerical shortcuts taken).
+  // Runs as plain JavaScript, entirely in the browser -- no Python
+  // runtime to download, unlike the Shinylive apps elsewhere on this
+  // site.
+  // -------------------------------------------------------------------
+  var R = 1.0;
+  var PROFILE_EXPONENT = 3.0;
+  var N_RADIAL = 36;
+  var N_AZIMUTHAL = 96;
+  var N_QUAD = 120;
 
-# ---------------------------------------------------------------------------
-# Differential growth in a disc, and why it forces a leaf to crinkle.
-#
-# Model a leaf as a flat circular disc of reference (un-grown) radius R.
-# Growth is isotropic but radius-dependent: a small ring at reference
-# radius rho grows by a local linear factor gamma(rho) >= 1. If gamma is
-# the same everywhere (gamma == 1 uniformly, or any constant), every ring
-# grows by the same factor and the disc simply scales up -- it stays flat.
-#
-# But if the outer rim grows *faster* than the interior (gamma increasing
-# with rho), each ring near the rim needs more circumferential length than
-# a flat disc of that same projected radius can supply. There is no way to
-# fit that extra length into a flat plane -- the ring is forced out of
-# plane, rippling up and down around its circumference to "store" the
-# extra length. This is exactly the mechanism behind real crinkled leaves,
-# lettuce, and torn plastic sheets (Sharon, Marder & Swinney, "Leaves,
-# flowers and garbage bags: Making waves", 2004; Klein, Efrati & Sharon,
-# "Shaping of Elastic Sheets by Prescription of Non-Euclidean Metrics",
-# 2007) -- non-uniform growth prescribes a target metric with nonzero
-# Gaussian curvature, which cannot be isometrically embedded in a flat
-# plane, so the sheet buckles into the third dimension instead.
-#
-# This app is a deliberately simplified, honest proxy for that mechanism,
-# not a solved elasticity equilibrium: rings are kept at their flat
-# projected radius rho, and each ring independently ripples out of plane,
-# sinusoidally, just enough to supply its own required extra length. A
-# real leaf would also redistribute the excess elastically between
-# neighbouring rings and in general would not settle on a clean sin(m*phi)
-# pattern -- but the qualitative story (uniform growth = flat, rim-biased
-# growth = forced rippling, and more excess growth = taller ripples) is
-# the same one the real physics produces.
-# ---------------------------------------------------------------------------
+  function growthProfile(rho, kRim) {
+    return 1.0 + (kRim - 1.0) * Math.pow(rho / R, PROFILE_EXPONENT);
+  }
 
-R = 1.0  # reference (un-grown) disc radius -- fixed; only its shape matters
-PROFILE_EXPONENT = 3.0  # how concentrated the extra growth is near the rim
-N_RADIAL = 36
-N_AZIMUTHAL = 140
-N_QUAD = 120  # quadrature points used for each arc-length integral
+  function loopArclength(rho, amplitude, m) {
+    var dphi = (2 * Math.PI) / N_QUAD;
+    var sum = 0.0;
+    for (var i = 0; i < N_QUAD; i++) {
+      var phi = i * dphi;
+      var term = amplitude * m * Math.cos(m * phi);
+      sum += Math.sqrt(rho * rho + term * term);
+    }
+    return sum * dphi;
+  }
 
+  function solveAmplitude(rho, gamma, m) {
+    if (rho < 1e-9 || gamma <= 1.0 + 1e-9) return 0.0;
+    var target = 2 * Math.PI * rho * gamma;
+    var lo = 0.0, hi = rho;
+    var tries = 0;
+    while (loopArclength(rho, hi, m) < target && tries < 40) {
+      hi *= 1.7;
+      tries++;
+    }
+    for (var iter = 0; iter < 60; iter++) {
+      var mid = 0.5 * (lo + hi);
+      if (loopArclength(rho, mid, m) < target) {
+        lo = mid;
+      } else {
+        hi = mid;
+      }
+      if (hi - lo < 1e-7 * rho) break;
+    }
+    return 0.5 * (lo + hi);
+  }
 
-def growth_profile(rho, k_rim):
-    """Local growth multiplier gamma(rho): 1 at the centre, k_rim at the
-    rim, rising smoothly (as (rho/R)**PROFILE_EXPONENT) so growth is
-    concentrated near the outer edge -- matching real leaf margins, which
-    are usually where crinkling is most visible."""
-    return 1.0 + (k_rim - 1.0) * (rho / R) ** PROFILE_EXPONENT
+  function buildSurface(kRim, m) {
+    var rhoVals = new Float64Array(N_RADIAL);
+    var gammaVals = new Float64Array(N_RADIAL);
+    var ampVals = new Float64Array(N_RADIAL);
+    for (var i = 0; i < N_RADIAL; i++) {
+      var rho = (R * i) / (N_RADIAL - 1);
+      rhoVals[i] = rho;
+      var gamma = growthProfile(rho, kRim);
+      gammaVals[i] = gamma;
+      ampVals[i] = solveAmplitude(rho, gamma, m);
+    }
+    return { rho: rhoVals, gamma: gammaVals, amp: ampVals };
+  }
 
+  // -------------------------------------------------------------------
+  // Colour: a small hand-picked approximation of matplotlib's YlGn
+  // sequential colormap, interpolated linearly between stops.
+  // -------------------------------------------------------------------
+  var YLGN_STOPS = [
+    [255, 255, 229], [247, 252, 185], [217, 240, 163],
+    [173, 221, 142], [120, 198, 121], [65, 171, 93],
+    [35, 132, 67], [0, 104, 55], [0, 69, 41]
+  ];
+  function ylgn(t) {
+    t = Math.max(0, Math.min(1, t));
+    var n = YLGN_STOPS.length - 1;
+    var idx = t * n;
+    var i0 = Math.floor(idx);
+    var i1 = Math.min(i0 + 1, n);
+    var f = idx - i0;
+    var c0 = YLGN_STOPS[i0], c1 = YLGN_STOPS[i1];
+    var r = Math.round(c0[0] + (c1[0] - c0[0]) * f);
+    var g = Math.round(c0[1] + (c1[1] - c0[1]) * f);
+    var b = Math.round(c0[2] + (c1[2] - c0[2]) * f);
+    return "rgb(" + r + "," + g + "," + b + ")";
+  }
 
-def loop_arclength(rho, amplitude, m):
-    """The true 3D length of the ring at projected radius rho, rippled as
-    z(phi) = amplitude * sin(m * phi). Computed by numerical quadrature of
-    ds/dphi = sqrt(rho^2 + (amplitude * m * cos(m*phi))^2), exactly (no
-    small-amplitude approximation -- that approximation was checked and
-    found to break down badly at the amplitudes this app actually needs)."""
-    phi = np.linspace(0.0, 2 * np.pi, N_QUAD, endpoint=False)
-    dphi = 2 * np.pi / N_QUAD
-    speed = np.sqrt(rho**2 + (amplitude * m * np.cos(m * phi)) ** 2)
-    return float(np.sum(speed) * dphi)
+  // -------------------------------------------------------------------
+  // A small orthographic elevation/azimuth camera, replacing matplotlib's
+  // Axes3D -- projects (x,y,z) world points to 2D screen coordinates and
+  // gives each a depth value for painter's-algorithm back-to-front sort.
+  // -------------------------------------------------------------------
+  function makeCamera(elevationDeg, azimuthDeg) {
+    var el = (elevationDeg * Math.PI) / 180;
+    var az = (azimuthDeg * Math.PI) / 180;
+    var forward = [
+      Math.cos(el) * Math.cos(az),
+      Math.cos(el) * Math.sin(az),
+      Math.sin(el)
+    ];
+    var worldUp = [0, 0, 1];
+    var right = normalize(cross(forward, worldUp));
+    var camUp = cross(right, forward);
+    return {
+      project: function (p) {
+        return {
+          x: dot(p, right),
+          y: dot(p, camUp),
+          depth: dot(p, forward)
+        };
+      }
+    };
+  }
+  function cross(a, b) {
+    return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+  }
+  function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+  function normalize(v) {
+    var len = Math.sqrt(dot(v, v));
+    return [v[0] / len, v[1] / len, v[2] / len];
+  }
 
+  var camera = makeCamera(38, -60);
 
-def solve_amplitude(rho, gamma, m, tol=1e-7, max_iter=60):
-    """Bisection: find amplitude >= 0 such that loop_arclength(rho,
-    amplitude, m) equals the grown target length 2*pi*rho*gamma. The
-    arc-length integral is monotonically increasing in amplitude (a bigger
-    ripple can only add length), so bisection is well-posed."""
-    if rho < 1e-9 or gamma <= 1.0 + 1e-9:
-        return 0.0
+  function worldPoint(rho, phi, amp, m) {
+    return [rho * Math.cos(phi), rho * Math.sin(phi), amp * Math.sin(m * phi)];
+  }
 
-    target = 2 * np.pi * rho * gamma
-    lo, hi = 0.0, rho
-    # grow the upper bracket until it overshoots the target
-    tries = 0
-    while loop_arclength(rho, hi, m) < target and tries < 40:
-        hi *= 1.7
-        tries += 1
+  function drawSurface(canvas, surf, kRim, m) {
+    var ctx = canvas.getContext("2d");
+    var W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
 
-    for _ in range(max_iter):
-        mid = 0.5 * (lo + hi)
-        if loop_arclength(rho, mid, m) < target:
-            lo = mid
-        else:
-            hi = mid
-        if hi - lo < tol * rho:
-            break
-    return 0.5 * (lo + hi)
+    var rhoVals = surf.rho, ampVals = surf.amp;
+    var zSpan = 0.05;
+    for (var i = 0; i < ampVals.length; i++) zSpan = Math.max(zSpan, Math.abs(ampVals[i]));
 
+    var nPhi = N_AZIMUTHAL;
+    var quads = [];
+    for (var ri = 0; ri < N_RADIAL - 1; ri++) {
+      var rho0 = rhoVals[ri], rho1 = rhoVals[ri + 1];
+      var a0 = ampVals[ri], a1 = ampVals[ri + 1];
+      for (var pj = 0; pj < nPhi; pj++) {
+        var phi0 = (2 * Math.PI * pj) / nPhi;
+        var phi1 = (2 * Math.PI * (pj + 1)) / nPhi;
 
-def build_surface(k_rim, m):
-    """Returns (rho_grid, gamma_of_rho, amplitude_of_rho, X, Y, Z) for the
-    full disc, ready to plot."""
-    rho_vals = np.linspace(0.0, R, N_RADIAL)
-    gamma_vals = growth_profile(rho_vals, k_rim)
-    amp_vals = np.array([solve_amplitude(r, g, m) for r, g in zip(rho_vals, gamma_vals)])
+        var corners = [
+          worldPoint(rho0, phi0, a0, m),
+          worldPoint(rho1, phi0, a1, m),
+          worldPoint(rho1, phi1, a1, m),
+          worldPoint(rho0, phi1, a0, m)
+        ];
+        var proj = corners.map(camera.project);
+        var depth = (proj[0].depth + proj[1].depth + proj[2].depth + proj[3].depth) / 4;
+        var zAvg = (corners[0][2] + corners[1][2] + corners[2][2] + corners[3][2]) / 4;
+        quads.push({ proj: proj, depth: depth, colour: ylgn((zAvg + zSpan) / (2 * zSpan)) });
+      }
+    }
+    quads.sort(function (a, b) { return a.depth - b.depth; });
 
-    phi_vals = np.linspace(0.0, 2 * np.pi, N_AZIMUTHAL)
-    RHO, PHI = np.meshgrid(rho_vals, phi_vals, indexing="ij")
-    AMP = np.tile(amp_vals[:, None], (1, N_AZIMUTHAL))
+    var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    quads.forEach(function (q) {
+      q.proj.forEach(function (p) {
+        minX = Math.min(minX, p.x); maxX = Math.max(maxX, p.x);
+        minY = Math.min(minY, p.y); maxY = Math.max(maxY, p.y);
+      });
+    });
+    var pad = 0.08 * Math.max(maxX - minX, maxY - minY, 1e-6);
+    var scaleX = (W - 40) / (maxX - minX + 2 * pad);
+    var scaleY = (H - 60) / (maxY - minY + 2 * pad);
+    var scale = Math.min(scaleX, scaleY);
+    var cx = W / 2 - scale * (minX + maxX) / 2;
+    var cy = H / 2 + scale * (minY + maxY) / 2;
 
-    X = RHO * np.cos(PHI)
-    Y = RHO * np.sin(PHI)
-    Z = AMP * np.sin(m * PHI)
+    function toScreen(p) {
+      return [cx + scale * p.x, cy - scale * p.y];
+    }
 
-    return rho_vals, gamma_vals, amp_vals, X, Y, Z
+    quads.forEach(function (q) {
+      var pts = q.proj.map(toScreen);
+      ctx.beginPath();
+      ctx.moveTo(pts[0][0], pts[0][1]);
+      for (var k = 1; k < pts.length; k++) ctx.lineTo(pts[k][0], pts[k][1]);
+      ctx.closePath();
+      ctx.fillStyle = q.colour;
+      ctx.fill();
+    });
 
+    ctx.fillStyle = "#333";
+    ctx.font = "13px -apple-system, sans-serif";
+    ctx.textAlign = "center";
+    var title;
+    if (kRim <= 1.02) title = "uniform growth — stays flat";
+    else if (zSpan < 0.08) title = "mild rim growth — gentle waviness";
+    else title = "rim growing much faster than centre — strong crinkling";
+    ctx.fillText(title, W / 2, 20);
+  }
 
-# ---------------------------------------------------------------------------
-# UI
-# ---------------------------------------------------------------------------
+  var krimSlider = document.getElementById("leaf-krim");
+  var mSlider = document.getElementById("leaf-m");
+  var krimVal = document.getElementById("leaf-krim-val");
+  var mVal = document.getElementById("leaf-m-val");
+  var surfaceCanvas = document.getElementById("leaf-surface");
+  var summaryDiv = document.getElementById("leaf-summary");
 
-app_ui = ui.page_sidebar(
-    ui.sidebar(
-        ui.h5("Growth"),
-        ui.input_slider(
-            "k_rim", "Rim growth rate, relative to the centre",
-            min=1.0, max=3.0, value=1.6, step=0.1,
-        ),
-        ui.input_slider(
-            "m", "Number of ripples around the rim",
-            min=3, max=16, value=7, step=1,
-        ),
-        ui.hr(),
-        ui.output_ui("summary"),
-        width=360,
-    ),
-    ui.output_plot("surface_plot", height="420px"),
-    ui.output_plot("profile_plot", height="260px"),
-)
+  function render() {
+    var kRim = parseFloat(krimSlider.value);
+    var m = parseInt(mSlider.value, 10);
+    krimVal.textContent = kRim.toFixed(1);
+    mVal.textContent = String(m);
 
+    var surf = buildSurface(kRim, m);
+    drawSurface(surfaceCanvas, surf, kRim, m);
 
-def server(input: Inputs, output: Outputs, session: Session):
-    @output
-    @render.plot
-    def surface_plot():
-        k_rim = input.k_rim()
-        m = input.m()
-        rho_vals, gamma_vals, amp_vals, X, Y, Z = build_surface(k_rim, m)
+    var excessPct = (kRim - 1.0) * 100.0;
+    var maxAmp = surf.amp[surf.amp.length - 1];
+    var html = "<strong>Excess rim growth:</strong> " + excessPct.toFixed(0) + "% faster than the centre<br><br>" +
+      "<strong>Max ripple height (relative to the disc radius):</strong> " + maxAmp.toFixed(2) + "<br><br>";
+    if (kRim <= 1.02) {
+      html += "Every part of the disc is growing at the same rate, so there's no extra length to fit in anywhere — the disc just scales up uniformly and <strong>stays flat</strong>.";
+    } else if (maxAmp < 0.08) {
+      html += "The rim only needs a little extra length, which fits with a gentle, barely-visible waviness.";
+    } else {
+      html += "The rim needs much more circumferential length than a flat disc of that radius can provide — the only way to fit it in is to <strong>ripple out of the plane</strong>, the same mechanism behind real crinkled leaf margins, lettuce, and torn plastic sheets.";
+    }
+    summaryDiv.innerHTML = html;
+  }
 
-        fig = plt.figure(figsize=(6.5, 5.5))
-        ax = fig.add_subplot(111, projection="3d")
-
-        z_span = max(float(np.max(np.abs(Z))), 0.05)
-        surf = ax.plot_surface(
-            X, Y, Z, cmap="YlGn", rstride=1, cstride=1,
-            linewidth=0, antialiased=True, vmin=-z_span, vmax=z_span,
-        )
-
-        ax.set_xlim(-R * 1.05, R * 1.05)
-        ax.set_ylim(-R * 1.05, R * 1.05)
-        ax.set_zlim(-z_span * 1.6, z_span * 1.6)
-        ax.set_box_aspect((1, 1, 0.6))
-        ax.view_init(elev=38, azim=-60)
-        ax.set_axis_off()
-
-        if k_rim <= 1.02:
-            title = "uniform growth -- stays flat"
-        elif z_span < 0.08:
-            title = "mild rim growth -- gentle waviness"
-        else:
-            title = "rim growing much faster than centre -- strong crinkling"
-        ax.set_title(title, fontsize=11)
-
-        return fig
-
-    @output
-    @render.plot
-    def profile_plot():
-        k_rim = input.k_rim()
-        m = input.m()
-        rho_vals, gamma_vals, amp_vals, X, Y, Z = build_surface(k_rim, m)
-
-        fig, ax1 = plt.subplots(figsize=(6.5, 3))
-        ax1.plot(rho_vals, gamma_vals, color="#2a9d8f", linewidth=2.5, label="local growth rate γ(ρ)")
-        ax1.axhline(1.0, color="#ccc", linewidth=1, linestyle=":")
-        ax1.set_xlabel("reference (un-grown) radius ρ")
-        ax1.set_ylabel("growth rate γ(ρ)", color="#2a9d8f")
-        ax1.tick_params(axis="y", labelcolor="#2a9d8f")
-        ax1.set_xlim(0, R)
-        ax1.set_ylim(0.9, 3.1)
-
-        ax2 = ax1.twinx()
-        ax2.plot(rho_vals, amp_vals, color="#e07a5f", linewidth=2.5, label="ripple amplitude A(ρ)")
-        ax2.set_ylabel("out-of-plane amplitude A(ρ)", color="#e07a5f")
-        ax2.tick_params(axis="y", labelcolor="#e07a5f")
-        ax2.set_ylim(bottom=0)
-
-        fig.tight_layout()
-        return fig
-
-    @output
-    @render.ui
-    def summary():
-        k_rim = input.k_rim()
-        m = input.m()
-        rho_vals, gamma_vals, amp_vals, X, Y, Z = build_surface(k_rim, m)
-
-        excess_pct = (k_rim - 1.0) * 100.0
-        max_amp = float(amp_vals[-1])
-
-        lines = [
-            f"**Excess rim growth:** {excess_pct:.0f}% faster than the centre",
-            f"**Max ripple height (relative to the disc radius):** {max_amp:.2f}",
-        ]
-
-        if k_rim <= 1.02:
-            lines.append(
-                "Every part of the disc is growing at the same rate, so "
-                "there's no extra length to fit in anywhere -- the disc "
-                "just scales up uniformly and **stays flat**."
-            )
-        elif max_amp < 0.08:
-            lines.append(
-                "The rim only needs a little extra length, which fits with "
-                "a gentle, barely-visible waviness."
-            )
-        else:
-            lines.append(
-                "The rim needs much more circumferential length than a flat "
-                "disc of that radius can provide -- the only way to fit it "
-                "in is to **ripple out of the plane**, the same mechanism "
-                "behind real crinkled leaf margins, lettuce, and torn "
-                "plastic sheets."
-            )
-
-        return ui.markdown("\n\n".join(lines))
-
-
-app = App(app_ui, server)
-
+  krimSlider.addEventListener("input", render);
+  mSlider.addEventListener("input", render);
+  render();
+})();
+</script>
 ```
+
 
 A differential-growth leaf simulator: drag the rim growth rate up from 1.0 and a flat disc is forced to crinkle, exactly as a real leaf margin does when it grows faster than the tissue near its centre.
 :::
