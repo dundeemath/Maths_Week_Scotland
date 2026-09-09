@@ -4201,7 +4201,3 @@ LyHfO3i1YXJbmLld16PI36Xqh/0/O3abnKWFnykAAAAASUVORK5CYII=
 
 Click the map to select a handful of stops and try to beat the algorithm -- or scan the QR codes on the real trail and see how your actual walking route compares to optimal.
 :::
-
-**For the person setting this up on site:** the five stops and their pixel coordinates on `botanicmap.png` are hardcoded near the top of the code (the `STOPS` and `STOP_NAMES` lists) -- edit those if the trail changes. Each physical QR code should encode this page's published URL with a `?stop=N` query string added, where `N` is that stop's position in the `STOPS` list counting from 1 (so the code at The Glass House Cactus Garden encodes `...TravellingSalesman.html?stop=1`, The Chalet is `?stop=2`, and so on through `?stop=5` at The Eddie Kemp Pavilion). Each visitor's scanned stops are stored only in their own browser's local storage on their own phone -- nothing is sent to a server, so there's no shared or class-wide tally, but each visitor gets their own genuine "how did my actual route compare to optimal" result.
-
-**Note:** this connects to material covered in our discrete mathematics, algorithms and combinatorics modules -- in particular, how problems get classified by how their difficulty *grows* as they get bigger (their complexity class), and why so much of modern algorithm design is about clever approximations rather than brute-force certainty.
