@@ -7,17 +7,17 @@ filters:
   - shinylive
 ---
 
-A flat, round piece of paper can only stretch into another flat shape -- to make it curve into a dome or ripple into a wave, you have to cut it, fold it, or force extra material in somewhere. Leaves, lettuce, and the frilly edge of a torn plastic bag all do exactly this without any cutting, just by growing unevenly.
+Why are some leaves more wrinkled than others? And what causes this to happen?
 
-Model a leaf as a disc that starts perfectly flat. Every small ring of tissue at distance $\rho$ from the centre grows by some local factor $\gamma(\rho) \ge 1$. If $\gamma$ is the same everywhere, every ring simply gets longer by the same proportion, and the disc scales up while staying completely flat -- a bigger, flat leaf.
+Consider a sphere. The surface area is $4\pi R ^2$. Now imagine distorting the sphere so that is wrinkled. The surface area will now be larger.
 
-But real leaf margins often grow *faster* than the tissue near the midrib. Suppose $\gamma(\rho)$ increases towards the rim. Then the ring at the rim needs more circumference than a flat disc of that same radius can supply -- there simply isn't room for the extra length in a flat plane. The ring has nowhere to put the surplus except out of the page: it ripples up and down around its circumference, trading flatness for the extra length it's been given. The more excess growth there is, the taller the ripples have to be.
+In the plant at this stop, notice that the leaves are wrinkled rather than smooth.
+![](bg_wrinkle_crop.png)
 
-This is a real, well-studied piece of mathematics -- non-uniform growth prescribes a *target metric* with nonzero Gaussian curvature, and Gauss's own *Theorema Egregium* says a surface's Gaussian curvature can't change under bending alone, only under stretching. A flat disc has zero curvature everywhere; a disc that's been told to grow unevenly is being asked to have nonzero curvature; the only way to reconcile the two is to leave the plane. The mechanism was worked out in detail for real torn plastic sheets and leaves by Sharon, Marder & Swinney (*"Leaves, flowers and garbage bags: Making waves"*, 2004) and given a rigorous elastic-sheet treatment by Klein, Efrati & Sharon (*"Shaping of Elastic Sheets by Prescription of Non-Euclidean Metrics"*, 2007).
+A question that then arises is how biology can make wrinkled surfaces? One way to do this is using differential growth rates. Essentially, take a smooth surface and allow one part of it to grow at a faster rate than the other whilst keeping the surface as a single connected object. The effect of the differential growth is that the faster growing region wrinkles. 
 
-The simulation below is a deliberately simplified, honest proxy for that mechanism, not a solved elasticity problem. Each ring is kept at its flat projected radius and independently ripples as a simple sine wave, $z(\rho, \phi) = A(\rho)\sin(m\phi)$, just enough to supply exactly the extra length its own growth rate demands -- found numerically, by searching for the amplitude whose true (curved) arc-length matches the target grown length. A real leaf would also let neighbouring rings share the load elastically, and wouldn't necessarily settle into one clean ripple count, but the qualitative story is the same one real growing tissue produces: **uniform growth stays flat, and growth concentrated at the rim forces the sheet to crinkle** -- and the more excess growth, the more pronounced the crinkling.
 
-Drag **rim growth rate** from 1 (flat) upward and watch the disc lift into a ripple. The **number of ripples** slider changes how many waves share the excess length around the rim, without changing how much total extra length there is.
+
 
 ::: {#fig-leaf-growth}
 ```{shinylive-python}
@@ -267,4 +267,19 @@ app = App(app_ui, server)
 A differential-growth leaf simulator: drag the rim growth rate up from 1.0 and a flat disc is forced to crinkle, exactly as a real leaf margin does when it grows faster than the tissue near its centre.
 :::
 
-Note: this simulation runs entirely in your browser (via Pyodide/WebAssembly) once the page has finished loading -- there's no server involved, so nothing you do here is sent anywhere.
+
+<!--
+A flat, round piece of paper can only stretch into another flat shape -- to make it curve into a dome or ripple into a wave, you have to cut it, fold it, or force extra material in somewhere. Leaves, lettuce, and the frilly edge of a torn plastic bag all do exactly this without any cutting, just by growing unevenly.
+
+Model a leaf as a disc that starts perfectly flat. Every small ring of tissue at distance $\rho$ from the centre grows by some local factor $\gamma(\rho) \ge 1$. If $\gamma$ is the same everywhere, every ring simply gets longer by the same proportion, and the disc scales up while staying completely flat -- a bigger, flat leaf.
+
+But real leaf margins often grow *faster* than the tissue near the midrib. Suppose $\gamma(\rho)$ increases towards the rim. Then the ring at the rim needs more circumference than a flat disc of that same radius can supply -- there simply isn't room for the extra length in a flat plane. The ring has nowhere to put the surplus except out of the page: it ripples up and down around its circumference, trading flatness for the extra length it's been given. The more excess growth there is, the taller the ripples have to be.
+
+This is a real, well-studied piece of mathematics -- non-uniform growth prescribes a *target metric* with nonzero Gaussian curvature, and Gauss's own *Theorema Egregium* says a surface's Gaussian curvature can't change under bending alone, only under stretching. A flat disc has zero curvature everywhere; a disc that's been told to grow unevenly is being asked to have nonzero curvature; the only way to reconcile the two is to leave the plane. The mechanism was worked out in detail for real torn plastic sheets and leaves by Sharon, Marder & Swinney (*"Leaves, flowers and garbage bags: Making waves"*, 2004) and given a rigorous elastic-sheet treatment by Klein, Efrati & Sharon (*"Shaping of Elastic Sheets by Prescription of Non-Euclidean Metrics"*, 2007).
+
+The simulation below is a deliberately simplified, honest proxy for that mechanism, not a solved elasticity problem. Each ring is kept at its flat projected radius and independently ripples as a simple sine wave, $z(\rho, \phi) = A(\rho)\sin(m\phi)$, just enough to supply exactly the extra length its own growth rate demands -- found numerically, by searching for the amplitude whose true (curved) arc-length matches the target grown length. A real leaf would also let neighbouring rings share the load elastically, and wouldn't necessarily settle into one clean ripple count, but the qualitative story is the same one real growing tissue produces: **uniform growth stays flat, and growth concentrated at the rim forces the sheet to crinkle** -- and the more excess growth, the more pronounced the crinkling.
+
+Drag **rim growth rate** from 1 (flat) upward and watch the disc lift into a ripple. The **number of ripples** slider changes how many waves share the excess length around the rim, without changing how much total extra length there is.
+
+
+-->
