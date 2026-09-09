@@ -4,21 +4,21 @@ format: html
 code-fold: True
 ---
 
-Plants space their leaves using specific divergence angles (the angular degree separation between successive leaves on a stem), which is known as phyllotaxis. Phyllotaxis has common characteristic across plant species, which are mathematically characterised in a small number of phyllotactic patterns.
+Plants arrange their leaves around a stem in regular patterns. The angle between one leaf and the next is called the divergence angle, and this pattern of leaf arrangement is known as phyllotaxis. Many different plant species share similar phyllotaxis patterns, and these can be described using a small number of mathematical patterns.
 
-Which of the following leaf arrangement pattern do you find in this plant?
+Which of the following leaf arrangement patterns do you find in this plant?
 
 ## Distichous ($180^\circ$)
-Leaves alternate on opposite sides of the stem in a single flat plane.
+Leaves grow on alternating sides of the stem, forming a flat, two-sided pattern.
 
 ## Fibonacci Spiral ($137.5^\circ$)
-Leaves wind in a tight spiral using the golden angle, maximising space and light efficiency.
+Leaves grow around the stem in a tight spiral, using the golden angle to make the best use of space and get as much light as possible.
 
 ## Decussate ($90^\circ$)
-Successive pairs of leaves sit at right angles to each other.
+Leaves grow in pairs, with each pair turned at a right angle to the pair below.
 
 ## Tricussate ($60^\circ$)
-Whorls feature three leaves per node, rotated evenly around the stem.
+Three leaves grow from the same point on the stem, spaced evenly around it. Each group of three is rotated $60^\circ$ around the stem from the group below.
 
 
 Image from the [University of Tokyo](https://www.u-tokyo.ac.jp/focus/en/press/z0508_00047.html) that shows the classification patterns:
