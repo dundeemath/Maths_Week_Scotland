@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "phyllotaxis.html",
+    "href": "phyllotaxis.html",
+    "title": "Phyllotaxis",
+    "section": "",
+    "text": "Plants arrange their leaves around a stem in regular patterns. The angle between one leaf and the next is called the divergence angle, and this pattern of leaf arrangement is known as phyllotaxis. Many different plant species share similar phyllotaxis patterns, and these can be described using a small number of mathematical patterns.\nWhich of the following leaf arrangement pattern do you find in this plant? Please record the number of each leaf arrangement pattern in the table provided on the Maths Trail map."
+  },
+  {
+    "objectID": "phyllotaxis.html#distichous-180circ",
+    "href": "phyllotaxis.html#distichous-180circ",
+    "title": "Phyllotaxis",
+    "section": "Distichous (\\(180^\\circ\\))",
+    "text": "Distichous (\\(180^\\circ\\))\nLeaves grow on alternating sides of the stem, forming a flat, two-sided pattern."
+  },
+  {
+    "objectID": "phyllotaxis.html#fibonacci-spiral-137.5circ",
+    "href": "phyllotaxis.html#fibonacci-spiral-137.5circ",
+    "title": "Phyllotaxis",
+    "section": "Fibonacci Spiral (\\(137.5^\\circ\\))",
+    "text": "Fibonacci Spiral (\\(137.5^\\circ\\))\nLeaves grow around the stem in a tight spiral, using the golden angle to make the best use of space and get as much light as possible."
+  },
+  {
+    "objectID": "phyllotaxis.html#decussate-90circ",
+    "href": "phyllotaxis.html#decussate-90circ",
+    "title": "Phyllotaxis",
+    "section": "Decussate (\\(90^\\circ\\))",
+    "text": "Decussate (\\(90^\\circ\\))\nLeaves grow in pairs, with each pair turned at a right angle to the pair below."
+  },
+  {
+    "objectID": "phyllotaxis.html#tricussate-60circ",
+    "href": "phyllotaxis.html#tricussate-60circ",
+    "title": "Phyllotaxis",
+    "section": "Tricussate (\\(60^\\circ\\))",
+    "text": "Tricussate (\\(60^\\circ\\))\nThree leaves grow from the same point on the stem, spaced evenly around it. Each group of three is rotated \\(60^\\circ\\) around the stem from the group below.\nImage from the University of Tokyo that shows the classification patterns:\n\n\n\nPhyllotactic Patterns"
+  }
+]
