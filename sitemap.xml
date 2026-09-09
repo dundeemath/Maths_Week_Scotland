@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://dundeemath.github.io/Maths_Week_Scotland/symmetry.html</loc>
+    <loc>https://dundeemath.github.io/Maths_Week_Scotland/spirals.html</loc>
+    <lastmod>2026-09-09T01:57:12.122Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dundeemath.github.io/Maths_Week_Scotland/trigonometry.html</loc>
     <lastmod>2026-09-09T10:54:58.890Z</lastmod>
   </url>
   <url>
-    <loc>https://dundeemath.github.io/Maths_Week_Scotland/curvature.html</loc>
-    <lastmod>2026-09-09T10:54:58.888Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dundeemath.github.io/Maths_Week_Scotland/logarithmic_spiral.html</loc>
-    <lastmod>2026-09-09T01:57:12.122Z</lastmod>
+    <loc>https://dundeemath.github.io/Maths_Week_Scotland/fibonacci.html</loc>
+    <lastmod>2026-09-09T10:54:58.889Z</lastmod>
   </url>
   <url>
     <loc>https://dundeemath.github.io/Maths_Week_Scotland/fractal.html</loc>
@@ -53,11 +53,11 @@
     <lastmod>2026-09-09T10:54:58.890Z</lastmod>
   </url>
   <url>
-    <loc>https://dundeemath.github.io/Maths_Week_Scotland/fibonacci.html</loc>
-    <lastmod>2026-09-09T10:54:58.889Z</lastmod>
+    <loc>https://dundeemath.github.io/Maths_Week_Scotland/curvature.html</loc>
+    <lastmod>2026-09-09T10:54:58.888Z</lastmod>
   </url>
   <url>
-    <loc>https://dundeemath.github.io/Maths_Week_Scotland/trigonometry.html</loc>
+    <loc>https://dundeemath.github.io/Maths_Week_Scotland/symmetry.html</loc>
     <lastmod>2026-09-09T10:54:58.890Z</lastmod>
   </url>
 </urlset>

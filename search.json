@@ -1,45 +1,59 @@
 [
   {
-    "objectID": "symmetry.html",
-    "href": "symmetry.html",
-    "title": "Symmetry in Plants",
-    "section": "",
-    "text": "Links to Group Theory."
-  },
-  {
-    "objectID": "curvature.html",
-    "href": "curvature.html",
-    "title": "Growth Laws for Wrinkly Surfaces",
-    "section": "",
-    "text": "The difference between a perfectly flat leaf and a wavy, wrinkly one comes down to a battle between differntial growth and elastic energy minimisation. The shapes of leaves are governed by the laws of non-Euclidean elasticity and differential geometry.\nTo understand why a leaf wrinkles, we can look at Gaussian curvature (K), which is the product of the two principal curvature of a surface.\n\nFlat leaves (\\(K=0\\))\nWrinkly leaves (\\(K\\neq 0\\))"
-  },
-  {
-    "objectID": "logarithmic_spiral.html",
-    "href": "logarithmic_spiral.html",
+    "objectID": "spirals.html",
+    "href": "spirals.html",
     "title": "Logarithmic Spiral",
     "section": "",
     "text": "Logarithmic spirals in plants are a striking example of geometry in nature, where botanical structures grow according to the Golden Ratio and the Fibonacci sequence."
   },
   {
-    "objectID": "logarithmic_spiral.html#spiralling-succulents",
-    "href": "logarithmic_spiral.html#spiralling-succulents",
+    "objectID": "spirals.html#spiralling-succulents",
+    "href": "spirals.html#spiralling-succulents",
     "title": "Logarithmic Spiral",
     "section": "Spiralling Succulents",
     "text": "Spiralling Succulents\nMany varieties of succulents arrange their leaves outward from a central point along an expanding logarithmic trajectry to ensure uniform access to sunlight and water collection.\nmage from the Fractal Dimensions in Circular and Spiral Phenomena that shows logarithmic spiral in Aloe Polyphylla:\n\n\n\nLogarithmic spiral in Aloe Polyphylla"
   },
   {
-    "objectID": "logarithmic_spiral.html#sunflower-seed-heads",
-    "href": "logarithmic_spiral.html#sunflower-seed-heads",
+    "objectID": "spirals.html#sunflower-seed-heads",
+    "href": "spirals.html#sunflower-seed-heads",
     "title": "Logarithmic Spiral",
     "section": "Sunflower Seed Heads",
     "text": "Sunflower Seed Heads\nThe packing of seeds in a sunflower head features two sets of overlapping logarithmic spirals - one running clockwise and the other anticlockwise - maximising the number of seeds that can fit into the centre."
   },
   {
-    "objectID": "logarithmic_spiral.html#pinecone-scale-arrangements",
-    "href": "logarithmic_spiral.html#pinecone-scale-arrangements",
+    "objectID": "spirals.html#pinecone-scale-arrangements",
+    "href": "spirals.html#pinecone-scale-arrangements",
     "title": "Logarithmic Spiral",
     "section": "Pinecone Scale Arrangements",
     "text": "Pinecone Scale Arrangements\nPinecones exhibit steep logarithmic spirals formed by their scaling bracts, tightly safeguarding the seeds inside."
+  },
+  {
+    "objectID": "trigonometry.html",
+    "href": "trigonometry.html",
+    "title": "Estimating the Height of a Tree using Trigonometry",
+    "section": "",
+    "text": "Visitors wouldn’t be able to measure a distance and angle. Demonstration of a method."
+  },
+  {
+    "objectID": "fibonacci.html",
+    "href": "fibonacci.html",
+    "title": "Fibonacci Numbers",
+    "section": "",
+    "text": "Look at a pinecone from the bottom. How many spirals go in the clockwise direction (green lines)? How many spirals go in the counter-clockwise direction (yellow lines)? Wouldn’t you expect that they would be the same?\nImage from the MENSA for Kids that shows Fibonacci numbers in pinecone:\nThe number of spirals found on pinecones are almost always Fibonacci numbers, which are ."
+  },
+  {
+    "objectID": "fibonacci.html#fibonacci-sequence",
+    "href": "fibonacci.html#fibonacci-sequence",
+    "title": "Fibonacci Numbers",
+    "section": "Fibonacci Sequence",
+    "text": "Fibonacci Sequence\n\\(0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, \\ldots\\)"
+  },
+  {
+    "objectID": "fibonacci.html#why-fibonacci-numbers-appear",
+    "href": "fibonacci.html#why-fibonacci-numbers-appear",
+    "title": "Fibonacci Numbers",
+    "section": "Why Fibonacci numbers appear?",
+    "text": "Why Fibonacci numbers appear?"
   },
   {
     "objectID": "fractal.html",
@@ -140,31 +154,17 @@
     "text": "Link to App created by Philip."
   },
   {
-    "objectID": "fibonacci.html",
-    "href": "fibonacci.html",
-    "title": "Fibonacci Numbers",
+    "objectID": "curvature.html",
+    "href": "curvature.html",
+    "title": "Growth Laws for Wrinkly Surfaces",
     "section": "",
-    "text": "Look at a pinecone from the bottom. How many spirals go in the clockwise direction (green lines)? How many spirals go in the counter-clockwise direction (yellow lines)? Wouldn’t you expect that they would be the same?\nImage from the MENSA for Kids that shows Fibonacci numbers in pinecone:\nThe number of spirals found on pinecones are almost always Fibonacci numbers, which are ."
+    "text": "The difference between a perfectly flat leaf and a wavy, wrinkly one comes down to a battle between differntial growth and elastic energy minimisation. The shapes of leaves are governed by the laws of non-Euclidean elasticity and differential geometry.\nTo understand why a leaf wrinkles, we can look at Gaussian curvature (K), which is the product of the two principal curvature of a surface.\n\nFlat leaves (\\(K=0\\))\nWrinkly leaves (\\(K\\neq 0\\))"
   },
   {
-    "objectID": "fibonacci.html#fibonacci-sequence",
-    "href": "fibonacci.html#fibonacci-sequence",
-    "title": "Fibonacci Numbers",
-    "section": "Fibonacci Sequence",
-    "text": "Fibonacci Sequence\n\\(0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, \\ldots\\)"
-  },
-  {
-    "objectID": "fibonacci.html#why-fibonacci-numbers-appear",
-    "href": "fibonacci.html#why-fibonacci-numbers-appear",
-    "title": "Fibonacci Numbers",
-    "section": "Why Fibonacci numbers appear?",
-    "text": "Why Fibonacci numbers appear?"
-  },
-  {
-    "objectID": "trigonometry.html",
-    "href": "trigonometry.html",
-    "title": "Estimating the Height of a Tree using Trigonometry",
+    "objectID": "symmetry.html",
+    "href": "symmetry.html",
+    "title": "Symmetry in Plants",
     "section": "",
-    "text": "Visitors wouldn’t be able to measure a distance and angle. Demonstration of a method."
+    "text": "Links to Group Theory."
   }
 ]
