@@ -1,0 +1,7 @@
+---
+title: "Circadian Rhythm"
+format: html
+code-fold: True
+---
+
+Periodic rhythm obseved in plants. Related to synchronisation phenomena.

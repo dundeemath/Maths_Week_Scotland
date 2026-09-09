@@ -1,0 +1,7 @@
+---
+title: "Estimating the Height of a Tree using Trigonometry"
+format: html
+code-fold: True
+---
+
+Visitors wouldn't be able to measure a distance and angle. Demonstration of a method.

@@ -1,0 +1,9 @@
+---
+title: "The Analemma Project"
+format: html
+code-fold: True
+---
+
+Artist Lucy Smith created the [Analemma Project](https://artlucy.uk/index.php/the-analemma-project/) sculpture. She completed her PhD "Making the Conceptual Tangible: The Role of Art in Communicating Science" here at the University of Dundee.
+
+The [Analemma](https://en.wikipedia.org/wiki/Analemma) is an unequal figure-of-eight shape, created by tracking the sun’s position in the sky at the same time each day over a period of one year.

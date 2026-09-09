@@ -6,7 +6,7 @@ code-fold: True
 
 Plants arrange their leaves around a stem in regular patterns. The angle between one leaf and the next is called the divergence angle, and this pattern of leaf arrangement is known as phyllotaxis. Many different plant species share similar phyllotaxis patterns, and these can be described using a small number of mathematical patterns.
 
-Which of the following leaf arrangement patterns do you find in this plant?
+Which of the following leaf arrangement pattern do you find in this plant? Please record the number of each leaf arrangement pattern in the table provided on the Maths Trail map.
 
 ## Distichous ($180^\circ$)
 Leaves grow on alternating sides of the stem, forming a flat, two-sided pattern.
@@ -24,4 +24,3 @@ Three leaves grow from the same point on the stem, spaced evenly around it. Each
 Image from the [University of Tokyo](https://www.u-tokyo.ac.jp/focus/en/press/z0508_00047.html) that shows the classification patterns:
 
 ![Phyllotactic Patterns](figures/phase-locking.jpg)
-

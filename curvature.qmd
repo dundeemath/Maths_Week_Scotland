@@ -1,0 +1,12 @@
+---
+title: "Growth Laws for Wrinkly Surfaces"
+format: html
+code-fold: True
+---
+
+The difference between a perfectly flat leaf and a wavy, wrinkly one comes down to a battle between differntial growth and elastic energy minimisation. The shapes of leaves are governed by the laws of non-Euclidean elasticity and differential geometry.
+
+To understand why a leaf wrinkles, we can look at Gaussian curvature (K), which is the product of the two principal curvature of a surface.
+
+1. Flat leaves ($K=0$)
+2. Wrinkly leaves ($K\neq 0$)
