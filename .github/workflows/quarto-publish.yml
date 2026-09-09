@@ -1,12 +1,16 @@
 on:
   push:
-    branches: [main]
   pull_request:
 
 name: Render and Publish
 
+# you need these permissions to publish to GitHub pages
+permissions: 
+  contents: write
+  pages: write
+
 jobs:
-  build:
+  build-deploy:
     runs-on: ubuntu-latest
     
     steps:
@@ -47,18 +51,6 @@ jobs:
 
       # See more at https://github.com/quarto-dev/quarto-actions/blob/main/examples/example-03-dependencies.md
 
-  deploy:
-    if: github.ref == 'refs/heads/main'
-    needs: build
-
-    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
-
-    # Specify runner + deployment step
-    runs-on: ubuntu-latest
-    steps:
       # To publish to Netlify, RStudio Connect, or GitHub Pages, uncomment
       # the appropriate block below
       
@@ -75,8 +67,13 @@ jobs:
       #     CONNECT_SERVER: enter-the-server-url-here
       #     CONNECT_API_KEY: ${{ secrets.CONNECT_API_KEY }} 
 
+      - name: Just Render (when not on main branch)
+        if: github.ref != 'refs/head/main'
+        run: quarto render
+
       # NOTE: If Publishing to GitHub Pages, set the permissions correctly (see top of this yaml)
-      - name: Publish to GitHub Pages (and render) 
+      - name: Render and publish to GitHub Pages (for main branch only)
+        if: github.ref == 'refs/heads/main'
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
