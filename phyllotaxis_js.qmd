@@ -1,0 +1,776 @@
+---
+title: "Phyllotaxis (interactive, JavaScript)"
+format: html
+code-fold: True
+image: 'phyllotaxis_preview.png'
+---
+
+Two things control the pattern: how many leaves grow from each point on the stem (one, a pair, or a whorl of three), and the angle each new leaf or whorl is rotated from the last. For a single leaf at a time, that angle is free to be anything -- drag it to 180° for distichous, or to exactly 137.5°, the golden angle, for the Fibonacci spiral. For pairs and whorls, the angle is fixed by how many leaves share each point: 90° for pairs, 60° for whorls of three, matching the decussate and tricussate patterns.
+
+Four ways to look at the same pattern: from directly above the stem (how you'd actually classify a real plant), the stem's surface unrolled flat (straight rows reveal how many columns of leaves line up), a side-view diagram of the stem itself, drawn the same way as the pictures above, and a fully 3D view you can rotate yourself -- watch how the same one rule produces four completely different-looking plants.
+
+
+```{=html}
+<div id="phyllo-js-app" class="phyllo-app">
+  <div class="phyllo-sidebar">
+    <h5>Leaves per node</h5>
+    <div class="phyllo-radio-group" id="phyllo-k-group">
+      <label><input type="radio" name="phyllo-k" value="1" checked> 1 &ndash; alternate</label>
+      <label><input type="radio" name="phyllo-k" value="2"> 2 &ndash; opposite pairs</label>
+      <label><input type="radio" name="phyllo-k" value="3"> 3 &ndash; whorls of three</label>
+    </div>
+
+    <div id="phyllo-angle-block">
+      <h5 class="phyllo-slider-label">Divergence angle (degrees)</h5>
+      <div class="phyllo-slider-row">
+        <span class="phyllo-slider-min">20</span>
+        <input type="range" id="phyllo-angle" min="20" max="180" step="0.5" value="137.5">
+        <span class="phyllo-slider-max">180</span>
+      </div>
+      <div class="phyllo-slider-value" id="phyllo-angle-value">137.5°</div>
+      <button class="phyllo-btn" id="phyllo-preset-golden" type="button">137.5&deg; (golden angle)</button>
+      <button class="phyllo-btn" id="phyllo-preset-flat" type="button">180&deg; (distichous)</button>
+    </div>
+
+    <hr>
+    <h5>View</h5>
+    <div class="phyllo-radio-group" id="phyllo-view-group">
+      <label><input type="radio" name="phyllo-view" value="unrolled"> Unrolled stem</label>
+      <label><input type="radio" name="phyllo-view" value="topdown" checked> Top-down</label>
+      <label><input type="radio" name="phyllo-view" value="stem"> Leaf diagram (side view)</label>
+      <label><input type="radio" name="phyllo-view" value="3d"> 3D view (drag to rotate)</label>
+    </div>
+
+    <div id="phyllo-azim-block" hidden>
+      <h5 class="phyllo-slider-label">Rotate the plant</h5>
+      <div class="phyllo-slider-row">
+        <span class="phyllo-slider-min">0</span>
+        <input type="range" id="phyllo-azim" min="0" max="360" step="1" value="35">
+        <span class="phyllo-slider-max">360</span>
+      </div>
+      <p class="phyllo-hint">Or click and drag directly on the plant to spin and tilt it.</p>
+    </div>
+
+    <hr>
+    <div id="phyllo-summary"></div>
+  </div>
+
+  <div class="phyllo-canvas-wrap">
+    <canvas id="phyllo-canvas" width="660" height="560"></canvas>
+  </div>
+</div>
+
+<style>
+  #phyllo-js-app.phyllo-app {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    align-items: flex-start;
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    max-width: 1040px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  #phyllo-js-app.phyllo-app * {
+    text-align: left;
+  }
+  #phyllo-js-app .phyllo-sidebar {
+    flex: 0 0 235px;
+    max-width: 100%;
+  }
+  #phyllo-js-app h5 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: #333;
+  }
+  #phyllo-js-app .phyllo-radio-group label {
+    display: block;
+    font-size: 0.92rem;
+    margin: 4px 0;
+    cursor: pointer;
+    color: #222;
+  }
+  #phyllo-js-app .phyllo-radio-group input {
+    margin-right: 6px;
+  }
+  #phyllo-js-app .phyllo-slider-label {
+    margin-top: 18px;
+  }
+  #phyllo-js-app .phyllo-slider-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  #phyllo-js-app .phyllo-slider-row input[type=range] {
+    flex: 1;
+  }
+  #phyllo-js-app .phyllo-slider-min,
+  #phyllo-js-app .phyllo-slider-max {
+    font-size: 0.78rem;
+    color: #888;
+    min-width: 2em;
+  }
+  #phyllo-js-app .phyllo-slider-value {
+    font-size: 0.85rem;
+    color: #555;
+    margin: 2px 0 8px 0;
+  }
+  #phyllo-js-app .phyllo-btn {
+    display: block;
+    width: 100%;
+    margin: 6px 0;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #fff;
+    cursor: pointer;
+  }
+  #phyllo-js-app .phyllo-btn:hover {
+    background: #f2f2f2;
+  }
+  #phyllo-js-app hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 18px 0;
+  }
+  #phyllo-js-app .phyllo-hint {
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 8px;
+  }
+  #phyllo-js-app #phyllo-summary {
+    font-size: 0.9rem;
+    color: #222;
+    line-height: 1.45;
+  }
+  #phyllo-js-app #phyllo-summary strong {
+    color: #111;
+  }
+  #phyllo-js-app .phyllo-canvas-wrap {
+    flex: 1 1 320px;
+    min-width: 240px;
+    display: flex;
+    justify-content: center;
+  }
+  #phyllo-js-app canvas {
+    width: 100%;
+    max-width: 660px;
+    height: auto;
+    aspect-ratio: 660 / 560;
+    background: #ffffff;
+    border-radius: 6px;
+    touch-action: none;
+  }
+  #phyllo-js-app canvas.phyllo-draggable {
+    cursor: grab;
+  }
+  #phyllo-js-app canvas.phyllo-dragging {
+    cursor: grabbing;
+  }
+  @media (max-width: 760px) {
+    #phyllo-js-app.phyllo-app {
+      flex-direction: column;
+    }
+    #phyllo-js-app .phyllo-sidebar {
+      flex-basis: auto;
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  // -------------------------------------------------------------------
+  // Phyllotaxis JS port -- direct translation of the verified Python/
+  // matplotlib prototype (app.py). Same generation rule, same view
+  // geometry, same 3D model; only the rendering technology changed
+  // (HTML canvas instead of matplotlib) and drag-to-rotate was added on
+  // top of the slider the Python version had.
+  // -------------------------------------------------------------------
+
+  const N_NODES = 34;
+  const STEM_VIEW_NODES = 8;
+  const LEAF_TILT_FROM_VERTICAL = 55; // degrees
+
+  const NAMED_PATTERNS = [
+    [1, 180.0, "Distichous"],
+    [1, 137.5, "Fibonacci spiral"],
+    [2, 90.0, "Decussate"],
+    [3, 60.0, "Tricussate"],
+  ];
+
+  function fixedAngleForK(k) {
+    return 180.0 / k;
+  }
+
+  function generateLeaves(k, angleDeg, nNodes) {
+    const angle = (angleDeg * Math.PI) / 180;
+    const leaves = [];
+    for (let j = 0; j < nNodes; j++) {
+      const base = j * angle;
+      for (let i = 0; i < k; i++) {
+        const theta = base + i * ((2 * Math.PI) / k);
+        leaves.push({ j: j, theta: theta });
+      }
+    }
+    return leaves;
+  }
+
+  function classify(k, angleDeg) {
+    for (const [pk, pangle, name] of NAMED_PATTERNS) {
+      if (pk === k && Math.abs(angleDeg - pangle) < 0.05) return name;
+    }
+    return null;
+  }
+
+  // YlGn colormap (ColorBrewer 9-class), matching matplotlib.colormaps["YlGn"]
+  const YLGN_STOPS = [
+    [0.0, [255, 255, 229]],
+    [0.125, [247, 252, 185]],
+    [0.25, [217, 240, 163]],
+    [0.375, [173, 221, 142]],
+    [0.5, [120, 198, 121]],
+    [0.625, [65, 171, 93]],
+    [0.75, [35, 132, 67]],
+    [0.875, [0, 104, 55]],
+    [1.0, [0, 69, 41]],
+  ];
+
+  function ylgn(t) {
+    t = Math.min(1, Math.max(0, t));
+    for (let i = 0; i < YLGN_STOPS.length - 1; i++) {
+      const [t0, c0] = YLGN_STOPS[i];
+      const [t1, c1] = YLGN_STOPS[i + 1];
+      if (t >= t0 && t <= t1) {
+        const f = (t - t0) / (t1 - t0);
+        const r = Math.round(c0[0] + f * (c1[0] - c0[0]));
+        const g = Math.round(c0[1] + f * (c1[1] - c0[1]));
+        const b = Math.round(c0[2] + f * (c1[2] - c0[2]));
+        return `rgb(${r},${g},${b})`;
+      }
+    }
+    const last = YLGN_STOPS[YLGN_STOPS.length - 1][1];
+    return `rgb(${last[0]},${last[1]},${last[2]})`;
+  }
+
+  // ---------------------------------------------------------------
+  // Canvas / DOM setup
+  // ---------------------------------------------------------------
+  const app = document.getElementById("phyllo-js-app");
+  const canvas = app.querySelector("#phyllo-canvas");
+  const CSS_W = 660, CSS_H = 560;
+
+  function getCtx() {
+    const dpr = window.devicePixelRatio || 1;
+    if (canvas.width !== CSS_W * dpr || canvas.height !== CSS_H * dpr) {
+      canvas.width = CSS_W * dpr;
+      canvas.height = CSS_H * dpr;
+    }
+    const ctx = canvas.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, CSS_W, CSS_H);
+    return ctx;
+  }
+
+  function drawTitle(ctx, text) {
+    ctx.fillStyle = "#222";
+    ctx.font = "600 15px -apple-system, Segoe UI, Helvetica, Arial, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    ctx.fillText(text, CSS_W / 2, 8);
+  }
+
+  // Linear scaler with y-flip (data-up == screen-up), independent x/y scales.
+  function makeScaler(xMin, xMax, yMin, yMax, left, right, top, bottom) {
+    return function (x, y) {
+      const px = left + ((x - xMin) / (xMax - xMin)) * (right - left);
+      const py = bottom - ((y - yMin) / (yMax - yMin)) * (bottom - top);
+      return [px, py];
+    };
+  }
+
+  // Equal-aspect scaler: same data-units-per-pixel in x and y, centred
+  // in the available plot area.
+  function makeEqualScaler(xMin, xMax, yMin, yMax, areaLeft, areaRight, areaTop, areaBottom) {
+    const areaW = areaRight - areaLeft, areaH = areaBottom - areaTop;
+    const dataW = xMax - xMin, dataH = yMax - yMin;
+    const scale = Math.min(areaW / dataW, areaH / dataH);
+    const plotW = dataW * scale, plotH = dataH * scale;
+    const left = areaLeft + (areaW - plotW) / 2;
+    const top = areaTop + (areaH - plotH) / 2;
+    const cx = (xMin + xMax) / 2, cy = (yMin + yMax) / 2;
+    const midX = left + plotW / 2, midY = top + plotH / 2;
+    return function (x, y) {
+      return [midX + (x - cx) * scale, midY - (y - cy) * scale];
+    };
+  }
+
+  // ---------------------------------------------------------------
+  // View: unrolled stem
+  // ---------------------------------------------------------------
+  function drawUnrolled(ctx, leaves, nNodes) {
+    const left = 56, right = CSS_W - 20, top = 40, bottom = CSS_H - 46;
+    const xMin = -1, xMax = nNodes, yMin = -10, yMax = 370;
+    const s = makeScaler(xMin, xMax, yMin, yMax, left, right, top, bottom);
+
+    // axes
+    ctx.strokeStyle = "#888";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(left, top); ctx.lineTo(left, bottom); ctx.lineTo(right, bottom);
+    ctx.stroke();
+
+    ctx.fillStyle = "#555";
+    ctx.font = "11px -apple-system, Segoe UI, Helvetica, Arial, sans-serif";
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+    [0, 90, 180, 270, 360].forEach((yv) => {
+      const [, py] = s(xMin, yv);
+      ctx.beginPath(); ctx.moveTo(left - 4, py); ctx.lineTo(left, py); ctx.stroke();
+      ctx.fillText(String(yv), left - 8, py);
+    });
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    const xticks = [];
+    const step = Math.max(5, Math.round(nNodes / 7 / 5) * 5);
+    for (let v = 0; v <= nNodes; v += step) xticks.push(v);
+    xticks.forEach((xv) => {
+      const [px] = s(xv, yMin);
+      ctx.beginPath(); ctx.moveTo(px, bottom); ctx.lineTo(px, bottom + 4); ctx.stroke();
+      ctx.fillText(String(xv), px, bottom + 6);
+    });
+
+    // guide line through first leaf of each node
+    const byNode = new Map();
+    for (const leaf of leaves) {
+      if (!byNode.has(leaf.j)) byNode.set(leaf.j, []);
+      byNode.get(leaf.j).push(leaf);
+    }
+    ctx.strokeStyle = "#cfcfcf";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    let first = true;
+    for (const j of [...byNode.keys()].sort((a, b) => a - b)) {
+      const g = byNode.get(j);
+      const y = (((g[0].theta * 180) / Math.PI) % 360 + 360) % 360;
+      const [px, py] = s(j, y);
+      if (first) { ctx.moveTo(px, py); first = false; } else { ctx.lineTo(px, py); }
+    }
+    ctx.stroke();
+
+    // tie leaves within the same node
+    ctx.strokeStyle = "#b7b7b7";
+    for (const [j, g] of byNode) {
+      if (g.length > 1) {
+        const ys = g.map((l) => (((l.theta * 180) / Math.PI) % 360 + 360) % 360).sort((a, b) => a - b);
+        ctx.beginPath();
+        ys.forEach((y, idx) => {
+          const [px, py] = s(j, y);
+          if (idx === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        });
+        ctx.stroke();
+      }
+    }
+
+    // leaf markers
+    const r = 4.6;
+    for (const leaf of leaves) {
+      const y = (((leaf.theta * 180) / Math.PI) % 360 + 360) % 360;
+      const [px, py] = s(leaf.j, y);
+      const color = ylgn(0.3 + (0.6 * leaf.j) / Math.max(nNodes - 1, 1));
+      ctx.globalAlpha = 0.8;
+      ctx.fillStyle = color;
+      ctx.strokeStyle = "#4a7a2a";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(px, py, r, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+
+    ctx.fillStyle = "#555";
+    ctx.font = "12px -apple-system, Segoe UI, Helvetica, Arial, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("node (going up the stem)", (left + right) / 2, bottom + 24);
+    ctx.save();
+    ctx.translate(16, (top + bottom) / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillText("angular position (degrees)", 0, 0);
+    ctx.restore();
+
+    drawTitle(ctx, "Stem unrolled flat — straight rows = visible columns");
+  }
+
+  // ---------------------------------------------------------------
+  // View: top-down
+  // ---------------------------------------------------------------
+  function drawTopdown(ctx, leaves, nNodes) {
+    const lim = 1.0 + 0.09 * nNodes + 0.3;
+    const s = makeEqualScaler(-lim, lim, -lim, lim, 30, CSS_W - 30, 40, CSS_H - 30);
+
+    const pts = leaves.map((leaf) => {
+      const r = 1.0 + 0.09 * leaf.j;
+      return {
+        x: r * Math.cos(leaf.theta),
+        y: r * Math.sin(leaf.theta),
+        j: leaf.j,
+        theta: leaf.theta,
+      };
+    });
+
+    // spiral guide line, node order then theta order (matches Python's sort key)
+    const order = [...pts.keys()].sort((a, b) => (pts[a].j - pts[b].j) || (pts[a].theta - pts[b].theta));
+    ctx.strokeStyle = "#d8d8d8";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    order.forEach((idx, k) => {
+      const [px, py] = s(pts[idx].x, pts[idx].y);
+      if (k === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    });
+    ctx.stroke();
+
+    const r = 4.8;
+    for (const p of pts) {
+      const [px, py] = s(p.x, p.y);
+      const color = ylgn(0.3 + (0.6 * p.j) / Math.max(nNodes - 1, 1));
+      ctx.globalAlpha = 0.8;
+      ctx.fillStyle = color;
+      ctx.strokeStyle = "#4a7a2a";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(px, py, r, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+
+    // stem, viewed end-on
+    const [cx, cy] = s(0, 0);
+    ctx.fillStyle = "#8a5a2a";
+    ctx.fillRect(cx - 3.2, cy - 3.2, 6.4, 6.4);
+
+    drawTitle(ctx, "Looking straight down the stem");
+  }
+
+  // ---------------------------------------------------------------
+  // View: 2D leaf diagram (side view)
+  // ---------------------------------------------------------------
+  function drawStem2D(ctx, leaves, nNodes) {
+    const dz = 1.0;
+    const depthWobble = 0.35;
+    const leafLen = 1.5 * Math.sqrt(0.8);
+    const leafWidth = 0.55 * Math.sqrt(0.8);
+    const maxH = (nNodes - 1) * dz;
+
+    const s = makeEqualScaler(-2.3, 2.3, -0.5, maxH + 0.6, 30, CSS_W - 30, 40, CSS_H - 30);
+
+    // stem
+    const [sx0, sy0] = s(0, 0);
+    const [sx1, sy1] = s(0, maxH);
+    ctx.strokeStyle = "#6b4226";
+    ctx.lineWidth = 9;
+    ctx.lineCap = "round";
+    ctx.beginPath(); ctx.moveTo(sx0, sy0); ctx.lineTo(sx1, sy1); ctx.stroke();
+
+    // node ticks
+    ctx.strokeStyle = "#4a2d16";
+    ctx.lineWidth = 3;
+    for (let j = 0; j < nNodes; j++) {
+      const [x0, y0] = s(-0.07, j * dz);
+      const [x1, y1] = s(0.07, j * dz);
+      ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
+    }
+
+    const scaleFactor = Math.hypot(s(1, 0)[0] - s(0, 0)[0], s(1, 0)[1] - s(0, 0)[1]);
+
+    for (const leaf of leaves) {
+      const theta = leaf.theta, j = leaf.j;
+      const height = j * dz;
+      const thetaUp = Math.sin(theta) >= 0 ? theta : -theta;
+      const cosThetaUp = Math.cos(thetaUp);
+      let side;
+      if (cosThetaUp > 1e-9) side = 1;
+      else if (cosThetaUp < -1e-9) side = -1;
+      else side = 0;
+      const angleDeg = 90 - side * LEAF_TILT_FROM_VERTICAL;
+      const angleRad = (angleDeg * Math.PI) / 180;
+      const baseX = 0.0;
+      const baseY = height + Math.sin(thetaUp) * depthWobble;
+      const halfLen = leafLen / 2;
+      const centerX = baseX + halfLen * Math.cos(angleRad);
+      const centerY = baseY + halfLen * Math.sin(angleRad);
+      const color = ylgn(0.35 + (0.5 * j) / Math.max(nNodes - 1, 1));
+
+      const [px, py] = s(centerX, centerY);
+      ctx.save();
+      ctx.translate(px, py);
+      // canvas y is flipped relative to data y, so a positive data-space
+      // rotation appears as a negative canvas rotation
+      ctx.rotate(-angleRad);
+      ctx.globalAlpha = 0.8;
+      ctx.fillStyle = color;
+      ctx.strokeStyle = "#2f4f1f";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, (leafLen / 2) * scaleFactor, (leafWidth / 2) * scaleFactor, 0, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+      ctx.restore();
+    }
+
+    drawTitle(ctx, "Leaves on the stem, viewed from the side");
+  }
+
+  // ---------------------------------------------------------------
+  // View: genuine 3D, camera controlled by azim/elev (drag or slider)
+  // ---------------------------------------------------------------
+  function project(x, y, z, azimRad, elevRad) {
+    const camX = Math.cos(elevRad) * Math.cos(azimRad);
+    const camY = Math.cos(elevRad) * Math.sin(azimRad);
+    const camZ = Math.sin(elevRad);
+    const dx = -camX, dy = -camY, dz = -camZ; // view direction (camera -> origin)
+
+    // right = normalize(worldUp x viewDir), worldUp = (0,0,1)
+    let rx = -dy, ry = dx, rz = 0;
+    const rlen = Math.hypot(rx, ry, rz) || 1;
+    rx /= rlen; ry /= rlen; rz /= rlen;
+
+    // up = viewDir x right
+    const ux = dy * rz - dz * ry;
+    const uy = dz * rx - dx * rz;
+    const uz = dx * ry - dy * rx;
+
+    const sx = x * rx + y * ry + z * rz;
+    const sy = x * ux + y * uy + z * uz;
+    const depth = x * camX + y * camY + z * camZ; // larger == closer to camera
+    return [sx, sy, depth];
+  }
+
+  function draw3D(ctx, leaves, nNodes, azimDeg, elevDeg) {
+    const dz = 1.0;
+    const leafLength = 1.5;
+    const leafHalfWidth = 0.28;
+    const tilt = (LEAF_TILT_FROM_VERTICAL * Math.PI) / 180;
+    const maxH = (nNodes - 1) * dz;
+    const azimRad = (azimDeg * Math.PI) / 180;
+    const elevRad = (elevDeg * Math.PI) / 180;
+
+    const objects = [];
+
+    // stem as several short segments, so its depth-sorts correctly against leaves
+    const stemSegs = 24;
+    for (let i = 0; i < stemSegs; i++) {
+      const z0 = (maxH * i) / stemSegs, z1 = (maxH * (i + 1)) / stemSegs;
+      const p0 = project(0, 0, z0, azimRad, elevRad);
+      const p1 = project(0, 0, z1, azimRad, elevRad);
+      objects.push({
+        type: "line", pts: [p0, p1], depth: (p0[2] + p1[2]) / 2,
+        color: "#6b4226", width: 9,
+      });
+    }
+
+    for (const leaf of leaves) {
+      const theta = leaf.theta, j = leaf.j;
+      const z0 = j * dz;
+      const dirx = Math.sin(tilt) * Math.cos(theta);
+      const diry = Math.sin(tilt) * Math.sin(theta);
+      const dirz = Math.cos(tilt);
+      const base = [0, 0, z0];
+      const tip = [dirx * leafLength, diry * leafLength, z0 + dirz * leafLength];
+      const mid = [dirx * leafLength * 0.5, diry * leafLength * 0.5, z0 + dirz * leafLength * 0.5];
+      let wx = -diry, wy = dirx;
+      const wnorm = Math.hypot(wx, wy) || 1.0;
+      wx = (wx / wnorm) * leafHalfWidth; wy = (wy / wnorm) * leafHalfWidth;
+      const left = [mid[0] + wx, mid[1] + wy, mid[2]];
+      const right = [mid[0] - wx, mid[1] - wy, mid[2]];
+      const quad3d = [base, left, tip, right];
+      const proj = quad3d.map((p) => project(p[0], p[1], p[2], azimRad, elevRad));
+      const avgDepth = proj.reduce((a, p) => a + p[2], 0) / proj.length;
+      const color = ylgn(0.35 + (0.5 * j) / Math.max(nNodes - 1, 1));
+      objects.push({ type: "quad", pts: proj, depth: avgDepth, color: color });
+    }
+
+    objects.sort((a, b) => a.depth - b.depth);
+
+    // fit projected extent to canvas
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    for (const o of objects) {
+      for (const p of o.pts) {
+        minX = Math.min(minX, p[0]); maxX = Math.max(maxX, p[0]);
+        minY = Math.min(minY, p[1]); maxY = Math.max(maxY, p[1]);
+      }
+    }
+    const areaLeft = 40, areaRight = CSS_W - 40, areaTop = 44, areaBottom = CSS_H - 30;
+    const dataW = Math.max(maxX - minX, 1e-6), dataH = Math.max(maxY - minY, 1e-6);
+    const scale = Math.min((areaRight - areaLeft) / dataW, (areaBottom - areaTop) / dataH) * 0.92;
+    const midX = (minX + maxX) / 2, midY = (minY + maxY) / 2;
+    const cx = (areaLeft + areaRight) / 2, cy = (areaTop + areaBottom) / 2;
+    const toPx = (p) => [cx + (p[0] - midX) * scale, cy - (p[1] - midY) * scale];
+
+    for (const o of objects) {
+      if (o.type === "line") {
+        const [a, b] = o.pts.map(toPx);
+        ctx.strokeStyle = o.color;
+        ctx.lineWidth = o.width;
+        ctx.lineCap = "round";
+        ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+      } else {
+        const pxPts = o.pts.map(toPx);
+        ctx.fillStyle = o.color;
+        ctx.strokeStyle = "#2f4f1f";
+        ctx.lineWidth = 0.8;
+        ctx.globalAlpha = 0.9;
+        ctx.beginPath();
+        pxPts.forEach((p, i) => (i === 0 ? ctx.moveTo(p[0], p[1]) : ctx.lineTo(p[0], p[1])));
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    drawTitle(ctx, "3D view — click and drag to rotate and tilt");
+  }
+
+  // ---------------------------------------------------------------
+  // State + UI wiring
+  // ---------------------------------------------------------------
+  const state = { k: 1, angle: 137.5, view: "topdown", azim: 35, elev: 18 };
+
+  function currentAngle() {
+    return state.k === 1 ? state.angle : fixedAngleForK(state.k);
+  }
+
+  function render() {
+    const ctx = getCtx();
+    const view = state.view;
+    const nNodes = view === "stem" || view === "3d" ? STEM_VIEW_NODES : N_NODES;
+    const leaves = generateLeaves(state.k, currentAngle(), nNodes);
+
+    if (view === "unrolled") drawUnrolled(ctx, leaves, nNodes);
+    else if (view === "stem") drawStem2D(ctx, leaves, nNodes);
+    else if (view === "3d") draw3D(ctx, leaves, nNodes, state.azim, state.elev);
+    else drawTopdown(ctx, leaves, nNodes);
+
+    canvas.classList.toggle("phyllo-draggable", view === "3d");
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const angle = currentAngle();
+    const name = classify(state.k, angle);
+    const el = app.querySelector("#phyllo-summary");
+    let html = `<p><strong>Angle between nodes:</strong> ${angle.toFixed(1)}&deg;</p>`;
+    if (name) {
+      html += `<p><strong>That's the ${name} pattern</strong> — one of the four named on this page.</p>`;
+    } else {
+      html += `<p>Not one of the four named patterns — just exploring in between.</p>`;
+    }
+    if (state.k === 1 && Math.abs(angle - 137.5) > 0.05) {
+      html += `<p>Try dragging to exactly 137.5&deg;: at any other angle the leaves fall into a small number of straight columns. At the golden angle, no column ever repeats.</p>`;
+    }
+    el.innerHTML = html;
+  }
+
+  // k radios
+  app.querySelectorAll('input[name="phyllo-k"]').forEach((r) => {
+    r.addEventListener("change", () => {
+      state.k = parseInt(r.value, 10);
+      app.querySelector("#phyllo-angle-block").style.display = state.k === 1 ? "" : "none";
+      render();
+    });
+  });
+
+  // angle slider
+  const angleInput = app.querySelector("#phyllo-angle");
+  const angleValueLabel = app.querySelector("#phyllo-angle-value");
+  angleInput.addEventListener("input", () => {
+    state.angle = parseFloat(angleInput.value);
+    angleValueLabel.textContent = state.angle.toFixed(1) + "°";
+    render();
+  });
+
+  app.querySelector("#phyllo-preset-golden").addEventListener("click", () => {
+    state.angle = 137.5;
+    angleInput.value = "137.5";
+    angleValueLabel.textContent = "137.5°";
+    render();
+  });
+  app.querySelector("#phyllo-preset-flat").addEventListener("click", () => {
+    state.angle = 180.0;
+    angleInput.value = "180";
+    angleValueLabel.textContent = "180.0°";
+    render();
+  });
+
+  // view radios
+  app.querySelectorAll('input[name="phyllo-view"]').forEach((r) => {
+    r.addEventListener("change", () => {
+      state.view = r.value;
+      app.querySelector("#phyllo-azim-block").hidden = state.view !== "3d";
+      render();
+    });
+  });
+
+  // azim slider
+  const azimInput = app.querySelector("#phyllo-azim");
+  azimInput.addEventListener("input", () => {
+    state.azim = parseFloat(azimInput.value);
+    render();
+  });
+
+  // drag-to-rotate on the 3D canvas (pointer events cover mouse/touch/pen)
+  let dragging = false;
+  let dragStartX = 0, dragStartY = 0, dragAzim0 = 0, dragElev0 = 0;
+  const DEG_PER_PX_AZIM = 0.4;
+  const DEG_PER_PX_ELEV = 0.3;
+
+  canvas.addEventListener("pointerdown", (ev) => {
+    if (state.view !== "3d") return;
+    dragging = true;
+    dragStartX = ev.clientX; dragStartY = ev.clientY;
+    dragAzim0 = state.azim; dragElev0 = state.elev;
+    canvas.classList.add("phyllo-dragging");
+    canvas.setPointerCapture(ev.pointerId);
+  });
+  canvas.addEventListener("pointermove", (ev) => {
+    if (!dragging) return;
+    const dx = ev.clientX - dragStartX;
+    const dy = ev.clientY - dragStartY;
+    let newAzim = (dragAzim0 + dx * DEG_PER_PX_AZIM) % 360;
+    if (newAzim < 0) newAzim += 360;
+    let newElev = dragElev0 - dy * DEG_PER_PX_ELEV;
+    newElev = Math.max(5, Math.min(85, newElev));
+    state.azim = newAzim;
+    state.elev = newElev;
+    azimInput.value = String(Math.round(newAzim));
+    render();
+  });
+  function endDrag(ev) {
+    if (!dragging) return;
+    dragging = false;
+    canvas.classList.remove("phyllo-dragging");
+    try { canvas.releasePointerCapture(ev.pointerId); } catch (e) {}
+  }
+  canvas.addEventListener("pointerup", endDrag);
+  canvas.addEventListener("pointercancel", endDrag);
+
+  // resize handling (CSS scales the canvas; redraw to match new devicePixelRatio state)
+  window.addEventListener("resize", () => render());
+
+  // initial paint
+  app.querySelector("#phyllo-angle-block").style.display = state.k === 1 ? "" : "none";
+  app.querySelector("#phyllo-azim-block").hidden = state.view !== "3d";
+  render();
+})();
+</script>
+</div>
+```
+
+Switch between "leaves per node" to compare alternate leaves against paired and whorled arrangements, and try all four views on the same pattern -- the leaf diagram is the most direct comparison to the picture above, the unrolled view makes the difference between a repeating and a non-repeating angle especially clear, and the 3D view is the one to spin around to see how the whorled patterns really wrap around the stem. On the 3D view, click (or touch) and drag directly on the plant to spin it and tilt the camera up or down -- the slider still works too, and the two stay in sync.
