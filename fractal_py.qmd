@@ -1,0 +1,693 @@
+---
+title: "Fractal"
+format: html
+code-fold: True
+image: 'fractal_preview.png'
+filters:
+  - shinylive
+---
+
+A fractal is a structure that possessed the property of **self-similarity**. Specifically, it refers to a structure where the exact same shape repeatedly appears when the entire figure is broken down into several smaller parts.
+
+![Fractal pattern in fern leave](figures/Fractal-fern.png)
+
+While fractal patterns and shapes appear complex at first glance, they are actually the result of repeating simple rules and operations.
+
+While fractals are a concept rooted in geometry, the fractal approach can also be applied to analyse various phenomena, such as stock prices, currency fluctuations, and social structures.
+
+Many examples of fractals can also be observed in the natural world. These include a wide variety of examples, such as **snowflakes**, *seashells* (like turban shells and nautiluses), the shapes of cumulonimbus clouds, and the circulatory system in the human body (including the heart, blood vessels, and lymphatic vessels).
+
+Below, build a fractal fern yourself, using exactly the same idea as the real fern pictured above: just four simple rules, each applied at random with its own fixed probability, plotting one point at a time. No fern shape is ever drawn directly -- it emerges purely from repeating those four rules tens of thousands of times.
+
+::: {#fig-fractal}
+```{shinylive-python}
+#| standalone: true
+#| components: [viewer]
+#| viewerHeight: 780
+
+## file: app.py
+import math
+import random
+
+import matplotlib.pyplot as plt
+from matplotlib.colors import ListedColormap
+
+from shiny import App, Inputs, Outputs, Session, render, ui
+
+# ---------------------------------------------------------------------------
+# This page builds up to Barnsley's fern in three steps, each its own card
+# below: (1) a single point mapped by a single rule -- the basic building
+# block; (2) several rules chosen at random and repeated -- the "chaos
+# game" -- using the simplest possible example (a triangle); (3) the same
+# idea again, with Barnsley's own four fern rules, simplified down to four
+# friendly parameters instead of the 28 raw numbers behind them.
+# ---------------------------------------------------------------------------
+
+SEED = 42
+CLIP = 1.0e4  # generated points are clipped to +-CLIP so a non-contracting
+              # rule diverges to a capped, finite mess instead of crashing
+
+
+def clip_point(x, y):
+    clipped = False
+    if not math.isfinite(x):
+        x, clipped = 0.0, True
+    elif abs(x) > CLIP:
+        x, clipped = math.copysign(CLIP, x), True
+    if not math.isfinite(y):
+        y, clipped = 0.0, True
+    elif abs(y) > CLIP:
+        y, clipped = math.copysign(CLIP, y), True
+    return x, y, clipped
+
+
+# ---------------------------------------------------------------------------
+# Section 1: a single point, mapped by a single rule.
+# (x, y) -> (a*x + b*y + e, c*x + d*y + f). Six numbers, one point in, one
+# point out -- everything below is built out of repeating this idea.
+# ---------------------------------------------------------------------------
+
+def iterate_single_rule(x0, y0, a, b, c, d, e, f, n):
+    xs, ys = [x0], [y0]
+    clipped = False
+    x, y = x0, y0
+    for _ in range(n):
+        nx = a * x + b * y + e
+        ny = c * x + d * y + f
+        nx, ny, c1 = clip_point(nx, ny)
+        clipped = clipped or c1
+        xs.append(nx)
+        ys.append(ny)
+        x, y = nx, ny
+    return xs, ys, clipped
+
+
+# ---------------------------------------------------------------------------
+# Sections 2 & 3 share the same "chaos game" mechanism: repeatedly pick one
+# of several rules at random (each with a fixed probability) and apply it
+# to wherever the last point landed.
+# ---------------------------------------------------------------------------
+
+def normalize_probs(rules):
+    n = len(rules)
+    raw = [max(r[6], 0.0) for r in rules]
+    total = sum(raw)
+    if total <= 0:
+        return [1.0 / n] * n
+    return [p / total for p in raw]
+
+
+def generate_points(n_points, rules, seed=SEED):
+    """Run the chaos game for n_points steps. With a fixed seed, this is
+    the first n_points steps of one single, deterministic run --
+    generate_points(1000, rules) is always exactly a prefix of
+    generate_points(2000, rules) for the same rules, whatever `rules`
+    contains. That's what lets "Watch it build" reveal a shape by simply
+    calling this with a growing n_points each frame: it's genuinely
+    continuing the same construction, not restarting with new randomness,
+    regardless of how many rules there are or what numbers are in them."""
+    probs = normalize_probs(rules)
+    cum = []
+    acc = 0.0
+    for p in probs:
+        acc += p
+        cum.append(acc)
+    cum[-1] = 1.0  # guard against float drift leaving a tiny uncovered tail
+
+    rng = random.Random(seed)
+    xs = [0.0] * n_points
+    ys = [0.0] * n_points
+    rule_idx = [0] * n_points
+    x, y = 0.0, 0.0
+    clipped = False
+    for i in range(n_points):
+        r = rng.random()
+        k = 0
+        while r > cum[k]:
+            k += 1
+        a, b, c, d, e, f, _p = rules[k]
+        nx = a * x + b * y + e
+        ny = c * x + d * y + f
+        nx, ny, c1 = clip_point(nx, ny)
+        clipped = clipped or c1
+        x, y = nx, ny
+        xs[i] = x
+        ys[i] = y
+        rule_idx[i] = k
+    return xs, ys, rule_idx, clipped
+
+
+def draw_points(ax, xs, ys, rule_idx, color_mode, rule_colors,
+                base_color="#2f7a3d", highlight_i=None):
+    if color_mode == "rule":
+        cmap = ListedColormap(rule_colors)
+        ax.scatter(xs, ys, c=rule_idx, cmap=cmap, vmin=0, vmax=len(rule_colors) - 1,
+                   s=1.6, alpha=0.65, linewidths=0)
+    else:
+        ax.scatter(xs, ys, color=base_color, s=1.6, alpha=0.55, linewidths=0)
+
+    if highlight_i is not None and 0 <= highlight_i < len(xs):
+        hx, hy = xs[highlight_i], ys[highlight_i]
+        if highlight_i > 0:
+            px, py = xs[highlight_i - 1], ys[highlight_i - 1]
+            ax.plot([px, hx], [py, hy], color="#d81b60", linewidth=1.0,
+                    alpha=0.85, zorder=4)
+        ax.scatter([hx], [hy], color="#d81b60", s=70, zorder=5,
+                   edgecolors="white", linewidths=1.2)
+
+    xpad = (max(xs) - min(xs)) * 0.06 + 0.05
+    ypad = (max(ys) - min(ys)) * 0.06 + 0.05
+    ax.set_xlim(min(xs) - xpad, max(xs) + xpad)
+    ax.set_ylim(min(ys) - ypad, max(ys) + ypad)
+    ax.set_aspect("equal")
+    ax.set_xticks([])
+    ax.set_yticks([])
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+    ax.set_facecolor("#fbfbf8")
+
+
+def step_formula_lines(n, target, rules, rule_idx, xs, ys, names, probs):
+    """The 'Step N of TARGET -- drawn by rule X: x=..., y=...' block shown
+    during the slow phase of Watch it build. Shared by sections 2 and 3."""
+    k = rule_idx[n - 1]
+    a, b, c, d, e, f, _p = rules[k]
+    px, py = (xs[n - 2], ys[n - 2]) if n >= 2 else (0.0, 0.0)
+    nx, ny = xs[n - 1], ys[n - 1]
+    return [
+        f"**Step {n} of {target:,}** -- this point was drawn by the "
+        f"**{names[k]}** rule (chosen with probability {probs[k] * 100:.0f}%):",
+        f"x = {a:.2f} × {px:.3f} + {b:.2f} × {py:.3f} + "
+        f"{e:.2f} = **{nx:.3f}**\n\n"
+        f"y = {c:.2f} × {px:.3f} + {d:.2f} × {py:.3f} + "
+        f"{f:.2f} = **{ny:.3f}**",
+    ]
+
+
+def setup_watch_builder(reactive, revealed, animating, target_fn, animate_input,
+                         slow_points, slow_delay, fast_frames, fast_delay):
+    """Wires up a 'Watch it build' button: a slow one-point-at-a-time
+    reveal for the first `slow_points` points, then faster fixed-size
+    batches for the rest. Shared by sections 2 and 3 so this pacing logic
+    -- which has already had one real bug in it (see the project notes) --
+    only exists in one place."""
+
+    @reactive.effect
+    @reactive.event(animate_input)
+    def _start():
+        revealed.set(0)
+        animating.set(True)
+
+    @reactive.effect
+    def _sync():
+        target = target_fn()
+        if not animating():
+            revealed.set(target)
+
+    @reactive.effect
+    def _tick():
+        if not animating():
+            return
+        target = target_fn()
+        # Read the current revealed count WITHOUT creating a reactive
+        # dependency on it -- this effect also writes revealed just below,
+        # and depending on your own value makes the write immediately
+        # re-trigger this same effect instead of pacing via invalidate_later.
+        with reactive.isolate():
+            current = revealed()
+        if current < min(slow_points, target):
+            reactive.invalidate_later(slow_delay)
+            new_n = current + 1
+        else:
+            reactive.invalidate_later(fast_delay)
+            # Constant step size, based on the FIXED amount of work the fast
+            # phase has to do (target - slow_points) -- not on how much is
+            # currently left. Sizing it off the shrinking remainder instead
+            # makes each step smaller than the last (geometric decay), which
+            # never actually finishes in `fast_frames` ticks.
+            fast_total = max(target - slow_points, 1)
+            step = max(1, -(-fast_total // fast_frames))  # ceil
+            new_n = min(current + step, target)
+        revealed.set(new_n)
+        if new_n >= target:
+            animating.set(False)
+
+
+# ---------------------------------------------------------------------------
+# Section 2's rules: the Sierpinski triangle -- three rules, each moving the
+# current point halfway towards one fixed corner, picked with equal
+# probability. (This exact "halfway to a random corner" trick is special to
+# the triangle -- the same idea with the four corners of a square just
+# fills the square solidly, not a fractal. The fern, below, gets its
+# fractal structure a different way.)
+# ---------------------------------------------------------------------------
+
+TRIANGLE_CORNERS = [(0.0, 0.0), (1.0, 0.0), (0.5, 0.866)]
+TRIANGLE_NAMES = ["Corner A", "Corner B", "Corner C"]
+TRIANGLE_COLORS = ["#c0392b", "#2e7d32", "#1565c0"]
+TRIANGLE_RULES = [
+    (0.5, 0.0, 0.0, 0.5, cx / 2, cy / 2, 1.0 / 3.0)
+    for cx, cy in TRIANGLE_CORNERS
+]
+
+MAX_POINTS_2 = 8000
+DEFAULT_POINTS_2 = 4000
+SLOW_POINTS_2 = 18
+SLOW_DELAY_2 = 0.30
+FAST_FRAMES_2 = 12
+FAST_DELAY_2 = 0.10
+
+# ---------------------------------------------------------------------------
+# Section 3: Barnsley's fern, simplified to four friendly parameters instead
+# of the 28 raw numbers behind the four rules. Barnsley's own published
+# values are the default (all four knobs at their neutral setting).
+# ---------------------------------------------------------------------------
+
+CLASSIC_RULES = [
+    # (a,     b,     c,     d,    e,    f,    p   )  -- rule 0: the stem
+    (0.00, 0.00, 0.00, 0.16, 0.00, 0.00, 0.01),
+    # rule 1: successively smaller copies of the whole fern
+    (0.85, 0.04, -0.04, 0.85, 0.00, 1.60, 0.85),
+    # rule 2: the largest left-hand leaflet
+    (0.20, -0.26, 0.23, 0.22, 0.00, 1.60, 0.07),
+    # rule 3: the largest right-hand leaflet
+    (-0.15, 0.28, 0.26, 0.24, 0.00, 0.44, 0.07),
+]
+RULE_NAMES = ["Stem", "Whole-fern copy", "Left leaflet", "Right leaflet"]
+RULE_COLORS = ["#6b4226", "#2e7d32", "#1565c0", "#c77f00"]
+
+MAX_POINTS = 40000
+DEFAULT_POINTS = 15000
+SLOW_POINTS = 24
+SLOW_DELAY = 0.30
+FAST_FRAMES = 14
+FAST_DELAY = 0.10
+
+
+def simplified_rules(rotation_deg, leaflet_scale, stem_mult, lean):
+    """Barnsley's four rules, adjusted by four friendly knobs instead of
+    editing all 28 raw numbers directly:
+
+    - leaflet ROTATION spins the two leaflet rules' linear part. A rotation
+      alone never changes how strongly a rule contracts, so this knob can't
+      by itself cause the fern to blow up.
+    - leaflet SIZE scales the two leaflet rules' linear part uniformly --
+      by about 4-5x the leaflets are visibly ballooning out of proportion,
+      and by about 6x they stop contracting altogether and the fern
+      diverges.
+    - STEM LENGTH scales only the stem rule's one nonzero number, so it
+      changes how far the stem reaches without touching anything else --
+      on its own it can't push the whole system past contracting.
+    - LEAN adds a shear term to the dominant "whole-fern copy" rule (the
+      one picked 85% of the time). Because that rule is applied so often,
+      even a lean of 1-2 visibly skews the whole shape sideways, and by
+      about 4 it stops contracting and the fern diverges.
+
+    (Note the asymmetry: rotation alone can never cause divergence -- a
+    rotation doesn't change how strongly a rule contracts, only leaflet
+    size and lean can push the whole system past the point where it stops
+    converging to a bounded shape at all.)
+    """
+    rules = [list(r) for r in CLASSIC_RULES]
+
+    rules[0][3] = CLASSIC_RULES[0][3] * stem_mult  # stem length (d)
+    rules[1][1] = CLASSIC_RULES[1][1] + lean  # whole-fern-copy shear (b)
+
+    theta = math.radians(rotation_deg)
+    ct, st = math.cos(theta), math.sin(theta)
+    for i in (2, 3):
+        a, b, c, d, e, f, _p = CLASSIC_RULES[i]
+        a2 = (ct * a - st * c) * leaflet_scale
+        b2 = (ct * b - st * d) * leaflet_scale
+        c2 = (st * a + ct * c) * leaflet_scale
+        d2 = (st * b + ct * d) * leaflet_scale
+        rules[i][0], rules[i][1], rules[i][2], rules[i][3] = a2, b2, c2, d2
+
+    return [tuple(r) for r in rules]
+
+
+app_ui = ui.page_fixed(
+    ui.h2("How a fractal fern is actually built"),
+    ui.markdown(
+        "Everything below is built from one idea, introduced in three "
+        "steps: start with a single point and a single rule, then add more "
+        "rules chosen at random, then use that same idea with Barnsley's "
+        "own four rules to build a fern."
+    ),
+    ui.card(
+        ui.card_header("1. Start simple: one point, one rule"),
+        ui.markdown(
+            "A **rule** takes a point `(x, y)` and maps it to a new point "
+            "`(x', y') = (a·x + b·y + e, c·x + d·y + f)`. "
+            "That's it -- six numbers, one point in, one point out. Try the "
+            "sliders below, then press **“Apply this rule again”** "
+            "to feed the new point back into the same rule, and watch where "
+            "it goes next."
+        ),
+        ui.layout_columns(
+            ui.div(
+                ui.h6("Starting point"),
+                ui.input_numeric("s1_x0", "x", value=1.0, step=0.1),
+                ui.input_numeric("s1_y0", "y", value=1.0, step=0.1),
+                ui.h6("The rule"),
+                ui.input_slider("s1_a", "a", min=-1.5, max=1.5, value=0.70, step=0.05),
+                ui.input_slider("s1_b", "b", min=-1.5, max=1.5, value=-0.50, step=0.05),
+                ui.input_slider("s1_c", "c", min=-1.5, max=1.5, value=0.50, step=0.05),
+                ui.input_slider("s1_d", "d", min=-1.5, max=1.5, value=0.70, step=0.05),
+                ui.input_slider("s1_e", "e", min=-2.0, max=2.0, value=0.40, step=0.1),
+                ui.input_slider("s1_f", "f", min=-2.0, max=2.0, value=0.20, step=0.1),
+                ui.input_action_button("s1_apply", "Apply this rule again", class_="btn-sm"),
+                ui.input_action_button("s1_reset", "Reset to the starting point", class_="btn-sm"),
+                ui.output_ui("s1_summary"),
+                style="min-width: 250px;",
+            ),
+            ui.output_plot("s1_plot", height="420px"),
+            col_widths=[5, 7],
+        ),
+    ),
+    ui.card(
+        ui.card_header("2. Add more rules -- and randomness"),
+        ui.markdown(
+            "Fractals don't use one fixed rule. At each step, one of "
+            "several rules is picked **at random**, and applied to "
+            "wherever the last point landed. Here are three of the "
+            "simplest possible rules: each one moves the current point "
+            "halfway towards one of three fixed corners of a triangle, "
+            "each corner equally likely. Repeat that tens of thousands of "
+            "times, starting from anywhere, and this is what comes out -- "
+            "the famous **Sierpinski triangle**."
+        ),
+        ui.layout_columns(
+            ui.div(
+                ui.h6("Number of points"),
+                ui.input_slider("s2_n", None, min=500, max=MAX_POINTS_2,
+                                 value=DEFAULT_POINTS_2, step=500),
+                ui.input_action_button("s2_animate", "Watch it build, point by point", class_="btn-sm"),
+                ui.output_ui("s2_summary"),
+                style="min-width: 220px;",
+            ),
+            ui.output_plot("s2_plot", height="420px"),
+            col_widths=[4, 8],
+        ),
+        ui.markdown(
+            "This exact “halfway to a random corner” trick is "
+            "special to the triangle -- try it with the four corners of a "
+            "square instead and you just get a solidly filled square, not "
+            "a fractal. Barnsley's fern gets its fractal structure a "
+            "different way: instead of one simple halfway rule repeated at "
+            "different corners, it uses four different rules, each able to "
+            "rotate and stretch as well as shrink -- which is what makes "
+            "the result look like a fern instead of a triangle."
+        ),
+    ),
+    ui.card(
+        ui.card_header("3. Barnsley's fern, simplified"),
+        ui.markdown(
+            "Same idea again -- several rules, chosen at random, applied "
+            "over and over -- but now with Barnsley's own four published "
+            "rules for a fern. All 28 of the raw numbers behind those four "
+            "rules matter, but that's too many to play with directly, so "
+            "here are four knobs that each nudge a meaningful part of the "
+            "shape. All four start at the setting that reproduces "
+            "Barnsley's exact original fern; most other settings look "
+            "nothing like a fern, and a few don't converge at all."
+        ),
+        ui.layout_columns(
+            ui.div(
+                ui.h6("Number of points"),
+                ui.input_slider("s3_n", None, min=1000, max=MAX_POINTS,
+                                 value=DEFAULT_POINTS, step=1000),
+                ui.input_action_button("s3_animate", "Watch it build, point by point", class_="btn-sm"),
+                ui.hr(),
+                ui.h6("Colour"),
+                ui.input_radio_buttons(
+                    "s3_color", None,
+                    choices={"natural": "Natural green", "rule": "By generating rule (see the self-similarity)"},
+                    selected="natural",
+                ),
+                ui.hr(),
+                ui.h6("Shape"),
+                ui.input_slider("s3_rotation", "Leaflet rotation", min=-45, max=45, value=0, step=1, post="°"),
+                ui.input_slider("s3_leaflet_scale", "Leaflet size", min=0.2, max=7.0, value=1.0, step=0.1),
+                ui.input_slider("s3_stem", "Stem length", min=0.2, max=5.0, value=1.0, step=0.1),
+                ui.input_slider("s3_lean", "Overall lean", min=-4.0, max=4.0, value=0.0, step=0.1),
+                ui.input_action_button("s3_reset", "Reset to Barnsley's fern", class_="btn-sm"),
+                style="min-width: 250px;",
+            ),
+            ui.output_plot("s3_plot", height="620px"),
+            col_widths=[4, 8],
+        ),
+        ui.output_ui("s3_summary"),
+        ui.tags.details(
+            ui.tags.summary("See the raw numbers these four knobs produce"),
+            ui.output_ui("s3_rules_table"),
+        ),
+    ),
+)
+
+
+def server(input: Inputs, output: Outputs, session: Session):
+    from shiny import reactive
+
+    def safe_num(val, default):
+        return default if val is None else float(val)
+
+    # ------------------------------------------------------------------
+    # Section 1
+    # ------------------------------------------------------------------
+    s1_count = reactive.value(0)
+
+    @reactive.effect
+    @reactive.event(input.s1_apply)
+    def _s1_apply():
+        s1_count.set(min(s1_count() + 1, 30))
+
+    @reactive.effect
+    @reactive.event(input.s1_reset)
+    def _s1_reset():
+        s1_count.set(0)
+
+    @reactive.calc
+    def s1_data():
+        x0 = safe_num(input.s1_x0(), 1.0)
+        y0 = safe_num(input.s1_y0(), 1.0)
+        a = safe_num(input.s1_a(), 0.0)
+        b = safe_num(input.s1_b(), 0.0)
+        c = safe_num(input.s1_c(), 0.0)
+        d = safe_num(input.s1_d(), 0.0)
+        e = safe_num(input.s1_e(), 0.0)
+        f = safe_num(input.s1_f(), 0.0)
+        xs, ys, clipped = iterate_single_rule(x0, y0, a, b, c, d, e, f, s1_count())
+        return xs, ys, clipped, (a, b, c, d, e, f)
+
+    @output
+    @render.plot
+    def s1_plot():
+        xs, ys, clipped, _rule = s1_data()
+        fig, ax = plt.subplots(figsize=(5.2, 4.6))
+        ax.axhline(0, color="#e3e3e3", linewidth=0.8, zorder=0)
+        ax.axvline(0, color="#e3e3e3", linewidth=0.8, zorder=0)
+        ax.plot(xs, ys, color="#9aa0a6", linewidth=1.0, alpha=0.7, zorder=1)
+        if len(xs) > 2:
+            ax.scatter(xs[1:-1], ys[1:-1], color="#9aa0a6", s=18, zorder=2)
+        ax.scatter([xs[0]], [ys[0]], color="#222", s=60, zorder=3)
+        if len(xs) > 1:
+            ax.scatter([xs[-1]], [ys[-1]], color="#d81b60", s=60, zorder=4)
+        xpad = (max(xs) - min(xs)) * 0.15 + 0.4
+        ypad = (max(ys) - min(ys)) * 0.15 + 0.4
+        ax.set_xlim(min(xs) - xpad, max(xs) + xpad)
+        ax.set_ylim(min(ys) - ypad, max(ys) + ypad)
+        ax.set_aspect("equal")
+        ax.set_facecolor("#fbfbf8")
+        fig.tight_layout()
+        return fig
+
+    @output
+    @render.ui
+    def s1_summary():
+        xs, ys, clipped, (a, b, c, d, e, f) = s1_data()
+        n = s1_count()
+        lines = []
+        if n == 0:
+            lines.append(
+                "Press **“Apply this rule again”** to map the "
+                "black point using the rule above -- the new point will "
+                "appear in pink."
+            )
+        else:
+            px, py = xs[-2], ys[-2]
+            nx, ny = xs[-1], ys[-1]
+            lines.append(f"**After {n} application{'s' if n != 1 else ''} of the rule:**")
+            lines.append(
+                f"x' = {a:.2f} × {px:.3f} + {b:.2f} × {py:.3f} + "
+                f"{e:.2f} = **{nx:.3f}**\n\n"
+                f"y' = {c:.2f} × {px:.3f} + {d:.2f} × {py:.3f} + "
+                f"{f:.2f} = **{ny:.3f}**"
+            )
+            if clipped:
+                lines.append(
+                    "⚠️ This rule doesn't contract -- the point "
+                    "is shooting off to huge values (capped here so the "
+                    "plot doesn't break). Try smaller a/b/c/d values, or "
+                    "press reset."
+                )
+            elif n >= 5:
+                lines.append(
+                    "Notice the point is settling towards one fixed spot "
+                    "rather than wandering off -- that's what it means for "
+                    "a rule to **contract**. Every rule used below is built "
+                    "to do exactly this."
+                )
+        return ui.markdown("\n\n".join(lines))
+
+    # ------------------------------------------------------------------
+    # Section 2 -- Sierpinski triangle
+    # ------------------------------------------------------------------
+    revealed2 = reactive.value(DEFAULT_POINTS_2)
+    animating2 = reactive.value(False)
+    setup_watch_builder(reactive, revealed2, animating2, input.s2_n, input.s2_animate,
+                         SLOW_POINTS_2, SLOW_DELAY_2, FAST_FRAMES_2, FAST_DELAY_2)
+
+    @reactive.calc
+    def s2_data():
+        n = revealed2()
+        xs, ys, rule_idx, clipped = generate_points(max(n, 1), TRIANGLE_RULES)
+        return xs, ys, rule_idx, clipped
+
+    @output
+    @render.plot
+    def s2_plot():
+        xs, ys, rule_idx, _clipped = s2_data()
+        n = revealed2()
+        highlight_i = (n - 1) if (animating2() and n >= 1) else None
+        fig, ax = plt.subplots(figsize=(5.2, 4.6))
+        draw_points(ax, xs, ys, rule_idx, "rule", TRIANGLE_COLORS, highlight_i=highlight_i)
+        fig.tight_layout()
+        return fig
+
+    @output
+    @render.ui
+    def s2_summary():
+        xs, ys, rule_idx, _clipped = s2_data()
+        n = revealed2()
+        target = input.s2_n()
+        probs = normalize_probs(TRIANGLE_RULES)
+        lines = []
+        if animating2() and 1 <= n <= SLOW_POINTS_2:
+            lines.extend(step_formula_lines(n, target, TRIANGLE_RULES, rule_idx, xs, ys,
+                                             TRIANGLE_NAMES, probs))
+        elif animating2():
+            lines.append(f"**Building the triangle: {n:,} / {target:,} points**")
+        else:
+            lines.append(f"**Points plotted:** {n:,}")
+        return ui.markdown("\n\n".join(lines))
+
+    # ------------------------------------------------------------------
+    # Section 3 -- Barnsley's fern, simplified
+    # ------------------------------------------------------------------
+    revealed3 = reactive.value(DEFAULT_POINTS)
+    animating3 = reactive.value(False)
+    setup_watch_builder(reactive, revealed3, animating3, input.s3_n, input.s3_animate,
+                         SLOW_POINTS, SLOW_DELAY, FAST_FRAMES, FAST_DELAY)
+
+    @reactive.effect
+    @reactive.event(input.s3_reset)
+    def _s3_reset():
+        ui.update_slider("s3_rotation", value=0)
+        ui.update_slider("s3_leaflet_scale", value=1.0)
+        ui.update_slider("s3_stem", value=1.0)
+        ui.update_slider("s3_lean", value=0.0)
+
+    @reactive.calc
+    def s3_rules():
+        return simplified_rules(
+            safe_num(input.s3_rotation(), 0.0),
+            safe_num(input.s3_leaflet_scale(), 1.0),
+            safe_num(input.s3_stem(), 1.0),
+            safe_num(input.s3_lean(), 0.0),
+        )
+
+    @reactive.calc
+    def s3_data():
+        n = revealed3()
+        rules = s3_rules()
+        xs, ys, rule_idx, clipped = generate_points(max(n, 1), rules)
+        return xs, ys, rule_idx, clipped
+
+    @output
+    @render.plot
+    def s3_plot():
+        xs, ys, rule_idx, _clipped = s3_data()
+        n = revealed3()
+        highlight_i = (n - 1) if (animating3() and n >= 1) else None
+        fig, ax = plt.subplots(figsize=(6.2, 7.4))
+        draw_points(ax, xs, ys, rule_idx, input.s3_color(), RULE_COLORS, highlight_i=highlight_i)
+        fig.tight_layout()
+        return fig
+
+    @output
+    @render.ui
+    def s3_summary():
+        xs, ys, rule_idx, clipped = s3_data()
+        n = revealed3()
+        target = input.s3_n()
+        rules = s3_rules()
+        probs = normalize_probs(rules)
+
+        lines = []
+        if animating3() and 1 <= n <= SLOW_POINTS:
+            lines.extend(step_formula_lines(n, target, rules, rule_idx, xs, ys,
+                                             RULE_NAMES, probs))
+        elif animating3():
+            lines.append(f"**Building the fern: {n:,} / {target:,} points**")
+        else:
+            lines.append(f"**Points plotted:** {n:,}")
+
+        if clipped:
+            lines.append(
+                "⚠️ **These settings don't contract** -- points "
+                "are shooting off to huge values and being capped so the "
+                "app doesn't crash. Try a smaller leaflet size or a "
+                "smaller lean, or press “Reset to Barnsley's fern”."
+            )
+
+        rule_lines = "\n".join(
+            f"- **{name}**: {probs[i] * 100:.0f}%" for i, name in enumerate(RULE_NAMES)
+        )
+        lines.append(
+            "Every point is drawn by picking one of 4 rules at random, "
+            "each with a fixed probability, then plotting where it sends "
+            "the previous point:\n\n" + rule_lines
+        )
+        lines.append(
+            "On Barnsley's own numbers, the **whole-fern copy** rule alone "
+            "(picked 85% of the time) draws a complete smaller copy of the "
+            "entire fern -- the same self-similarity idea from step 2, "
+            "just with cleverer rules."
+        )
+        if input.s3_color() == "rule":
+            lines.append("Colours above show which rule drew each point.")
+
+        return ui.markdown("\n\n".join(lines))
+
+    @output
+    @render.ui
+    def s3_rules_table():
+        rules = s3_rules()
+        probs = normalize_probs(rules)
+        rows = []
+        for i, name in enumerate(RULE_NAMES):
+            a, b, c, d, e, f, _p = rules[i]
+            rows.append(
+                f"- **{name}**: a={a:.3f}, b={b:.3f}, c={c:.3f}, d={d:.3f}, "
+                f"e={e:.3f}, f={f:.3f}, p={probs[i] * 100:.0f}%"
+            )
+        return ui.markdown("\n".join(rows))
+
+
+app = App(app_ui, server)
+```
+
+:::
+
+Turn on "By generating rule" to see the self-similarity directly: colour each point by which of the four rules drew it, and the largest green portion -- on its own -- already looks like a complete, smaller fern. That is exactly what the page above means by breaking a structure down into smaller parts that are the same shape as the whole. The "leaflet twist" slider is not part of Barnsley's original fern -- it nudges the two leaflet rules by a small rotation, so you can see how sensitive the final shape is to the exact numbers in each rule, and that the chaos-game method still produces a well-defined fractal even once the numbers change.
