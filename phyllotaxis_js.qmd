@@ -1,5 +1,5 @@
 ---
-title: "Phyllotaxis (interactive, JavaScript)"
+title: "Build your own leaf system"
 format: html
 code-fold: True
 image: 'phyllotaxis_preview.png'
