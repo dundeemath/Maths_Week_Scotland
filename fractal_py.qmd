@@ -330,9 +330,11 @@ app_ui = ui.page_fixed(
     ui.h2("How a fractal fern is actually built"),
     ui.markdown(
         "Everything below is built from one idea, introduced in three "
-        "steps: start with a single point and a single rule, then add more "
-        "rules chosen at random, then use that same idea with Barnsley's "
-        "own four rules to build a fern."
+        "steps: start with a single point and a single rule, then pick "
+        "between a few different *shrink-towards-a-corner* rules at "
+        "random, step by step -- exactly which rules you use is what "
+        "decides the result, as the triangle below shows -- then use that "
+        "same idea with Barnsley's own four rules to build a fern."
     ),
     ui.card(
         ui.card_header("1. Start simple: one point, one rule"),
@@ -368,14 +370,17 @@ app_ui = ui.page_fixed(
     ui.card(
         ui.card_header("2. Add more rules -- and randomness"),
         ui.markdown(
-            "Fractals don't use one fixed rule. At each step, one of "
-            "several rules is picked **at random**, and applied to "
-            "wherever the last point landed. Here are three of the "
-            "simplest possible rules: each one moves the current point "
-            "halfway towards one of three fixed corners of a triangle, "
-            "each corner equally likely. Repeat that tens of thousands of "
-            "times, starting from anywhere, and this is what comes out -- "
-            "the famous **Sierpinski triangle**."
+            "Fractals don't use one fixed rule -- they repeat a simple "
+            "recipe, over and over:\n\n"
+            "1. Start at any point in the plane.\n"
+            "2. Pick one of the triangle's three corners, at random, each "
+            "equally likely.\n"
+            "3. Move the current point exactly halfway towards that "
+            "corner, and plot the new point.\n"
+            "4. Go back to step 2, and repeat -- tens of thousands of "
+            "times.\n\n"
+            "Do that, and this is what comes out: the famous "
+            "**Sierpinski triangle**."
         ),
         ui.layout_columns(
             ui.div(
