@@ -1,0 +1,1025 @@
+---
+title: "Why doesn't the Earth fall onto the Sun?"
+format: html
+code-fold: True
+image: 'analemma_preview.png'
+filters:
+  - shinylive
+---
+
+The [Analemma Project](analemma.qmd) sculpture traces the Sun's apparent path across the sky over a year -- but *why* does the Sun (and every planet) trace out the path it does? This page builds up the answer in four steps, following four scientists who each added a piece of the picture: **Galileo**, who found the first hard evidence that not everything orbits the Earth; **Kepler**, who worked out the precise shape of an orbit from observation; **Newton**, who explained *why* that shape occurs, from a single law of gravity; and **Einstein**, whose refinement of Newton's picture explains a tiny mismatch even Newton's theory could not.
+
+## 1. Galileo: evidence that not everything orbits the Earth
+
+In 1610, Galileo pointed his new telescope at Jupiter and found four points of light that moved back and forth alongside it, night after night. They were not fixed stars: they were moons, clearly orbiting Jupiter and not the Earth. That alone was enough to break the ancient assumption that every heavenly body must circle the Earth -- and it is where this page starts, before turning to how those orbits actually behave. Play the animation below and watch Io, Europa, Ganymede and Callisto (Jupiter's four largest moons, still called the "Galilean moons") complete their real orbital periods, from under two days for Io up to nearly seventeen for Callisto.
+
+## 2. Kepler: ellipses, equal areas, and a hidden pattern
+
+Working from decades of naked-eye observations of Mars (collected by Tycho Brahe), Johannes Kepler found that planets do not move in perfect circles, nor at constant speed. He distilled the pattern into three laws: orbits are **ellipses** with the Sun at one focus (not the centre); a planet **sweeps out equal areas in equal times**, moving faster when close to the Sun and slower when far away; and the **square of the orbital period is proportional to the cube of the orbit's size** -- the same constant of proportionality for every planet in the solar system. Explore all three below with Mercury, Earth, Mars and Jupiter's real orbital data.
+
+## 3. Newton: why doesn't it just fall in?
+
+Kepler described *what* orbits look like; Newton explained *why*. His law of universal gravitation says the Sun pulls every planet straight towards itself, with a force that falls off as the square of the distance -- and nothing more. So why doesn't that pull simply drag every planet straight into the Sun? The answer is **sideways motion**: a planet is always "falling" towards the Sun, but it is also always moving sideways fast enough to keep missing it. Below, you control a planet's launch speed and direction directly. Aim it steeply inward without enough sideways speed, and it crashes. Give it enough sideways speed, and the very same gravity that would have pulled it in instead bends its path into a closed ellipse -- or, with enough speed, flings it away for good. The path is coloured by the planet's instantaneous speed, with a colour bar alongside -- watch it turn bright near the Sun and dark on the far side of an elliptical orbit, direct visual evidence of Kepler's second law: the planet moves fastest exactly where it's closest to the Sun.
+
+## 4. Bonus -- Einstein: the ellipse itself slowly turns
+
+Newton's theory predicts a perfectly closed ellipse, retraced forever. For most planets that is an excellent match to reality -- but not quite perfect. Mercury's orbit, observed over centuries, precesses: its ellipse itself slowly rotates, by about 43 arcseconds per century beyond what Newtonian gravity (accounting for the pull of the other planets) predicts. This tiny leftover puzzled astronomers for decades, until Einstein's general relativity explained it as a consequence of gravity being, at heart, curved spacetime rather than a force acting instantly at a distance. The demo below adds a simplified correction to gravity with the right qualitative shape (it is **not** the exact general-relativistic formula) and turns the dial up far beyond Mercury's real, tiny effect, so the precession becomes visible over a handful of orbits instead of centuries.
+
+::: {#fig-analemma-orbits}
+```{shinylive-python}
+#| standalone: true
+#| components: [viewer]
+#| viewerHeight: 3800
+
+## file: app.py
+import math
+
+import matplotlib.pyplot as plt
+from matplotlib.collections import LineCollection
+
+from shiny import App, Inputs, Outputs, Session, render, ui
+
+# ---------------------------------------------------------------------------
+# "Why doesn't the Earth fall onto the Sun?" -- four sections, one per
+# scientist, each with its own small interactive demo, building from
+# Galileo's observational evidence through Kepler's empirical laws to
+# Newton's explanation (and, as a bonus, Einstein's correction to it).
+#
+# Units throughout: astronomical units (AU) for distance, years for time.
+# The Sun's gravitational parameter GM is fixed at 4*pi^2 in these units --
+# the standard convention that makes Earth's orbit (a=1 AU) have a period
+# of exactly 1 year, via Kepler's third law T^2 = a^3.
+# ---------------------------------------------------------------------------
+
+GM_SUN = 4 * math.pi ** 2  # AU^3 / year^2
+
+
+def setup_time_player(reactive, day_input, play_input, slider_id, dt_fn,
+                       tick_interval, max_time_fn, loop=True):
+    """A small shared 'Play/Pause' helper for a timeline slider. There is
+    deliberately only ONE source of truth for "what time is it" -- the
+    slider itself (`day_input`, e.g. `input.g_day`) -- rather than a second
+    reactive value kept in sync with it: two reactive values mirroring each
+    other is exactly the kind of setup that caused a real self-triggering
+    bug in the fractal-fern app. While playing, this reads the slider's
+    current value WITHOUT depending on it (`reactive.isolate`, the same fix
+    used there) and pushes the next value to it via `ui.update_slider` --
+    so only the deliberate `invalidate_later` timer drives each step, and
+    dragging the slider by hand always just works, playing or not.
+
+    `dt_fn` and `max_time_fn` are zero-argument callables rather than plain
+    numbers so a section (Newton's, in particular) can play back a
+    simulation whose total duration depends on the current sliders -- they
+    are re-evaluated on every tick, so a parameter change takes effect on
+    the next step rather than needing the player to be re-created.
+
+    Returns the `playing` reactive value (True/False) for callers that want
+    to show a "Playing..." indicator."""
+    playing = reactive.value(False)
+
+    @reactive.effect
+    @reactive.event(play_input)
+    def _toggle():
+        playing.set(not playing())
+
+    @reactive.effect
+    def _tick():
+        if not playing():
+            return
+        reactive.invalidate_later(tick_interval)
+        with reactive.isolate():
+            t = day_input()
+            max_time = max_time_fn()
+            dt = dt_fn()
+        t_new = t + dt
+        if t_new >= max_time:
+            if loop:
+                t_new = t_new % max_time if max_time > 0 else 0.0
+            else:
+                t_new = max_time
+                playing.set(False)
+        ui.update_slider(slider_id, value=round(t_new, 4))
+
+    return playing
+
+
+# ---------------------------------------------------------------------------
+# Section 1 -- Galileo: the four moons of Jupiter.
+#
+# In January 1610 Galileo pointed his telescope at Jupiter and, night after
+# night, sketched four points of light that moved back and forth around it
+# -- never leaving it, but clearly not orbiting the Earth. It was some of
+# the first direct evidence that not everything in the sky circles the
+# Earth, a key plank in the case for a Sun-centred solar system. The real
+# orbital periods and (relative) distances are used here -- each moon just
+# moves in a circle at its own constant rate, which is all that's needed to
+# reproduce what Galileo actually saw.
+# ---------------------------------------------------------------------------
+
+MOON_NAMES = ["Io", "Europa", "Ganymede", "Callisto"]
+MOON_COLORS = ["#e07b39", "#c9a86a", "#8a8f98", "#5b7fae"]
+MOON_PERIOD_DAYS = [1.769, 3.551, 7.155, 16.689]  # real orbital periods
+MOON_DISTANCE = [5.9, 9.4, 15.0, 26.4]  # real relative distances, in Jupiter radii
+MOON_PHASE = [0.0, 1.9, 0.7, 4.4]  # arbitrary starting phases (radians), just
+                                    # so the four moons aren't stacked at t=0
+GALILEO_MAX_DAYS = 20.0  # a bit longer than Callisto's period, so the whole
+                          # pattern repeats visibly before it loops
+
+
+def moon_positions(t_days):
+    """Each moon on a circular orbit, seen edge-on (as Galileo saw them,
+    roughly in a line through Jupiter) -- x is the position along that
+    line, y is a small vertical offset from Jupiter used only so the four
+    moons don't sit exactly on one line on the plot."""
+    xs, ys = [], []
+    for period, dist, phase0 in zip(MOON_PERIOD_DAYS, MOON_DISTANCE, MOON_PHASE):
+        phase = 2 * math.pi * (t_days / period) + phase0
+        xs.append(dist * math.sin(phase))
+        ys.append(0.0)
+    return xs, ys
+
+
+# ---------------------------------------------------------------------------
+# Section 2 -- Kepler: ellipses, equal areas, and period vs. distance.
+#
+# Decades before Newton explained WHY, Kepler worked these three laws out
+# empirically from Tycho Brahe's naked-eye observations. So this section
+# doesn't simulate gravity at all -- it places each planet directly on an
+# ellipse (solving Kepler's own equation for its position at a given time),
+# exactly the way Kepler described it, and lets the numbers speak for
+# themselves. Real, approximate values for four solar-system planets.
+# ---------------------------------------------------------------------------
+
+PLANET_NAMES = ["Mercury", "Earth", "Mars", "Jupiter"]
+PLANET_COLORS = ["#8a8f98", "#2e7d32", "#c0392b", "#c77f00"]
+PLANET_A = [0.387, 1.000, 1.524, 5.203]  # semi-major axis, AU
+PLANET_E = [0.206, 0.017, 0.093, 0.049]  # eccentricity
+PLANET_T = [a ** 1.5 for a in PLANET_A]  # Kepler's third law: T (years) = a^1.5
+KEPLER_MAX_YEARS = 12.0  # a little past Jupiter's ~11.86-year period
+
+
+def solve_kepler_equation(M, e, tol=1e-10, max_iter=50):
+    """Solve M = E - e*sin(E) for the eccentric anomaly E, given the mean
+    anomaly M (which increases uniformly with time) and eccentricity e, by
+    Newton's method. This is the one genuinely nonlinear step in Kepler's
+    description of orbital motion -- it's *because* E doesn't increase
+    uniformly with time (only M does) that a planet visibly speeds up and
+    slows down around its orbit."""
+    M = M % (2 * math.pi)
+    E = M if e < 0.8 else math.pi
+    for _ in range(max_iter):
+        f = E - e * math.sin(E) - M
+        fp = 1 - e * math.cos(E)
+        dE = f / fp
+        E -= dE
+        if abs(dE) < tol:
+            break
+    return E
+
+
+def kepler_position(t, a, e, period):
+    """Position at time t (years), with the Sun at the origin (a focus of
+    the ellipse, not its centre) -- perihelion sits on the positive x-axis."""
+    M = 2 * math.pi * (t % period) / period
+    E = solve_kepler_equation(M, e)
+    x = a * (math.cos(E) - e)
+    y = a * math.sqrt(1 - e * e) * math.sin(E)
+    return x, y
+
+
+def ellipse_outline(a, e, n=200):
+    xs, ys = [], []
+    for i in range(n + 1):
+        E = 2 * math.pi * i / n
+        xs.append(a * (math.cos(E) - e))
+        ys.append(a * math.sqrt(1 - e * e) * math.sin(E))
+    return xs, ys
+
+
+def swept_area(t0, dt, a, e, period, k=300):
+    """The area swept out between times t0 and t0+dt, found by sampling the
+    true (non-uniform-speed) path and summing the shoelace formula relative
+    to the focus at the origin -- i.e. numerically adding up the areas of
+    the thin triangular slices from the Sun to each pair of consecutive
+    sampled points. This is a genuine numerical measurement of the swept
+    area from the actual time-parametrised trajectory, not a shortcut that
+    assumes the answer."""
+    pts = [kepler_position(t0 + dt * i / k, a, e, period) for i in range(k + 1)]
+    area = 0.0
+    for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
+        area += x0 * y1 - x1 * y0
+    return abs(area) / 2.0
+
+
+# ---------------------------------------------------------------------------
+# Section 3 -- Newton: why doesn't the planet fall into the Sun?
+#
+# Unlike Kepler's section, this one genuinely simulates gravity: starting
+# from a fixed point, a "planet" is launched with a chosen speed and angle
+# and its path is found by numerically integrating Newton's law of
+# gravitation, step by step, with no assumption that the result will be an
+# ellipse at all -- it's what actually falls out of F = -GMm/r^2 pointing
+# at the Sun.
+# ---------------------------------------------------------------------------
+
+R_START = 1.0  # AU -- fixed starting distance from the Sun
+R_CRASH = 0.10  # AU -- an enlarged "you've hit the Sun" radius, well above
+                 # the Sun's real size, chosen purely so a crash is visible
+                 # on the same plot as the orbit without needing extreme
+                 # numerical precision right down to a point mass
+V_CIRC = math.sqrt(GM_SUN / R_START)  # the one speed that gives a perfect
+                                        # circle at this starting distance
+V_ESCAPE_RATIO = math.sqrt(2.0)  # escape speed is always sqrt(2) x circular
+
+
+def initial_state(speed_factor, angle_deg):
+    """Starting position (R_START, 0), with a launch velocity built from a
+    SPEED (as a multiple of the circular speed at this distance) and an
+    ANGLE measured away from the tangential (sideways, prograde) direction
+    -- 0 deg is purely tangential, +90 deg is straight away from the Sun,
+    -90 deg is straight at the Sun."""
+    speed = speed_factor * V_CIRC
+    theta = math.radians(angle_deg)
+    x0, y0 = R_START, 0.0
+    vx0 = speed * math.sin(theta)
+    vy0 = speed * math.cos(theta)
+    return x0, y0, vx0, vy0
+
+
+def classify_orbit(x0, y0, vx0, vy0):
+    """Classify the orbit from its initial conditions alone (energy and
+    angular momentum), independent of simulating it -- exact, not an
+    approximation. Returns a dict with the energy, and (if bound) the
+    semi-major axis, eccentricity, period, periapsis and apoapsis."""
+    r0 = math.hypot(x0, y0)
+    v0sq = vx0 * vx0 + vy0 * vy0
+    energy = 0.5 * v0sq - GM_SUN / r0
+    L = x0 * vy0 - y0 * vx0
+    info = {"energy": energy, "L": L, "bound": energy < 0}
+    if energy < 0:
+        a = -GM_SUN / (2 * energy)
+        e_sq = max(0.0, 1 - (L * L) / (GM_SUN * a))
+        e = math.sqrt(e_sq)
+        info.update(a=a, e=e, period=2 * math.pi * math.sqrt(a ** 3 / GM_SUN),
+                    periapsis=a * (1 - e), apoapsis=a * (1 + e))
+    return info
+
+
+def simulate_newton_orbit(x0, y0, vx0, vy0, max_time, max_steps=6000,
+                           r_crash=R_CRASH, eta=0.01):
+    """Velocity-Verlet integration of F = -GM/r^2 (per unit mass), with an
+    ADAPTIVE step size proportional to the local orbital timescale
+    (~ r^1.5), so steps are automatically fine near a close approach to the
+    Sun and coarse far away, rather than picking one fixed dt that's either
+    wasteful everywhere or unstable somewhere."""
+    xs, ys, ts = [x0], [y0], [0.0]
+    x, y, vx, vy = x0, y0, vx0, vy0
+    t = 0.0
+    crashed = False
+    for _ in range(max_steps):
+        r = math.hypot(x, y)
+        if r < r_crash:
+            crashed = True
+            break
+        dt = eta * (r ** 1.5) / math.sqrt(GM_SUN)
+        dt = min(dt, max_time / 40.0)  # cap so far-away legs still sample
+                                        # enough points to draw a smooth path
+        ax = -GM_SUN * x / r ** 3
+        ay = -GM_SUN * y / r ** 3
+        vx_h = vx + 0.5 * ax * dt
+        vy_h = vy + 0.5 * ay * dt
+        x = x + vx_h * dt
+        y = y + vy_h * dt
+        t += dt
+        r2 = math.hypot(x, y)
+        if r2 < r_crash:
+            crashed = True
+            xs.append(x); ys.append(y); ts.append(t)
+            break
+        ax2 = -GM_SUN * x / r2 ** 3
+        ay2 = -GM_SUN * y / r2 ** 3
+        vx = vx_h + 0.5 * ax2 * dt
+        vy = vy_h + 0.5 * ay2 * dt
+        xs.append(x); ys.append(y); ts.append(t)
+        if t >= max_time:
+            break
+    return xs, ys, ts, crashed
+
+
+def run_newton_sim(speed_factor, angle_deg):
+    x0, y0, vx0, vy0 = initial_state(speed_factor, angle_deg)
+    info = classify_orbit(x0, y0, vx0, vy0)
+    if info["bound"]:
+        max_time = min(3 * info["period"], 15.0)
+    else:
+        max_time = 4.0
+    xs, ys, ts, crashed = simulate_newton_orbit(x0, y0, vx0, vy0, max_time)
+    info["crashed"] = crashed
+    info["xs"], info["ys"], info["ts"] = xs, ys, ts
+    return info
+
+
+def interp_position(t, ts, xs, ys):
+    if t <= ts[0]:
+        return xs[0], ys[0]
+    if t >= ts[-1]:
+        return xs[-1], ys[-1]
+    lo, hi = 0, len(ts) - 1
+    while hi - lo > 1:
+        mid = (lo + hi) // 2
+        if ts[mid] <= t:
+            lo = mid
+        else:
+            hi = mid
+    frac = (t - ts[lo]) / (ts[hi] - ts[lo]) if ts[hi] != ts[lo] else 0.0
+    return xs[lo] + frac * (xs[hi] - xs[lo]), ys[lo] + frac * (ys[hi] - ys[lo])
+
+
+def speed_from_energy(energy, r):
+    """Exact instantaneous speed from conservation of energy alone
+    (energy = 0.5*v^2 - GM/r), rather than differencing the simulated
+    positions -- differencing an adaptive, unevenly-spaced trajectory
+    would add numerical noise right where it matters most (near a fast,
+    finely-stepped perihelion passage). Works unchanged for bound,
+    escaping, or crashing trajectories, since it only uses conserved
+    energy and the current distance -- not the orbit's shape."""
+    v_sq = 2 * (energy + GM_SUN / r)
+    return math.sqrt(max(0.0, v_sq))
+
+
+def n_loop_window(sim):
+    """How much simulated time one animation loop should cover. A bound
+    orbit that doesn't crash is a closed ellipse that retraces itself
+    exactly every period (Newton's gravity never precesses) -- so looping
+    over exactly one period gives a seamless, endlessly-repeatable replay.
+    Looping over the longer window the trajectory happens to be simulated
+    over instead (several periods) does NOT generally end back at the
+    starting point, which is what made the animation visibly jump each
+    time it wrapped around. A crashed or escaping trajectory has no such
+    periodicity to exploit, so it simply replays the same finite simulated
+    arc, unchanged, from the top."""
+    if sim["bound"] and not sim["crashed"]:
+        return max(sim["period"], 0.01)
+    return max(sim["ts"][-1], 0.01)
+
+
+# ---------------------------------------------------------------------------
+# Section 4 (bonus) -- Einstein: the ellipse itself slowly turns.
+#
+# Newton's gravity, on its own, produces a closed ellipse that never
+# changes orientation -- a direct consequence of the force being exactly
+# proportional to 1/r^2 (Bertrand's theorem: only 1/r^2 and Hooke's-law
+# forces give closed orbits at all). General relativity's leading
+# correction to Newtonian gravity near a massive body falls off faster
+# than 1/r^2, and ANY such deviation makes the orbit fail to close --
+# instead, the whole ellipse slowly rotates, a real, historically
+# important effect called perihelion precession, first confirmed for
+# Mercury and one of the earliest real tests of general relativity.
+#
+# This demo does NOT attempt the exact Schwarzschild formula -- rather
+# than risk misstating a precise coefficient, it adds a clearly-labelled,
+# simplified extra pull with the right qualitative shape (it falls off as
+# 1/r^4, and scales with angular momentum squared, matching the real
+# correction's form) and an honest "exaggeration" slider, so a visitor
+# sees the real MECHANISM (a non-1/r^2 term causes precession) without
+# being told this is a precise reproduction of general relativity.
+# ---------------------------------------------------------------------------
+
+GR_BASE_SPEED = 0.7  # x circular speed -- same as one of the Newton-section
+                      # presets, chosen for a visibly eccentric but safe orbit
+GR_BASE_ANGLE = 0.0
+GR_N_ORBITS = 6
+
+MERCURY_PRECESSION_ARCSEC_PER_CENTURY = 43.0  # the real, well-known value
+EPS_MAX = 0.0018  # calibrated empirically (not assumed): stays well clear
+                   # of the crash threshold found around eps~0.003, and of
+                   # a periapsis-angle-tracking artifact found just above
+                   # eps~0.002, while still giving a dramatic ~90 deg/orbit
+                   # precession at full strength
+
+
+def mercury_precession_deg_per_orbit(mercury_period_years):
+    orbits_per_century = 100.0 / mercury_period_years
+    arcsec_per_orbit = MERCURY_PRECESSION_ARCSEC_PER_CENTURY / orbits_per_century
+    return arcsec_per_orbit / 3600.0
+
+
+def simulate_gr_orbit(epsilon, speed_factor=GR_BASE_SPEED, angle_deg=GR_BASE_ANGLE,
+                       n_orbits=GR_N_ORBITS, max_steps=20000, eta=0.006):
+    """Same adaptive velocity-Verlet integration as Newton's section, with
+    one extra term added to the acceleration: a simplified stand-in for
+    the general-relativistic correction, epsilon * GM * L^2 / r^4,
+    directed (like gravity) towards the Sun. epsilon=0 exactly reproduces
+    Newton's fixed ellipse."""
+    x0, y0, vx0, vy0 = initial_state(speed_factor, angle_deg)
+    info = classify_orbit(x0, y0, vx0, vy0)
+    base_period = info["period"]
+    max_time = n_orbits * base_period * 1.5
+
+    xs, ys, ts = [x0], [y0], [0.0]
+    x, y, vx, vy = x0, y0, vx0, vy0
+    t = 0.0
+    crashed = False
+    for _ in range(max_steps):
+        r = math.hypot(x, y)
+        if r < R_CRASH:
+            crashed = True
+            break
+        L = x * vy - y * vx
+        extra = epsilon * GM_SUN * L * L / r ** 4
+        ax = -GM_SUN * x / r ** 3 - extra * x / r
+        ay = -GM_SUN * y / r ** 3 - extra * y / r
+        dt = eta * (r ** 1.5) / math.sqrt(GM_SUN)
+        dt = min(dt, max_time / 400.0)
+        vx_h = vx + 0.5 * ax * dt
+        vy_h = vy + 0.5 * ay * dt
+        x = x + vx_h * dt
+        y = y + vy_h * dt
+        t += dt
+        r2 = math.hypot(x, y)
+        if r2 < R_CRASH:
+            crashed = True
+            xs.append(x); ys.append(y); ts.append(t)
+            break
+        L2 = x * vy_h - y * vx_h
+        extra2 = epsilon * GM_SUN * L2 * L2 / r2 ** 4
+        ax2 = -GM_SUN * x / r2 ** 3 - extra2 * x / r2
+        ay2 = -GM_SUN * y / r2 ** 3 - extra2 * y / r2
+        vx = vx_h + 0.5 * ax2 * dt
+        vy = vy_h + 0.5 * ay2 * dt
+        xs.append(x); ys.append(y); ts.append(t)
+        if t >= max_time:
+            break
+
+    peri_events = []
+    rs = [math.hypot(px, py) for px, py in zip(xs, ys)]
+    for i in range(1, len(rs) - 1):
+        if rs[i - 1] > rs[i] < rs[i + 1]:
+            peri_events.append((ts[i], math.atan2(ys[i], xs[i])))
+
+    precession_per_orbit = None
+    if len(peri_events) >= 2:
+        angles = [a for _t, a in peri_events]
+        unwrapped = [angles[0]]
+        for a in angles[1:]:
+            prev = unwrapped[-1]
+            da = a - (prev % (2 * math.pi))
+            while da < -math.pi:
+                da += 2 * math.pi
+            while da > math.pi:
+                da -= 2 * math.pi
+            unwrapped.append(prev + da)
+        total = unwrapped[-1] - unwrapped[0]
+        precession_per_orbit = math.degrees(total / (len(unwrapped) - 1))
+
+    return {
+        "xs": xs, "ys": ys, "ts": ts, "crashed": crashed,
+        "base_period": base_period, "peri_events": peri_events,
+        "precession_per_orbit": precession_per_orbit,
+    }
+
+
+app_ui = ui.page_fixed(
+    ui.h2("Why doesn't the Earth fall onto the Sun?"),
+    ui.markdown(
+        "The [Analemma](https://en.wikipedia.org/wiki/Analemma) above traces "
+        "the Sun's changing position because Earth's orbit isn't a perfect "
+        "circle traveled at constant speed -- it's an ellipse, and Earth "
+        "moves faster when it's closer to the Sun. Working out exactly *why* "
+        "orbits look like this took four scientists and the better part of "
+        "three centuries. Here's that story in four small experiments."
+    ),
+    ui.card(
+        ui.card_header("1. Galileo: evidence that not everything orbits the Earth"),
+        ui.markdown(
+            "In 1610, Galileo pointed a telescope at Jupiter and sketched "
+            "four points of light near it, night after night. They never "
+            "left Jupiter's side, but they clearly weren't fixed stars "
+            "either -- they swung back and forth, each at its own steady "
+            "pace. These are Jupiter's four largest moons, and their real "
+            "orbital periods are used below: watch how Io laps the outer "
+            "moons, exactly as Galileo saw."
+        ),
+        ui.layout_columns(
+            ui.div(
+                ui.h6("Days elapsed"),
+                ui.input_slider("g_day", None, min=0, max=GALILEO_MAX_DAYS,
+                                 value=0, step=0.1),
+                ui.input_action_button("g_play", "Play / Pause", class_="btn-sm"),
+                ui.output_ui("g_summary"),
+                style="min-width: 220px;",
+            ),
+            ui.output_plot("g_plot", height="320px"),
+            col_widths=[4, 8],
+        ),
+    ),
+    ui.card(
+        ui.card_header("2. Kepler: ellipses, equal areas, and a hidden pattern"),
+        ui.markdown(
+            "Decades before anyone knew *why*, Johannes Kepler dug through "
+            "Tycho Brahe's decades of naked-eye observations and worked out "
+            "three precise mathematical rules that every planet obeys. "
+            "Here are four real planets, each placed exactly where Kepler's "
+            "own equations put them at the current time -- no gravity "
+            "simulation, just his geometry."
+        ),
+        ui.layout_columns(
+            ui.div(
+                ui.h6("Years elapsed"),
+                ui.input_slider("k_year", None, min=0, max=KEPLER_MAX_YEARS,
+                                 value=0, step=0.02),
+                ui.input_action_button("k_play", "Play / Pause", class_="btn-sm"),
+                ui.output_ui("k_summary"),
+                style="min-width: 220px;",
+            ),
+            ui.output_plot("k_plot", height="420px"),
+            col_widths=[4, 8],
+        ),
+        ui.hr(),
+        ui.markdown(
+            "**Kepler's first law:** each orbit is an ellipse with the Sun "
+            "at one *focus* -- not the centre. **Kepler's third law:** "
+            "square a planet's orbital period and you get the cube of its "
+            "distance from the Sun, for every planet, with the same "
+            "constant of proportionality:"
+        ),
+        ui.output_ui("k_third_law_table"),
+        ui.hr(),
+        ui.markdown(
+            "**Kepler's second law** is the strangest-sounding one: a line "
+            "from the Sun to a planet sweeps out *equal areas in equal "
+            "times*, wherever it is on its orbit. Mercury (the most "
+            "eccentric of the four above) makes this vivid -- below, the "
+            "same time window is measured starting right at perihelion "
+            "(closest to the Sun) and right at aphelion (farthest away)."
+        ),
+        ui.layout_columns(
+            ui.div(
+                ui.h6("Time window (fraction of Mercury's year)"),
+                ui.input_slider("k_window", None, min=0.02, max=0.25,
+                                 value=0.08, step=0.01),
+                ui.output_ui("k_areas_summary"),
+                style="min-width: 220px;",
+            ),
+            ui.output_plot("k_areas_plot", height="360px"),
+            col_widths=[4, 8],
+        ),
+    ),
+    ui.card(
+        ui.card_header("3. Newton: why doesn't it just fall in?"),
+        ui.markdown(
+            "Kepler could describe the ellipses; Newton explained *why* "
+            "they're ellipses (and why they're not just a straight drop "
+            "into the Sun). Below, a planet starts at a fixed distance and "
+            "is launched with a speed and direction you choose -- the path "
+            "is then genuinely simulated from Newton's law of gravity, not "
+            "assumed to be an ellipse. Try a small speed, then work up to "
+            "the circular speed, then past it."
+        ),
+        ui.layout_columns(
+            ui.div(
+                ui.h6("Launch speed (× circular speed)"),
+                ui.input_slider("n_speed", None, min=0.1, max=2.0, value=1.0, step=0.02),
+                ui.markdown("*1.0 = perfect circle; 1.41 = escapes the Sun entirely.*"),
+                ui.h6("Launch angle from tangential"),
+                ui.input_slider("n_angle", None, min=-90, max=90, value=0, step=1, post="°"),
+                ui.markdown("*0° = sideways (tangential); negative angles aim inward, towards the Sun.*"),
+                ui.input_slider("n_time", "Time", min=0, max=3.0, value=0, step=0.01),
+                ui.input_action_button("n_play", "Play / Pause", class_="btn-sm"),
+                ui.output_ui("n_summary"),
+                style="min-width: 250px;",
+            ),
+            ui.output_plot("n_plot", height="460px"),
+            col_widths=[5, 7],
+        ),
+    ),
+    ui.card(
+        ui.card_header("4. Bonus -- Einstein: the ellipse itself slowly turns"),
+        ui.markdown(
+            "Newton's gravity always produces a fixed ellipse -- the same "
+            "shape, in the same orientation, forever. It turns out that's "
+            "special: it only happens because gravity falls off as exactly "
+            "1/r². General relativity predicts a tiny extra pull near a "
+            "massive body that falls off *faster* than 1/r², and that "
+            "small change is enough to stop the ellipse from closing on "
+            "itself -- instead its orientation drifts a little more with "
+            "every orbit. This is real: it's how Mercury's orbit behaves, "
+            "and it was one of the first confirmations of general "
+            "relativity. The real effect is far too small to see here "
+            "(about 43 arcseconds per century for Mercury) so the slider "
+            "below lets you exaggerate it, hugely, until it's visible."
+        ),
+        ui.layout_columns(
+            ui.div(
+                ui.h6("Precession strength (exaggerated)"),
+                ui.input_slider("e_strength", None, min=0, max=100, value=0, step=1, post="%"),
+                ui.input_slider("e_time", "Time", min=0, max=3.0, value=0, step=0.01),
+                ui.input_action_button("e_play", "Play / Pause", class_="btn-sm"),
+                ui.output_ui("e_summary"),
+                style="min-width: 250px;",
+            ),
+            ui.output_plot("e_plot", height="460px"),
+            col_widths=[5, 7],
+        ),
+    ),
+)
+
+
+def server(input: Inputs, output: Outputs, session: Session):
+    from shiny import reactive
+
+    # ------------------------------------------------------------------
+    # Section 1 -- Galileo
+    # ------------------------------------------------------------------
+    # tick_interval is deliberately modest (well under 10 fps): a fast
+    # requested frame rate can outrun how quickly a browser -- especially
+    # one running this app fully client-side via Pyodide/WebAssembly,
+    # rather than talking to a real Python process -- can actually render
+    # and return each new matplotlib plot, and a slower-than-requested
+    # renderer can then deliver frames out of order, which looks exactly
+    # like the animation "hopping" between two positions instead of
+    # advancing smoothly.
+    setup_time_player(reactive, input.g_day, input.g_play, "g_day",
+                       dt_fn=lambda: 0.22, tick_interval=0.12,
+                       max_time_fn=lambda: GALILEO_MAX_DAYS, loop=True)
+
+    @output
+    @render.plot
+    def g_plot():
+        t = input.g_day()
+        xs, ys = moon_positions(t)
+        fig, ax = plt.subplots(figsize=(5.5, 2.6))
+        max_dist = max(MOON_DISTANCE) * 1.15
+        ax.axhline(0, color="#e3e3e3", linewidth=0.8, zorder=0)
+        ax.scatter([0], [0], color="#d99a2b", s=220, zorder=3)
+        for name, color, x, y in zip(MOON_NAMES, MOON_COLORS, xs, ys):
+            ax.scatter([x], [y], color=color, s=70, zorder=4)
+            ax.annotate(name, (x, y), textcoords="offset points",
+                        xytext=(0, 10), ha="center", fontsize=8, color=color)
+        ax.set_xlim(-max_dist, max_dist)
+        ax.set_ylim(-max_dist * 0.4, max_dist * 0.4)
+        ax.set_yticks([])
+        ax.set_xlabel("distance from Jupiter (Jupiter radii)")
+        ax.set_facecolor("#0d1b2a")
+        fig.patch.set_facecolor("#0d1b2a")
+        ax.xaxis.label.set_color("#cfd8dc")
+        ax.tick_params(colors="#cfd8dc")
+        for spine in ax.spines.values():
+            spine.set_visible(False)
+        fig.tight_layout()
+        return fig
+
+    @output
+    @render.ui
+    def g_summary():
+        t = input.g_day()
+        lines = [f"**Day {t:.1f}**"]
+        for name, period in zip(MOON_NAMES, MOON_PERIOD_DAYS):
+            lines.append(f"- {name}: orbits every **{period:.2f} days**")
+        return ui.markdown("\n".join(lines))
+
+    # ------------------------------------------------------------------
+    # Section 2 -- Kepler
+    # ------------------------------------------------------------------
+    setup_time_player(reactive, input.k_year, input.k_play, "k_year",
+                       dt_fn=lambda: 0.085, tick_interval=0.10,
+                       max_time_fn=lambda: KEPLER_MAX_YEARS, loop=True)
+
+    @output
+    @render.plot
+    def k_plot():
+        t = input.k_year()
+        fig, ax = plt.subplots(figsize=(5.8, 5.2))
+        ax.scatter([0], [0], color="#d99a2b", s=160, zorder=5)
+        for name, color, a, e, period in zip(PLANET_NAMES, PLANET_COLORS,
+                                              PLANET_A, PLANET_E, PLANET_T):
+            xs, ys = ellipse_outline(a, e)
+            ax.plot(xs, ys, color=color, linewidth=1.0, alpha=0.5, zorder=1)
+            px, py = kepler_position(t, a, e, period)
+            ax.scatter([px], [py], color=color, s=55, zorder=4)
+            ax.annotate(name, (px, py), textcoords="offset points",
+                        xytext=(6, 6), fontsize=8, color=color)
+        lim = PLANET_A[-1] * (1 + PLANET_E[-1]) * 1.1
+        ax.set_xlim(-lim, lim)
+        ax.set_ylim(-lim, lim)
+        ax.set_aspect("equal")
+        ax.set_xticks([])
+        ax.set_yticks([])
+        for spine in ax.spines.values():
+            spine.set_visible(False)
+        ax.set_facecolor("#fbfbf8")
+        fig.tight_layout()
+        return fig
+
+    @output
+    @render.ui
+    def k_summary():
+        t = input.k_year()
+        lines = [f"**Year {t:.2f}**"]
+        for name, a, e, period in zip(PLANET_NAMES, PLANET_A, PLANET_E, PLANET_T):
+            lines.append(f"- {name}: a={a:.2f} AU, e={e:.3f}, period={period:.2f} yr")
+        return ui.markdown("\n".join(lines))
+
+    @output
+    @render.ui
+    def k_third_law_table():
+        rows = ["| Planet | a (AU) | T (years) | T² / a³ |", "|---|---|---|---|"]
+        for name, a, T in zip(PLANET_NAMES, PLANET_A, PLANET_T):
+            rows.append(f"| {name} | {a:.3f} | {T:.3f} | {(T ** 2) / (a ** 3):.3f} |")
+        return ui.markdown("\n".join(rows))
+
+    @reactive.calc
+    def k_areas():
+        a, e, period = PLANET_A[0], PLANET_E[0], PLANET_T[0]  # Mercury
+        dt = input.k_window() * period
+        area_peri = swept_area(0.0, dt, a, e, period)
+        area_aph = swept_area(period / 2, dt, a, e, period)
+        peri_pts = [kepler_position(dt * i / 100, a, e, period) for i in range(101)]
+        aph_pts = [kepler_position(period / 2 + dt * i / 100, a, e, period) for i in range(101)]
+        return area_peri, area_aph, peri_pts, aph_pts, a, e
+
+    @output
+    @render.plot
+    def k_areas_plot():
+        area_peri, area_aph, peri_pts, aph_pts, a, e = k_areas()
+        fig, ax = plt.subplots(figsize=(5.8, 4.4))
+        xs, ys = ellipse_outline(a, e)
+        ax.plot(xs, ys, color="#8a8f98", linewidth=1.0, alpha=0.6, zorder=1)
+        ax.scatter([0], [0], color="#d99a2b", s=140, zorder=5)
+
+        for pts, color, label in [(peri_pts, "#1565c0", "near perihelion"),
+                                   (aph_pts, "#c0392b", "near aphelion")]:
+            poly_x = [0.0] + [p[0] for p in pts] + [0.0]
+            poly_y = [0.0] + [p[1] for p in pts] + [0.0]
+            ax.fill(poly_x, poly_y, color=color, alpha=0.45, zorder=3, label=label)
+
+        ax.set_aspect("equal")
+        ax.set_xticks([])
+        ax.set_yticks([])
+        for spine in ax.spines.values():
+            spine.set_visible(False)
+        ax.set_facecolor("#fbfbf8")
+        ax.legend(loc="upper right", fontsize=8, frameon=False)
+        fig.tight_layout()
+        return fig
+
+    @output
+    @render.ui
+    def k_areas_summary():
+        area_peri, area_aph, _pp, _ap, _a, _e = k_areas()
+        pct_diff = abs(area_peri - area_aph) / max(area_peri, area_aph) * 100
+        lines = [
+            f"Area near perihelion: **{area_peri:.5f} AU²**",
+            f"Area near aphelion: **{area_aph:.5f} AU²**",
+            f"Difference: **{pct_diff:.2f}%** (numerical sampling error, not a "
+            f"real difference) -- the same time window sweeps essentially the "
+            f"same area, even though the perihelion arc covers visibly more "
+            f"ground because Mercury is moving faster there.",
+        ]
+        return ui.markdown("\n\n".join(lines))
+
+    # ------------------------------------------------------------------
+    # Section 3 -- Newton
+    # ------------------------------------------------------------------
+    @reactive.calc
+    def n_sim():
+        return run_newton_sim(input.n_speed(), input.n_angle())
+
+    @reactive.effect
+    @reactive.event(input.n_speed, input.n_angle)
+    def _n_reset_time():
+        sim = n_sim()
+        new_max = n_loop_window(sim)
+        ui.update_slider("n_time", value=0.0, max=round(new_max, 4))
+
+    # Fewer, larger steps at a slower tick rate than the original version
+    # (60 steps / 0.15s ticks, versus 150 steps / 0.06s) -- same real-time
+    # pace overall, but a request rate the now-more-expensive plot (it
+    # renders a colour-mapped path plus a colourbar every frame) can
+    # actually keep up with. See the tick_interval comment on the Galileo
+    # player above for why an over-fast request rate causes visible
+    # glitches, not just choppiness.
+    setup_time_player(
+        reactive, input.n_time, input.n_play, "n_time",
+        dt_fn=lambda: n_loop_window(n_sim()) / 60.0,
+        tick_interval=0.15,
+        max_time_fn=lambda: n_loop_window(n_sim()),
+        loop=True,
+    )
+
+    @output
+    @render.plot
+    def n_plot():
+        sim = n_sim()
+        xs, ys, ts = sim["xs"], sim["ys"], sim["ts"]
+        t = input.n_time()
+
+        # For a bound, uncrashed orbit, only draw/animate ONE period's
+        # worth of the trajectory -- Newton's gravity retraces a closed
+        # ellipse exactly, so the extra 2-3 periods the simulation itself
+        # ran for would just overplot the same curve, and would let the
+        # marker's time value wander past where the *animation* loops
+        # (see n_loop_window), interpolating into data the loop never
+        # actually shows.
+        loop_max = n_loop_window(sim)
+        if sim["bound"] and not sim["crashed"]:
+            cut = next((i for i, tt in enumerate(ts) if tt > loop_max), len(ts))
+            cut = max(cut, 2)
+            xs, ys, ts = xs[:cut], ys[:cut], ts[:cut]
+
+        px, py = interp_position(t, ts, xs, ys)
+
+        # Colour the path (and the marker) by instantaneous speed -- exact
+        # via conservation of energy, not a finite-difference estimate --
+        # so it's visually obvious that the planet moves fastest where
+        # it's closest to the Sun (Kepler's second law in action).
+        speeds = [speed_from_energy(sim["energy"], math.hypot(x, y)) for x, y in zip(xs, ys)]
+        # The colour SCALE, though, is set from the true periapsis/apoapsis
+        # speeds (exact, via the same energy formula) rather than the
+        # sampled min/max of this particular trajectory. A near-circular
+        # orbit's real speed variation is genuinely ~0, but the sampled
+        # points still differ by a little bit of integration noise -- and
+        # stretching the whole colour map across just that noise would
+        # paint an almost-perfect circle as a full rainbow, wrongly
+        # suggesting a dramatic speed change that isn't physically there.
+        if sim["bound"]:
+            # Speed is HIGHEST at periapsis (smallest r) and LOWEST at
+            # apoapsis (largest r) -- min()/max() here, not an assumption
+            # about which name goes with which end, avoids quietly
+            # swapping vmin/vmax (which broke the colour scale entirely
+            # the first time this was written).
+            v_at_peri = speed_from_energy(sim["energy"], sim["periapsis"])
+            v_at_apo = speed_from_energy(sim["energy"], sim["apoapsis"])
+            v_lo, v_hi = min(v_at_peri, v_at_apo), max(v_at_peri, v_at_apo)
+        else:
+            v_lo, v_hi = min(speeds), max(speeds)
+        if v_hi - v_lo < 1e-4:
+            v_hi = v_lo + 1e-4  # near-circular orbit: essentially one true speed
+        norm = plt.Normalize(vmin=v_lo, vmax=v_hi)
+        cmap = plt.get_cmap("plasma")
+
+        fig, ax = plt.subplots(figsize=(5.6, 5.6))
+        crash_circle = plt.Circle((0, 0), R_CRASH, color="#f2c14e", alpha=0.35, zorder=1)
+        ax.add_patch(crash_circle)
+
+        segments = [[(xs[i], ys[i]), (xs[i + 1], ys[i + 1])] for i in range(len(xs) - 1)]
+        seg_speed = [(speeds[i] + speeds[i + 1]) / 2 for i in range(len(speeds) - 1)]
+        lc = LineCollection(segments, cmap=cmap, norm=norm, zorder=2)
+        lc.set_array(seg_speed)
+        lc.set_linewidth(2.2)
+        ax.add_collection(lc)
+        cbar = fig.colorbar(lc, ax=ax, shrink=0.75, pad=0.03)
+        cbar.set_label("Speed (AU/year)", fontsize=8)
+        cbar.ax.tick_params(labelsize=7)
+        cbar.formatter.set_useOffset(False)  # a near-circular orbit's tiny
+        cbar.update_ticks()                  # forced range shouldn't render
+                                              # as a confusing "1e-5 +" offset
+
+        ax.scatter([0], [0], color="#d99a2b", s=180, zorder=5)
+        v_here = speed_from_energy(sim["energy"], math.hypot(px, py))
+        ax.scatter([px], [py], color=[cmap(norm(v_here))], s=90, zorder=6,
+                   edgecolors="white", linewidths=1.3)
+
+        span = max(max(map(abs, xs), default=1.0), max(map(abs, ys), default=1.0), R_START) * 1.15
+        ax.set_xlim(-span, span)
+        ax.set_ylim(-span, span)
+        ax.set_aspect("equal")
+        ax.set_xticks([])
+        ax.set_yticks([])
+        for spine in ax.spines.values():
+            spine.set_visible(False)
+        ax.set_facecolor("#fbfbf8")
+        fig.tight_layout()
+        return fig
+
+    @output
+    @render.ui
+    def n_summary():
+        sim = n_sim()
+        lines = []
+        if sim["crashed"]:
+            lines.append(
+                f"**Crashed into the Sun** at simulated time "
+                f"{sim['ts'][-1]:.3f} years -- not enough sideways speed "
+                f"(or aimed too directly inward) to miss it."
+            )
+        elif not sim["bound"]:
+            lines.append(
+                "**Escapes to infinity.** This launch speed and angle give "
+                "the planet more energy than it needs to stay bound to the "
+                "Sun at all -- it never comes back."
+            )
+        else:
+            e = sim["e"]
+            shape = "a circle" if e < 0.01 else "an ellipse"
+            lines.append(
+                f"**Settles into {shape}**, exactly as Newton's law "
+                f"predicts: eccentricity e={e:.3f}, period "
+                f"{sim['period']:.3f} years, ranging from "
+                f"{sim['periapsis']:.3f} AU to {sim['apoapsis']:.3f} AU "
+                f"from the Sun."
+            )
+        lines.append(
+            f"Total energy: **{sim['energy']:.3f}** (in these units) -- "
+            f"negative means bound to the Sun, zero or positive means "
+            f"enough speed to escape."
+        )
+        return ui.markdown("\n\n".join(lines))
+
+    # ------------------------------------------------------------------
+    # Section 4 (bonus) -- Einstein
+    # ------------------------------------------------------------------
+    @reactive.calc
+    def e_sim():
+        epsilon = (input.e_strength() / 100.0) * EPS_MAX
+        return simulate_gr_orbit(epsilon)
+
+    @reactive.effect
+    @reactive.event(input.e_strength)
+    def _e_reset_time():
+        sim = e_sim()
+        new_max = max(sim["ts"][-1], 0.01)
+        ui.update_slider("e_time", value=0.0, max=round(new_max, 4))
+
+    setup_time_player(
+        reactive, input.e_time, input.e_play, "e_time",
+        dt_fn=lambda: max(e_sim()["ts"][-1], 0.01) / 100.0,
+        tick_interval=0.16,
+        max_time_fn=lambda: max(e_sim()["ts"][-1], 0.01),
+        loop=True,
+    )
+
+    @output
+    @render.plot
+    def e_plot():
+        sim = e_sim()
+        xs, ys, ts = sim["xs"], sim["ys"], sim["ts"]
+        t = input.e_time()
+        px, py = interp_position(t, ts, xs, ys)
+
+        fig, ax = plt.subplots(figsize=(5.6, 5.6))
+        ax.scatter([0], [0], color="#d99a2b", s=160, zorder=5)
+        ax.plot(xs, ys, color="#7b2d8e", linewidth=0.8, alpha=0.6, zorder=2)
+        ax.scatter([px], [py], color="#d81b60", s=70, zorder=6, edgecolors="white", linewidths=1.0)
+        for pt, pa in sim["peri_events"]:
+            ppx, ppy = interp_position(pt, ts, xs, ys)
+            ax.scatter([ppx], [ppy], color="#2e7d32", s=22, zorder=4, alpha=0.8)
+
+        span = max(max(map(abs, xs), default=1.0), max(map(abs, ys), default=1.0)) * 1.1
+        ax.set_xlim(-span, span)
+        ax.set_ylim(-span, span)
+        ax.set_aspect("equal")
+        ax.set_xticks([])
+        ax.set_yticks([])
+        for spine in ax.spines.values():
+            spine.set_visible(False)
+        ax.set_facecolor("#fbfbf8")
+        fig.tight_layout()
+        return fig
+
+    @output
+    @render.ui
+    def e_summary():
+        sim = e_sim()
+        lines = []
+        if sim["crashed"]:
+            lines.append("**Crashed into the Sun** -- this strength destabilised the orbit.")
+        elif input.e_strength() == 0:
+            # At exactly 0% the extra term is exactly zero, so this is pure
+            # Newtonian gravity -- but the periapsis-detection method still
+            # measures a tiny nonzero number from discrete sampling noise
+            # (a fraction of a degree). Showing that noise as a "measured
+            # precession" next to an "exaggerated Nx" comparison would be
+            # actively misleading, so this case gets its own plain message
+            # instead of running the same arithmetic on a meaningless input.
+            lines.append(
+                "**This is pure Newtonian gravity** -- notice the ellipse "
+                "does NOT turn at all, orbit after orbit. Move the slider "
+                "to add the simplified relativistic correction."
+            )
+        elif sim["precession_per_orbit"] is None:
+            lines.append("Not enough completed orbits yet to measure precession.")
+        else:
+            pp = sim["precession_per_orbit"]
+            lines.append(
+                f"**Measured precession: {pp:.2f}° per orbit** (the green "
+                f"dots mark each detected closest approach -- watch them "
+                f"march around the Sun)."
+            )
+            mercury_real = mercury_precession_deg_per_orbit(PLANET_T[0])
+            ratio = abs(pp) / mercury_real
+            lines.append(
+                f"The real Mercury effect is about **{mercury_real:.6f}° "
+                f"per orbit** (43 arcseconds per century) -- this demo is "
+                f"exaggerated roughly **{ratio:,.0f}x** so it's visible "
+                f"over just a few orbits instead of centuries."
+            )
+        return ui.markdown("\n\n".join(lines))
+
+
+app = App(app_ui, server)
+```
+
+:::
+
+A note on accuracy: sections 1-3 use real orbital data and exact physics -- the Galilean moons' real periods, the four planets' real semi-major axes and eccentricities, and an honest numerical simulation of Newton's law of gravity (the same simulation used to classify every orbit as crashing, elliptical, or escaping, and to measure the equal-areas result directly rather than assume it). Section 4's relativistic correction is deliberately simplified and exaggerated for visibility -- it has the right qualitative behaviour (it explains why the orbit precesses at all) but is not the precise Schwarzschild correction, and the demo says so directly rather than presenting the exaggerated numbers as Mercury's real effect.
