@@ -2,23 +2,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Fibonacci Numbers</title>
+<title>Fibonacci Numbers – Maths Trail at the Dundee Botanic Gardens</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
+code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: 1.5em;}
-div.column{flex: auto;}
-@media screen {
-div.columns{gap: min(4vw, 1.5em);}
-div.column{overflow-x: auto;}
-}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -30,21 +27,24 @@ ul.task-list li input[type="checkbox"] {
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./fractal.html" rel="next">
+<link href="./curvature.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-445b8638c3d06994fee0907d791121c4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-5ccb035bea26c1e21f80f44cf7c27909.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -72,9 +72,47 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="js_apps_switch.js"></script>
+<style>
+  /* Hides every interactive app's own element immediately -- before the
+     page has even finished parsing -- in every build (website page or
+     booklet chapter). Each app's own div id always ends "-app" (circ-app,
+     leaf-app, bee-app, fern-app, konig-app, phyllo-js-app, tree-app,
+     gal-app, kep-app, new-app, ein-app), which stays the same no matter
+     how Quarto wraps the surrounding figure for a given build format. */
+  html[data-js-apps="off"] [id$="-app"] {
+    display: none !important;
+  }
+  /* Belt-and-braces for browsers that support :has(): also hide the
+     whole numbered figure (app + its "Figure N" caption) around each
+     app, including the Travelling Salesman map (fig-tsp), so no empty
+     caption is left behind on the page. */
+  html[data-js-apps="off"] figure:has(
+    [id^="fig-galileo-moons"], [id^="fig-kepler-orbits"],
+    [id^="fig-newton-gravity"], [id^="fig-einstein-precession"],
+    [id^="fig-circadian"], [id^="fig-leaf-growth"],
+    [id^="fig-fibonacci-bees"], [id^="fig-fractal-fern"],
+    [id^="fig-konigsberg"], [id^="fig-phyllotaxis"],
+    [id^="fig-tsp"], [id^="fig-tree-height"]
+  ) {
+    display: none !important;
+  }
+</style>
+<script>
+  /* Fallback for browsers without :has() support: once the page body
+     has loaded, hide the whole figure/caption around each app the same
+     way, by walking up from the app element itself. */
+  document.addEventListener("DOMContentLoaded", function () {
+    if (window.SHOW_JS_APPS !== false) return;
+    document.querySelectorAll('[id$="-app"], [id^="fig-tsp"]').forEach(function (el) {
+      var figure = el.closest("figure") || el.closest('[id^="fig-"]') || el;
+      figure.style.display = "none";
+    });
+  });
+</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -103,32 +141,130 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="mobile.css">
 </head>
 
-<body class="quarto-light">
+<body class="nav-sidebar floating fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fibonacci.html"><span class="chapter-title">Fibonacci Numbers</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#fibonacci-sequence" id="toc-fibonacci-sequence" class="nav-link active" data-scroll-target="#fibonacci-sequence">Fibonacci Sequence</a></li>
-  <li><a href="#why-fibonacci-numbers-appear" id="toc-why-fibonacci-numbers-appear" class="nav-link" data-scroll-target="#why-fibonacci-numbers-appear">Why Fibonacci numbers appear?</a></li>
-  </ul>
-</nav>
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Maths Trail at the Dundee Botanic Gardens</a> 
     </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Maths Week Scotland - Dundee University</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./analemma.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Analemma Project</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./birdsong.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bird Song</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./circadian.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Circadian Rhythm</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./curvature.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why leaves crinkle: differential growth in a disc</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fibonacci.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Fibonacci Numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fractal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fractal</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./helicopter.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Helicopter Seeds</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./konigsberg.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Seven Bridges of Königsberg</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./phyllotaxis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phyllotaxis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./salesman.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Travelling Salesman problem</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./spirals.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Logarithmic Spiral</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./symmetry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Symmetry in Plants</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./trigonometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Estimating the Height of a Tree using Trigonometry</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./questionnaire.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">End of Maths Trail Questionnaire</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Fibonacci Numbers</h1>
+<h1 class="title"><span class="chapter-title">Fibonacci Numbers</span></h1>
 </div>
 
 
@@ -145,11 +281,11 @@ window.Quarto = {
 </header>
 
 
-<p>Look at a pinecone from the bottom. How many spirals go in the clockwise direction (green lines)? How many spirals go in the counter-clockwise direction (yellow lines)? Wouldn’t you expect that they would be the same?</p>
+<p>Look at a pinecone from the bottom. How many spirals go in the clockwise direction (green lines in the photo)? How many spirals go in the counter-clockwise direction (yellow lines)? Wouldn’t you expect that they would be the same?</p>
 <p>Image from the <a href="https://www.mensaforkids.org/teach/lesson-plans/fabulous-fibonacci/">MENSA for Kids</a> that shows Fibonacci numbers in pinecone:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/Fibonacci-pinecones.jpg" class="img-fluid figure-img"></p>
+<p><img src="figures/Fibonacci-pinecones.jpg" class="img-fluid figure-img" style="width:2.4in"></p>
 <figcaption>Fibonacci Numbers in Pinecone. There are <span class="math inline">\(8\)</span> spirals in the clockwise direction and <span class="math inline">\(13\)</span> spirals in the counter-clockwise direction.</figcaption>
 </figure>
 </div>
@@ -160,6 +296,388 @@ window.Quarto = {
 </section>
 <section id="why-fibonacci-numbers-appear" class="level2">
 <h2 class="anchored" data-anchor-id="why-fibonacci-numbers-appear">Why Fibonacci numbers appear?</h2>
+<p>Here’s a completely different place they turn up: the family tree of a honeybee.</p>
+<p>Honeybees are haplodiploid. A fertilised egg develops into a female – a worker or a queen – with two parents: a mother and a father. An unfertilised egg develops into a male drone, with only <em>one</em> parent: his mother. Drones have no father at all.</p>
+<p>Follow a single drone’s family tree back through the generations using that one rule, and count how many ancestors he has at each generation.</p>
+</section>
+<section id="the-bee-family-tree" class="level2">
+<h2 class="anchored" data-anchor-id="the-bee-family-tree">The Bee Family Tree</h2>
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fibonacci-bees-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<style>
+  #bee-app, #bee-app * { box-sizing: border-box; }
+  #bee-app {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: flex-start;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    max-width: 1040px;
+    text-align: left;
+  }
+  #bee-app h5,
+  #bee-app label,
+  #bee-summary {
+    text-align: left;
+  }
+  #bee-app .sidebar {
+    flex: 0 0 240px;
+    min-width: 0;
+  }
+  #bee-app .canvas-wrap {
+    flex: 1 1 400px;
+    min-width: 0;
+  }
+  #bee-app h5 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+  }
+  #bee-app label {
+    display: block;
+    font-size: 13px;
+    margin: 10px 0 4px 0;
+    line-height: 1.3;
+  }
+  #bee-app input[type="range"] {
+    width: 100%;
+  }
+  #bee-app hr {
+    margin: 14px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+  }
+  #bee-summary {
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  #bee-canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+    background: #ffffff;
+  }
+  @media (max-width: 520px) {
+    #bee-app { gap: 8px; }
+    #bee-app h5 { font-size: 12px; }
+    #bee-app label { font-size: 11px; margin: 8px 0 3px 0; }
+    #bee-summary { font-size: 11px; line-height: 1.45; }
+    #bee-app hr { margin: 10px 0; }
+  }
+</style>
+
+<div id="bee-app">
+  <div class="sidebar">
+    <h5 class="anchored">Ancestors</h5>
+    <label for="bee-n_gen">How many generations back? <strong id="bee-n_gen-val">6</strong></label>
+    <input id="bee-n_gen" type="range" min="1" max="9" step="1" value="6">
+    <hr>
+    <div id="bee-summary"></div>
+  </div>
+  <div class="canvas-wrap">
+    <canvas id="bee-canvas" width="640" height="700"></canvas>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  if (window.SHOW_JS_APPS === false) return;
+
+  // -------------------------------------------------------------------
+  // Why honeybee ancestry follows the Fibonacci sequence, ported 1:1
+  // from the Python/Shinylive version (fibonacci_py.qmd) -- same
+  // recursion, same layout, same counts -- as plain JavaScript drawing
+  // to a <canvas>, with no Python runtime to download.
+  //
+  // Honeybees (and other bees, wasps and ants) are haplodiploid: a
+  // fertilised egg develops into a female (a worker or queen, with two
+  // parents -- a mother and a father), while an unfertilised egg
+  // develops into a male drone, with only one parent -- his mother.
+  // Drones have no father at all.
+  //
+  // Trace a single drone's family tree back through the generations.
+  // His single parent (his mother) is female, so *she* has two parents.
+  // One of those two is male, so he in turn has only one parent. The
+  // branching rule at every node is exactly the rule that generates the
+  // Fibonacci recurrence: a male has one child, a female has two
+  // children (one male, one female) -- so the number of ancestors n
+  // generations back is F(n+1), the Fibonacci sequence itself, with no
+  // extra assumptions or approximations required.
+  // -------------------------------------------------------------------
+
+  var MAX_GEN = 9;
+  var MALE_COLOR = "#3d6fb4";
+  var FEMALE_COLOR = "#e0a319";
+  var EDGE_COLOR = "#b7b7b7";
+
+  // A drone (sex "M") has one parent (his mother, "F"). A female ("F")
+  // has two parents, one of each sex. Stops after gensLeft generations.
+  function buildTree(sex, gensLeft) {
+    var node = { sex: sex, children: [] };
+    if (gensLeft > 0) {
+      if (sex === "M") {
+        node.children = [buildTree("F", gensLeft - 1)];
+      } else {
+        node.children = [buildTree("F", gensLeft - 1), buildTree("M", gensLeft - 1)];
+      }
+    }
+    return node;
+  }
+
+  // Assigns each node an (x, y) position: y = generations back (0 at
+  // the bee itself), x = leaf order, with internal nodes centred over
+  // their children -- a standard tidy-tree layout.
+  function layout(root) {
+    var leafX = 0;
+
+    function walk(node, depth) {
+      node.y = depth;
+      if (node.children.length === 0) {
+        node.x = leafX;
+        leafX += 1;
+      } else {
+        for (var i = 0; i < node.children.length; i++) walk(node.children[i], depth + 1);
+        var sum = 0;
+        for (var j = 0; j < node.children.length; j++) sum += node.children[j].x;
+        node.x = sum / node.children.length;
+      }
+    }
+
+    walk(root, 0);
+    return root;
+  }
+
+  function countsByGeneration(root, maxGen) {
+    var counts = new Array(maxGen + 1).fill(0);
+
+    function walk(node, depth) {
+      counts[depth] += 1;
+      for (var i = 0; i < node.children.length; i++) walk(node.children[i], depth + 1);
+    }
+
+    walk(root, 0);
+    return counts;
+  }
+
+  function collectEdges(node, edges) {
+    for (var i = 0; i < node.children.length; i++) {
+      edges.push([node, node.children[i]]);
+      collectEdges(node.children[i], edges);
+    }
+  }
+
+  function collectNodes(node, out) {
+    out.push(node);
+    for (var i = 0; i < node.children.length; i++) collectNodes(node.children[i], out);
+  }
+
+  // -------------------------------------------------------------------
+  // Drawing.
+  // -------------------------------------------------------------------
+  function drawTree(ctx, root, nGen, rect) {
+    var left = rect.x + 50, right = rect.x + rect.w - 15;
+    var top = rect.y + 26, bottom = rect.y + rect.h - 10;
+
+    var nodes = [];
+    collectNodes(root, nodes);
+    var xs = nodes.map(function (n) { return n.x; });
+    var xmin = Math.min.apply(null, xs), xmax = Math.max.apply(null, xs);
+
+    function sx(x) {
+      return xmax > xmin ? left + ((x - xmin) / (xmax - xmin)) * (right - left) : (left + right) / 2;
+    }
+    function sy(y) {
+      return nGen > 0 ? top + (y / nGen) * (bottom - top) : (top + bottom) / 2;
+    }
+
+    // Title.
+    ctx.fillStyle = "#222";
+    ctx.font = "bold 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "alphabetic";
+    ctx.fillText("One drone's family tree", rect.x + rect.w / 2, rect.y + 16);
+
+    // Edges.
+    var edges = [];
+    collectEdges(root, edges);
+    ctx.strokeStyle = EDGE_COLOR;
+    ctx.lineWidth = 1.0;
+    for (var i = 0; i < edges.length; i++) {
+      var parent = edges[i][0], child = edges[i][1];
+      ctx.beginPath();
+      ctx.moveTo(sx(parent.x), sy(parent.y));
+      ctx.lineTo(sx(child.x), sy(child.y));
+      ctx.stroke();
+    }
+
+    // y-axis generation labels.
+    ctx.fillStyle = "#555";
+    ctx.font = "11px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+    for (var g = 0; g <= nGen; g++) {
+      var label = g === 0 ? "this bee" : String(g);
+      ctx.fillText(label, left - 8, sy(g));
+    }
+
+    // Nodes: females first, then males on top (matches the Python
+    // drawing order).
+    var radius = Math.max(9 - 0.5 * nGen, 2.6);
+    for (var pass = 0; pass < 2; pass++) {
+      var wantSex = pass === 0 ? "F" : "M";
+      ctx.fillStyle = wantSex === "F" ? FEMALE_COLOR : MALE_COLOR;
+      for (var k = 0; k < nodes.length; k++) {
+        if (nodes[k].sex !== wantSex) continue;
+        ctx.beginPath();
+        ctx.arc(sx(nodes[k].x), sy(nodes[k].y), radius, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.lineWidth = 0.8;
+        ctx.strokeStyle = "#ffffff";
+        ctx.stroke();
+      }
+    }
+
+    // Legend, upper right of the tree panel.
+    var legX = right - 150, legY = top + 6;
+    ctx.font = "11px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "middle";
+
+    ctx.beginPath();
+    ctx.fillStyle = FEMALE_COLOR;
+    ctx.arc(legX, legY, 5, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.fillStyle = "#333";
+    ctx.fillText("female (2 parents)", legX + 12, legY);
+
+    ctx.beginPath();
+    ctx.fillStyle = MALE_COLOR;
+    ctx.arc(legX, legY + 18, 5, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.fillStyle = "#333";
+    ctx.fillText("male drone (1 parent)", legX + 12, legY + 18);
+  }
+
+  function drawCounts(ctx, counts, rect) {
+    var left = rect.x + 42, right = rect.x + rect.w - 15;
+    var top = rect.y + 24, bottom = rect.y + rect.h - 34;
+
+    var nGen = counts.length - 1;
+    var maxCount = Math.max.apply(null, counts);
+
+    // Title.
+    ctx.fillStyle = "#222";
+    ctx.font = "bold 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "alphabetic";
+    ctx.fillText("Ancestors per generation — the Fibonacci sequence", rect.x + rect.w / 2, rect.y + 14);
+
+    // Axes.
+    ctx.strokeStyle = "#bbb";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(left, top);
+    ctx.lineTo(left, bottom);
+    ctx.lineTo(right, bottom);
+    ctx.stroke();
+
+    var n = counts.length;
+    var slot = (right - left) / n;
+    var barW = slot * 0.62;
+
+    for (var g = 0; g < n; g++) {
+      var c = counts[g];
+      var h = maxCount > 0 ? (c / maxCount) * (bottom - top) : 0;
+      var bx = left + g * slot + (slot - barW) / 2;
+      var by = bottom - h;
+
+      ctx.fillStyle = FEMALE_COLOR;
+      ctx.strokeStyle = "#a8760f";
+      ctx.lineWidth = 0.8;
+      ctx.fillRect(bx, by, barW, h);
+      ctx.strokeRect(bx, by, barW, h);
+
+      ctx.fillStyle = "#333";
+      ctx.font = "10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "bottom";
+      ctx.fillText(String(c), bx + barW / 2, by - 3);
+
+      ctx.fillStyle = "#555";
+      ctx.font = "10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+      ctx.textBaseline = "top";
+      ctx.fillText(String(g), bx + barW / 2, bottom + 5);
+    }
+
+    // Axis labels.
+    ctx.fillStyle = "#444";
+    ctx.font = "11px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    ctx.fillText("generations back", (left + right) / 2, bottom + 18);
+
+    ctx.save();
+    ctx.translate(rect.x + 12, (top + bottom) / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("ancestors", 0, 0);
+    ctx.restore();
+  }
+
+  // -------------------------------------------------------------------
+  // Wiring: slider, canvas redraw, summary text.
+  // -------------------------------------------------------------------
+  function init(root) {
+    var slider = root.querySelector("#bee-n_gen");
+    var sliderVal = root.querySelector("#bee-n_gen-val");
+    var summaryDiv = root.querySelector("#bee-summary");
+    var canvas = root.querySelector("#bee-canvas");
+    var ctx = canvas.getContext("2d");
+
+    var W = canvas.width, H = canvas.height;
+    var treeRect = { x: 0, y: 6, w: W, h: 440 };
+    var countsRect = { x: 0, y: 470, w: W, h: 220 };
+
+    function render() {
+      var nGen = Math.min(MAX_GEN, Math.max(1, parseInt(slider.value, 10)));
+      sliderVal.textContent = String(nGen);
+
+      var root2 = layout(buildTree("M", nGen));
+      var counts = countsByGeneration(buildTree("M", nGen), nGen);
+
+      ctx.clearRect(0, 0, W, H);
+      drawTree(ctx, root2, nGen, treeRect);
+      drawCounts(ctx, counts, countsRect);
+
+      var seqText = counts.join(", ");
+      var lines = [
+        "<strong>Ancestor counts, generation by generation:</strong> " + seqText,
+        "A drone (male bee) has only one parent — his mother — because " +
+          "he hatches from an unfertilised egg. A female bee has two " +
+          "parents, one of each sex, because she hatches from a " +
+          "fertilised egg.",
+        "Follow that rule back through the generations and the ancestor " +
+          "counts are <strong>exactly the Fibonacci sequence</strong> — no " +
+          "coincidence, and no approximation: it's forced by the branching " +
+          "rule itself."
+      ];
+      summaryDiv.innerHTML = lines.join("<br><br>");
+    }
+
+    slider.addEventListener("input", render);
+    render();
+  }
+
+  init(document.getElementById("bee-app"));
+})();
+</script>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fibonacci-bees-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.1: Drag the slider to trace a drone’s family tree further back, and watch the ancestor count at each generation follow the Fibonacci sequence exactly.
+</figcaption>
+</figure>
 
 
 </section>
@@ -238,7 +756,7 @@ window.Quarto = {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/dundeemath\.github\.io\/Maths_Week_Scotland\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -565,6 +1083,18 @@ window.Quarto = {
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./curvature.html" class="pagination-link" aria-label="Why leaves crinkle: differential growth in a disc">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Why leaves crinkle: differential growth in a disc</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./fractal.html" class="pagination-link" aria-label="Fractal">
+        <span class="nav-page-text"><span class="chapter-title">Fractal</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

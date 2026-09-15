@@ -2,23 +2,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Circadian Rhythm</title>
+<title>Circadian Rhythm – Maths Trail at the Dundee Botanic Gardens</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
+code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: 1.5em;}
-div.column{flex: auto;}
-@media screen {
-div.columns{gap: min(4vw, 1.5em);}
-div.column{overflow-x: auto;}
-}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -30,21 +27,24 @@ ul.task-list li input[type="checkbox"] {
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./curvature.html" rel="next">
+<link href="./birdsong.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-445b8638c3d06994fee0907d791121c4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-5ccb035bea26c1e21f80f44cf7c27909.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -72,28 +72,176 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="js_apps_switch.js"></script>
+<style>
+  /* Hides every interactive app's own element immediately -- before the
+     page has even finished parsing -- in every build (website page or
+     booklet chapter). Each app's own div id always ends "-app" (circ-app,
+     leaf-app, bee-app, fern-app, konig-app, phyllo-js-app, tree-app,
+     gal-app, kep-app, new-app, ein-app), which stays the same no matter
+     how Quarto wraps the surrounding figure for a given build format. */
+  html[data-js-apps="off"] [id$="-app"] {
+    display: none !important;
+  }
+  /* Belt-and-braces for browsers that support :has(): also hide the
+     whole numbered figure (app + its "Figure N" caption) around each
+     app, including the Travelling Salesman map (fig-tsp), so no empty
+     caption is left behind on the page. */
+  html[data-js-apps="off"] figure:has(
+    [id^="fig-galileo-moons"], [id^="fig-kepler-orbits"],
+    [id^="fig-newton-gravity"], [id^="fig-einstein-precession"],
+    [id^="fig-circadian"], [id^="fig-leaf-growth"],
+    [id^="fig-fibonacci-bees"], [id^="fig-fractal-fern"],
+    [id^="fig-konigsberg"], [id^="fig-phyllotaxis"],
+    [id^="fig-tsp"], [id^="fig-tree-height"]
+  ) {
+    display: none !important;
+  }
+</style>
+<script>
+  /* Fallback for browsers without :has() support: once the page body
+     has loaded, hide the whole figure/caption around each app the same
+     way, by walking up from the app element itself. */
+  document.addEventListener("DOMContentLoaded", function () {
+    if (window.SHOW_JS_APPS !== false) return;
+    document.querySelectorAll('[id$="-app"], [id^="fig-tsp"]').forEach(function (el) {
+      var figure = el.closest("figure") || el.closest('[id^="fig-"]') || el;
+      figure.style.display = "none";
+    });
+  });
+</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="mobile.css">
 </head>
 
-<body class="quarto-light">
+<body class="nav-sidebar floating fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./circadian.html"><span class="chapter-title">Circadian Rhythm</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Maths Trail at the Dundee Botanic Gardens</a> 
     </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Maths Week Scotland - Dundee University</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./analemma.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Analemma Project</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./birdsong.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bird Song</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./circadian.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Circadian Rhythm</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./curvature.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why leaves crinkle: differential growth in a disc</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fibonacci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fibonacci Numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fractal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fractal</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./helicopter.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Helicopter Seeds</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./konigsberg.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Seven Bridges of Königsberg</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./phyllotaxis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phyllotaxis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./salesman.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Travelling Salesman problem</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./spirals.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Logarithmic Spiral</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./symmetry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Symmetry in Plants</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./trigonometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Estimating the Height of a Tree using Trigonometry</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./questionnaire.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">End of Maths Trail Questionnaire</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Circadian Rhythm</h1>
-</div>
+<h1 class="title"><span class="chapter-title">Circadian Rhythm</span></h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Differential equations</div>
+    <div class="quarto-category">Dynamical systems</div>
+    <div class="quarto-category">Biology</div>
+  </div>
+  </div>
 
 
 
@@ -109,9 +257,473 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Periodic rhythm obseved in plants. Related to synchronisation phenomena.</p>
+<p>If you were to watch the water lily here through a full day you would see its flowers open in the morning and close again in the evening.</p>
+<p>However, if it was left in a room with the lights left on permanently, it would keep opening and closing on roughly the same rhythm for a while, gradually drifting out of step with real time. The water lily isn’t just reacting to light like a switch, it has its own internal molecular clock that is entrained to day-night cycle.</p>
+<p>Your cells also have an internal molecular clock. And if you’e ever experienced jet lag, your internal molecular clock has become out-of-sync with your new day-night cycle. It takes a number of days of light stimulus in your new environment before your body clock syncs with its environment.</p>
+<section id="play-with-it-tune-the-lamp-until-it-syncs" class="level2">
+<h2 class="anchored" data-anchor-id="play-with-it-tune-the-lamp-until-it-syncs">Play with it: tune the lamp until it syncs</h2>
+<p>The simulated water lily below has a fixed rhythm of its own – 24.6 hours, set by the plant, not by you. What <em>you</em> control is an artificial lamp shining on it: how long its day/night cycle lasts, and how strong (bright) it is.</p>
+<p>The water lily needs to adjust it’s cycle so that its leaves are open in the morning as the sun comes up. Then it can maximise the amount of light that it receives.</p>
+<p>Get the lamp’s day length close enough to 24.6 hours, and strong enough, and the flower locks into a steady daily rhythm. Get it wrong – too far off, or too dim – and no amount of waiting fixes it: the flower keeps sliding in and out of step with your lamp, opening a little earlier or later each cycle, forever. Try to find the smallest strength that still gets it to lock.</p>
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-circadian-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<style>
+  #circ-app, #circ-app * { box-sizing: border-box; }
+  #circ-app {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 14px;
+    align-items: flex-start;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    max-width: 1040px;
+    text-align: left;
+  }
+  #circ-app h5,
+  #circ-app label,
+  #circ-app #circ-summary {
+    text-align: left;
+  }
+  #circ-app .circ-sidebar {
+    flex: 0 0 40%;
+    min-width: 0;
+  }
+  #circ-app .circ-canvas-wrap {
+    flex: 1 1 60%;
+    min-width: 0;
+  }
+  #circ-app h5 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+  }
+  #circ-app label {
+    display: block;
+    font-size: 13px;
+    margin: 10px 0 4px 0;
+    line-height: 1.3;
+  }
+  #circ-app input[type="range"] {
+    width: 100%;
+  }
+  #circ-app hr {
+    margin: 14px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+  }
+  #circ-app .circ-btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  #circ-app button {
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  #circ-play {
+    background: #2f7d4f;
+    color: #fff;
+    border: none;
+  }
+  #circ-reset {
+    background: #eee;
+    color: #333;
+    border: 1px solid #ccc;
+  }
+  #circ-summary {
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  #circ-scene {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+  }
+  @media (max-width: 520px) {
+    #circ-app { gap: 8px; }
+    #circ-app .circ-sidebar { flex-basis: 38%; }
+    #circ-app .circ-canvas-wrap { flex-basis: 62%; }
+    #circ-app h5 { font-size: 12px; }
+    #circ-app label { font-size: 11px; margin: 8px 0 3px 0; }
+    #circ-app button { padding: 5px 8px; font-size: 11px; }
+    #circ-summary { font-size: 11px; line-height: 1.45; }
+    #circ-app hr { margin: 10px 0; }
+  }
+</style>
+
+<div id="circ-app">
+  <div class="circ-sidebar">
+    <h5 class="anchored">Tune the lamp</h5>
+    <label for="circ-t_light">Lamp day length (h): <strong id="circ-t_light-val">20.0</strong></label>
+    <input id="circ-t_light" type="range" min="18" max="30" step="0.2" value="20.0">
+    <label for="circ-k_light">Lamp strength (K): <strong id="circ-k_light-val">0.000</strong></label>
+    <input id="circ-k_light" type="range" min="0" max="0.08" step="0.002" value="0">
+    <hr>
+    <label for="circ-time_h">Elapsed: <strong id="circ-time_h-val">0.0 h (day 0.0)</strong></label>
+    <input id="circ-time_h" type="range" min="0" max="288" step="0.6" value="0">
+    <div class="circ-btn-row">
+      <button id="circ-play" type="button">Play</button>
+      <button id="circ-reset" type="button">Reset</button>
+    </div>
+    <hr>
+    <div id="circ-summary"></div>
+  </div>
+  <div class="circ-canvas-wrap">
+    <canvas id="circ-scene" width="900" height="600"></canvas>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  if (window.SHOW_JS_APPS === false) return;
+
+  // -------------------------------------------------------------------
+  // The water lily's internal clock as a forced phase oscillator, ported
+  // 1:1 from the Python/Shinylive version (circadian_app_v2/app.py) --
+  // same constants, same Euler integration, same drawing geometry.
+  // Runs as plain JavaScript, entirely in the browser -- no Python
+  // runtime to download, unlike the Shinylive apps elsewhere on this
+  // site.
+  //
+  //     dtheta/dt = omega + K*sin(Omega_light*t - theta)
+  //
+  // omega = 2*pi/T_NATURAL_H is FIXED -- a real property of this
+  // particular plant, not something a visitor controls. The two things
+  // a visitor DOES control are the external light stimulus's own period
+  // (T_light, i.e. how long the visitor's "day" lasts) and its strength
+  // (K_light, i.e. how bright/well-timed the light cue is) -- like
+  // tuning an adjustable grow lamp aimed at the plant. Entrainment
+  // (phi = theta - Omega_light*t settles to a constant, so the flower
+  // opens/closes on a fixed schedule relative to the lamp) happens
+  // exactly when |omega - Omega_light| <= K_light.
+  // -------------------------------------------------------------------
+
+  var T_NATURAL_H = 24.6;
+  var DAYS_TOTAL = 12;
+  var MAX_T_H = DAYS_TOTAL * 24;
+  var DT_SIM = 0.05;
+  var TICK_DT_H = 0.6;        // simulated hours advanced per animation tick
+  var TICK_INTERVAL_MS = 120; // ms per tick (== 0.12s in the Python version)
+  var K_MAX = 0.08;
+
+  var N_PETALS = 10;
+  var NIGHT_SKY = [0.13, 0.16, 0.29];
+  var DAY_SKY = [0.78, 0.90, 0.98];
+  var NIGHT_SUN = [0.55, 0.58, 0.70];
+  var DAY_SUN = [1.0, 0.78, 0.20];
+  var PETAL_CLOSED = [0.42, 0.16, 0.28];
+  var PETAL_OPEN = [0.75, 0.27, 0.48];
+  var PETAL_EDGE = "#8a2e56";
+  var CENTER_COLOR = "#f2c94c";
+  var LEAF_COLOR = "#2f7d4f";
+
+  var HORIZON_Y = -0.55;
+  var ARC_AMPLITUDE = 1.05;
+
+  // Data-space axes, matching the matplotlib xlim/ylim exactly.
+  var X_MIN = -1.5, X_MAX = 1.5;
+  var Y_MIN = -0.75, Y_MAX = 1.25;
+
+  function mod(a, n) {
+    return ((a % n) + n) % n;
+  }
+
+  function lerp3(c0, c1, t) {
+    return [
+      c0[0] + (c1[0] - c0[0]) * t,
+      c0[1] + (c1[1] - c0[1]) * t,
+      c0[2] + (c1[2] - c0[2]) * t
+    ];
+  }
+
+  function toCss(c) {
+    return "rgb(" + Math.round(c[0] * 255) + "," + Math.round(c[1] * 255) + "," + Math.round(c[2] * 255) + ")";
+  }
+
+  function toCssAlpha(c, a) {
+    return "rgba(" + Math.round(c[0] * 255) + "," + Math.round(c[1] * 255) + "," + Math.round(c[2] * 255) + "," + a + ")";
+  }
+
+  // -------------------------------------------------------------------
+  // Simulation: forward-Euler integration of the Adler equation, exactly
+  // as in Python's simulate().
+  // -------------------------------------------------------------------
+  function simulate(tLightH, K) {
+    var omega = 2 * Math.PI / T_NATURAL_H;
+    var Omega = 2 * Math.PI / tLightH;
+    var nSteps = Math.round(DAYS_TOTAL * 24 / DT_SIM);
+    var t = new Float64Array(nSteps + 1);
+    var theta = new Float64Array(nSteps + 1);
+    theta[0] = 0.0;
+    var th = 0.0;
+    for (var i = 0; i < nSteps; i++) {
+      t[i] = i * DT_SIM;
+      th = th + DT_SIM * (omega + K * Math.sin(Omega * t[i] - th));
+      theta[i + 1] = th;
+    }
+    t[nSteps] = nSteps * DT_SIM;
+    var phi = new Float64Array(nSteps + 1);
+    for (var k = 0; k <= nSteps; k++) phi[k] = theta[k] - Omega * t[k];
+    var domega = omega - Omega;
+    return { t: t, theta: theta, phi: phi, domega: domega, Omega: Omega };
+  }
+
+  function lookupState(sim, tq) {
+    var idx = tq / DT_SIM;
+    var n = sim.theta.length;
+    var i0 = Math.floor(idx);
+    if (i0 < 0) i0 = 0;
+    if (i0 >= n - 1) i0 = n - 2;
+    var frac = idx - i0;
+    var thetaQ = sim.theta[i0] + (sim.theta[i0 + 1] - sim.theta[i0]) * frac;
+    var bloomQ = (1 + Math.cos(thetaQ)) / 2.0;
+    var lightPhaseQ = mod(sim.Omega * tq, 2 * Math.PI);
+    return { bloom: bloomQ, lightPhase: lightPhaseQ };
+  }
+
+  // -------------------------------------------------------------------
+  // Drawing -- ported 1:1 from draw_flower / draw_sky_and_sun / draw_scene.
+  // Canvas is y-down; data space is y-up, so a data-space rotation by
+  // angle `a` becomes canvas rotation `-a` under the flip.
+  // -------------------------------------------------------------------
+  function makeTransform(W, H) {
+    var scaleX = W / (X_MAX - X_MIN);
+    var scaleY = H / (Y_MAX - Y_MIN);
+    return {
+      sx: function (x) { return (x - X_MIN) * scaleX; },
+      sy: function (y) { return H - (y - Y_MIN) * scaleY; },
+      scale: scaleX // scaleX === scaleY (equal aspect, as in the Python version)
+    };
+  }
+
+  function drawSkyAndSun(ctx, tr, W, H, lightPhase, kFrac) {
+    var brightness = Math.max(0.0, Math.sin(lightPhase));
+    var skyColor = lerp3(NIGHT_SKY, DAY_SKY, brightness);
+    ctx.fillStyle = toCss(skyColor);
+    ctx.fillRect(0, 0, W, H);
+
+    var sunX = -1.3 * Math.cos(lightPhase);
+    var sunY = HORIZON_Y + ARC_AMPLITUDE * Math.sin(lightPhase);
+    var sunColor = lerp3(NIGHT_SUN, DAY_SUN, brightness);
+    var size = 0.05 + 0.09 * kFrac;
+
+    ctx.beginPath();
+    ctx.fillStyle = toCssAlpha(sunColor, 0.25);
+    ctx.arc(tr.sx(sunX), tr.sy(sunY), size * 2.0 * tr.scale, 0, 2 * Math.PI);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.fillStyle = toCss(sunColor);
+    ctx.arc(tr.sx(sunX), tr.sy(sunY), size * tr.scale, 0, 2 * Math.PI);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.strokeStyle = "rgba(0,0,0,0.13)";
+    ctx.lineWidth = 1.0;
+    ctx.moveTo(tr.sx(-1.5), tr.sy(HORIZON_Y));
+    ctx.lineTo(tr.sx(1.5), tr.sy(HORIZON_Y));
+    ctx.stroke();
+  }
+
+  function drawFlower(ctx, tr, bloom, cx, cy) {
+    cx = cx || 0.0;
+    cy = cy === undefined ? -0.55 : cy;
+
+    // Lily pad.
+    ctx.beginPath();
+    ctx.fillStyle = "rgba(47,125,79,0.9)";
+    ctx.ellipse(tr.sx(cx), tr.sy(cy - 0.05), 0.75 * tr.scale, 0.175 * tr.scale, 0, 0, 2 * Math.PI);
+    ctx.fill();
+
+    var reach = 0.04 + 0.46 * bloom;
+    var length = 0.12 + 0.46 * bloom;
+    var width = 0.14 + 0.06 * bloom;
+    var petalColor = toCss(lerp3(PETAL_CLOSED, PETAL_OPEN, bloom));
+
+    for (var i = 0; i < N_PETALS; i++) {
+      var a = (2 * Math.PI * i) / N_PETALS;
+      var px = cx + reach * Math.cos(a);
+      var py = cy + reach * Math.sin(a) * 0.55 + 0.05;
+      ctx.beginPath();
+      ctx.fillStyle = petalColor;
+      ctx.strokeStyle = PETAL_EDGE;
+      ctx.lineWidth = 1.1;
+      ctx.ellipse(tr.sx(px), tr.sy(py), (length / 2) * tr.scale, (width / 2) * tr.scale, -a, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    ctx.beginPath();
+    ctx.fillStyle = CENTER_COLOR;
+    ctx.strokeStyle = PETAL_EDGE;
+    ctx.lineWidth = 1.0;
+    ctx.arc(tr.sx(cx), tr.sy(cy + 0.05), 0.09 * tr.scale, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.stroke();
+  }
+
+  function drawScene(ctx, W, H, bloom, lightPhase, kFrac, dayNum) {
+    var tr = makeTransform(W, H);
+    ctx.clearRect(0, 0, W, H);
+    drawSkyAndSun(ctx, tr, W, H, lightPhase, kFrac);
+    drawFlower(ctx, tr, bloom, 0.0, -0.55);
+
+    var brightness = Math.max(0.0, Math.sin(lightPhase));
+    ctx.fillStyle = brightness > 0.4 ? "#333333" : "#e8e8ee";
+    ctx.font = "15px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+    ctx.textAlign = "left";
+    ctx.fillText("day " + dayNum.toFixed(1), tr.sx(-1.45), tr.sy(1.12));
+  }
+
+  // -------------------------------------------------------------------
+  // Wiring: sliders, play/pause, reset, summary text.
+  // -------------------------------------------------------------------
+  function init(root) {
+    var tLightSlider = root.querySelector("#circ-t_light");
+    var kLightSlider = root.querySelector("#circ-k_light");
+    var timeSlider = root.querySelector("#circ-time_h");
+    var tLightVal = root.querySelector("#circ-t_light-val");
+    var kLightVal = root.querySelector("#circ-k_light-val");
+    var timeVal = root.querySelector("#circ-time_h-val");
+    var playBtn = root.querySelector("#circ-play");
+    var resetBtn = root.querySelector("#circ-reset");
+    var summaryDiv = root.querySelector("#circ-summary");
+    var canvas = root.querySelector("#circ-scene");
+    var ctx = canvas.getContext("2d");
+
+    var state = { sim: null, playing: false, timerId: null };
+
+    function updateTimeDisplay() {
+      var tq = parseFloat(timeSlider.value);
+      timeVal.textContent = tq.toFixed(1) + " h (day " + (tq / 24.0).toFixed(1) + ")";
+    }
+
+    function renderScene() {
+      var tq = parseFloat(timeSlider.value);
+      var looked = lookupState(state.sim, tq);
+      var kFrac = parseFloat(kLightSlider.value) / K_MAX;
+      drawScene(ctx, canvas.width, canvas.height, looked.bloom, looked.lightPhase, kFrac, tq / 24.0);
+      updateTimeDisplay();
+    }
+
+    function renderSummary() {
+      var sim = state.sim;
+      var K = parseFloat(kLightSlider.value);
+      var tLight = parseFloat(tLightSlider.value);
+      var entrainedAnalytic = Math.abs(sim.domega) <= K;
+
+      var tailLen = Math.max(Math.floor(sim.phi.length * 0.1), 10);
+      var tmin = Infinity, tmax = -Infinity;
+      for (var i = sim.phi.length - tailLen; i < sim.phi.length; i++) {
+        if (sim.phi[i] < tmin) tmin = sim.phi[i];
+        if (sim.phi[i] > tmax) tmax = sim.phi[i];
+      }
+      var entrainedSim = (tmax - tmin) < 0.05;
+
+      var lines = [];
+      lines.push("<strong>This water lily's own rhythm:</strong> " + T_NATURAL_H.toFixed(1) + " h (fixed)");
+      lines.push("<strong>Your lamp:</strong> " + tLight.toFixed(1) + " h day, K = " + K.toFixed(3));
+      if (entrainedAnalytic) {
+        lines.push(
+          "<strong>Synced!</strong> Your lamp is close enough to the plant's own rhythm, " +
+          "and bright enough, to pull its clock into step " +
+          "(|plant rate − lamp rate| ≤ K)."
+        );
+      } else {
+        lines.push(
+          "<strong>Not synced</strong> -- either the lamp's day length is too far from " +
+          T_NATURAL_H.toFixed(1) + "h, or K isn't strong enough yet. The flower will " +
+          "drift through the lamp's day/night cycle instead of settling into a fixed routine."
+        );
+      }
+      lines.push(
+        "<em>(Simulation over " + DAYS_TOTAL + " days agrees: the phase difference has " +
+        (entrainedSim ? "settled down" : "kept drifting") + ".)</em>"
+      );
+      summaryDiv.innerHTML = lines.join("<br><br>");
+    }
+
+    function recomputeSim() {
+      state.sim = simulate(parseFloat(tLightSlider.value), parseFloat(kLightSlider.value));
+      renderSummary();
+      renderScene();
+    }
+
+    function stopPlaying() {
+      state.playing = false;
+      if (state.timerId !== null) {
+        clearInterval(state.timerId);
+        state.timerId = null;
+      }
+      playBtn.textContent = "Play";
+    }
+
+    function startPlaying() {
+      state.playing = true;
+      playBtn.textContent = "Pause";
+      state.timerId = setInterval(function () {
+        var nxt = parseFloat(timeSlider.value) + TICK_DT_H;
+        if (nxt > MAX_T_H) nxt -= MAX_T_H;
+        timeSlider.value = nxt;
+        renderScene();
+      }, TICK_INTERVAL_MS);
+    }
+
+    tLightSlider.addEventListener("input", function () {
+      tLightVal.textContent = parseFloat(tLightSlider.value).toFixed(1);
+      recomputeSim();
+    });
+    kLightSlider.addEventListener("input", function () {
+      kLightVal.textContent = parseFloat(kLightSlider.value).toFixed(3);
+      recomputeSim();
+    });
+    timeSlider.addEventListener("input", renderScene);
+
+    playBtn.addEventListener("click", function () {
+      if (state.playing) stopPlaying(); else startPlaying();
+    });
+    resetBtn.addEventListener("click", function () {
+      stopPlaying();
+      timeSlider.value = 0;
+      renderScene();
+    });
+
+    tLightVal.textContent = parseFloat(tLightSlider.value).toFixed(1);
+    kLightVal.textContent = parseFloat(kLightSlider.value).toFixed(3);
+    recomputeSim();
+  }
+
+  init(document);
+})();
+
+</script>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-circadian-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.1
+</figcaption>
+</figure>
+<!--
+## The mathematics
+
+We can Model the plant's internal clock as a phase $\theta(t)$ that ticks round at its own natural rate, but gets nudged by an external light stimulus:
+
+$$\frac{d\theta}{dt} = \omega + K\sin(\Omega t - \theta)$$
+
+Here $\omega = 2\pi/T_{\text{natural}}$ is how fast the plant's *own* clock would run left alone -- for this water lily, measured in constant darkness, that's 24.6 hours, not quite a real day. $\Omega = 2\pi/T_{\text{light}}$ is the stimulus's own cycle length, and $K$ is how strongly it resets the plant's clock each time it senses it.
+
+Write $\phi(t) = \theta(t) - \Omega t$ for how far the plant's clock has drifted from the stimulus, and the equation above becomes $\dot\phi = (\omega - \Omega) - K\sin\phi$. This has a stable resting value of $\phi$ -- the plant locked into a fixed relationship with the light -- exactly when
+
+$$|\omega - \Omega| \le K.$$
+
+Below that threshold, no such resting value exists at all, and $\phi$ drifts forever: the plant free-runs at its own natural period, slowly sliding in and out of step with the stimulus. Cross the threshold and the behaviour flips from "always drifting" to "always locks" -- a genuine bifurcation, the same kind of sudden switch that shows up in the metronome-synchronisation demo elsewhere on this trail. There, many oscillators pull on *each other*; here, one oscillator is pulled by a single external rhythm -- same underlying mathematics, different picture.
+
+-->
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -187,7 +799,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/dundeemath\.github\.io\/Maths_Week_Scotland\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -514,6 +1126,18 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./birdsong.html" class="pagination-link" aria-label="Bird Song">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Bird Song</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./curvature.html" class="pagination-link" aria-label="Why leaves crinkle: differential growth in a disc">
+        <span class="nav-page-text"><span class="chapter-title">Why leaves crinkle: differential growth in a disc</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

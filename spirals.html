@@ -2,23 +2,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Logarithmic Spiral</title>
+<title>Logarithmic Spiral – Maths Trail at the Dundee Botanic Gardens</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
+code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: 1.5em;}
-div.column{flex: auto;}
-@media screen {
-div.columns{gap: min(4vw, 1.5em);}
-div.column{overflow-x: auto;}
-}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -30,21 +27,24 @@ ul.task-list li input[type="checkbox"] {
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./symmetry.html" rel="next">
+<link href="./salesman.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-445b8638c3d06994fee0907d791121c4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-5ccb035bea26c1e21f80f44cf7c27909.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -72,35 +72,170 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="js_apps_switch.js"></script>
+<style>
+  /* Hides every interactive app's own element immediately -- before the
+     page has even finished parsing -- in every build (website page or
+     booklet chapter). Each app's own div id always ends "-app" (circ-app,
+     leaf-app, bee-app, fern-app, konig-app, phyllo-js-app, tree-app,
+     gal-app, kep-app, new-app, ein-app), which stays the same no matter
+     how Quarto wraps the surrounding figure for a given build format. */
+  html[data-js-apps="off"] [id$="-app"] {
+    display: none !important;
+  }
+  /* Belt-and-braces for browsers that support :has(): also hide the
+     whole numbered figure (app + its "Figure N" caption) around each
+     app, including the Travelling Salesman map (fig-tsp), so no empty
+     caption is left behind on the page. */
+  html[data-js-apps="off"] figure:has(
+    [id^="fig-galileo-moons"], [id^="fig-kepler-orbits"],
+    [id^="fig-newton-gravity"], [id^="fig-einstein-precession"],
+    [id^="fig-circadian"], [id^="fig-leaf-growth"],
+    [id^="fig-fibonacci-bees"], [id^="fig-fractal-fern"],
+    [id^="fig-konigsberg"], [id^="fig-phyllotaxis"],
+    [id^="fig-tsp"], [id^="fig-tree-height"]
+  ) {
+    display: none !important;
+  }
+</style>
+<script>
+  /* Fallback for browsers without :has() support: once the page body
+     has loaded, hide the whole figure/caption around each app the same
+     way, by walking up from the app element itself. */
+  document.addEventListener("DOMContentLoaded", function () {
+    if (window.SHOW_JS_APPS !== false) return;
+    document.querySelectorAll('[id$="-app"], [id^="fig-tsp"]').forEach(function (el) {
+      var figure = el.closest("figure") || el.closest('[id^="fig-"]') || el;
+      figure.style.display = "none";
+    });
+  });
+</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="mobile.css">
 </head>
 
-<body class="quarto-light">
+<body class="nav-sidebar floating fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./spirals.html"><span class="chapter-title">Logarithmic Spiral</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#spiralling-succulents" id="toc-spiralling-succulents" class="nav-link active" data-scroll-target="#spiralling-succulents">Spiralling Succulents</a></li>
-  <li><a href="#sunflower-seed-heads" id="toc-sunflower-seed-heads" class="nav-link" data-scroll-target="#sunflower-seed-heads">Sunflower Seed Heads</a></li>
-  <li><a href="#pinecone-scale-arrangements" id="toc-pinecone-scale-arrangements" class="nav-link" data-scroll-target="#pinecone-scale-arrangements">Pinecone Scale Arrangements</a></li>
-  </ul>
-</nav>
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Maths Trail at the Dundee Botanic Gardens</a> 
     </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Maths Week Scotland - Dundee University</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./analemma.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Analemma Project</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./birdsong.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bird Song</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./circadian.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Circadian Rhythm</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./curvature.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why leaves crinkle: differential growth in a disc</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fibonacci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fibonacci Numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fractal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fractal</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./helicopter.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Helicopter Seeds</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./konigsberg.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Seven Bridges of Königsberg</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./phyllotaxis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phyllotaxis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./salesman.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Travelling Salesman problem</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./spirals.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Logarithmic Spiral</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./symmetry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Symmetry in Plants</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./trigonometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Estimating the Height of a Tree using Trigonometry</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./questionnaire.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">End of Maths Trail Questionnaire</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Logarithmic Spiral</h1>
+<h1 class="title"><span class="chapter-title">Logarithmic Spiral</span></h1>
 </div>
 
 
@@ -121,10 +256,10 @@ ul.task-list li input[type="checkbox"] {
 <section id="spiralling-succulents" class="level2">
 <h2 class="anchored" data-anchor-id="spiralling-succulents">Spiralling Succulents</h2>
 <p>Many varieties of succulents arrange their leaves outward from a central point along an expanding logarithmic trajectry to ensure uniform access to sunlight and water collection.</p>
-<p>mage from the <a href="https://www.techrxiv.org/doi/full/10.36227/techrxiv.21766706.v1">Fractal Dimensions in Circular and Spiral Phenomena</a> that shows logarithmic spiral in Aloe Polyphylla:</p>
+<p>Image from the <a href="https://www.techrxiv.org/doi/full/10.36227/techrxiv.21766706.v1">Fractal Dimensions in Circular and Spiral Phenomena</a> that shows logarithmic spiral in Aloe Polyphylla:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/Spiral-Aloe.png" class="img-fluid figure-img"></p>
+<p><img src="figures/Spiral-Aloe.png" class="img-fluid figure-img" style="width:1.6in"></p>
 <figcaption>Logarithmic spiral in Aloe Polyphylla</figcaption>
 </figure>
 </div>
@@ -214,7 +349,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/dundeemath\.github\.io\/Maths_Week_Scotland\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -541,6 +676,18 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./salesman.html" class="pagination-link" aria-label="The Travelling Salesman problem">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">The Travelling Salesman problem</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./symmetry.html" class="pagination-link" aria-label="Symmetry in Plants">
+        <span class="nav-page-text"><span class="chapter-title">Symmetry in Plants</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

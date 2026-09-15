@@ -1,0 +1,28 @@
+/* Booklet HTML output: viewed on phones at the exhibition, not as a
+   desktop reference book -- hide the book's chapter-navigation sidebar
+   and top header bar entirely. Quarto's multi-column page grid
+   otherwise still reserves track space for that sidebar even once it's
+   hidden (its "floating" strategy doesn't reclaim the space), which is
+   what shows up as blank space where the sidebar used to be -- so we
+   drop the grid entirely and let content flow as one centered column
+   at every screen width. */
+#quarto-header,
+#quarto-sidebar,
+#quarto-sidebar-glass,
+#quarto-margin-sidebar {
+  display: none !important;
+}
+
+#quarto-content.page-columns {
+  display: block !important;
+}
+
+#quarto-content.page-columns > main.content {
+  max-width: 48em;
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+}
+
+body {
+  padding-top: 0 !important;
+}
