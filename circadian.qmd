@@ -16,7 +16,7 @@ Your cells also have an internal molecular clock. And if you'e ever experienced 
 
 The simulated water lily below has a fixed rhythm of its own -- 24.6 hours, set by the plant, not by you. What *you* control is an artificial lamp shining on it: how long its day/night cycle lasts, and how strong (bright) it is.
 
-You need to tune the parameters of the artificial light stimulus so that the water lily opens and closes in a sensible fashion.
+The water lily needs to adjust it's cycle so that its leaves are open in the morning as the sun comes up. Then it can maximise the amount of light that it receives. 
 
 Get the lamp's day length close enough to 24.6 hours, and strong enough, and the flower locks into a steady daily rhythm. Get it wrong -- too far off, or too dim -- and no amount of waiting fixes it: the flower keeps sliding in and out of step with your lamp, opening a little earlier or later each cycle, forever. Try to find the smallest strength that still gets it to lock.
 
