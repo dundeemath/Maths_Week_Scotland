@@ -2,25 +2,407 @@
 title: "Fibonacci Numbers"
 format: html
 code-fold: True
+image: 'fibonacci_preview.png'
 ---
 
-Look at a pinecone from the bottom. How many spirals go in the clockwise direction (green lines in the photo)? How many spirals go in the counter-clockwise direction (yellow lines)? Wouldn't you expect that they would be the same? 
+Look at a pinecone from the bottom. How many spirals go in the clockwise direction (green lines in the photo)? How many spirals go in the counter-clockwise direction (yellow lines)? Wouldn't you expect that they would be the same?
 
 Image from the [MENSA for Kids](https://www.mensaforkids.org/teach/lesson-plans/fabulous-fibonacci/) that shows Fibonacci numbers in pinecone:
 
-![Fibonacci Numbers in Pinecone. There are $8$ spirals in the clockwise direction and $13$ spirals in the counter-clockwise direction.](figures/Fibonacci-pinecones.jpg)
+![Fibonacci Numbers in Pinecone. There are $8$ spirals in the clockwise direction and $13$ spirals in the counter-clockwise direction.](figures/Fibonacci-pinecones.jpg){width="2.4in" fig-pos="H"}
 
 The number of spirals found on pinecones are almost always Fibonacci numbers, which are .
+
+::: {.content-hidden when-format="pdf"}
 
 ## Fibonacci Sequence
 
 $0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, \ldots$
 
-## Why Fibonacci numbers appear? 
+## Why Fibonacci numbers appear?
 
+Here's a completely different place they turn up: the family tree of a honeybee.
 
+Honeybees are haplodiploid. A fertilised egg develops into a female -- a worker or a queen -- with two parents: a mother and a father. An unfertilised egg develops into a male drone, with only *one* parent: his mother. Drones have no father at all.
 
+Follow a single drone's family tree back through the generations using that one rule, and count how many ancestors he has at each generation.
 
+## The Bee Family Tree
 
+::: {#fig-fibonacci-bees .content-hidden when-format="pdf"}
+```{=html}
+<style>
+  #bee-app, #bee-app * { box-sizing: border-box; }
+  #bee-app {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: flex-start;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    max-width: 1040px;
+    text-align: left;
+  }
+  #bee-app h5,
+  #bee-app label,
+  #bee-summary {
+    text-align: left;
+  }
+  #bee-app .sidebar {
+    flex: 0 0 240px;
+    min-width: 0;
+  }
+  #bee-app .canvas-wrap {
+    flex: 1 1 400px;
+    min-width: 0;
+  }
+  #bee-app h5 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+  }
+  #bee-app label {
+    display: block;
+    font-size: 13px;
+    margin: 10px 0 4px 0;
+    line-height: 1.3;
+  }
+  #bee-app input[type="range"] {
+    width: 100%;
+  }
+  #bee-app hr {
+    margin: 14px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+  }
+  #bee-summary {
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  #bee-canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+    background: #ffffff;
+  }
+  @media (max-width: 520px) {
+    #bee-app { gap: 8px; }
+    #bee-app h5 { font-size: 12px; }
+    #bee-app label { font-size: 11px; margin: 8px 0 3px 0; }
+    #bee-summary { font-size: 11px; line-height: 1.45; }
+    #bee-app hr { margin: 10px 0; }
+  }
+</style>
 
+<div id="bee-app">
+  <div class="sidebar">
+    <h5>Ancestors</h5>
+    <label for="bee-n_gen">How many generations back? <strong id="bee-n_gen-val">6</strong></label>
+    <input id="bee-n_gen" type="range" min="1" max="9" step="1" value="6">
+    <hr>
+    <div id="bee-summary"></div>
+  </div>
+  <div class="canvas-wrap">
+    <canvas id="bee-canvas" width="640" height="700"></canvas>
+  </div>
+</div>
 
+<script>
+(function () {
+  "use strict";
+  if (window.SHOW_JS_APPS === false) return;
+
+  // -------------------------------------------------------------------
+  // Why honeybee ancestry follows the Fibonacci sequence, ported 1:1
+  // from the Python/Shinylive version (fibonacci_py.qmd) -- same
+  // recursion, same layout, same counts -- as plain JavaScript drawing
+  // to a <canvas>, with no Python runtime to download.
+  //
+  // Honeybees (and other bees, wasps and ants) are haplodiploid: a
+  // fertilised egg develops into a female (a worker or queen, with two
+  // parents -- a mother and a father), while an unfertilised egg
+  // develops into a male drone, with only one parent -- his mother.
+  // Drones have no father at all.
+  //
+  // Trace a single drone's family tree back through the generations.
+  // His single parent (his mother) is female, so *she* has two parents.
+  // One of those two is male, so he in turn has only one parent. The
+  // branching rule at every node is exactly the rule that generates the
+  // Fibonacci recurrence: a male has one child, a female has two
+  // children (one male, one female) -- so the number of ancestors n
+  // generations back is F(n+1), the Fibonacci sequence itself, with no
+  // extra assumptions or approximations required.
+  // -------------------------------------------------------------------
+
+  var MAX_GEN = 9;
+  var MALE_COLOR = "#3d6fb4";
+  var FEMALE_COLOR = "#e0a319";
+  var EDGE_COLOR = "#b7b7b7";
+
+  // A drone (sex "M") has one parent (his mother, "F"). A female ("F")
+  // has two parents, one of each sex. Stops after gensLeft generations.
+  function buildTree(sex, gensLeft) {
+    var node = { sex: sex, children: [] };
+    if (gensLeft > 0) {
+      if (sex === "M") {
+        node.children = [buildTree("F", gensLeft - 1)];
+      } else {
+        node.children = [buildTree("F", gensLeft - 1), buildTree("M", gensLeft - 1)];
+      }
+    }
+    return node;
+  }
+
+  // Assigns each node an (x, y) position: y = generations back (0 at
+  // the bee itself), x = leaf order, with internal nodes centred over
+  // their children -- a standard tidy-tree layout.
+  function layout(root) {
+    var leafX = 0;
+
+    function walk(node, depth) {
+      node.y = depth;
+      if (node.children.length === 0) {
+        node.x = leafX;
+        leafX += 1;
+      } else {
+        for (var i = 0; i < node.children.length; i++) walk(node.children[i], depth + 1);
+        var sum = 0;
+        for (var j = 0; j < node.children.length; j++) sum += node.children[j].x;
+        node.x = sum / node.children.length;
+      }
+    }
+
+    walk(root, 0);
+    return root;
+  }
+
+  function countsByGeneration(root, maxGen) {
+    var counts = new Array(maxGen + 1).fill(0);
+
+    function walk(node, depth) {
+      counts[depth] += 1;
+      for (var i = 0; i < node.children.length; i++) walk(node.children[i], depth + 1);
+    }
+
+    walk(root, 0);
+    return counts;
+  }
+
+  function collectEdges(node, edges) {
+    for (var i = 0; i < node.children.length; i++) {
+      edges.push([node, node.children[i]]);
+      collectEdges(node.children[i], edges);
+    }
+  }
+
+  function collectNodes(node, out) {
+    out.push(node);
+    for (var i = 0; i < node.children.length; i++) collectNodes(node.children[i], out);
+  }
+
+  // -------------------------------------------------------------------
+  // Drawing.
+  // -------------------------------------------------------------------
+  function drawTree(ctx, root, nGen, rect) {
+    var left = rect.x + 50, right = rect.x + rect.w - 15;
+    var top = rect.y + 26, bottom = rect.y + rect.h - 10;
+
+    var nodes = [];
+    collectNodes(root, nodes);
+    var xs = nodes.map(function (n) { return n.x; });
+    var xmin = Math.min.apply(null, xs), xmax = Math.max.apply(null, xs);
+
+    function sx(x) {
+      return xmax > xmin ? left + ((x - xmin) / (xmax - xmin)) * (right - left) : (left + right) / 2;
+    }
+    function sy(y) {
+      return nGen > 0 ? top + (y / nGen) * (bottom - top) : (top + bottom) / 2;
+    }
+
+    // Title.
+    ctx.fillStyle = "#222";
+    ctx.font = "bold 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "alphabetic";
+    ctx.fillText("One drone's family tree", rect.x + rect.w / 2, rect.y + 16);
+
+    // Edges.
+    var edges = [];
+    collectEdges(root, edges);
+    ctx.strokeStyle = EDGE_COLOR;
+    ctx.lineWidth = 1.0;
+    for (var i = 0; i < edges.length; i++) {
+      var parent = edges[i][0], child = edges[i][1];
+      ctx.beginPath();
+      ctx.moveTo(sx(parent.x), sy(parent.y));
+      ctx.lineTo(sx(child.x), sy(child.y));
+      ctx.stroke();
+    }
+
+    // y-axis generation labels.
+    ctx.fillStyle = "#555";
+    ctx.font = "11px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+    for (var g = 0; g <= nGen; g++) {
+      var label = g === 0 ? "this bee" : String(g);
+      ctx.fillText(label, left - 8, sy(g));
+    }
+
+    // Nodes: females first, then males on top (matches the Python
+    // drawing order).
+    var radius = Math.max(9 - 0.5 * nGen, 2.6);
+    for (var pass = 0; pass < 2; pass++) {
+      var wantSex = pass === 0 ? "F" : "M";
+      ctx.fillStyle = wantSex === "F" ? FEMALE_COLOR : MALE_COLOR;
+      for (var k = 0; k < nodes.length; k++) {
+        if (nodes[k].sex !== wantSex) continue;
+        ctx.beginPath();
+        ctx.arc(sx(nodes[k].x), sy(nodes[k].y), radius, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.lineWidth = 0.8;
+        ctx.strokeStyle = "#ffffff";
+        ctx.stroke();
+      }
+    }
+
+    // Legend, upper right of the tree panel.
+    var legX = right - 150, legY = top + 6;
+    ctx.font = "11px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "middle";
+
+    ctx.beginPath();
+    ctx.fillStyle = FEMALE_COLOR;
+    ctx.arc(legX, legY, 5, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.fillStyle = "#333";
+    ctx.fillText("female (2 parents)", legX + 12, legY);
+
+    ctx.beginPath();
+    ctx.fillStyle = MALE_COLOR;
+    ctx.arc(legX, legY + 18, 5, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.fillStyle = "#333";
+    ctx.fillText("male drone (1 parent)", legX + 12, legY + 18);
+  }
+
+  function drawCounts(ctx, counts, rect) {
+    var left = rect.x + 42, right = rect.x + rect.w - 15;
+    var top = rect.y + 24, bottom = rect.y + rect.h - 34;
+
+    var nGen = counts.length - 1;
+    var maxCount = Math.max.apply(null, counts);
+
+    // Title.
+    ctx.fillStyle = "#222";
+    ctx.font = "bold 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "alphabetic";
+    ctx.fillText("Ancestors per generation — the Fibonacci sequence", rect.x + rect.w / 2, rect.y + 14);
+
+    // Axes.
+    ctx.strokeStyle = "#bbb";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(left, top);
+    ctx.lineTo(left, bottom);
+    ctx.lineTo(right, bottom);
+    ctx.stroke();
+
+    var n = counts.length;
+    var slot = (right - left) / n;
+    var barW = slot * 0.62;
+
+    for (var g = 0; g < n; g++) {
+      var c = counts[g];
+      var h = maxCount > 0 ? (c / maxCount) * (bottom - top) : 0;
+      var bx = left + g * slot + (slot - barW) / 2;
+      var by = bottom - h;
+
+      ctx.fillStyle = FEMALE_COLOR;
+      ctx.strokeStyle = "#a8760f";
+      ctx.lineWidth = 0.8;
+      ctx.fillRect(bx, by, barW, h);
+      ctx.strokeRect(bx, by, barW, h);
+
+      ctx.fillStyle = "#333";
+      ctx.font = "10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "bottom";
+      ctx.fillText(String(c), bx + barW / 2, by - 3);
+
+      ctx.fillStyle = "#555";
+      ctx.font = "10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+      ctx.textBaseline = "top";
+      ctx.fillText(String(g), bx + barW / 2, bottom + 5);
+    }
+
+    // Axis labels.
+    ctx.fillStyle = "#444";
+    ctx.font = "11px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    ctx.fillText("generations back", (left + right) / 2, bottom + 18);
+
+    ctx.save();
+    ctx.translate(rect.x + 12, (top + bottom) / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("ancestors", 0, 0);
+    ctx.restore();
+  }
+
+  // -------------------------------------------------------------------
+  // Wiring: slider, canvas redraw, summary text.
+  // -------------------------------------------------------------------
+  function init(root) {
+    var slider = root.querySelector("#bee-n_gen");
+    var sliderVal = root.querySelector("#bee-n_gen-val");
+    var summaryDiv = root.querySelector("#bee-summary");
+    var canvas = root.querySelector("#bee-canvas");
+    var ctx = canvas.getContext("2d");
+
+    var W = canvas.width, H = canvas.height;
+    var treeRect = { x: 0, y: 6, w: W, h: 440 };
+    var countsRect = { x: 0, y: 470, w: W, h: 220 };
+
+    function render() {
+      var nGen = Math.min(MAX_GEN, Math.max(1, parseInt(slider.value, 10)));
+      sliderVal.textContent = String(nGen);
+
+      var root2 = layout(buildTree("M", nGen));
+      var counts = countsByGeneration(buildTree("M", nGen), nGen);
+
+      ctx.clearRect(0, 0, W, H);
+      drawTree(ctx, root2, nGen, treeRect);
+      drawCounts(ctx, counts, countsRect);
+
+      var seqText = counts.join(", ");
+      var lines = [
+        "<strong>Ancestor counts, generation by generation:</strong> " + seqText,
+        "A drone (male bee) has only one parent — his mother — because " +
+          "he hatches from an unfertilised egg. A female bee has two " +
+          "parents, one of each sex, because she hatches from a " +
+          "fertilised egg.",
+        "Follow that rule back through the generations and the ancestor " +
+          "counts are <strong>exactly the Fibonacci sequence</strong> — no " +
+          "coincidence, and no approximation: it's forced by the branching " +
+          "rule itself."
+      ];
+      summaryDiv.innerHTML = lines.join("<br><br>");
+    }
+
+    slider.addEventListener("input", render);
+    render();
+  }
+
+  init(document.getElementById("bee-app"));
+})();
+</script>
+```
+
+Drag the slider to trace a drone's family tree further back, and watch the ancestor count at each generation follow the Fibonacci sequence exactly.
+:::
+
+:::

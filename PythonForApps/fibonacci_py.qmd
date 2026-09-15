@@ -1,0 +1,221 @@
+---
+title: "Fibonacci Numbers"
+format: html
+code-fold: True
+image: 'fibonacci_preview.png'
+filters:
+  - shinylive
+---
+
+
+
+Here's a completely different place they turn up: the family tree of a honeybee.
+
+Honeybees are haplodiploid. A fertilised egg develops into a female -- a worker or a queen -- with two parents: a mother and a father. An unfertilised egg develops into a male drone, with only *one* parent: his mother. Drones have no father at all.
+
+Follow a single drone's family tree back through the generations using that one rule, and count how many ancestors he has at each generation.
+
+::: {#fig-fibonacci-bees}
+```{shinylive-python}
+#| standalone: true
+#| components: [viewer]
+#| viewerHeight: 760
+
+## file: app.py
+import matplotlib.pyplot as plt
+
+from shiny import App, Inputs, Outputs, Session, render, ui
+
+# ---------------------------------------------------------------------------
+# Why honeybee ancestry follows the Fibonacci sequence.
+#
+# Honeybees (and other bees, wasps and ants) are haplodiploid: a fertilised
+# egg develops into a female (a worker or queen, with two parents -- a
+# mother and a father), while an unfertilised egg develops into a male
+# drone, with only one parent -- his mother. Drones have no father at all.
+#
+# Trace a single drone's family tree back through the generations. His
+# single parent (his mother) is female, so *she* has two parents. One of
+# those two is male, so he in turn has only one parent. The branching
+# rule at every node is exactly the rule that generates the Fibonacci
+# recurrence: build_tree(male) has one child, build_tree(female) has two
+# children (one male, one female) -- so the number of ancestors n
+# generations back is F(n+1), the Fibonacci sequence itself, with no
+# extra assumptions or approximations required.
+# ---------------------------------------------------------------------------
+
+MAX_GEN = 9
+
+
+def build_tree(sex, gens_left):
+    """A drone (sex='M') has one parent (his mother, 'F'). A female ('F')
+    has two parents, one of each sex. Stops after gens_left generations."""
+    node = {"sex": sex, "children": []}
+    if gens_left > 0:
+        if sex == "M":
+            node["children"] = [build_tree("F", gens_left - 1)]
+        else:
+            node["children"] = [build_tree("F", gens_left - 1), build_tree("M", gens_left - 1)]
+    return node
+
+
+def layout(root):
+    """Assigns each node an (x, y) position: y = generations back (0 at the
+    bottom, the bee itself), x = leaf order, with internal nodes centred
+    over their children -- a standard tidy-tree layout."""
+    leaf_x = [0]
+
+    def walk(node, depth):
+        node["y"] = depth
+        if not node["children"]:
+            node["x"] = leaf_x[0]
+            leaf_x[0] += 1
+        else:
+            for c in node["children"]:
+                walk(c, depth + 1)
+            node["x"] = sum(c["x"] for c in node["children"]) / len(node["children"])
+
+    walk(root, 0)
+    return root
+
+
+def counts_by_generation(root, max_gen):
+    counts = [0] * (max_gen + 1)
+
+    def walk(node, depth):
+        counts[depth] += 1
+        for c in node["children"]:
+            walk(c, depth + 1)
+
+    walk(root, 0)
+    return counts
+
+
+MALE_COLOR = "#3d6fb4"
+FEMALE_COLOR = "#e0a319"
+
+
+def draw_tree(ax, root, n_gen):
+    def collect_edges(node, edges):
+        for c in node["children"]:
+            edges.append((node, c))
+            collect_edges(c, edges)
+
+    edges = []
+    collect_edges(root, edges)
+
+    for parent, child in edges:
+        ax.plot([parent["x"], child["x"]], [parent["y"], child["y"]],
+                color="#b7b7b7", linewidth=1.0, zorder=1)
+
+    def collect_nodes(node, out):
+        out.append(node)
+        for c in node["children"]:
+            collect_nodes(c, out)
+
+    nodes = []
+    collect_nodes(root, nodes)
+
+    xs_m = [n["x"] for n in nodes if n["sex"] == "M"]
+    ys_m = [n["y"] for n in nodes if n["sex"] == "M"]
+    xs_f = [n["x"] for n in nodes if n["sex"] == "F"]
+    ys_f = [n["y"] for n in nodes if n["sex"] == "F"]
+
+    size = max(90 - 6 * n_gen, 20)
+    ax.scatter(xs_f, ys_f, s=size, color=FEMALE_COLOR, edgecolor="white",
+               linewidth=0.6, zorder=2, label="female (2 parents)")
+    ax.scatter(xs_m, ys_m, s=size, color=MALE_COLOR, edgecolor="white",
+               linewidth=0.6, zorder=2, label="male drone (1 parent)")
+
+    ax.set_ylim(-0.6, n_gen + 0.6)
+    ax.invert_yaxis()
+    ax.set_yticks(range(n_gen + 1))
+    ax.set_yticklabels(["this bee" if g == 0 else str(g) for g in range(n_gen + 1)])
+    ax.set_xticks([])
+    for spine in ("top", "right", "bottom"):
+        ax.spines[spine].set_visible(False)
+    ax.legend(loc="upper right", fontsize=8, frameon=False)
+    ax.set_title("One drone's family tree", fontsize=11)
+
+
+def draw_counts(ax, counts):
+    gens = list(range(len(counts)))
+    ax.bar(gens, counts, color="#e0a319", edgecolor="#a8760f", linewidth=0.6)
+    for g, c in zip(gens, counts):
+        ax.text(g, c, str(c), ha="center", va="bottom", fontsize=9)
+    ax.set_xticks(gens)
+    ax.set_xlabel("generations back")
+    ax.set_ylabel("ancestors")
+    for spine in ("top", "right"):
+        ax.spines[spine].set_visible(False)
+    ax.set_title("Ancestors per generation -- the Fibonacci sequence", fontsize=11)
+
+
+app_ui = ui.page_sidebar(
+    ui.sidebar(
+        ui.h5("Ancestors"),
+        ui.input_slider(
+            "n_gen", "How many generations back?",
+            min=1, max=MAX_GEN, value=6, step=1,
+        ),
+        ui.hr(),
+        ui.output_ui("summary"),
+        width=360,
+    ),
+    ui.output_plot("tree_plot", height="420px"),
+    ui.output_plot("counts_plot", height="260px"),
+)
+
+
+def server(input: Inputs, output: Outputs, session: Session):
+    @output
+    @render.plot
+    def tree_plot():
+        n_gen = input.n_gen()
+        root = layout(build_tree("M", n_gen))
+        fig, ax = plt.subplots(figsize=(6.5, 4.6))
+        draw_tree(ax, root, n_gen)
+        fig.tight_layout()
+        fig.subplots_adjust(left=0.14)
+        return fig
+
+    @output
+    @render.plot
+    def counts_plot():
+        n_gen = input.n_gen()
+        root = build_tree("M", n_gen)
+        counts = counts_by_generation(root, n_gen)
+        fig, ax = plt.subplots(figsize=(6.5, 2.8))
+        draw_counts(ax, counts)
+        fig.tight_layout()
+        return fig
+
+    @output
+    @render.ui
+    def summary():
+        n_gen = input.n_gen()
+        root = build_tree("M", n_gen)
+        counts = counts_by_generation(root, n_gen)
+        seq_text = ", ".join(str(c) for c in counts)
+
+        lines = [
+            f"**Ancestor counts, generation by generation:** {seq_text}",
+            "A drone (male bee) has only one parent -- his mother -- because "
+            "he hatches from an unfertilised egg. A female bee has two "
+            "parents, one of each sex, because she hatches from a "
+            "fertilised egg.",
+            "Follow that rule back through the generations and the ancestor "
+            "counts are **exactly the Fibonacci sequence** -- no "
+            "coincidence, and no approximation: it's forced by the branching "
+            "rule itself.",
+        ]
+
+        return ui.markdown("\n\n".join(lines))
+
+
+app = App(app_ui, server)
+
+```
+
+Drag the slider to trace a drone's family tree further back, and watch the ancestor count at each generation follow the Fibonacci sequence exactly.
+:::

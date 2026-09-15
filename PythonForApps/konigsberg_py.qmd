@@ -1,0 +1,334 @@
+---
+title: "Seven Bridges of Koenigsberg"
+format: html
+code-fold: True
+image: 'konigsberg_preview.png'
+categories: [Graph theory, Discrete maths, Topology]
+filters:
+  - shinylive
+---
+
+In the 1700s the city of Koenigsberg was built around two branches of a river, with an island sitting where they met. Seven bridges connected the four separate pieces of land -- and the people of the city had a favourite Sunday puzzle: could you walk through the city and cross every one of the seven bridges exactly once?
+
+Nobody could ever do it. Nobody could ever explain *why*, either -- until a mathematician called Leonhard Euler looked at the problem in 1736, and realised something surprising: it doesn't matter how big the islands are, how long the bridges are, or what order you visit things in. All that matters is *which* pieces of land are joined to *which*, and by how many bridges. That single idea -- throw away the shape and the distance, keep only the connections -- was the birth of an entire branch of mathematics: graph theory, and later, topology.
+
+## Find it in the gardens
+
+This same puzzle has been laid out here in the Botanic Gardens. Look for four regions of the path network joined by logs standing in for the seven bridges. Before you read any further, go and try it for yourself: can you walk a route that crosses every log exactly once?
+
+## Try it here
+
+Click a landmass on the map below to start your walk, then click the bridges (numbered 1-7, matching the logs in the gardens) to cross them one at a time. Try to use all seven bridges exactly once.
+
+::: {#fig-konigsberg}
+```{shinylive-python}
+#| standalone: true
+#| components: [viewer]
+#| viewerHeight: 780
+
+## file: app.py
+import math
+from collections import defaultdict
+
+import matplotlib.pyplot as plt
+
+from shiny import App, Inputs, Outputs, Session, render, ui, reactive
+
+# ---------------------------------------------------------------------------
+# The Seven Bridges of Koenigsberg, as an interactive walk.
+#
+# Four landmasses (the graph's "nodes"), joined by seven bridges (the
+# graph's "edges"): two bridges between the north bank and the island, two
+# between the south bank and the island, and one each between north-east,
+# south-east, and island-east. That's the historically accurate bridge
+# layout -- it's the reason every landmass ends up with an ODD number of
+# bridges (3, 3, 5, 3), which is exactly why Euler could prove no walk can
+# ever cross all seven exactly once (see the "why is it impossible" panel).
+# ---------------------------------------------------------------------------
+
+NODES = {
+    "north": (0.0, 1.55),
+    "south": (0.0, -1.55),
+    "island": (-1.55, 0.0),
+    "east": (1.65, 0.0),
+}
+NODE_LABELS = {
+    "north": "North bank",
+    "south": "South bank",
+    "island": "Island",
+    "east": "East side",
+}
+NODE_RADIUS = 0.42
+
+BRIDGE_ENDPOINTS = [
+    ("north", "island"),
+    ("north", "island"),
+    ("south", "island"),
+    ("south", "island"),
+    ("north", "east"),
+    ("south", "east"),
+    ("island", "east"),
+]
+
+
+def _build_bridges():
+    groups = defaultdict(list)
+    for i, pair in enumerate(BRIDGE_ENDPOINTS):
+        groups[frozenset(pair)].append(i)
+
+    offset_step = 0.32
+    bridges = []
+    for i, (a, b) in enumerate(BRIDGE_ENDPOINTS):
+        group = groups[frozenset((a, b))]
+        idx_in_group = group.index(i)
+        n = len(group)
+        x1, y1 = NODES[a]
+        x2, y2 = NODES[b]
+        dx, dy = x2 - x1, y2 - y1
+        length = math.hypot(dx, dy)
+        ux, uy = dx / length, dy / length
+        perp = (-uy, ux)
+        amount = (idx_in_group - (n - 1) / 2.0) * offset_step
+        ox, oy = perp[0] * amount, perp[1] * amount
+        p1 = (x1 + ox, y1 + oy)
+        p2 = (x2 + ox, y2 + oy)
+        mid = ((p1[0] + p2[0]) / 2.0, (p1[1] + p2[1]) / 2.0)
+        bridges.append({"id": i, "a": a, "b": b, "p1": p1, "p2": p2, "mid": mid})
+    return bridges
+
+
+BRIDGES = _build_bridges()
+BRIDGES_BY_ID = {br["id"]: br for br in BRIDGES}
+
+NODE_DEGREE = defaultdict(int)
+for br in BRIDGES:
+    NODE_DEGREE[br["a"]] += 1
+    NODE_DEGREE[br["b"]] += 1
+
+
+def _point_seg_dist(px, py, x1, y1, x2, y2):
+    dx, dy = x2 - x1, y2 - y1
+    if dx == 0 and dy == 0:
+        return math.hypot(px - x1, py - y1)
+    t = ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy)
+    t = max(0.0, min(1.0, t))
+    cx, cy = x1 + t * dx, y1 + t * dy
+    return math.hypot(px - cx, py - cy)
+
+
+def nearest_node(cx, cy, tol=0.5):
+    best, best_d = None, tol
+    for key, (x, y) in NODES.items():
+        d = math.hypot(cx - x, cy - y)
+        if d < best_d:
+            best, best_d = key, d
+    return best
+
+
+def nearest_crossable_bridge(pos, crossed_ids, cx, cy, tol=0.19):
+    best, best_d = None, tol
+    for br in BRIDGES:
+        if br["id"] in crossed_ids:
+            continue
+        if br["a"] != pos and br["b"] != pos:
+            continue
+        d = _point_seg_dist(cx, cy, br["p1"][0], br["p1"][1], br["p2"][0], br["p2"][1])
+        if d < best_d:
+            best, best_d = br["id"], d
+    return best
+
+
+def draw_map(ax, position, crossed_ids, show_theory):
+    ax.add_patch(plt.Rectangle((-2.5, -2.3), 5.0, 4.6, facecolor="#bfe3f0", zorder=0))
+
+    for br in BRIDGES:
+        used = br["id"] in crossed_ids
+        color = "#8b5a2b" if used else "#cdb894"
+        lw = 5.5 if used else 4.0
+        ax.plot(
+            [br["p1"][0], br["p2"][0]], [br["p1"][1], br["p2"][1]],
+            color=color, linewidth=lw, solid_capstyle="round", zorder=1,
+        )
+        badge_face = "#8b5a2b" if used else "#ffffff"
+        badge_text = "#ffffff" if used else "#8b5a2b"
+        ax.add_patch(plt.Circle(br["mid"], 0.125, facecolor=badge_face, edgecolor="#6b4520", linewidth=1.1, zorder=2))
+        ax.text(br["mid"][0], br["mid"][1], str(br["id"] + 1), ha="center", va="center",
+                fontsize=8.5, color=badge_text, fontweight="bold", zorder=3)
+
+    for key, (x, y) in NODES.items():
+        here = (position == key)
+        face = "#ffd93d" if here else "#9fd17a"
+        edge = "#c9960a" if here else "#4f7a3a"
+        ax.add_patch(plt.Circle((x, y), NODE_RADIUS, facecolor=face, edgecolor=edge,
+                                 linewidth=2.6 if here else 1.6, zorder=4))
+        label = NODE_LABELS[key]
+        if show_theory:
+            deg = NODE_DEGREE[key]
+            parity = "odd" if deg % 2 else "even"
+            text = f"{label}\n{deg} bridges\n({parity})"
+            fontsize = 7.6
+        else:
+            text = label
+            fontsize = 9.5
+        ax.text(x, y, text, ha="center", va="center", fontsize=fontsize,
+                color="#1c3d0e", fontweight="bold", zorder=5)
+        if here:
+            ax.text(x, y - NODE_RADIUS - 0.2, "you are here", ha="center", va="top",
+                    fontsize=8, color="#8a6d00", fontweight="bold", zorder=5)
+
+    ax.set_xlim(-2.5, 2.5)
+    ax.set_ylim(-2.3, 2.3)
+    ax.set_aspect("equal")
+    ax.axis("off")
+
+
+app_ui = ui.page_sidebar(
+    ui.sidebar(
+        ui.h5("Walk across every bridge"),
+        ui.output_ui("status"),
+        ui.hr(),
+        ui.input_action_button("reset_walk", "Start over", class_="btn-primary"),
+        ui.hr(),
+        ui.input_checkbox("show_theory", "Show bridge counts (and why it's impossible)"),
+        ui.output_ui("theory_panel"),
+        width=350,
+    ),
+    ui.output_plot("bridge_map", click=True, height="520px"),
+)
+
+
+def server(input: Inputs, output: Outputs, session: Session):
+    position = reactive.Value(None)
+    crossed = reactive.Value(set())
+    walk_log = reactive.Value([])
+
+    @reactive.effect
+    @reactive.event(input.reset_walk)
+    def _reset():
+        position.set(None)
+        crossed.set(set())
+        walk_log.set([])
+
+    @reactive.effect
+    @reactive.event(input.bridge_map_click)
+    def _on_click():
+        click = input.bridge_map_click()
+        if click is None:
+            return
+        pos = position.get()
+        if pos is None:
+            node = nearest_node(click["x"], click["y"])
+            if node is not None:
+                position.set(node)
+                walk_log.set([node])
+            return
+
+        cset = crossed.get()
+        br_id = nearest_crossable_bridge(pos, cset, click["x"], click["y"])
+        if br_id is None:
+            return
+        br = BRIDGES_BY_ID[br_id]
+        other = br["b"] if br["a"] == pos else br["a"]
+        new_crossed = set(cset)
+        new_crossed.add(br_id)
+        crossed.set(new_crossed)
+        position.set(other)
+        walk_log.set(walk_log.get() + [other])
+
+    @reactive.calc
+    def is_stuck():
+        pos = position.get()
+        if pos is None:
+            return False
+        cset = crossed.get()
+        if len(cset) >= len(BRIDGES):
+            return False
+        for br in BRIDGES:
+            if br["id"] in cset:
+                continue
+            if br["a"] == pos or br["b"] == pos:
+                return False
+        return True
+
+    @output
+    @render.plot
+    def bridge_map():
+        fig, ax = plt.subplots(figsize=(6.4, 5.9))
+        draw_map(ax, position.get(), crossed.get(), bool(input.show_theory()))
+        fig.tight_layout()
+        return fig
+
+    @output
+    @render.ui
+    def status():
+        pos = position.get()
+        cset = crossed.get()
+        n = len(cset)
+        lines = []
+        if pos is None:
+            lines.append("**Click a landmass** on the map to start your walk.")
+        else:
+            path = " → ".join(NODE_LABELS[k] for k in walk_log.get())
+            lines.append(f"**Bridges crossed:** {n} of 7")
+            lines.append(f"**Your route so far:** {path}")
+            if is_stuck():
+                lines.append(
+                    f"**Stuck!** Every bridge from {NODE_LABELS[pos]} has already been used, "
+                    f"and only {n} of the 7 bridges are crossed. Hit **Start over** and try a "
+                    "different route -- or tick the box below to see why this always happens."
+                )
+            elif n == len(BRIDGES):
+                lines.append(
+                    "You crossed every bridge exactly once! If you really didn't repeat a "
+                    "bridge, double-check your route -- this exact puzzle is famously impossible, "
+                    "so it's worth being sure."
+                )
+        return ui.markdown("\n\n".join(lines))
+
+    @output
+    @render.ui
+    def theory_panel():
+        if not input.show_theory():
+            return ui.markdown("")
+        lines = [
+            "**Turn it into a graph.** Shrink each landmass down to a dot (mathematicians "
+            "call it a *node*), and each bridge down to a line joining two dots (an *edge*). "
+            "The exact size and shape stop mattering -- only *which dots are joined, and how "
+            "many times*.",
+            "**Count the bridges at each dot -- its *degree*.** North bank: 3. South bank: 3. "
+            "Island: 5. East side: 3.",
+            "**Euler's trick:** every time your walk passes *through* a landmass (not starting "
+            "or ending there), it uses up two of that landmass's bridges at once -- one to "
+            "arrive, one to leave. So a landmass can only be a start or an end point if it has "
+            "an *odd* number of bridges. A walk has exactly one start and one end, so **at most "
+            "2 landmasses are allowed an odd degree**.",
+            "Koenigsberg has **4** landmasses with an odd degree -- two more than is ever "
+            "allowed. That's not bad luck: it's a proof that no route can ever cross every "
+            "bridge exactly once, no matter how cleverly you try.",
+        ]
+        return ui.markdown("\n\n".join(lines))
+
+
+app = App(app_ui, server)
+```
+
+:::
+
+## Turning it into a graph
+
+Shrink each landmass down to a single dot -- mathematicians call it a *node* (or *vertex*) -- and shrink each bridge down to a line joining two dots -- an *edge*. That's it: you've just drawn the same map above as a graph. The exact size and shape don't matter any more, only which dots are joined, and how many times.
+
+## Why is it impossible?
+
+Count how many bridges touch each landmass -- its *degree*:
+
+- North bank: **3**
+- South bank: **3**
+- Island: **5**
+- East side: **3**
+
+Here's Euler's trick. Every time your walk passes *through* a landmass in the middle of your route (not starting or ending there), you use up two of its bridges at once: one to arrive, one to leave. So a landmass can only be left with a single, unpaired bridge -- which makes it usable only as a *start* or an *end* point -- if it has an **odd** number of bridges. A walk has exactly one start and one end, so at most **two** landmasses in the whole map are allowed to have an odd degree.
+
+Koenigsberg has **four** landmasses with an odd degree -- two more than is ever allowed. That's not bad luck, and it's not that nobody was clever enough: it's a mathematical proof that no route can *ever* cross every bridge exactly once, no matter how hard you try or how many times you attempt it.
+
+This same idea -- turning a real problem into dots and connections, then reasoning about the connections alone -- now underpins everything from delivery-route planning to computer chip design to mapping how a disease spreads through a network of people. It all traces back to seven bridges over a river in Koenigsberg, and one mathematician who realised the shape never mattered at all.

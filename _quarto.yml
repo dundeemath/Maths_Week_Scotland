@@ -1,11 +1,40 @@
 project:
-  type: website
+  type: book
 
-website:
-  repo-url: https://github.com/dundeemath/Maths_Week_Scotland/
+book:
+  title: "Maths Trail at the Dundee Botanic Gardens"
+  # Reorder this list for the exhibition -- it's the single source of
+  # truth for chapter order (no separate file to keep in sync).
+  chapters:
+    - index.qmd            # Maths Week Scotland - Dundee University (site welcome page -- cover/intro? or drop?)
+    - analemma.qmd        # The Analemma Project
+    - birdsong.qmd         # Bird Song
+    - circadian.qmd        # Circadian Rhythm
+    - curvature.qmd        # Why leaves crinkle: differential growth in a disc
+    - fibonacci.qmd        # Fibonacci Numbers
+    - fractal.qmd          # Fractal
+    - helicopter.qmd       # Helicopter Seeds
+    - konigsberg.qmd       # Seven Bridges of Koenigsberg (currently just a stub, "Topic in Graph Theory.")
+    - phyllotaxis.qmd      # Phyllotaxis
+    - salesman.qmd         # The Travelling Salesman Problem [has inline shinylive]
+    - spirals.qmd          # Logarithmic Spiral
+    - symmetry.qmd         # Symmetry in Plants
+    - trigonometry.qmd     # Estimating the Height of a Tree using Trigonometry
+    - questionnaire.qmd    # End of Maths Trail Questionnaire (interactive form -- drop, or paper version?)
 
 format:
   html:
     theme: cosmo
-    css: styles.css
-    toc: true
+    css: mobile.css
+    include-in-header: js_apps_switch.html
+    toc: false
+    number-sections: false
+  pdf:
+    documentclass: scrbook
+    # oneside: without this, scrbook's default twoside layout forces every
+    # chapter to start on a fresh right-hand (odd) page, which is what was
+    # inserting a blank page after every 1-page chapter. oneside makes
+    # chapters run straight on, back to back.
+    classoption: [oneside]
+    toc: false
+    number-sections: false

@@ -1,0 +1,205 @@
+---
+title: "Circadian Rhythm"
+format: html
+code-fold: True
+image: 'circadian_preview.png'
+categories: [Differential equations, Dynamical systems, Biology]
+filters:
+  - shinylive
+---
+
+Watch the water lily here through a full day and you'll see its flowers open in the morning and close again in the evening -- like clockwork. Leave it in a room with the lights left on permanently, though, and it doesn't stay open forever. It keeps opening and closing on roughly the same rhythm for a while, gradually drifting out of step with real time. That's the giveaway: the plant isn't just reacting to light like a switch, it's carrying its own internal clock -- and ordinary daylight is what keeps that clock correctly set.
+
+## The idea
+
+Model the plant's internal clock as a phase $\theta(t)$ that ticks round at its own natural rate, but gets nudged by the real day/night cycle:
+
+$$\frac{d\theta}{dt} = \omega + K\sin(\Omega t - \theta)$$
+
+Here $\omega = 2\pi/T_{\text{natural}}$ is how fast the plant's *own* clock would run left alone -- close to 24 hours, but not exactly (real plants and animals typically free-run a little faster or slower than a true day). $\Omega = 2\pi/24\text{h}$ is the real, fixed day/night cycle, and $K$ is how strongly light resets the plant's clock each time it senses it.
+
+Write $\phi(t) = \theta(t) - \Omega t$ for how far the plant's clock has drifted from real daylight, and the equation above becomes $\dot\phi = (\omega - \Omega) - K\sin\phi$. This has a stable resting value of $\phi$ -- the plant locked into a fixed daily relationship with sunrise -- exactly when
+
+$$|\omega - \Omega| \le K.$$
+
+Below that threshold, no such resting value exists at all, and $\phi$ drifts forever: the plant free-runs at its own natural period, slowly sliding in and out of step with real daylight. Cross the threshold and the behaviour flips from "always drifting" to "always locks" -- a genuine bifurcation, the same kind of sudden switch that shows up in the metronome-synchronisation demo elsewhere on this trail. There, many oscillators pull on *each other*; here, one oscillator is pulled by a single external rhythm -- same underlying mathematics, different picture.
+
+![](circadian_preview.png)
+
+## Play with it
+
+Drag the plant's natural rhythm away from 24 hours and watch how much light-coupling strength $K$ it takes to keep it locked to real daylight. Turn the coupling down (or flip on constant light, which removes the day/night cue entirely) and watch the flower's rhythm slowly drift free of real sunrise and sunset -- exactly the "free-running" experiment real chronobiologists actually run, just sped up here to days instead of weeks.
+
+::: {#fig-circadian}
+```{shinylive-python}
+#| standalone: true
+#| components: [viewer]
+#| viewerHeight: 780
+
+## file: app.py
+import math
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+from shiny import App, Inputs, Outputs, Session, render, ui, reactive
+
+# ---------------------------------------------------------------------------
+# The water lily's internal clock as a forced phase oscillator.
+#
+# theta(t) is the plant's own clock (radians); it free-runs at its natural
+# frequency omega = 2*pi/T_natural, but the day/night cycle nudges it:
+#
+#     dtheta/dt = omega + K * sin(Omega*t - theta)      Omega = 2*pi/24
+#
+# This is the classic "Adler equation" model of circadian entrainment (the
+# same mathematics behind the Sync Dial / metronome demo elsewhere on this
+# site -- there many oscillators pull on each other; here one oscillator is
+# pulled by a single external rhythm). Writing phi(t) = theta(t) - Omega*t:
+#
+#     dphi/dt = domega - K*sin(phi),   domega = omega - Omega
+#
+# which locks onto a constant phi (the plant's rhythm settles into a fixed
+# daily relationship with sunrise -- "entrained") exactly when
+# |domega| <= K, and otherwise phi drifts forever (the plant "free-runs" at
+# its own period, slowly sliding in and out of step with real daylight).
+# See numeric_check_entrainment.py for the checks behind this.
+# ---------------------------------------------------------------------------
+
+T_LIGHT_H = 24.0
+OMEGA = 2 * math.pi / T_LIGHT_H
+DAWN_OFFSET_H = 6.0  # t=0 corresponds to 06:00, so shading lines up with a real clock
+
+DAY_COLOR = "#fdf6e3"
+NIGHT_COLOR = "#22314a"
+BLOOM_COLOR = "#c0447a"
+PHI_COLOR = "#3d6fb4"
+
+
+def simulate(t_natural_h, K, n_days, dt=0.05, theta0=0.0):
+    omega = 2 * math.pi / t_natural_h
+    n_steps = int(n_days * 24 / dt)
+    t = np.arange(n_steps + 1) * dt
+    theta = np.empty(n_steps + 1)
+    theta[0] = theta0
+    th = theta0
+    for i in range(n_steps):
+        th = th + dt * (omega + K * math.sin(OMEGA * t[i] - th))
+        theta[i + 1] = th
+    domega = omega - OMEGA
+    phi = theta - OMEGA * t
+    bloom = (1 + np.cos(theta)) / 2.0
+    return t, theta, phi, bloom, domega
+
+
+def draw_bloom(ax, t, bloom, n_days):
+    # night/day shading based on the real clock
+    for day in range(int(n_days) + 1):
+        night_start = day * 24 + (20 - DAWN_OFFSET_H)
+        night_end = night_start + 10  # 20:00 -> 06:00 next day = 10 hours
+        ax.axvspan(max(night_start, t[0]), min(night_end, t[-1]),
+                   color=NIGHT_COLOR, alpha=0.12, zorder=0)
+    ax.plot(t, bloom, color=BLOOM_COLOR, linewidth=1.6, zorder=2)
+    ax.fill_between(t, 0, bloom, color=BLOOM_COLOR, alpha=0.15, zorder=1)
+    ax.set_ylim(-0.05, 1.05)
+    ax.set_xlim(t[0], t[-1])
+    ax.set_ylabel("bloom fraction\n(1 = fully open)", fontsize=9)
+    ax.set_xlabel("time (hours; shaded bands = real night)", fontsize=9)
+    for spine in ("top", "right"):
+        ax.spines[spine].set_visible(False)
+    ax.set_title("The water lily's flower, day by day", fontsize=11)
+
+
+def draw_phase(ax, t, phi, entrained):
+    ax.plot(t, phi, color=PHI_COLOR, linewidth=1.6)
+    ax.axhline(0, color="#999999", linewidth=0.8, linestyle=":")
+    ax.set_xlim(t[0], t[-1])
+    ax.set_xlabel("time (hours)", fontsize=9)
+    ax.set_ylabel("phase difference\nfrom real daylight (rad)", fontsize=9)
+    for spine in ("top", "right"):
+        ax.spines[spine].set_visible(False)
+    verdict = "settling to a constant -- entrained" if entrained else "drifting -- not entrained"
+    ax.set_title(f"Clock vs. sunlight phase difference ({verdict})", fontsize=11)
+
+
+app_ui = ui.page_sidebar(
+    ui.sidebar(
+        ui.h5("The water lily's clock"),
+        ui.input_slider("t_natural", "Its natural rhythm, left undisturbed (hours)",
+                         min=20, max=28, value=24.8, step=0.1),
+        ui.input_slider("k_coupling", "How strongly daylight resets it (coupling K)",
+                         min=0, max=0.08, value=0.02, step=0.002),
+        ui.input_switch("constant_light", "Constant light (remove the day/night cue)", value=False),
+        ui.input_slider("n_days", "Days to simulate", min=5, max=30, value=14, step=1),
+        ui.hr(),
+        ui.output_ui("summary"),
+        width=380,
+    ),
+    ui.output_plot("bloom_plot", height="320px"),
+    ui.output_plot("phase_plot", height="280px"),
+)
+
+
+def server(input: Inputs, output: Outputs, session: Session):
+
+    def _run():
+        K = 0.0 if input.constant_light() else float(input.k_coupling())
+        t, theta, phi, bloom, domega = simulate(float(input.t_natural()), K, int(input.n_days()))
+        return t, phi, bloom, domega, K
+
+    @output
+    @render.plot
+    def bloom_plot():
+        t, phi, bloom, domega, K = _run()
+        fig, ax = plt.subplots(figsize=(7.2, 3.2))
+        draw_bloom(ax, t, bloom, int(input.n_days()))
+        fig.tight_layout()
+        return fig
+
+    @output
+    @render.plot
+    def phase_plot():
+        t, phi, bloom, domega, K = _run()
+        tail = phi[-max(int(len(phi) * 0.1), 10):]
+        entrained_sim = (tail.max() - tail.min()) < 0.05
+        fig, ax = plt.subplots(figsize=(7.2, 2.8))
+        draw_phase(ax, t, phi, entrained_sim)
+        fig.tight_layout()
+        return fig
+
+    @output
+    @render.ui
+    def summary():
+        t, phi, bloom, domega, K = _run()
+        tail = phi[-max(int(len(phi) * 0.1), 10):]
+        entrained_sim = (tail.max() - tail.min()) < 0.05
+        entrained_analytic = abs(domega) <= K
+
+        lines = [
+            f"**Natural rhythm:** {input.t_natural():.1f} h &nbsp;&nbsp; "
+            f"**Real day/night:** {T_LIGHT_H:.0f} h",
+            f"**Coupling K:** {K:.3f} rad/h" + (" (constant light: K forced to 0)" if input.constant_light() else ""),
+        ]
+        if entrained_analytic:
+            lines.append(
+                "**Entrained** -- the maths says light is strong enough to pull the "
+                "plant's clock into step with real daylight (|natural − light frequency| ≤ K)."
+            )
+        else:
+            lines.append(
+                "**Free-running** -- light isn't strong enough to hold the plant's clock "
+                "in step, so it slowly drifts through the day/night cycle at its own pace."
+            )
+        lines.append(
+            f"*(Simulation agrees: the clock/daylight phase difference has "
+            f"{'settled down' if entrained_sim else 'kept drifting'} by day {int(input.n_days())}.)*"
+        )
+        return ui.markdown("\n\n".join(lines))
+
+
+app = App(app_ui, server)
+```
+
+:::
+
+A note on accuracy: the entrainment condition $|\omega - \Omega| \le K$ is exact for this model (a standard textbook treatment of circadian entrainment, going back to the same "Adler equation" used for phase-locked oscillators generally) -- not a simplification introduced for this page. What *is* simplified is the biology: real circadian clocks are driven by feedback loops of gene expression, and light doesn't nudge them with a plain sine-shaped response the way this model assumes -- the real "phase response curve" is more complex and depends on the time of day light arrives. The qualitative story, though, is the genuine one: an internal, self-sustaining oscillator, entrainable by light, that free-runs at its own pace once the light cue is removed.

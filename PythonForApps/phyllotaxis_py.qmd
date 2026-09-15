@@ -1,0 +1,458 @@
+---
+title: "Build your own leaf system"
+format: html
+code-fold: True
+image: 'phyllotaxis_preview.png'
+filters:
+  - shinylive
+---
+
+
+
+Two things control the pattern: how many leaves grow from each point on the stem (one, a pair, or a whorl of three), and the angle each new leaf or whorl is rotated from the last. For a single leaf at a time, that angle is free to be anything -- drag it to 180° for distichous, or to exactly 137.5°, the golden angle, for the Fibonacci spiral. For pairs and whorls, the angle is fixed by how many leaves share each point: 90° for pairs, 60° for whorls of three, matching the decussate and tricussate patterns.
+
+Four ways to look at the same pattern: from directly above the stem (how you'd actually classify a real plant), the stem's surface unrolled flat (straight rows reveal how many columns of leaves line up), a side-view diagram of the stem itself, drawn the same way as the pictures above, and a fully 3D view you can rotate yourself -- watch how the same one rule produces four completely different-looking plants.
+
+::: {#fig-phyllotaxis}
+```{shinylive-python}
+#| standalone: true
+#| components: [viewer]
+#| viewerHeight: 780
+
+## file: app.py
+import math
+
+import matplotlib.pyplot as plt
+import matplotlib
+from matplotlib.patches import Ellipse
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+
+from shiny import App, Inputs, Outputs, Session, render, ui
+
+# ---------------------------------------------------------------------------
+# Phyllotaxis: how leaves (or leaf whorls) arrange around a stem, and why
+# the golden angle (137.5 degrees) produces the classic non-repeating
+# spiral, while simple rational-fraction-of-360 degree angles produce the
+# visibly "columned" named patterns already described on this page.
+#
+# Two independent knobs, matching the real botanical distinction:
+#   k       -- leaves per node ("alternate" k=1, "opposite pairs" k=2,
+#              "whorls of three" k=3). This is a discrete choice, not a
+#              free angle.
+#   angle   -- the rotation between successive nodes. Only a free
+#              parameter when k=1 (alternate leaves); for k=2 and k=3 it
+#              is fixed at 180/k degrees to match the decussate (90) and
+#              tricussate (60) patterns already named on this page.
+#
+# Node j holds k leaves at angles  j*angle + i*(360/k)  for i = 0..k-1.
+# This single rule is reused for all three views below, just mapped to a
+# different radius/position convention in each:
+#   - "unrolled":  the stem's surface unrolled flat, x = node index,
+#     y = angular position (0-360). Rational angles produce a small
+#     number of horizontal rows (visible columns/orthostichies on a real
+#     stem); the golden angle never repeats and fills the strip evenly.
+#   - "topdown":   looking straight down the stem from above, radius
+#     grows slightly with node index purely so successive nodes don't
+#     draw exactly on top of each other -- a real stem's girth doesn't
+#     grow like this, it's a legibility choice, noted in the caption.
+#   - "stem":      a schematic side view of leaves attached directly to
+#     the stem, in the same style as the classic four-pattern diagram
+#     already used on the trail page -- a leaf's left-right position
+#     comes from cos(theta), with a small vertical wobble from sin(theta)
+#     standing in for it swinging toward or away from the viewer.
+#   - "3d":        a genuine 3D rendering of the same picture the "stem"
+#     view approximates in 2D, with a slider to rotate the camera around
+#     it. Prototyping only -- meant to be ported to a JavaScript 3D
+#     renderer once the geometry and interaction are settled here.
+# ---------------------------------------------------------------------------
+
+N_NODES = 34  # a Fibonacci number, incidentally
+STEM_VIEW_NODES = 8  # fewer nodes so the stem diagram stays readable, like the reference figure
+LEAF_LEN = 1.0
+LEAF_TILT_FROM_VERTICAL = 55  # degrees; a fixed attachment angle, same for every leaf, shared by the 2D and 3D leaf-by-leaf views
+
+NAMED_PATTERNS = [
+    (1, 180.0, "Distichous"),
+    (1, 137.5, "Fibonacci spiral"),
+    (2, 90.0, "Decussate"),
+    (3, 60.0, "Tricussate"),
+]
+
+
+def fixed_angle_for_k(k):
+    return 180.0 / k
+
+
+def generate_leaves(k, angle_deg, n_nodes=N_NODES):
+    angle = math.radians(angle_deg)
+    leaves = []
+    for j in range(n_nodes):
+        base = j * angle
+        for i in range(k):
+            theta = base + i * (2 * math.pi / k)
+            leaves.append({"j": j, "theta": theta})
+    return leaves
+
+
+def classify(k, angle_deg):
+    for pk, pangle, name in NAMED_PATTERNS:
+        if pk == k and abs(angle_deg - pangle) < 0.05:
+            return name
+    return None
+
+
+def draw_unrolled(ax, leaves, k):
+    cmap = matplotlib.colormaps["YlGn"]
+    n_nodes = max(l["j"] for l in leaves) + 1
+    for leaf in leaves:
+        y = math.degrees(leaf["theta"]) % 360
+        color = cmap(0.3 + 0.6 * leaf["j"] / max(n_nodes - 1, 1))
+        ax.scatter(leaf["j"], y, s=42 * 0.8, color=color, edgecolor="#4a7a2a", linewidth=0.4, alpha=0.8, zorder=2)  # s is marker area, so *0.8 directly gives 20% smaller area
+    # tie leaves within the same node together (they share a height)
+    by_node = {}
+    for leaf in leaves:
+        by_node.setdefault(leaf["j"], []).append(leaf)
+    for j, group in by_node.items():
+        if len(group) > 1:
+            ys = [math.degrees(l["theta"]) % 360 for l in group]
+            ax.plot([j] * len(ys), sorted(ys), color="#b7b7b7", linewidth=0.8, zorder=1)
+    # a thin guide line through the first leaf of each node, showing the spiral
+    firsts = [g[0] for g in by_node.values()]
+    ax.plot([l["j"] for l in firsts], [math.degrees(l["theta"]) % 360 for l in firsts],
+            color="#cfcfcf", linewidth=0.6, zorder=0)
+
+    ax.set_xlim(-1, n_nodes)
+    ax.set_ylim(-10, 370)
+    ax.set_yticks([0, 90, 180, 270, 360])
+    ax.set_xlabel("node (going up the stem)")
+    ax.set_ylabel("angular position (degrees)")
+    ax.set_title("Stem unrolled flat -- straight rows = visible columns", fontsize=11)
+    for spine in ("top", "right"):
+        ax.spines[spine].set_visible(False)
+
+
+def draw_topdown(ax, leaves, k):
+    cmap = matplotlib.colormaps["YlGn"]
+    n_nodes = max(l["j"] for l in leaves) + 1
+    xs, ys, colors = [], [], []
+    for leaf in leaves:
+        r = 1.0 + 0.09 * leaf["j"]
+        xs.append(r * math.cos(leaf["theta"]))
+        ys.append(r * math.sin(leaf["theta"]))
+        colors.append(cmap(0.3 + 0.6 * leaf["j"] / max(n_nodes - 1, 1)))
+    # spiral guide line through node order
+    order = sorted(range(len(leaves)), key=lambda i: (leaves[i]["j"], leaves[i]["theta"]))
+    ax.plot([xs[i] for i in order], [ys[i] for i in order], color="#d8d8d8", linewidth=0.6, zorder=0)
+    ax.scatter(xs, ys, s=46 * 0.8, color=colors, edgecolor="#4a7a2a", linewidth=0.4, alpha=0.8, zorder=2)  # s is marker area, so *0.8 directly gives 20% smaller area
+    ax.scatter([0], [0], s=25, color="#8a5a2a", marker="s", zorder=3)  # the stem, viewed end-on
+
+    lim = 1.0 + 0.09 * n_nodes + 0.3
+    ax.set_xlim(-lim, lim)
+    ax.set_ylim(-lim, lim)
+    ax.set_aspect("equal")
+    ax.set_xticks([])
+    ax.set_yticks([])
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+    ax.set_title("Looking straight down the stem", fontsize=11)
+
+
+def draw_stem_illustration(ax, leaves, k):
+    """A schematic side view of the stem with leaves attached, in the same
+    style as the classic distichous/decussate/tricussate/spiral diagram:
+    each leaf is drawn as an oval pointing away from the stem, all reaching
+    out the same fixed distance so none collapse from foreshortening.
+
+    Two different things are being shown, and they are kept deliberately
+    separate: (1) the leaf's own attachment angle -- how far its blade
+    leans away from the stem -- which is a fixed property of the plant,
+    not of phyllotaxis, so every leaf here leans by the same constant
+    LEAF_TILT_FROM_VERTICAL, mirrored to whichever side of the stem it is
+    actually attached to; and (2) the *divergence* angle this page is
+    about, which is purely about rotational position around the stem,
+    shown through which side the leaf is on plus a small vertical wobble
+    at its attachment point standing in for rotation towards/away from the
+    viewer, an artistic choice like the reference diagram, not a literal
+    projection. Earlier versions also let theta drive the oval's rotation,
+    which looked like it was modelling something real but wasn't: it made
+    leaves swing all the way from horizontal to vertical depending on
+    theta, which is not how a real leaf's attachment angle works and is
+    not what "divergence angle" means.
+
+    Every leaf's base is anchored exactly on the stem's centre line (x=0)
+    -- never offset sideways -- so it can never visibly detach from the
+    stem no matter what angle it leans at: earlier versions positioned the
+    oval's *centre* a fixed reach from the stem and then rotated it by an
+    angle that, once rotation stopped tracking theta, frequently pointed a
+    different way than that offset did, opening a real gap between the
+    leaf's near edge and the stem for anything not close to a right angle.
+    Anchoring the base and building the oval's centre outward from there,
+    along the same fixed direction the oval is actually drawn in, makes
+    that gap geometrically impossible instead of just unlikely. That
+    vertical wobble is always upwards, never downwards (real leaves don't
+    hang below their node), by folding theta into the upper half-turn
+    before using it."""
+    cmap = matplotlib.colormaps["YlGn"]
+    n_nodes = max(l["j"] for l in leaves) + 1
+    dz = 1.0
+    depth_wobble = 0.35  # amplitude of the small vertical "towards/away from viewer" cue
+    # 20% smaller in area than the original 1.5 x 0.55: area scales with
+    # width * height, so each dimension is scaled by sqrt(0.8), not 0.8.
+    leaf_len = 1.5 * math.sqrt(0.8)
+    leaf_width = 0.55 * math.sqrt(0.8)
+    max_h = (n_nodes - 1) * dz
+
+    ax.plot([0, 0], [0, max_h], color="#6b4226", linewidth=9,
+            solid_capstyle="round", zorder=1)
+    for j in range(n_nodes):
+        ax.plot([-0.07, 0.07], [j * dz, j * dz], color="#4a2d16",
+                 linewidth=3, solid_capstyle="round", zorder=2)
+
+    for leaf in leaves:
+        theta = leaf["theta"]
+        j = leaf["j"]
+        height = j * dz
+        # Fold theta into the upper half-turn [0, pi]: cos is unchanged by
+        # this (cos(-x) == cos(x)), so which side the leaf is on is
+        # untouched; sin becomes its own absolute value, so the wobble is
+        # always upwards.
+        theta_up = theta if math.sin(theta) >= 0 else -theta
+        cos_theta_up = math.cos(theta_up)
+        # The oval's rotation is *not* derived from theta at all -- every
+        # leaf leans away from vertical by the same fixed amount, mirrored
+        # to whichever side of the stem it's on. A leaf sitting almost
+        # exactly on the stem (cos(theta_up) close to 0, i.e. theta close
+        # to a right angle) has no clear side to lean towards, so it is
+        # drawn pointing straight up rather than picking one arbitrarily.
+        if cos_theta_up > 1e-9:
+            side = 1
+        elif cos_theta_up < -1e-9:
+            side = -1
+        else:
+            side = 0
+        angle_deg = 90 - side * LEAF_TILT_FROM_VERTICAL
+        angle_rad = math.radians(angle_deg)
+        # The leaf's base -- the end nearest the stem -- sits exactly on
+        # the stem's centre line, at this node's height plus a small
+        # upward-only wobble. The oval's centre is then placed half a
+        # leaf-length out from that base *along the oval's own rotation
+        # direction*, so the base is always exactly on the oval's edge:
+        # the leaf can never appear detached from the stem.
+        base_x = 0.0
+        base_y = height + math.sin(theta_up) * depth_wobble
+        half_len = leaf_len / 2
+        center_x = base_x + half_len * math.cos(angle_rad)
+        center_y = base_y + half_len * math.sin(angle_rad)
+        color = cmap(0.35 + 0.5 * j / max(n_nodes - 1, 1))
+        ell = Ellipse((center_x, center_y), width=leaf_len, height=leaf_width,
+                      angle=angle_deg, facecolor=color, edgecolor="#2f4f1f",
+                      linewidth=0.8, alpha=0.8, zorder=3)
+        ax.add_patch(ell)
+
+    ax.set_xlim(-2.3, 2.3)
+    ax.set_ylim(-0.5, max_h + 0.6)
+    ax.set_aspect("equal")
+    ax.set_xticks([])
+    ax.set_yticks([])
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+    ax.set_title("Leaves on the stem, viewed from the side", fontsize=11)
+
+
+def draw_3d(ax, leaves, k, azim):
+    """A genuine 3D rendering of the same stem-and-leaves picture the 2D
+    side view can only approximate from one fixed angle. Getting the 2D
+    view right took several rounds of fixes precisely because it was
+    faking 3D information (which side a leaf is on, how far it leans,
+    whether its base touches the stem) with 2D position and rotation
+    tricks that could come apart from each other. None of those tricks
+    are needed here: a leaf's 3D base is always exactly at its node (so a
+    gap is geometrically impossible), it leans away from the vertical
+    stem axis by the same fixed LEAF_TILT_FROM_VERTICAL for every leaf
+    (measured from the true vertical, so it can never look like it's
+    drooping or lying flat depending on viewing angle), and its position
+    around the stem is exactly theta, the true divergence angle, with no
+    folding or distortion of any kind -- theta *is* the azimuth. The
+    "Rotate the plant" slider just moves the camera (matplotlib's `azim`)
+    around this fixed 3D shape.
+
+    This view is a geometry/interaction prototype, built with matplotlib
+    to work out the 3D model and the rotation control before porting it
+    to a proper JavaScript 3D renderer for the live page -- consistent
+    with how every other widget on this site was developed."""
+    cmap = matplotlib.colormaps["YlGn"]
+    n_nodes = max(l["j"] for l in leaves) + 1
+    dz = 1.0
+    leaf_length = 1.5
+    leaf_half_width = 0.28
+    tilt = math.radians(LEAF_TILT_FROM_VERTICAL)
+    max_h = (n_nodes - 1) * dz
+
+    ax.plot([0, 0], [0, 0], [0, max_h], color="#6b4226", linewidth=6, solid_capstyle="round")
+
+    for leaf in leaves:
+        theta = leaf["theta"]
+        j = leaf["j"]
+        z0 = j * dz
+        # Spherical-to-Cartesian: fixed polar angle (tilt) from the
+        # vertical (+z) stem axis, true azimuth theta around it. This is
+        # the actual 3D direction the leaf points in -- not a stand-in.
+        dirx = math.sin(tilt) * math.cos(theta)
+        diry = math.sin(tilt) * math.sin(theta)
+        dirz = math.cos(tilt)
+        base = (0.0, 0.0, z0)
+        tip = (dirx * leaf_length, diry * leaf_length, z0 + dirz * leaf_length)
+        mid = (dirx * leaf_length * 0.5, diry * leaf_length * 0.5, z0 + dirz * leaf_length * 0.5)
+        # A width vector perpendicular to the leaf direction, in the
+        # horizontal plane, gives the leaf blade some width instead of
+        # drawing it as a bare line.
+        wx, wy = -diry, dirx
+        wnorm = math.hypot(wx, wy) or 1.0
+        wx, wy = wx / wnorm * leaf_half_width, wy / wnorm * leaf_half_width
+        left = (mid[0] + wx, mid[1] + wy, mid[2])
+        right = (mid[0] - wx, mid[1] - wy, mid[2])
+        color = cmap(0.35 + 0.5 * j / max(n_nodes - 1, 1))
+        poly = Poly3DCollection([[base, left, tip, right]], facecolor=color,
+                                 edgecolor="#2f4f1f", linewidth=0.6, alpha=0.85)
+        ax.add_collection3d(poly)
+
+    lim = leaf_length + 0.3
+    ax.set_xlim(-lim, lim)
+    ax.set_ylim(-lim, lim)
+    ax.set_zlim(-0.3, max_h + 0.6)
+    try:
+        ax.set_box_aspect((1, 1, (max_h + 0.9) / (2 * lim)))
+    except AttributeError:
+        pass  # older matplotlib without set_box_aspect -- axes just won't be perfectly to scale
+    ax.set_xticks([])
+    ax.set_yticks([])
+    ax.set_zticks([])
+    ax.set_axis_off()
+    ax.view_init(elev=18, azim=azim)
+    ax.set_title("3D view -- drag the slider to rotate", fontsize=11)
+
+
+app_ui = ui.page_sidebar(
+    ui.sidebar(
+        ui.h5("Leaves per node"),
+        ui.input_radio_buttons(
+            "k", None,
+            choices={"1": "1 -- alternate", "2": "2 -- opposite pairs", "3": "3 -- whorls of three"},
+            selected="1",
+        ),
+        ui.panel_conditional(
+            "input.k == '1'",
+            ui.input_slider(
+                "angle", "Divergence angle (degrees)",
+                min=20, max=180, value=137.5, step=0.5,
+            ),
+            ui.input_action_button("preset_golden", "137.5° (golden angle)", class_="btn-sm"),
+            ui.input_action_button("preset_flat", "180° (distichous)", class_="btn-sm"),
+        ),
+        ui.hr(),
+        ui.h5("View"),
+        ui.input_radio_buttons(
+            "view", None,
+            choices={
+                "unrolled": "Unrolled stem",
+                "topdown": "Top-down",
+                "stem": "Leaf diagram (side view)",
+                "3d": "3D view (rotate)",
+            },
+            selected="topdown",
+        ),
+        ui.panel_conditional(
+            "input.view == '3d'",
+            ui.input_slider(
+                "azim", "Rotate the plant",
+                min=0, max=360, value=35, step=1,
+            ),
+        ),
+        ui.hr(),
+        ui.output_ui("summary"),
+        width=340,
+    ),
+    ui.output_plot("main_plot", height="520px"),
+)
+
+
+def server(input: Inputs, output: Outputs, session: Session):
+    from shiny import reactive
+
+    @reactive.effect
+    @reactive.event(input.preset_golden)
+    def _set_golden():
+        ui.update_slider("angle", value=137.5)
+
+    @reactive.effect
+    @reactive.event(input.preset_flat)
+    def _set_flat():
+        ui.update_slider("angle", value=180.0)
+
+    def current_k():
+        return int(input.k())
+
+    def current_angle():
+        k = current_k()
+        if k == 1:
+            return input.angle()
+        return fixed_angle_for_k(k)
+
+    @output
+    @render.plot
+    def main_plot():
+        k = current_k()
+        angle = current_angle()
+        view = input.view()
+
+        # The stem-diagram and 3D views show far fewer nodes than the
+        # spiral/topdown views -- they're meant to be read leaf-by-leaf
+        # like the reference diagram, not to demonstrate long-run
+        # non-repetition, and a 34-node stem forces an extremely tall,
+        # cramped figure.
+        n_nodes = STEM_VIEW_NODES if view in ("stem", "3d") else N_NODES
+        leaves = generate_leaves(k, angle, n_nodes=n_nodes)
+
+        if view == "3d":
+            fig = plt.figure(figsize=(6.6, 5.6))
+            ax = fig.add_subplot(111, projection="3d")
+            draw_3d(ax, leaves, k, input.azim())
+            return fig
+
+        fig, ax = plt.subplots(figsize=(6.6, 5.6))
+        if view == "unrolled":
+            draw_unrolled(ax, leaves, k)
+        elif view == "stem":
+            draw_stem_illustration(ax, leaves, k)
+        else:
+            draw_topdown(ax, leaves, k)
+        fig.tight_layout()
+        return fig
+
+    @output
+    @render.ui
+    def summary():
+        k = current_k()
+        angle = current_angle()
+        name = classify(k, angle)
+
+        lines = [f"**Angle between nodes:** {angle:.1f}°"]
+        if name:
+            lines.append(f"**That's the {name} pattern** -- one of the four named on this page.")
+        else:
+            lines.append("Not one of the four named patterns -- just exploring in between.")
+
+        if k == 1 and abs(angle - 137.5) > 0.05:
+            lines.append(
+                "Try dragging to exactly 137.5°: at any other angle the leaves fall into a "
+                "small number of straight columns. At the golden angle, no column ever repeats."
+            )
+
+        return ui.markdown("\n\n".join(lines))
+
+
+app = App(app_ui, server)
+```
+
+Switch between "leaves per node" to compare alternate leaves against paired and whorled arrangements, and try all four views on the same pattern. The leaf diagram is the most direct comparison to the picture above, the unrolled view makes the difference between a repeating and a non-repeating angle especially clear, and the 3D view is the one to spin around to see how the whorled patterns really wrap around the stem.
+:::

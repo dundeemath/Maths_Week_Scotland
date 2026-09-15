@@ -10,9 +10,11 @@ filters:
 
 If you have followed the trail around this exhibition, your route is annotated on the map below.
 
-Suppose you wanted to identify the shortest possible route from start to finish, i.e. how much further did you just walk than you needed to? Real versions of this problem sit behind delivery route planning, circuit board drilling, and DNA sequencing.
+Suppose you wanted to identify the shortest possible route from start to finish, i.e. how much further did you just walk than you needed to? This is the **Travelling Salesman Problem** (TSP) -- one of the most famous problems in mathematics and computer science. It sounds simple: just try every order of stops and keep the shortest. The catch is *how many* orders there are -- with just 20 stops, there are over 60 quadrillion, far too many to check by brute force. Try the app on the website to compare your own route against the optimal one.
 
-This is the **Travelling Salesman Problem** (TSP) -- one of the most famous problems in the whole of mathematics and computer science. It sounds almost too simple to be interesting: just try every possible order of stops and keep the shortest one. The catch is *how many* orders there are. With 5 stops there are only 12 distinct routes to check. With 10 stops there are already 181,440. With 20 stops there are over 60 quadrillion -- so many that a computer checking a billion routes every single second would still need about two years to get through them all. Trying every option, which works fine for a handful of stops, becomes hopeless almost immediately -- and no computer, however fast, escapes that by brute force alone.
+::: {.content-hidden when-format="pdf"}
+
+Real versions of this problem sit behind delivery route planning, circuit board drilling, and DNA sequencing. With 5 stops there are only 12 distinct routes to check. With 10 stops there are already 181,440. With 20 stops there are over 60 quadrillion -- so many that a computer checking a billion routes every single second would still need about two years to get through them all. Trying every option, which works fine for a handful of stops, becomes hopeless almost immediately -- and no computer, however fast, escapes that by brute force alone.
 
 The app below lets you compare four routes side by side, using the toggle in the sidebar:
 
@@ -24,7 +26,7 @@ The app below lets you compare four routes side by side, using the toggle in the
 Switch between them and see how close your own guess -- or your own feet -- got to optimal.
 
 
-::: {#fig-tsp}
+::: {#fig-tsp .content-hidden when-format="pdf"}
 ```{shinylive-python}
 #| standalone: true
 #| components: [viewer]
@@ -4200,4 +4202,6 @@ LyHfO3i1YXJbmLld16PI36Xqh/0/O3abnKWFnykAAAAASUVORK5CYII=
 ```
 
 Click the map to select a handful of stops and try to beat the algorithm -- or scan the QR codes on the real trail and see how your actual walking route compares to optimal.
+:::
+
 :::

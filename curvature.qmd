@@ -16,12 +16,14 @@ It can be shown that this circle is the most efficient way to contain the area $
 Now imagine distorting the disc so that the circumference is wrinkled. The cirumference of the wrinkled shape is larger than $2 \pi R$. 
 
 In the plant at this stop, notice that the leaves are wrinkled rather than smooth. Why does evolution find this shape for this particular plant and how does it happen?
-![](bg_wrinkle_crop.png)
 
+![](bg_wrinkle_crop.png){width="2.2in" fig-pos="H"}
+
+::: {.content-hidden when-format="pdf"}
 
 One way to make a wrinkled surface is to have different regions of the surface grow at different rates. Essentially, take a circle  and allow the outer region  to grow at a faster rate than the inner region. The effect of the differential growth is that the faster growing region wrinkles. 
 
-::: {#fig-leaf-growth}
+::: {#fig-leaf-growth .content-hidden when-format="pdf"}
 
 ```{=html}
 <div id="leaf-app" style="display:flex; flex-wrap:wrap; gap:24px; align-items:flex-start; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; max-width:960px;">
@@ -42,6 +44,7 @@ One way to make a wrinkled surface is to have different regions of the surface g
 <script>
 (function () {
   "use strict";
+  if (window.SHOW_JS_APPS === false) return;
 
   // -------------------------------------------------------------------
   // Differential growth in a disc -- the maths (ported 1:1 from the
@@ -279,6 +282,8 @@ One way to make a wrinkled surface is to have different regions of the surface g
 
 
 A differential-growth leaf simulator: drag the rim growth rate up from 1.0 and a flat disc is forced to crinkle, exactly as a real leaf margin does when it grows faster than the tissue near its centre.
+:::
+
 :::
 
 
