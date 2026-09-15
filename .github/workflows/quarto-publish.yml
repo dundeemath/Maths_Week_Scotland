@@ -48,7 +48,7 @@ jobs:
       # See more at https://github.com/quarto-dev/quarto-actions/blob/main/examples/example-03-dependencies.md
 
       - name: Build Quarto site
-        run: quarto render
+        run: quarto render --to html
 
       - name: Upload Quarto site artifact
         if: github.ref == 'refs/heads/main'
