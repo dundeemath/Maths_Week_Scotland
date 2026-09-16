@@ -48,10 +48,10 @@ Four ways to look at the same pattern: from directly above the stem (how you'd a
       <h5 class="phyllo-slider-label">Divergence angle (degrees)</h5>
       <div class="phyllo-slider-row">
         <span class="phyllo-slider-min">20</span>
-        <input type="range" id="phyllo-angle" min="20" max="180" step="0.5" value="20">
+        <input type="range" id="phyllo-angle" min="20" max="180" step="0.5" value="137.5">
         <span class="phyllo-slider-max">180</span>
       </div>
-      <div class="phyllo-slider-value" id="phyllo-angle-value">20.0°</div>
+      <div class="phyllo-slider-value" id="phyllo-angle-value">137.5°</div>
       <button class="phyllo-btn" id="phyllo-preset-golden" type="button">137.5&deg; (golden angle)</button>
       <button class="phyllo-btn" id="phyllo-preset-flat" type="button">180&deg; (distichous)</button>
     </div>
@@ -60,12 +60,12 @@ Four ways to look at the same pattern: from directly above the stem (how you'd a
     <h5>View</h5>
     <div class="phyllo-radio-group" id="phyllo-view-group">
       <label><input type="radio" name="phyllo-view" value="unrolled"> Unrolled stem</label>
-      <label><input type="radio" name="phyllo-view" value="topdown"> Top-down</label>
+      <label><input type="radio" name="phyllo-view" value="topdown" checked> Top-down</label>
       <label><input type="radio" name="phyllo-view" value="stem"> Leaf diagram (side view)</label>
-      <label><input type="radio" name="phyllo-view" value="3d" checked> 3D view (drag to rotate)</label>
+      <label><input type="radio" name="phyllo-view" value="3d"> 3D view (drag to rotate)</label>
     </div>
 
-    <div id="phyllo-azim-block">
+    <div id="phyllo-azim-block" hidden>
       <h5 class="phyllo-slider-label">Rotate the plant</h5>
       <div class="phyllo-slider-row">
         <span class="phyllo-slider-min">0</span>
@@ -666,7 +666,7 @@ Four ways to look at the same pattern: from directly above the stem (how you'd a
   // ---------------------------------------------------------------
   // State + UI wiring
   // ---------------------------------------------------------------
-  const state = { k: 1, angle: 20, view: "3d", azim: 35, elev: 18 };
+  const state = { k: 1, angle: 137.5, view: "topdown", azim: 35, elev: 18 };
 
   function currentAngle() {
     return state.k === 1 ? state.angle : fixedAngleForK(state.k);
