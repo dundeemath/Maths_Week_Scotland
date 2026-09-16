@@ -6,20 +6,20 @@ book:
   # Reorder this list for the exhibition -- it's the single source of
   # truth for chapter order (no separate file to keep in sync).
   chapters:
-    - index.qmd            # Maths Week Scotland - Dundee University (site welcome page -- cover/intro? or drop?)
-    - analemma.qmd        # The Analemma Project
-    - birdsong.qmd         # Bird Song
-    - circadian.qmd        # Circadian Rhythm
-    - curvature.qmd        # Why leaves crinkle: differential growth in a disc
-    - fibonacci.qmd        # Fibonacci Numbers
+    - index.qmd  
+    - phyllotaxis.qmd      # Phyllotaxis
+    - spirals.qmd           # Logarithmic Spiral
+    - symmetry.qmd         # Symmetry in Plants
     - fractal.qmd          # Fractal
+    - circadian.qmd        # Circadian Rhythm
+    - fibonacci.qmd        # Fibonacci Numbers
+    - birdsong.qmd         # Bird Song
+    - analemma.qmd        # The Analemma Project
+    - trigonometry.qmd     # Estimating the Height of a Tree using Trigonometry
+    - curvature.qmd        # Why leaves crinkle: differential growth in a disc
+    - salesman.qmd         # The Travelling Salesman Problem [pure JS app]
     - helicopter.qmd       # Helicopter Seeds
     - konigsberg.qmd       # Seven Bridges of Koenigsberg (currently just a stub, "Topic in Graph Theory.")
-    - phyllotaxis.qmd      # Phyllotaxis
-    - salesman.qmd         # The Travelling Salesman Problem [pure JS app]
-    - spirals.qmd          # Logarithmic Spiral
-    - symmetry.qmd         # Symmetry in Plants
-    - trigonometry.qmd     # Estimating the Height of a Tree using Trigonometry
     - questionnaire.qmd    # End of Maths Trail Questionnaire (interactive form -- drop, or paper version?)
 
 format:
