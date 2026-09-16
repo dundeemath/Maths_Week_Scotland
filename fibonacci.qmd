@@ -91,6 +91,40 @@ Follow a single drone's family tree back through the generations using that one 
     #bee-summary { font-size: 11px; line-height: 1.45; }
     #bee-app hr { margin: 10px 0; }
   }
+  /* On a phone screen, the slider needs to be visible at the same time
+     as the tree it controls, with no scrolling in between -- so the
+     image is capped to well under half the screen's height here,
+     the slider sits directly beneath it, and only the (static,
+     non-interactive) explanatory paragraph is pushed further down,
+     where it's fine for it to need a scroll to reach. */
+  @media (max-width: 600px) {
+    #bee-app {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    #bee-app .canvas-wrap {
+      order: 1;
+      flex: 0 0 auto;
+      width: 100%;
+    }
+    #bee-app .sidebar {
+      order: 2;
+      flex: 0 0 auto;
+      width: 100%;
+    }
+    #bee-canvas {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 42vh;
+      margin: 0 auto;
+      display: block;
+    }
+    #bee-app h5 { margin: 4px 0 3px 0; }
+    #bee-app label { margin: 4px 0 3px 0; }
+    #bee-app hr { margin: 8px 0; }
+  }
 </style>
 
 <div id="bee-app">
