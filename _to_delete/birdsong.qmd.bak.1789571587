@@ -25,34 +25,21 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
 ```{=html}
 <style>
   #bird-app, #bird-app * { box-sizing: border-box; }
-  /* A CSS grid (rather than flex-wrap) so the frequency sliders can be
-     placed independently of the rest of the sidebar -- on a wide screen
-     they sit under it in the same column (as before); on a phone they
-     move to sit right beside the plots instead (see the media query),
-     which needs them to be a separate grid area, not just reordered. */
   #bird-app {
-    display: grid;
-    grid-template-columns: minmax(280px, 640px) 240px;
-    grid-template-rows: auto auto;
-    grid-template-areas:
-      "canvas sidebar"
-      "canvas freq";
+    display: flex;
+    flex-wrap: wrap;
     gap: 14px;
-    align-items: start;
+    align-items: flex-start;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
     max-width: 1080px;
     text-align: left;
   }
   #bird-app .bird-canvas-wrap {
-    grid-area: canvas;
+    flex: 2 1 460px;
     min-width: 0;
   }
   #bird-app .bird-sidebar {
-    grid-area: sidebar;
-    min-width: 0;
-  }
-  #bird-app .bird-freq-col {
-    grid-area: freq;
+    flex: 1 1 240px;
     min-width: 0;
   }
   #bird-app h5 {
@@ -162,22 +149,17 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
     display: flex;
     justify-content: space-between;
   }
-  /* On a phone screen, the frequency sliders need to sit right beside
-     the plots they affect, small, so dragging one and watching its
-     effect on the picture never needs a scroll in between. The record
-     button/status/scale toggle aren't something you watch update live
-     in the same way, so they move to a full-width strip underneath
-     instead. The sliders themselves are turned on their side (rotated
-     90 degrees) so two of them fit in a narrow column next to the
-     image rather than each needing the full screen width. */
+  /* On a phone screen, every control needs to be reachable at the same
+     time as the plots it affects, with no scrolling -- the images here
+     are already short and wide so they don't need shrinking (unlike the
+     Fibonacci tree), but the control panel below them was tall enough
+     to push the last slider or two off the bottom of the screen. This
+     just tightens spacing throughout the panel, without changing
+     anything on a wider screen. */
   @media (max-width: 640px) {
-    #bird-app {
-      gap: 8px;
-      grid-template-columns: 1fr 74px;
-      grid-template-areas:
-        "canvas freq"
-        "sidebar sidebar";
-    }
+    #bird-app { gap: 8px; }
+    #bird-app .bird-canvas-wrap { flex-basis: 100%; order: 1; }
+    #bird-app .bird-sidebar { flex-basis: 100%; order: 2; }
     #bird-app h5 { display: none; }
     #bird-app #bird-status { font-size: 12px; margin-bottom: 4px; min-height: 2.1em; }
     #bird-app button#bird-record { padding: 7px 14px; margin-bottom: 4px; }
@@ -191,54 +173,10 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
     }
     #bird-app legend { flex-basis: 100%; margin-bottom: 1px; }
     #bird-app fieldset label { margin: 0; }
+    #bird-app .bird-slider-row { margin: 5px 0; }
     #bird-app .bird-plot-label { font-size: 10.5px; line-height: 1.25; margin: 1px 0 2px 0; }
     #bird-wave-canvas { margin-bottom: 6px; }
     #bird-app .bird-colorbar-wrap { margin-top: 5px; }
-
-    /* Frequency column: two small rotated sliders, side by side, next
-       to the plots instead of two full-width bars underneath them. */
-    #bird-app .bird-freq-col {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 4px;
-      height: 100%;
-      padding-top: 18px;
-    }
-    #bird-app .bird-freq-col .bird-slider-row {
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 34px;
-    }
-    #bird-app .bird-freq-col .bird-slider-label {
-      display: block;
-      font-size: 8.5px;
-      line-height: 1.15;
-      text-align: center;
-      margin-bottom: 4px;
-    }
-    /* Hide the descriptive "Min frequency" / "Max frequency" text on
-       this narrow column -- only the live numeric value is shown, right
-       above its slider; the full wording is still there on a wider
-       screen where there's room for it. */
-    #bird-app .bird-freq-col .bird-slider-label span:first-child { display: none; }
-    #bird-app .bird-vslider-outer {
-      position: relative;
-      width: 34px;
-      height: 120px;
-    }
-    #bird-app .bird-vslider-outer input[type="range"] {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 120px;
-      height: 26px;
-      margin-top: -13px;
-      margin-left: -60px;
-      transform: rotate(-90deg);
-    }
   }
 </style>
 
@@ -268,20 +206,16 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
       <label><input type="radio" name="bird-scale" value="linear" checked> Linear</label>
       <label><input type="radio" name="bird-scale" value="log"> Logarithmic</label>
     </fieldset>
-  </div>
-  <div class="bird-freq-col">
+
     <div class="bird-slider-row">
       <div class="bird-slider-label"><span>Min frequency</span><span id="bird-minfreq-value">200 Hz</span></div>
-      <div class="bird-vslider-outer">
-        <input type="range" id="bird-minfreq" min="0" max="5000" step="50" value="200">
-      </div>
+      <input type="range" id="bird-minfreq" min="0" max="5000" step="50" value="200">
     </div>
     <div class="bird-slider-row">
       <div class="bird-slider-label"><span>Max frequency</span><span id="bird-maxfreq-value">10000 Hz</span></div>
-      <div class="bird-vslider-outer">
-        <input type="range" id="bird-maxfreq" min="1000" max="20000" step="100" value="10000">
-      </div>
+      <input type="range" id="bird-maxfreq" min="1000" max="20000" step="100" value="10000">
     </div>
+
   </div>
 </div>
 
