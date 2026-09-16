@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./fractal.html" rel="next">
-<link href="./curvature.html" rel="prev">
+<link href="./birdsong.html" rel="next">
+<link href="./circadian.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -93,7 +93,7 @@ ul.task-list li input[type="checkbox"] {
     [id^="fig-circadian"], [id^="fig-leaf-growth"],
     [id^="fig-fibonacci-bees"], [id^="fig-fractal-fern"],
     [id^="fig-konigsberg"], [id^="fig-phyllotaxis"],
-    [id^="fig-tsp"], [id^="fig-tree-height"]
+    [id^="fig-tsp"], [id^="fig-tree-height"], [id^="fig-birdsong"]
   ) {
     display: none !important;
   }
@@ -104,7 +104,7 @@ ul.task-list li input[type="checkbox"] {
      way, by walking up from the app element itself. */
   document.addEventListener("DOMContentLoaded", function () {
     if (window.SHOW_JS_APPS !== false) return;
-    document.querySelectorAll('[id$="-app"], [id^="fig-tsp"]').forEach(function (el) {
+    document.querySelectorAll('[id$="-app"], [id^="fig-tsp"], [id^="fig-birdsong"]').forEach(function (el) {
       var figure = el.closest("figure") || el.closest('[id^="fig-"]') || el;
       figure.style.display = "none";
     });
@@ -185,52 +185,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./analemma.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Analemma Project</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./birdsong.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bird Song</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./circadian.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Circadian Rhythm</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./curvature.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why leaves crinkle: differential growth in a disc</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./fibonacci.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Fibonacci Numbers</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./fractal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fractal</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./helicopter.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Helicopter Seeds</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./konigsberg.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Seven Bridges of Königsberg</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./phyllotaxis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phyllotaxis</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./salesman.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Travelling Salesman problem</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -245,7 +200,52 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./fractal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fractals</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./circadian.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Circadian Rhythm</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fibonacci.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Fibonacci Numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./birdsong.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bird Song</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./analemma.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Analemma Project</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./trigonometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Estimating the Height of a Tree using Trigonometry</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./curvature.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why leaves crinkle: differential growth in a disc</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./salesman.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Travelling Salesman problem</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./helicopter.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Helicopter Seeds</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./konigsberg.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Seven Bridges of Königsberg</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -289,19 +289,16 @@ window.Quarto = {
 <figcaption>Fibonacci Numbers in Pinecone. There are <span class="math inline">\(8\)</span> spirals in the clockwise direction and <span class="math inline">\(13\)</span> spirals in the counter-clockwise direction.</figcaption>
 </figure>
 </div>
-<p>The number of spirals found on pinecones are almost always Fibonacci numbers, which are .</p>
-<section id="fibonacci-sequence" class="level2">
-<h2 class="anchored" data-anchor-id="fibonacci-sequence">Fibonacci Sequence</h2>
+<p>The number of spirals found on pine cones are almost always Fibonacci numbers, which are</p>
 <p><span class="math inline">\(0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, \ldots\)</span></p>
-</section>
 <section id="why-fibonacci-numbers-appear" class="level2">
 <h2 class="anchored" data-anchor-id="why-fibonacci-numbers-appear">Why Fibonacci numbers appear?</h2>
 <p>Here’s a completely different place they turn up: the family tree of a honeybee.</p>
 <p>Honeybees are haplodiploid. A fertilised egg develops into a female – a worker or a queen – with two parents: a mother and a father. An unfertilised egg develops into a male drone, with only <em>one</em> parent: his mother. Drones have no father at all.</p>
-<p>Follow a single drone’s family tree back through the generations using that one rule, and count how many ancestors he has at each generation.</p>
+<p>Follow a single drone’s family tree back through the generations using that one rule, and count how many ancestors he has at each generation. The counts turn out to be <strong>exactly the Fibonacci sequence</strong> – no coincidence, and no approximation: it’s forced by the branching rule itself.</p>
 </section>
-<section id="the-bee-family-tree" class="level2">
-<h2 class="anchored" data-anchor-id="the-bee-family-tree">The Bee Family Tree</h2>
+<section id="the-bee-family-tree-count-the-dots-in-each-row" class="level2">
+<h2 class="anchored" data-anchor-id="the-bee-family-tree-count-the-dots-in-each-row">The Bee Family Tree – count the dots in each row</h2>
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-fibonacci-bees-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <style>
@@ -364,12 +361,45 @@ window.Quarto = {
     #bee-summary { font-size: 11px; line-height: 1.45; }
     #bee-app hr { margin: 10px 0; }
   }
+  /* On a phone screen, the slider needs to be visible at the same time
+     as the tree it controls, with no scrolling in between -- so the
+     image is capped to well under half the screen's height here,
+     the slider sits directly beneath it, and only the (static,
+     non-interactive) explanatory paragraph is pushed further down,
+     where it's fine for it to need a scroll to reach. */
+  @media (max-width: 600px) {
+    #bee-app {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    #bee-app .canvas-wrap {
+      order: 1;
+      flex: 0 0 auto;
+      width: 100%;
+    }
+    #bee-app .sidebar {
+      order: 2;
+      flex: 0 0 auto;
+      width: 100%;
+    }
+    #bee-canvas {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 42vh;
+      margin: 0 auto;
+      display: block;
+    }
+    #bee-app h5 { margin: 4px 0 3px 0; }
+    #bee-app label { margin: 4px 0 3px 0; }
+    #bee-app hr { margin: 8px 0; }
+  }
 </style>
 
 <div id="bee-app">
   <div class="sidebar">
-    <h5 class="anchored">Ancestors</h5>
-    <label for="bee-n_gen">How many generations back? <strong id="bee-n_gen-val">6</strong></label>
+    <label for="bee-n_gen">Generations back: <strong id="bee-n_gen-val">6</strong></label>
     <input id="bee-n_gen" type="range" min="1" max="9" step="1" value="6">
     <hr>
     <div id="bee-summary"></div>
@@ -458,6 +488,24 @@ window.Quarto = {
 
     walk(root, 0);
     return counts;
+  }
+
+  // Same as countsByGeneration, but split by sex -- used so the bar
+  // chart below can show, at a glance, how each generation's total
+  // splits into female (yellow) and male (blue) ancestors, matching
+  // the dot colours in the tree above it. Every bar's total height is
+  // still the full Fibonacci count; this only affects how it's coloured.
+  function countsBySexByGeneration(root, maxGen) {
+    var f = new Array(maxGen + 1).fill(0);
+    var m = new Array(maxGen + 1).fill(0);
+
+    function walk(node, depth) {
+      if (node.sex === "F") f[depth] += 1; else m[depth] += 1;
+      for (var i = 0; i < node.children.length; i++) walk(node.children[i], depth + 1);
+    }
+
+    walk(root, 0);
+    return { f: f, m: m };
   }
 
   function collectEdges(node, edges) {
@@ -559,7 +607,7 @@ window.Quarto = {
     ctx.fillText("male drone (1 parent)", legX + 12, legY + 18);
   }
 
-  function drawCounts(ctx, counts, rect) {
+  function drawCounts(ctx, counts, bySex, rect) {
     var left = rect.x + 42, right = rect.x + rect.w - 15;
     var top = rect.y + 24, bottom = rect.y + rect.h - 34;
 
@@ -588,15 +636,32 @@ window.Quarto = {
 
     for (var g = 0; g < n; g++) {
       var c = counts[g];
+      var cf = bySex.f[g], cm = bySex.m[g];
       var h = maxCount > 0 ? (c / maxCount) * (bottom - top) : 0;
+      var hf = maxCount > 0 ? (cf / maxCount) * (bottom - top) : 0;
+      var hm = h - hf;
       var bx = left + g * slot + (slot - barW) / 2;
       var by = bottom - h;
 
-      ctx.fillStyle = FEMALE_COLOR;
-      ctx.strokeStyle = "#a8760f";
+      // Each bar is stacked female-then-male, in the same colours as
+      // the dots in the tree above -- so the bar's total height is the
+      // full generation count (the Fibonacci number), but a visitor
+      // counting only the yellow dots in a row can check their tally
+      // against the yellow portion of that bar specifically, rather
+      // than against the printed total.
       ctx.lineWidth = 0.8;
-      ctx.fillRect(bx, by, barW, h);
-      ctx.strokeRect(bx, by, barW, h);
+      if (hf > 0) {
+        ctx.fillStyle = FEMALE_COLOR;
+        ctx.strokeStyle = "#a8760f";
+        ctx.fillRect(bx, bottom - hf, barW, hf);
+        ctx.strokeRect(bx, bottom - hf, barW, hf);
+      }
+      if (hm > 0) {
+        ctx.fillStyle = MALE_COLOR;
+        ctx.strokeStyle = "#2a5085";
+        ctx.fillRect(bx, by, barW, hm);
+        ctx.strokeRect(bx, by, barW, hm);
+      }
 
       ctx.fillStyle = "#333";
       ctx.font = "10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
@@ -645,25 +710,23 @@ window.Quarto = {
       sliderVal.textContent = String(nGen);
 
       var root2 = layout(buildTree("M", nGen));
-      var counts = countsByGeneration(buildTree("M", nGen), nGen);
+      // Re-use the tree that was just built for the drawing above, rather
+      // than building a second, separate one -- layout() only adds x/y
+      // position fields to each node, it doesn't touch the children, so
+      // the same tree can safely be walked again to count generations.
+      var counts = countsByGeneration(root2, nGen);
+      var bySex = countsBySexByGeneration(root2, nGen);
 
       ctx.clearRect(0, 0, W, H);
       drawTree(ctx, root2, nGen, treeRect);
-      drawCounts(ctx, counts, countsRect);
+      drawCounts(ctx, counts, bySex, countsRect);
 
+      // The rest of the explanation is static (it doesn't change as the
+      // slider moves), so it lives in the page text above the app rather
+      // than being rebuilt here on every drag -- this is just the one
+      // line that actually depends on the slider.
       var seqText = counts.join(", ");
-      var lines = [
-        "<strong>Ancestor counts, generation by generation:</strong> " + seqText,
-        "A drone (male bee) has only one parent — his mother — because " +
-          "he hatches from an unfertilised egg. A female bee has two " +
-          "parents, one of each sex, because she hatches from a " +
-          "fertilised egg.",
-        "Follow that rule back through the generations and the ancestor " +
-          "counts are <strong>exactly the Fibonacci sequence</strong> — no " +
-          "coincidence, and no approximation: it's forced by the branching " +
-          "rule itself."
-      ];
-      summaryDiv.innerHTML = lines.join("<br><br>");
+      summaryDiv.innerHTML = "<strong>Ancestor counts, generation by generation:</strong> " + seqText;
     }
 
     slider.addEventListener("input", render);
@@ -675,7 +738,7 @@ window.Quarto = {
 </script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fibonacci-bees-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6.1: Drag the slider to trace a drone’s family tree further back, and watch the ancestor count at each generation follow the Fibonacci sequence exactly.
+Figure&nbsp;7.1: Drag the slider to trace a drone’s family tree further back, and watch the ancestor count at each generation follow the Fibonacci sequence exactly.
 </figcaption>
 </figure>
 
@@ -1085,13 +1148,13 @@ Figure&nbsp;6.1: Drag the slider to trace a drone’s family tree further back, 
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./curvature.html" class="pagination-link" aria-label="Why leaves crinkle: differential growth in a disc">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Why leaves crinkle: differential growth in a disc</span></span>
+      <a href="./circadian.html" class="pagination-link" aria-label="Circadian Rhythm">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Circadian Rhythm</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./fractal.html" class="pagination-link" aria-label="Fractal">
-        <span class="nav-page-text"><span class="chapter-title">Fractal</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./birdsong.html" class="pagination-link" aria-label="Bird Song">
+        <span class="nav-page-text"><span class="chapter-title">Bird Song</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

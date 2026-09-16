@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./questionnaire.html" rel="next">
-<link href="./symmetry.html" rel="prev">
+<link href="./curvature.html" rel="next">
+<link href="./analemma.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -93,7 +93,7 @@ ul.task-list li input[type="checkbox"] {
     [id^="fig-circadian"], [id^="fig-leaf-growth"],
     [id^="fig-fibonacci-bees"], [id^="fig-fractal-fern"],
     [id^="fig-konigsberg"], [id^="fig-phyllotaxis"],
-    [id^="fig-tsp"], [id^="fig-tree-height"]
+    [id^="fig-tsp"], [id^="fig-tree-height"], [id^="fig-birdsong"]
   ) {
     display: none !important;
   }
@@ -104,7 +104,7 @@ ul.task-list li input[type="checkbox"] {
      way, by walking up from the app element itself. */
   document.addEventListener("DOMContentLoaded", function () {
     if (window.SHOW_JS_APPS !== false) return;
-    document.querySelectorAll('[id$="-app"], [id^="fig-tsp"]').forEach(function (el) {
+    document.querySelectorAll('[id$="-app"], [id^="fig-tsp"], [id^="fig-birdsong"]').forEach(function (el) {
       var figure = el.closest("figure") || el.closest('[id^="fig-"]') || el;
       figure.style.display = "none";
     });
@@ -185,52 +185,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./analemma.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Analemma Project</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./birdsong.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bird Song</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./circadian.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Circadian Rhythm</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./curvature.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why leaves crinkle: differential growth in a disc</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./fibonacci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fibonacci Numbers</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./fractal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fractal</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./helicopter.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Helicopter Seeds</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./konigsberg.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Seven Bridges of Königsberg</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./phyllotaxis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phyllotaxis</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./salesman.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Travelling Salesman problem</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -245,7 +200,52 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./fractal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fractals</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./circadian.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Circadian Rhythm</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fibonacci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fibonacci Numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./birdsong.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bird Song</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./analemma.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Analemma Project</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./trigonometry.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Estimating the Height of a Tree using Trigonometry</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./curvature.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why leaves crinkle: differential growth in a disc</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./salesman.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Travelling Salesman problem</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./helicopter.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Helicopter Seeds</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./konigsberg.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Seven Bridges of Königsberg</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -286,7 +286,7 @@ window.Quarto = {
 </header>
 
 
-<p><img src="bg_tall_object.jpg" class="img-fluid" style="width:1.8in" data-fig-pos="H"></p>
+<p><img src="trigonometry_preview.png" class="img-fluid" style="width:1.8in"></p>
 <p>Suppose you need to measure the height of the tree in front of you, standing on the ground with nothing but your own two feet and the phone that you are using on this tour.</p>
 <section id="the-idea" class="level2">
 <h2 class="anchored" data-anchor-id="the-idea">The idea</h2>
@@ -296,15 +296,13 @@ window.Quarto = {
 <li>the point on the tree that is at the same height as your eye,</li>
 <li>the top of the tree.</li>
 </ul>
-<p>If you can estimate the horizontal distance to the tree and the angle you have to look up through to see the top, basic trigonometry hands you the height:</p>
-<p><span class="math display">\[\text{tree height} = \text{eye height} + \text{distance} \times \tan(\text{angle})\]</span></p>
+<p>Given this triangle, the vertical height of the tree can be estimated given the walking distance to the tree and the slope of the hypotenuse, i.e. <span class="math display">\[\text{tree height} = \text{eye height} + \text{distance} \times \tan(\text{angle})\]</span></p>
 <p>The distance is easy to estimate: pace it out.</p>
 <p>To estimate the angle accurately we would use a <em>clinometer</em>. However, we can get a good approximation using your phone!</p>
 <p>Hold your phone flat, in landscape orientation, right beside your eye, with its bottom edge level and its near-bottom corner at your eye (see diagram).</p>
 <p>Now you need to adjust your position so that the sight line across the diagonal of your phone extends to the tip of the tree.</p>
 <p>Because the phone’s shape never changes, that sightline always makes exactly the same angle with the horizontal – fixed the moment you know its width and height, and the same every single time you use it:</p>
 <p><span class="math display">\[\text{angle} = \arctan\!\left(\frac{\text{phone height}}{\text{phone width}}\right)\]</span></p>
-<p><img src="trigonometry_preview.png" class="img-fluid"></p>
 </section>
 <section id="try-it-yourself" class="level2">
 <h2 class="anchored" data-anchor-id="try-it-yourself">Try it yourself</h2>
@@ -765,7 +763,7 @@ window.Quarto = {
 </script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-tree-height-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;14.1
+Figure&nbsp;10.1
 </figcaption>
 </figure>
 <p>A note on accuracy: the trigonometry here is exact – given a truly level sightline, a correctly measured pace length and eye height, and a phone held steadily, this method recovers the real height. In practice, all four of those introduce small errors (which is exactly why it’s a <em>good estimate</em>, not a laser rangefinder), so don’t be surprised if your first go is off by a metre or two either way – try pacing out your pace length carefully first, and see if your estimate improves.</p>
@@ -1176,13 +1174,13 @@ Figure&nbsp;14.1
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./symmetry.html" class="pagination-link" aria-label="Symmetry in Plants">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Symmetry in Plants</span></span>
+      <a href="./analemma.html" class="pagination-link" aria-label="The Analemma Project">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">The Analemma Project</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./questionnaire.html" class="pagination-link" aria-label="End of Maths Trail Questionnaire">
-        <span class="nav-page-text"><span class="chapter-title">End of Maths Trail Questionnaire</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./curvature.html" class="pagination-link" aria-label="Why leaves crinkle: differential growth in a disc">
+        <span class="nav-page-text"><span class="chapter-title">Why leaves crinkle: differential growth in a disc</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

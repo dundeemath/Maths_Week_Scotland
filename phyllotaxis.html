@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./salesman.html" rel="next">
-<link href="./konigsberg.html" rel="prev">
+<link href="./spirals.html" rel="next">
+<link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -93,7 +93,7 @@ ul.task-list li input[type="checkbox"] {
     [id^="fig-circadian"], [id^="fig-leaf-growth"],
     [id^="fig-fibonacci-bees"], [id^="fig-fractal-fern"],
     [id^="fig-konigsberg"], [id^="fig-phyllotaxis"],
-    [id^="fig-tsp"], [id^="fig-tree-height"]
+    [id^="fig-tsp"], [id^="fig-tree-height"], [id^="fig-birdsong"]
   ) {
     display: none !important;
   }
@@ -104,7 +104,7 @@ ul.task-list li input[type="checkbox"] {
      way, by walking up from the app element itself. */
   document.addEventListener("DOMContentLoaded", function () {
     if (window.SHOW_JS_APPS !== false) return;
-    document.querySelectorAll('[id$="-app"], [id^="fig-tsp"]').forEach(function (el) {
+    document.querySelectorAll('[id$="-app"], [id^="fig-tsp"], [id^="fig-birdsong"]').forEach(function (el) {
       var figure = el.closest("figure") || el.closest('[id^="fig-"]') || el;
       figure.style.display = "none";
     });
@@ -185,52 +185,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./analemma.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Analemma Project</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./birdsong.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bird Song</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./circadian.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Circadian Rhythm</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./curvature.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why leaves crinkle: differential growth in a disc</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./fibonacci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fibonacci Numbers</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./fractal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fractal</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./helicopter.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Helicopter Seeds</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./konigsberg.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Seven Bridges of Königsberg</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./phyllotaxis.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Phyllotaxis</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./salesman.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Travelling Salesman problem</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -245,7 +200,52 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./fractal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fractals</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./circadian.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Circadian Rhythm</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fibonacci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fibonacci Numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./birdsong.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bird Song</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./analemma.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Analemma Project</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./trigonometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Estimating the Height of a Tree using Trigonometry</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./curvature.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why leaves crinkle: differential growth in a disc</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./salesman.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Travelling Salesman problem</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./helicopter.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Helicopter Seeds</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./konigsberg.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Seven Bridges of Königsberg</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -325,10 +325,10 @@ window.Quarto = {
       <h5 class="phyllo-slider-label anchored">Divergence angle (degrees)</h5>
       <div class="phyllo-slider-row">
         <span class="phyllo-slider-min">20</span>
-        <input type="range" id="phyllo-angle" min="20" max="180" step="0.5" value="137.5">
+        <input type="range" id="phyllo-angle" min="20" max="180" step="0.5" value="20">
         <span class="phyllo-slider-max">180</span>
       </div>
-      <div class="phyllo-slider-value" id="phyllo-angle-value">137.5°</div>
+      <div class="phyllo-slider-value" id="phyllo-angle-value">20.0°</div>
       <button class="phyllo-btn" id="phyllo-preset-golden" type="button">137.5° (golden angle)</button>
       <button class="phyllo-btn" id="phyllo-preset-flat" type="button">180° (distichous)</button>
     </div>
@@ -337,12 +337,12 @@ window.Quarto = {
     <h5 class="anchored">View</h5>
     <div class="phyllo-radio-group" id="phyllo-view-group">
       <label><input type="radio" name="phyllo-view" value="unrolled"> Unrolled stem</label>
-      <label><input type="radio" name="phyllo-view" value="topdown" checked=""> Top-down</label>
+      <label><input type="radio" name="phyllo-view" value="topdown"> Top-down</label>
       <label><input type="radio" name="phyllo-view" value="stem"> Leaf diagram (side view)</label>
-      <label><input type="radio" name="phyllo-view" value="3d"> 3D view (drag to rotate)</label>
+      <label><input type="radio" name="phyllo-view" value="3d" checked=""> 3D view (drag to rotate)</label>
     </div>
 
-    <div id="phyllo-azim-block" hidden="">
+    <div id="phyllo-azim-block">
       <h5 class="phyllo-slider-label anchored">Rotate the plant</h5>
       <div class="phyllo-slider-row">
         <span class="phyllo-slider-min">0</span>
@@ -943,7 +943,7 @@ window.Quarto = {
   // ---------------------------------------------------------------
   // State + UI wiring
   // ---------------------------------------------------------------
-  const state = { k: 1, angle: 137.5, view: "topdown", azim: 35, elev: 18 };
+  const state = { k: 1, angle: 20, view: "3d", azim: 35, elev: 18 };
 
   function currentAngle() {
     return state.k === 1 ? state.angle : fixedAngleForK(state.k);
@@ -1075,7 +1075,7 @@ window.Quarto = {
 </div>
 </figure></section></main></div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-phyllotaxis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10.1
+Figure&nbsp;2.1
 </figcaption>
 
 <p>Switch between “leaves per node” to compare alternate leaves against paired and whorled arrangements, and try all four views on the same pattern – the leaf diagram is the most direct comparison to the picture above, the unrolled view makes the difference between a repeating and a non-repeating angle especially clear, and the 3D view is the one to spin around to see how the whorled patterns really wrap around the stem. On the 3D view, click (or touch) and drag directly on the plant to spin it and tilt the camera up or down – the slider still works too, and the two stay in sync.</p>
@@ -1486,13 +1486,13 @@ Figure&nbsp;10.1
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./konigsberg.html" class="pagination-link" aria-label="Seven Bridges of Königsberg">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Seven Bridges of Königsberg</span></span>
+      <a href="./index.html" class="pagination-link" aria-label="Maths Week Scotland - Dundee University">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Maths Week Scotland - Dundee University</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./salesman.html" class="pagination-link" aria-label="The Travelling Salesman problem">
-        <span class="nav-page-text"><span class="chapter-title">The Travelling Salesman problem</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./spirals.html" class="pagination-link" aria-label="Logarithmic Spiral">
+        <span class="nav-page-text"><span class="chapter-title">Logarithmic Spiral</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

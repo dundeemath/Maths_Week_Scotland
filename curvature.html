@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./fibonacci.html" rel="next">
-<link href="./circadian.html" rel="prev">
+<link href="./salesman.html" rel="next">
+<link href="./trigonometry.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -93,7 +93,7 @@ ul.task-list li input[type="checkbox"] {
     [id^="fig-circadian"], [id^="fig-leaf-growth"],
     [id^="fig-fibonacci-bees"], [id^="fig-fractal-fern"],
     [id^="fig-konigsberg"], [id^="fig-phyllotaxis"],
-    [id^="fig-tsp"], [id^="fig-tree-height"]
+    [id^="fig-tsp"], [id^="fig-tree-height"], [id^="fig-birdsong"]
   ) {
     display: none !important;
   }
@@ -104,7 +104,7 @@ ul.task-list li input[type="checkbox"] {
      way, by walking up from the app element itself. */
   document.addEventListener("DOMContentLoaded", function () {
     if (window.SHOW_JS_APPS !== false) return;
-    document.querySelectorAll('[id$="-app"], [id^="fig-tsp"]').forEach(function (el) {
+    document.querySelectorAll('[id$="-app"], [id^="fig-tsp"], [id^="fig-birdsong"]').forEach(function (el) {
       var figure = el.closest("figure") || el.closest('[id^="fig-"]') || el;
       figure.style.display = "none";
     });
@@ -185,52 +185,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./analemma.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Analemma Project</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./birdsong.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bird Song</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./circadian.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Circadian Rhythm</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./curvature.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Why leaves crinkle: differential growth in a disc</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./fibonacci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fibonacci Numbers</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./fractal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fractal</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./helicopter.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Helicopter Seeds</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./konigsberg.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Seven Bridges of Königsberg</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./phyllotaxis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phyllotaxis</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./salesman.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Travelling Salesman problem</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -245,7 +200,52 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./fractal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fractals</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./circadian.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Circadian Rhythm</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fibonacci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fibonacci Numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./birdsong.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bird Song</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./analemma.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Analemma Project</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./trigonometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Estimating the Height of a Tree using Trigonometry</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./curvature.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Why leaves crinkle: differential growth in a disc</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./salesman.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Travelling Salesman problem</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./helicopter.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Helicopter Seeds</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./konigsberg.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Seven Bridges of Königsberg</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -286,12 +286,12 @@ window.Quarto = {
 </header>
 
 
+<p><img src="bg_wrinkle_crop.png" class="img-fluid" style="width:2.2in" data-fig-pos="H"></p>
 <p>Why are some leaves more wrinkled than others? And what causes this to happen?</p>
 <p>Consider a circular disc of radius, <span class="math inline">\(R\)</span>.</p>
 <p>The perimeter is <span class="math inline">\(2\pi R\)</span> whilst the area of the circle is <span class="math inline">\(\pi R^2\)</span>. It can be shown that this circle is the most efficient way to contain the area <span class="math inline">\(\pi R^2\)</span>.</p>
-<p>Now imagine distorting the disc so that the circumference is wrinkled. The cirumference of the wrinkled shape is larger than <span class="math inline">\(2 \pi R\)</span>.</p>
+<p>Now imagine distorting the disc so that the circumference is wrinkled. The circumference of the wrinkled shape is larger than <span class="math inline">\(2 \pi R\)</span>.</p>
 <p>In the plant at this stop, notice that the leaves are wrinkled rather than smooth. Why does evolution find this shape for this particular plant and how does it happen?</p>
-<p><img src="bg_wrinkle_crop.png" class="img-fluid" style="width:2.2in" data-fig-pos="H"></p>
 <p>One way to make a wrinkled surface is to have different regions of the surface grow at different rates. Essentially, take a circle and allow the outer region to grow at a faster rate than the inner region. The effect of the differential growth is that the faster growing region wrinkles.</p>
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-leaf-growth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -549,7 +549,7 @@ window.Quarto = {
 </script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-leaf-growth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5.1: A differential-growth leaf simulator: drag the rim growth rate up from 1.0 and a flat disc is forced to crinkle, exactly as a real leaf margin does when it grows faster than the tissue near its centre.
+Figure&nbsp;11.1: A differential-growth leaf simulator: drag the rim growth rate up from 1.0 and a flat disc is forced to crinkle, exactly as a real leaf margin does when it grows faster than the tissue near its centre.
 </figcaption>
 </figure>
 <!--
@@ -973,13 +973,13 @@ Drag **rim growth rate** from 1 (flat) upward and watch the disc lift into a rip
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./circadian.html" class="pagination-link" aria-label="Circadian Rhythm">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Circadian Rhythm</span></span>
+      <a href="./trigonometry.html" class="pagination-link" aria-label="Estimating the Height of a Tree using Trigonometry">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Estimating the Height of a Tree using Trigonometry</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./fibonacci.html" class="pagination-link" aria-label="Fibonacci Numbers">
-        <span class="nav-page-text"><span class="chapter-title">Fibonacci Numbers</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./salesman.html" class="pagination-link" aria-label="The Travelling Salesman problem">
+        <span class="nav-page-text"><span class="chapter-title">The Travelling Salesman problem</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

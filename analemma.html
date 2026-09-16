@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./birdsong.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./trigonometry.html" rel="next">
+<link href="./birdsong.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -93,7 +93,7 @@ ul.task-list li input[type="checkbox"] {
     [id^="fig-circadian"], [id^="fig-leaf-growth"],
     [id^="fig-fibonacci-bees"], [id^="fig-fractal-fern"],
     [id^="fig-konigsberg"], [id^="fig-phyllotaxis"],
-    [id^="fig-tsp"], [id^="fig-tree-height"]
+    [id^="fig-tsp"], [id^="fig-tree-height"], [id^="fig-birdsong"]
   ) {
     display: none !important;
   }
@@ -104,7 +104,7 @@ ul.task-list li input[type="checkbox"] {
      way, by walking up from the app element itself. */
   document.addEventListener("DOMContentLoaded", function () {
     if (window.SHOW_JS_APPS !== false) return;
-    document.querySelectorAll('[id$="-app"], [id^="fig-tsp"]').forEach(function (el) {
+    document.querySelectorAll('[id$="-app"], [id^="fig-tsp"], [id^="fig-birdsong"]').forEach(function (el) {
       var figure = el.closest("figure") || el.closest('[id^="fig-"]') || el;
       figure.style.display = "none";
     });
@@ -156,52 +156,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./analemma.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">The Analemma Project</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./birdsong.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bird Song</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./circadian.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Circadian Rhythm</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./curvature.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why leaves crinkle: differential growth in a disc</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./fibonacci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fibonacci Numbers</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./fractal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fractal</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./helicopter.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Helicopter Seeds</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./konigsberg.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Seven Bridges of Königsberg</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./phyllotaxis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phyllotaxis</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./salesman.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Travelling Salesman problem</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -216,7 +171,52 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./fractal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fractals</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./circadian.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Circadian Rhythm</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fibonacci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fibonacci Numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./birdsong.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bird Song</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./analemma.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">The Analemma Project</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./trigonometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Estimating the Height of a Tree using Trigonometry</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./curvature.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why leaves crinkle: differential growth in a disc</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./salesman.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Travelling Salesman problem</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./helicopter.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Helicopter Seeds</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./konigsberg.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Seven Bridges of Königsberg</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -261,7 +261,7 @@ ul.task-list li input[type="checkbox"] {
 <p>The <a href="https://en.wikipedia.org/wiki/Analemma">Analemma</a> is an unequal figure-of-eight shape, created by tracking the sun’s position in the sky at the same time each day over a period of one year.</p>
 <section id="why-doesnt-the-earth-fall-onto-the-sun" class="level2">
 <h2 class="anchored" data-anchor-id="why-doesnt-the-earth-fall-onto-the-sun">Why doesn’t the Earth fall onto the Sun?</h2>
-<p>The Analemma traces that figure-of-eight because Earth’s orbit isn’t a perfect circle travelled at constant speed – it’s an ellipse, and Earth moves faster when it’s closer to the Sun. Working out exactly <em>why</em> orbits look like this took four scientists and the better part of three centuries. Here’s that story in four small experiments, each one playable on your phone: <strong>Galileo</strong>, who found the first hard evidence that not everything orbits the Earth; <strong>Kepler</strong>, who worked out the precise shape of an orbit from observation; <strong>Newton</strong>, who explained <em>why</em> that shape occurs, from a single law of gravity; and <strong>Einstein</strong>, whose refinement of Newton’s picture explains a tiny mismatch even Newton’s theory could not.</p>
+<p>The Analemma traces that figure-of-eight because the Earth’s orbit isn’t a perfect circle travelled at constant speed – it’s an ellipse, and Earth moves faster when it’s closer to the Sun. Working out exactly <em>why</em> orbits look like this took the better part of three centuries. <strong>Galileo</strong> discovered that not everything orbits the Earth; <strong>Kepler</strong>, worked out the precise shape of orbit based on observations; <strong>Newton</strong> explained <em>why</em> from a single law of gravity; and <strong>Einstein</strong>’s’ general relativity is needed to explain a tiny mismatch between Newton’s theory and Mercury’s orbit.</p>
 <section id="galileo-evidence-that-not-everything-orbits-the-earth" class="level3">
 <h3 class="anchored" data-anchor-id="galileo-evidence-that-not-everything-orbits-the-earth">1. Galileo: evidence that not everything orbits the Earth</h3>
 <p>In 1610, Galileo pointed his new telescope at Jupiter and found four points of light that moved back and forth alongside it, night after night. They were not fixed stars: they were moons, clearly orbiting Jupiter and not the Earth. That alone was enough to break the ancient assumption that every heavenly body must circle the Earth. Press play below and watch Io, Europa, Ganymede and Callisto (Jupiter’s four largest moons, still called the “Galilean moons”) complete their real orbital periods, from under two days for Io up to nearly seventeen for Callisto.</p>
@@ -428,13 +428,13 @@ ul.task-list li input[type="checkbox"] {
 </script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-galileo-moons-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.1
+Figure&nbsp;9.1
 </figcaption>
 </figure>
 </section>
 <section id="kepler-ellipses-equal-areas-and-a-hidden-pattern" class="level3">
 <h3 class="anchored" data-anchor-id="kepler-ellipses-equal-areas-and-a-hidden-pattern">2. Kepler: ellipses, equal areas, and a hidden pattern</h3>
-<p>Working from decades of naked-eye observations of Mars (collected by Tycho Brahe), Johannes Kepler found that planets do not move in perfect circles, nor at constant speed. He distilled the pattern into three laws: orbits are <strong>ellipses</strong> with the Sun at one focus (not the centre); a planet <strong>sweeps out equal areas in equal times</strong>, moving faster when close to the Sun and slower when far away; and the <strong>square of the orbital period is proportional to the cube of the orbit’s size</strong> – the same constant of proportionality for every planet in the solar system. Explore all three below with Mercury, Earth, Mars and Jupiter’s real orbital data.</p>
+<p>Johannes Kepler found that planets do not move in perfect circles, nor at constant speed. He distilled the pattern into three laws: orbits are <strong>ellipses</strong> with the Sun at one focus (not the centre); a planet <strong>sweeps out equal areas in equal times</strong>, moving faster when close to the Sun and slower when far away; and the <strong>square of the orbital period is proportional to the cube of the orbit’s size</strong> – the same constant of proportionality for every planet in the solar system. Explore all three below with Mercury, Earth, Mars and Jupiter’s real orbital data.</p>
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-kepler-orbits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <style>
@@ -757,7 +757,7 @@ Figure&nbsp;2.1
 </script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-kepler-orbits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.2
+Figure&nbsp;9.2
 </figcaption>
 </figure>
 </section>
@@ -1120,7 +1120,7 @@ Figure&nbsp;2.2
 </script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-newton-gravity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.3
+Figure&nbsp;9.3
 </figcaption>
 </figure>
 </section>
@@ -1437,7 +1437,7 @@ Figure&nbsp;2.3
 </script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-einstein-precession-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.4
+Figure&nbsp;9.4
 </figcaption>
 </figure>
 <p>A note on accuracy: sections 1-3 use real orbital data and exact physics – the Galilean moons’ real periods, the four planets’ real semi-major axes and eccentricities, and an honest numerical simulation of Newton’s law of gravity (the same simulation used to classify every orbit as crashing, elliptical, or escaping, and to measure the equal-areas result directly rather than assume it). Section 4’s relativistic correction is deliberately simplified and exaggerated for visibility – it has the right qualitative behaviour (it explains why the orbit precesses at all) but is not the precise Schwarzschild correction, and the demo says so directly rather than presenting the exaggerated numbers as Mercury’s real effect.</p>
@@ -1849,13 +1849,13 @@ Figure&nbsp;2.4
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="Maths Week Scotland - Dundee University">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Maths Week Scotland - Dundee University</span></span>
+      <a href="./birdsong.html" class="pagination-link" aria-label="Bird Song">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Bird Song</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./birdsong.html" class="pagination-link" aria-label="Bird Song">
-        <span class="nav-page-text"><span class="chapter-title">Bird Song</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./trigonometry.html" class="pagination-link" aria-label="Estimating the Height of a Tree using Trigonometry">
+        <span class="nav-page-text"><span class="chapter-title">Estimating the Height of a Tree using Trigonometry</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
