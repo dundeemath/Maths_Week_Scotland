@@ -5,3 +5,116 @@ code-fold: True
 ---
 
 Display at the end of Maths Trail (near the reception?). Links to Microsoft form, which asks feedback and also asks to enter the counted numbers for Phyllotaxis patterns.
+
+## Share your trail on Instagram
+
+Snap a photo of your favourite discovery from today's trail and share it on Instagram. If you tag **@dundeemaths** then some of our undergrads will be able to answer any questions that you might have about the tour.
+
+
+If you tag @dundeeuni you can let the University of Dundee know how much appreciate Mathematics and the Botanic Gardens!
+
+
+
+```{=html}
+<style>
+  #ig-share, #ig-share * { box-sizing: border-box; }
+  #ig-share {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 14px 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  #ig-share a.ig-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7);
+  }
+  #ig-share a.ig-btn:hover { opacity: 0.9; }
+  #ig-share a.ig-btn.ig-follow {
+    background: #fff;
+    color: #6228d7;
+    border: 1.5px solid #6228d7;
+  }
+  #ig-note {
+    font-size: 12.5px;
+    color: #666;
+    margin: 6px 0 18px 0;
+  }
+</style>
+
+<div id="ig-share">
+  <a class="ig-btn" id="ig-post-btn" href="https://www.instagram.com/dundeemaths/" target="_blank" rel="noopener">
+    &#128248; Post your photo on Instagram
+  </a>
+  <a class="ig-btn ig-follow" href="https://www.instagram.com/dundeemaths/" target="_blank" rel="noopener">
+    Follow @dundeemaths
+  </a>
+</div>
+<div id="ig-note">
+  On your phone, "Post your photo" jumps straight to Instagram's camera so you can snap and post right away --
+  Instagram doesn't let a website fill in the photo or the @dundeemaths tag for you, so just add that yourself
+  before you share.
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var postBtn = document.getElementById("ig-post-btn");
+  if (!postBtn) return;
+
+  // Instagram has no "compose a post" web link, and no way for a website to
+  // pre-attach a photo or a tag to someone's post -- that's a deliberate
+  // platform restriction, not something we can work around. The closest a
+  // link can get: on a phone with the Instagram app installed, the
+  // instagram://camera deep link jumps straight to the in-app camera ready
+  // to start a new post. If that fails (desktop, or app not installed), we
+  // fall back to the normal profile page after a short delay.
+  postBtn.addEventListener("click", function (evt) {
+    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (!isMobile) return; // desktop: just follow the normal profile link
+
+    evt.preventDefault();
+    var fallbackUrl = postBtn.href;
+
+    // Navigating the main window straight to an unknown "instagram://" link
+    // shows an ugly browser error page on some devices if the app isn't
+    // installed. Attempting it from a hidden iframe instead means a failed
+    // attempt just fails quietly there, leaving this page alone -- the
+    // fallback timer below then sends the visitor to the profile page.
+    var iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+
+    var fallbackTimer = setTimeout(function () {
+      window.location.href = fallbackUrl;
+    }, 1200);
+
+    function cancelFallback() {
+      clearTimeout(fallbackTimer);
+      window.removeEventListener("blur", cancelFallback);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    }
+    function onVisibilityChange() {
+      if (document.hidden) cancelFallback();
+    }
+    window.addEventListener("blur", cancelFallback);
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    try {
+      iframe.src = "instagram://camera";
+    } catch (e) {
+      clearTimeout(fallbackTimer);
+      window.location.href = fallbackUrl;
+    }
+  });
+})();
+</script>
+```
