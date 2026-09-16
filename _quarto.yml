@@ -16,7 +16,7 @@ book:
     - helicopter.qmd       # Helicopter Seeds
     - konigsberg.qmd       # Seven Bridges of Koenigsberg (currently just a stub, "Topic in Graph Theory.")
     - phyllotaxis.qmd      # Phyllotaxis
-    - salesman.qmd         # The Travelling Salesman Problem [has inline shinylive]
+    - salesman.qmd         # The Travelling Salesman Problem [pure JS app]
     - spirals.qmd          # Logarithmic Spiral
     - symmetry.qmd         # Symmetry in Plants
     - trigonometry.qmd     # Estimating the Height of a Tree using Trigonometry
