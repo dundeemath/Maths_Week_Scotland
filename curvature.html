@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Why leaves crinkle: differential growth in a disc – Maths Trail at the Dundee Botanic Gardens</title>
+<title>Why leaves crinkle? – Maths Trail at the Dundee Botanic Gardens</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -153,7 +153,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./curvature.html"><span class="chapter-title">Why leaves crinkle: differential growth in a disc</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./curvature.html"><span class="chapter-title">Why leaves crinkle?</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -230,7 +230,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./curvature.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Why leaves crinkle: differential growth in a disc</span></a>
+  <a href="./curvature.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Why leaves crinkle?</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -264,7 +264,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Why leaves crinkle: differential growth in a disc</span></h1>
+<h1 class="title"><span class="chapter-title">Why leaves crinkle?</span></h1>
   <div class="quarto-categories">
     <div class="quarto-category">Differential equations</div>
     <div class="quarto-category">Geometry</div>
@@ -295,18 +295,65 @@ window.Quarto = {
 <p>One way to make a wrinkled surface is to have different regions of the surface grow at different rates. Essentially, take a circle and allow the outer region to grow at a faster rate than the inner region. The effect of the differential growth is that the faster growing region wrinkles.</p>
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-leaf-growth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="leaf-app" style="display:flex; flex-wrap:wrap; gap:24px; align-items:flex-start; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; max-width:960px;">
-  <div style="flex: 0 0 260px; min-width:220px;">
-    <h5 style="margin:0 0 8px 0;" class="anchored">Growth</h5>
-    <label for="leaf-krim" style="display:block; font-size:14px; margin-bottom:4px;">Rim growth rate, relative to the centre: <strong id="leaf-krim-val">1.6</strong></label>
-    <input id="leaf-krim" type="range" min="1.0" max="3.0" step="0.1" value="1.6" style="width:100%;">
-    <label for="leaf-m" style="display:block; font-size:14px; margin:14px 0 4px 0;">Number of ripples around the rim: <strong id="leaf-m-val">7</strong></label>
-    <input id="leaf-m" type="range" min="3" max="16" step="1" value="7" style="width:100%;">
-    <hr style="margin:16px 0; border:none; border-top:1px solid #ddd;">
-    <div id="leaf-summary" style="font-size:14px; line-height:1.6;"></div>
+<style>
+  #leaf-app {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: flex-start;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    max-width: 960px;
+  }
+  #leaf-app .leaf-controls { flex: 0 0 260px; min-width: 220px; }
+  #leaf-app .leaf-canvas-wrap { flex: 1 1 420px; min-width: 320px; }
+  #leaf-app h5 { margin: 0 0 8px 0; }
+  #leaf-app label { display: block; font-size: 14px; margin-bottom: 4px; }
+  #leaf-app input[type="range"] { width: 100%; }
+  #leaf-app hr { margin: 16px 0; border: none; border-top: 1px solid #ddd; }
+  #leaf-summary { font-size: 14px; line-height: 1.6; }
+  #leaf-surface { width: 100%; max-width: 640px; height: auto; display: block; }
+
+  /* On a phone there isn't room to show the control panel beside the
+     surface and still see the whole picture, so on narrow screens the
+     surface moves to the top (capped to a height that always leaves
+     room below it) with the two sliders that actually change it
+     directly underneath -- nothing else in between. That way dragging
+     a slider and watching the surface ripple never needs a scroll in
+     between. The summary text, which isn't something you need to watch
+     update in real time, comes after. */
+  @media (max-width: 640px) {
+    #leaf-app { flex-direction: column; gap: 8px; }
+    /* flex-basis is a main-axis size, and the main axis is now vertical
+       (column direction) -- without resetting it here, the canvas
+       wrapper's desktop "420px" basis is read as a *height*, leaving a
+       tall blank gap below the (now much shorter) canvas. */
+    #leaf-app .leaf-canvas-wrap { order: 1; flex: 0 0 auto; width: 100%; min-width: 0; }
+    #leaf-app .leaf-controls { order: 2; flex: 0 0 auto; width: 100%; min-width: 0; }
+    #leaf-surface {
+      max-width: 100%;
+      max-height: 40vh;
+      width: auto;
+      height: auto;
+      margin: 0 auto;
+    }
+    #leaf-app h5 { display: none; }
+    #leaf-app label { font-size: 12px; margin: 4px 0 2px 0; }
+    #leaf-app hr { margin: 8px 0; }
+    #leaf-summary { font-size: 11.5px; line-height: 1.4; }
+  }
+</style>
+<div id="leaf-app">
+  <div class="leaf-controls">
+    <h5 class="anchored">Growth</h5>
+    <label for="leaf-krim">Rim growth rate, relative to the centre: <strong id="leaf-krim-val">1.6</strong></label>
+    <input id="leaf-krim" type="range" min="1.0" max="3.0" step="0.1" value="1.6">
+    <label for="leaf-m">Number of ripples around the rim: <strong id="leaf-m-val">7</strong></label>
+    <input id="leaf-m" type="range" min="3" max="16" step="1" value="7">
+    <hr>
+    <div id="leaf-summary"></div>
   </div>
-  <div style="flex: 1 1 420px; min-width:320px;">
-    <canvas id="leaf-surface" width="640" height="480" style="width:100%; max-width:640px; height:auto; display:block;"></canvas>
+  <div class="leaf-canvas-wrap">
+    <canvas id="leaf-surface" width="640" height="480"></canvas>
   </div>
 </div>
 
