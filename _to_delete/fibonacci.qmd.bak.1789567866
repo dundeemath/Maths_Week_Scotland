@@ -25,9 +25,9 @@ Here's a completely different place they turn up: the family tree of a honeybee.
 
 Honeybees are haplodiploid. A fertilised egg develops into a female -- a worker or a queen -- with two parents: a mother and a father. An unfertilised egg develops into a male drone, with only *one* parent: his mother. Drones have no father at all.
 
-Follow a single drone's family tree back through the generations using that one rule, and count how many ancestors he has at each generation. The counts turn out to be **exactly the Fibonacci sequence** -- no coincidence, and no approximation: it's forced by the branching rule itself.
+Follow a single drone's family tree back through the generations using that one rule, and count how many ancestors he has at each generation.
 
-## The Bee Family Tree -- Count the dots in the bottom row of the figure
+## The Bee Family Tree - Count the yellow dots in the bottom row of the figure
 
 ::: {#fig-fibonacci-bees .content-hidden when-format="pdf"}
 ```{=html}
@@ -129,7 +129,8 @@ Follow a single drone's family tree back through the generations using that one 
 
 <div id="bee-app">
   <div class="sidebar">
-    <label for="bee-n_gen">Generations back: <strong id="bee-n_gen-val">6</strong></label>
+    <h5>Ancestors</h5>
+    <label for="bee-n_gen">How many generations back? <strong id="bee-n_gen-val">6</strong></label>
     <input id="bee-n_gen" type="range" min="1" max="9" step="1" value="6">
     <hr>
     <div id="bee-summary"></div>
@@ -218,24 +219,6 @@ Follow a single drone's family tree back through the generations using that one 
 
     walk(root, 0);
     return counts;
-  }
-
-  // Same as countsByGeneration, but split by sex -- used so the bar
-  // chart below can show, at a glance, how each generation's total
-  // splits into female (yellow) and male (blue) ancestors, matching
-  // the dot colours in the tree above it. Every bar's total height is
-  // still the full Fibonacci count; this only affects how it's coloured.
-  function countsBySexByGeneration(root, maxGen) {
-    var f = new Array(maxGen + 1).fill(0);
-    var m = new Array(maxGen + 1).fill(0);
-
-    function walk(node, depth) {
-      if (node.sex === "F") f[depth] += 1; else m[depth] += 1;
-      for (var i = 0; i < node.children.length; i++) walk(node.children[i], depth + 1);
-    }
-
-    walk(root, 0);
-    return { f: f, m: m };
   }
 
   function collectEdges(node, edges) {
@@ -337,7 +320,7 @@ Follow a single drone's family tree back through the generations using that one 
     ctx.fillText("male drone (1 parent)", legX + 12, legY + 18);
   }
 
-  function drawCounts(ctx, counts, bySex, rect) {
+  function drawCounts(ctx, counts, rect) {
     var left = rect.x + 42, right = rect.x + rect.w - 15;
     var top = rect.y + 24, bottom = rect.y + rect.h - 34;
 
@@ -366,32 +349,15 @@ Follow a single drone's family tree back through the generations using that one 
 
     for (var g = 0; g < n; g++) {
       var c = counts[g];
-      var cf = bySex.f[g], cm = bySex.m[g];
       var h = maxCount > 0 ? (c / maxCount) * (bottom - top) : 0;
-      var hf = maxCount > 0 ? (cf / maxCount) * (bottom - top) : 0;
-      var hm = h - hf;
       var bx = left + g * slot + (slot - barW) / 2;
       var by = bottom - h;
 
-      // Each bar is stacked female-then-male, in the same colours as
-      // the dots in the tree above -- so the bar's total height is the
-      // full generation count (the Fibonacci number), but a visitor
-      // counting only the yellow dots in a row can check their tally
-      // against the yellow portion of that bar specifically, rather
-      // than against the printed total.
+      ctx.fillStyle = FEMALE_COLOR;
+      ctx.strokeStyle = "#a8760f";
       ctx.lineWidth = 0.8;
-      if (hf > 0) {
-        ctx.fillStyle = FEMALE_COLOR;
-        ctx.strokeStyle = "#a8760f";
-        ctx.fillRect(bx, bottom - hf, barW, hf);
-        ctx.strokeRect(bx, bottom - hf, barW, hf);
-      }
-      if (hm > 0) {
-        ctx.fillStyle = MALE_COLOR;
-        ctx.strokeStyle = "#2a5085";
-        ctx.fillRect(bx, by, barW, hm);
-        ctx.strokeRect(bx, by, barW, hm);
-      }
+      ctx.fillRect(bx, by, barW, h);
+      ctx.strokeRect(bx, by, barW, h);
 
       ctx.fillStyle = "#333";
       ctx.font = "10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
@@ -440,23 +406,25 @@ Follow a single drone's family tree back through the generations using that one 
       sliderVal.textContent = String(nGen);
 
       var root2 = layout(buildTree("M", nGen));
-      // Re-use the tree that was just built for the drawing above, rather
-      // than building a second, separate one -- layout() only adds x/y
-      // position fields to each node, it doesn't touch the children, so
-      // the same tree can safely be walked again to count generations.
-      var counts = countsByGeneration(root2, nGen);
-      var bySex = countsBySexByGeneration(root2, nGen);
+      var counts = countsByGeneration(buildTree("M", nGen), nGen);
 
       ctx.clearRect(0, 0, W, H);
       drawTree(ctx, root2, nGen, treeRect);
-      drawCounts(ctx, counts, bySex, countsRect);
+      drawCounts(ctx, counts, countsRect);
 
-      // The rest of the explanation is static (it doesn't change as the
-      // slider moves), so it lives in the page text above the app rather
-      // than being rebuilt here on every drag -- this is just the one
-      // line that actually depends on the slider.
       var seqText = counts.join(", ");
-      summaryDiv.innerHTML = "<strong>Ancestor counts, generation by generation:</strong> " + seqText;
+      var lines = [
+        "<strong>Ancestor counts, generation by generation:</strong> " + seqText,
+        "A drone (male bee) has only one parent — his mother — because " +
+          "he hatches from an unfertilised egg. A female bee has two " +
+          "parents, one of each sex, because she hatches from a " +
+          "fertilised egg.",
+        "Follow that rule back through the generations and the ancestor " +
+          "counts are <strong>exactly the Fibonacci sequence</strong> — no " +
+          "coincidence, and no approximation: it's forced by the branching " +
+          "rule itself."
+      ];
+      summaryDiv.innerHTML = lines.join("<br><br>");
     }
 
     slider.addEventListener("input", render);
