@@ -21,6 +21,8 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
 - Compare a low-pitched call (e.g. a pigeon or crow) with a high-pitched one (e.g. a robin or a garden warbler) -- notice how much of the picture is empty space once you're looking at the wrong frequency band for a given bird.
 - Try clapping or making a short sharp noise -- broadband, non-tonal sounds like this light up across the *whole* frequency range at once, rather than concentrating in a narrow band.
 
+:::
+
 ::: {#fig-birdsong .content-hidden when-format="pdf"}
 ```{=html}
 <style>
@@ -154,8 +156,9 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
      are already short and wide so they don't need shrinking (unlike the
      Fibonacci tree), but the control panel below them was tall enough
      to push the last slider or two off the bottom of the screen. This
-     just tightens spacing throughout the panel, without changing
-     anything on a wider screen. */
+     tightens spacing throughout the panel and pairs up the two most
+     compact controls (window size, overlap) onto one row to claw that
+     height back, without changing anything on a wider screen. */
   @media (max-width: 640px) {
     #bird-app { gap: 8px; }
     #bird-app .bird-canvas-wrap { flex-basis: 100%; order: 1; }
@@ -174,6 +177,8 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
     #bird-app legend { flex-basis: 100%; margin-bottom: 1px; }
     #bird-app fieldset label { margin: 0; }
     #bird-app .bird-slider-row { margin: 5px 0; }
+    #bird-app .bird-two-col { display: flex; gap: 10px; }
+    #bird-app .bird-two-col .bird-slider-row { flex: 1 1 0; min-width: 0; margin: 5px 0; }
     #bird-app .bird-plot-label { font-size: 10.5px; line-height: 1.25; margin: 1px 0 2px 0; }
     #bird-wave-canvas { margin-bottom: 6px; }
     #bird-app .bird-colorbar-wrap { margin-top: 5px; }
@@ -216,6 +221,22 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
       <input type="range" id="bird-maxfreq" min="1000" max="20000" step="100" value="10000">
     </div>
 
+    <div class="bird-two-col">
+      <div class="bird-slider-row">
+        <div class="bird-slider-label"><span>FFT window size</span></div>
+        <select id="bird-window">
+          <option value="256">256</option>
+          <option value="512">512</option>
+          <option value="1024" selected>1024</option>
+          <option value="2048">2048</option>
+          <option value="4096">4096</option>
+        </select>
+      </div>
+      <div class="bird-slider-row">
+        <div class="bird-slider-label"><span>Overlap</span><span id="bird-overlap-value">50%</span></div>
+        <input type="range" id="bird-overlap" min="0" max="90" step="10" value="50">
+      </div>
+    </div>
   </div>
 </div>
 
@@ -249,14 +270,6 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
   // -------------------------------------------------------------------
 
   var RECORD_SECONDS = 10;
-  // Fixed rather than exposed as sliders: 1024 samples gives a good
-  // time/frequency trade-off for birdsong (fine enough frequency
-  // resolution without smearing out the fast trills), and 70% overlap
-  // keeps the spectrogram looking smooth rather than blocky, without
-  // materially changing what's visible. Neither needs to be a knob a
-  // visitor has to understand.
-  var WINDOW_SIZE = 1024;
-  var OVERLAP_PCT = 70;
 
   // ---- small power-of-two FFT (iterative radix-2 Cooley-Tukey) ----
   function fft(re, im) {
@@ -358,6 +371,9 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
     var maxFreqSlider = root.querySelector("#bird-maxfreq");
     var minFreqValue = root.querySelector("#bird-minfreq-value");
     var maxFreqValue = root.querySelector("#bird-maxfreq-value");
+    var windowSelect = root.querySelector("#bird-window");
+    var overlapSlider = root.querySelector("#bird-overlap");
+    var overlapValue = root.querySelector("#bird-overlap-value");
     var dbMinLabel = root.querySelector("#bird-db-min");
     var dbMaxLabel = root.querySelector("#bird-db-max");
 
@@ -555,8 +571,9 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
         return;
       }
 
-      var windowSize = WINDOW_SIZE;
-      var hopSize = Math.max(1, Math.round(windowSize * (1 - OVERLAP_PCT / 100)));
+      var windowSize = parseInt(windowSelect.value, 10);
+      var overlapPct = parseFloat(overlapSlider.value);
+      var hopSize = Math.max(1, Math.round(windowSize * (1 - overlapPct / 100)));
 
       if (capturedAudio.length < windowSize) {
         drawEmpty("Recording too short for this window size");
@@ -726,6 +743,11 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
     recordBtn.addEventListener("click", startRecording);
 
     scaleRadios.forEach(function (r) { r.addEventListener("change", render); });
+    windowSelect.addEventListener("change", render);
+    overlapSlider.addEventListener("change", function () {
+      overlapValue.textContent = overlapSlider.value + "%";
+      render();
+    });
     minFreqSlider.addEventListener("change", function () { clampFreqRange.call(minFreqSlider); render(); });
     maxFreqSlider.addEventListener("change", function () { clampFreqRange.call(maxFreqSlider); render(); });
     minFreqSlider.addEventListener("input", function () { minFreqValue.textContent = Math.round(getMinFreq()) + " Hz"; });
@@ -743,4 +765,5 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
 Tap Record in the sidebar, then let a sound play into the microphone. The top strip fills in with the raw recording as it happens; the picture below it is the same recording run through the Fourier transform, filling in from left to right as it goes.
 :::
 
-:::
+
+
