@@ -114,19 +114,6 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
     font-size: 13px;
     padding: 3px;
   }
-  #bird-app .bird-plot-label {
-    font-size: 11.5px;
-    color: #666;
-    margin: 2px 0 3px 0;
-  }
-  #bird-wave-canvas {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 6px;
-    background: #0d0626;
-    margin-bottom: 10px;
-  }
   #bird-canvas {
     width: 100%;
     height: auto;
@@ -160,9 +147,6 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
 
 <div id="bird-app">
   <div class="bird-canvas-wrap">
-    <div class="bird-plot-label">The raw recording -- amplitude vs time. One tangled wiggle, hard to read directly.</div>
-    <canvas id="bird-wave-canvas" width="900" height="90"></canvas>
-    <div class="bird-plot-label">The same recording, decomposed into the frequencies it's built from -- the spectrum.</div>
     <canvas id="bird-canvas" width="900" height="420"></canvas>
     <div class="bird-colorbar-wrap">
       <div class="bird-colorbar"></div>
@@ -332,8 +316,6 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
   function init() {
     var canvas = root.querySelector("#bird-canvas");
     var ctx = canvas.getContext("2d");
-    var waveCanvas = root.querySelector("#bird-wave-canvas");
-    var waveCtx = waveCanvas.getContext("2d");
     var statusDiv = root.querySelector("#bird-status");
     var recordBtn = root.querySelector("#bird-record");
     var progressBar = root.querySelector("#bird-progress");
@@ -421,64 +403,6 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
       ctx.fillText(message, W / 2, H / 2);
       dbMinLabel.textContent = "quiet";
       dbMaxLabel.textContent = "loud";
-    }
-
-    // Draws the raw waveform (amplitude vs time) as a min/max envelope,
-    // one column per pixel -- the standard way audio editors show a
-    // waveform without plotting every individual sample. This is what
-    // the spectrogram below is computed *from*: on its own it's just a
-    // messy line, which is the point -- the spectrum is what makes the
-    // frequency content of that line readable.
-    function drawWaveform(samples, sampleRate) {
-      var WW = waveCanvas.width, WH = waveCanvas.height;
-      waveCtx.clearRect(0, 0, WW, WH);
-      waveCtx.fillStyle = "#0d0626";
-      waveCtx.fillRect(0, 0, WW, WH);
-
-      if (!samples || samples.length < 2) {
-        waveCtx.fillStyle = "rgba(255,255,255,0.55)";
-        waveCtx.font = "12px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
-        waveCtx.textAlign = "center";
-        waveCtx.textBaseline = "middle";
-        waveCtx.fillText("No recording yet", WW / 2, WH / 2);
-        return;
-      }
-
-      var mid = WH / 2;
-      var halfH = WH / 2 - 4;
-      waveCtx.strokeStyle = "rgba(255,255,255,0.2)";
-      waveCtx.lineWidth = 1;
-      waveCtx.beginPath();
-      waveCtx.moveTo(0, mid);
-      waveCtx.lineTo(WW, mid);
-      waveCtx.stroke();
-
-      var samplesPerPixel = samples.length / WW;
-      waveCtx.fillStyle = "#8ecbff";
-      for (var x = 0; x < WW; x++) {
-        var startIdx = Math.floor(x * samplesPerPixel);
-        var endIdx = Math.max(startIdx + 1, Math.floor((x + 1) * samplesPerPixel));
-        if (endIdx > samples.length) endIdx = samples.length;
-        var mn = 1, mx = -1;
-        for (var i = startIdx; i < endIdx; i++) {
-          var v = samples[i];
-          if (v < mn) mn = v;
-          if (v > mx) mx = v;
-        }
-        if (mn > mx) { mn = 0; mx = 0; }
-        var y1 = mid - mx * halfH;
-        var y2 = mid - mn * halfH;
-        waveCtx.fillRect(x, y1, 1, Math.max(1, y2 - y1));
-      }
-
-      var totalDuration = samples.length / sampleRate;
-      waveCtx.fillStyle = "rgba(255,255,255,0.7)";
-      waveCtx.font = "11px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
-      waveCtx.textBaseline = "top";
-      waveCtx.textAlign = "left";
-      waveCtx.fillText("0s", 3, 3);
-      waveCtx.textAlign = "right";
-      waveCtx.fillText(totalDuration.toFixed(1) + "s", WW - 3, 3);
     }
 
     function drawAxes(minFreq, maxFreq, scale, totalDuration) {
@@ -638,7 +562,6 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
         capturedAudio = recordBuffer.subarray(0, writeIndex);
         var seconds = writeIndex / capturedSampleRate;
         setStatus("Recording complete. " + seconds.toFixed(1) + " seconds captured.", false);
-        drawWaveform(capturedAudio, capturedSampleRate);
         render();
       }
       progressBar.style.width = "0%";
@@ -725,7 +648,6 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
     maxFreqSlider.addEventListener("input", function () { maxFreqValue.textContent = Math.round(getMaxFreq()) + " Hz"; });
 
     drawEmpty("No recording yet");
-    drawWaveform(null, capturedSampleRate);
   }
 
   init();
@@ -733,7 +655,7 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
 </script>
 ```
 
-Tap Record in the sidebar, then let a sound play into the microphone. The top strip fills in with the raw recording as it happens; the picture below it is the same recording run through the Fourier transform, filling in from left to right as it goes.
+Tap Record in the sidebar, then let a sound play into the microphone -- the spectrogram fills in from left to right as the recording plays out.
 :::
 
 :::
