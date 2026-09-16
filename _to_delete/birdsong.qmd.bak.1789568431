@@ -149,37 +149,12 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
     display: flex;
     justify-content: space-between;
   }
-  /* On a phone screen, every control needs to be reachable at the same
-     time as the plots it affects, with no scrolling -- the images here
-     are already short and wide so they don't need shrinking (unlike the
-     Fibonacci tree), but the control panel below them was tall enough
-     to push the last slider or two off the bottom of the screen. This
-     tightens spacing throughout the panel and pairs up the two most
-     compact controls (window size, overlap) onto one row to claw that
-     height back, without changing anything on a wider screen. */
   @media (max-width: 640px) {
     #bird-app { gap: 8px; }
     #bird-app .bird-canvas-wrap { flex-basis: 100%; order: 1; }
     #bird-app .bird-sidebar { flex-basis: 100%; order: 2; }
-    #bird-app h5 { display: none; }
-    #bird-app #bird-status { font-size: 12px; margin-bottom: 4px; min-height: 2.1em; }
-    #bird-app button#bird-record { padding: 7px 14px; margin-bottom: 4px; }
-    #bird-app .bird-progress-wrap { margin: 3px 0 6px 0; }
-    #bird-app fieldset {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 3px 16px;
-      margin: 0 0 6px 0;
-    }
-    #bird-app legend { flex-basis: 100%; margin-bottom: 1px; }
-    #bird-app fieldset label { margin: 0; }
-    #bird-app .bird-slider-row { margin: 5px 0; }
-    #bird-app .bird-two-col { display: flex; gap: 10px; }
-    #bird-app .bird-two-col .bird-slider-row { flex: 1 1 0; min-width: 0; margin: 5px 0; }
-    #bird-app .bird-plot-label { font-size: 10.5px; line-height: 1.25; margin: 1px 0 2px 0; }
-    #bird-wave-canvas { margin-bottom: 6px; }
-    #bird-app .bird-colorbar-wrap { margin-top: 5px; }
+    #bird-app h5 { font-size: 12px; }
+    #bird-app #bird-status { font-size: 12px; }
   }
 </style>
 
@@ -219,21 +194,19 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
       <input type="range" id="bird-maxfreq" min="1000" max="20000" step="100" value="10000">
     </div>
 
-    <div class="bird-two-col">
-      <div class="bird-slider-row">
-        <div class="bird-slider-label"><span>FFT window size</span></div>
-        <select id="bird-window">
-          <option value="256">256</option>
-          <option value="512">512</option>
-          <option value="1024" selected>1024</option>
-          <option value="2048">2048</option>
-          <option value="4096">4096</option>
-        </select>
-      </div>
-      <div class="bird-slider-row">
-        <div class="bird-slider-label"><span>Overlap</span><span id="bird-overlap-value">50%</span></div>
-        <input type="range" id="bird-overlap" min="0" max="90" step="10" value="50">
-      </div>
+    <div class="bird-slider-row">
+      <div class="bird-slider-label"><span>FFT window size</span></div>
+      <select id="bird-window">
+        <option value="256">256</option>
+        <option value="512">512</option>
+        <option value="1024" selected>1024</option>
+        <option value="2048">2048</option>
+        <option value="4096">4096</option>
+      </select>
+    </div>
+    <div class="bird-slider-row">
+      <div class="bird-slider-label"><span>Overlap</span><span id="bird-overlap-value">50%</span></div>
+      <input type="range" id="bird-overlap" min="0" max="90" step="10" value="50">
     </div>
   </div>
 </div>

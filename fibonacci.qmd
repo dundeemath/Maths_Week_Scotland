@@ -27,7 +27,7 @@ Honeybees are haplodiploid. A fertilised egg develops into a female -- a worker 
 
 Follow a single drone's family tree back through the generations using that one rule, and count how many ancestors he has at each generation. The counts turn out to be **exactly the Fibonacci sequence** -- no coincidence, and no approximation: it's forced by the branching rule itself.
 
-## The Bee Family Tree -- Count the dots in the bottom row of the figure
+## The Bee Family Tree -- count the dots in each row 
 
 ::: {#fig-fibonacci-bees .content-hidden when-format="pdf"}
 ```{=html}
