@@ -21,6 +21,8 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
 - Compare a low-pitched call (e.g. a pigeon or crow) with a high-pitched one (e.g. a robin or a garden warbler) -- notice how much of the picture is empty space once you're looking at the wrong frequency band for a given bird.
 - Try clapping or making a short sharp noise -- broadband, non-tonal sounds like this light up across the *whole* frequency range at once, rather than concentrating in a narrow band.
 
+:::
+
 ::: {#fig-birdsong .content-hidden when-format="pdf"}
 ```{=html}
 <style>
@@ -763,6 +765,5 @@ Press record, then let a birdsong recording (or a whistle, or your own voice) pl
 Tap Record in the sidebar, then let a sound play into the microphone. The top strip fills in with the raw recording as it happens; the picture below it is the same recording run through the Fourier transform, filling in from left to right as it goes.
 :::
 
-:::
 
-:::
+
