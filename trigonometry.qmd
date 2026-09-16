@@ -6,7 +6,7 @@ image: 'trigonometry_preview.png'
 categories: [Trigonometry, Geometry, Measurement]
 ---
 
-![](bg_tall_object.jpg){width="1.8in" fig-pos="H"}
+![](trigonometry_preview.png){width="1.8in"}
 
 Suppose you need to measure the height of the tree in front of you, standing on the ground with nothing but your own two feet and the phone that you are using on this tour.
 
@@ -18,11 +18,13 @@ Everything below comes down to one right-angled triangle:
 - the point on the tree that is at the same height as your eye,
 - the top of the tree.
 
+Given this triangle, the vertical height of the tree can be estimated given the walking distance to the tree and the slope of the hypotenuse, i.e.
+$$\text{tree height} = \text{eye height} + \text{distance} \times \tan(\text{angle})$$
+
+
+
 ::: {.content-hidden when-format="pdf"}
 
-If you can estimate the horizontal distance to the tree and the angle you have to look up through to see the top, basic trigonometry hands you the height:
-
-$$\text{tree height} = \text{eye height} + \text{distance} \times \tan(\text{angle})$$
 
 The distance is easy to estimate: pace it out.
 
@@ -36,7 +38,6 @@ Because the phone's shape never changes, that sightline always makes exactly the
 
 $$\text{angle} = \arctan\!\left(\frac{\text{phone height}}{\text{phone width}}\right)$$
 
-![](trigonometry_preview.png)
 
 ## Try it yourself
 

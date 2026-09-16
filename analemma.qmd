@@ -12,7 +12,7 @@ The [Analemma](https://en.wikipedia.org/wiki/Analemma) is an unequal figure-of-e
 
 ## Why doesn't the Earth fall onto the Sun?
 
-The Analemma traces that figure-of-eight because Earth's orbit isn't a perfect circle travelled at constant speed -- it's an ellipse, and Earth moves faster when it's closer to the Sun. Working out exactly *why* orbits look like this took four scientists and the better part of three centuries. Here's that story in four small experiments, each one playable on your phone: **Galileo**, who found the first hard evidence that not everything orbits the Earth; **Kepler**, who worked out the precise shape of an orbit from observation; **Newton**, who explained *why* that shape occurs, from a single law of gravity; and **Einstein**, whose refinement of Newton's picture explains a tiny mismatch even Newton's theory could not.
+The Analemma traces that figure-of-eight because the Earth's orbit isn't a perfect circle travelled at constant speed -- it's an ellipse, and Earth moves faster when it's closer to the Sun. Working out exactly *why* orbits look like this took the better part of three centuries. **Galileo** discovered  that not everything orbits the Earth; **Kepler**,  worked out the precise shape of orbit based on observations; **Newton** explained *why*  from a single law of gravity; and **Einstein**'s' general relativity is needed to explain a tiny mismatch between Newton's theory and Mercury's orbit.
 
 ::: {.content-hidden when-format="pdf"}
 
@@ -186,7 +186,7 @@ In 1610, Galileo pointed his new telescope at Jupiter and found four points of l
 
 ### 2. Kepler: ellipses, equal areas, and a hidden pattern
 
-Working from decades of naked-eye observations of Mars (collected by Tycho Brahe), Johannes Kepler found that planets do not move in perfect circles, nor at constant speed. He distilled the pattern into three laws: orbits are **ellipses** with the Sun at one focus (not the centre); a planet **sweeps out equal areas in equal times**, moving faster when close to the Sun and slower when far away; and the **square of the orbital period is proportional to the cube of the orbit's size** -- the same constant of proportionality for every planet in the solar system. Explore all three below with Mercury, Earth, Mars and Jupiter's real orbital data.
+Johannes Kepler found that planets do not move in perfect circles, nor at constant speed. He distilled the pattern into three laws: orbits are **ellipses** with the Sun at one focus (not the centre); a planet **sweeps out equal areas in equal times**, moving faster when close to the Sun and slower when far away; and the **square of the orbital period is proportional to the cube of the orbit's size** -- the same constant of proportionality for every planet in the solar system. Explore all three below with Mercury, Earth, Mars and Jupiter's real orbital data.
 
 ::: {#fig-kepler-orbits .content-hidden when-format="pdf"}
 ```{=html}

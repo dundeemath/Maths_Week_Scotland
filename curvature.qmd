@@ -5,23 +5,25 @@ image: 'leaf_preview.png'
 categories: [Differential equations, Geometry, Calculus]
 ---
 
+![](bg_wrinkle_crop.png){width="2.2in" fig-pos="H"}
+
+
 Why are some leaves more wrinkled than others? And what causes this to happen?
 
-Consider a circular disc 
-of radius, $R$.
+Consider a circular disc of radius, $R$.
 
-The perimeter  is $2\pi R$ whilst the area of the circle is $\pi R^2$.
-It can be shown that this circle is the most efficient way to contain the area $\pi R^2$.
+The perimeter  is $2\pi R$ whilst the area of the circle is $\pi R^2$. It can be shown that this circle is the most efficient way to contain the area $\pi R^2$.
 
-Now imagine distorting the disc so that the circumference is wrinkled. The cirumference of the wrinkled shape is larger than $2 \pi R$. 
+Now imagine distorting the disc so that the circumference is wrinkled. The circumference of the wrinkled shape is larger than $2 \pi R$. 
 
 In the plant at this stop, notice that the leaves are wrinkled rather than smooth. Why does evolution find this shape for this particular plant and how does it happen?
 
-![](bg_wrinkle_crop.png){width="2.2in" fig-pos="H"}
+One way to make a wrinkled surface is to have different regions of the surface grow at different rates. Essentially, take a circle  and allow the outer region  to grow at a faster rate than the inner region. The effect of the differential growth is that the faster growing region wrinkles.
+
 
 ::: {.content-hidden when-format="pdf"}
 
-One way to make a wrinkled surface is to have different regions of the surface grow at different rates. Essentially, take a circle  and allow the outer region  to grow at a faster rate than the inner region. The effect of the differential growth is that the faster growing region wrinkles. 
+ 
 
 ::: {#fig-leaf-growth .content-hidden when-format="pdf"}
 
