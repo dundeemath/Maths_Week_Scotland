@@ -48,6 +48,8 @@ format:
     # inserting a blank page after every 1-page chapter. oneside makes
     # chapters run straight on, back to back.
     classoption: [oneside]
+    # Booklet will be printed and stapled, not bound - 2cm is plenty.
+    geometry: margin=3cm
     toc: false
     number-sections: false
     # Figures were all printing as "Figure 1" -- scrbook resets its native
