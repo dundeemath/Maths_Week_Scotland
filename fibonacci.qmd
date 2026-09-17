@@ -441,7 +441,7 @@ Follow a single drone's family tree back through the generations using that one 
       sliderVal.textContent = String(nGen);
 
       var root2 = layout(buildTree("M", nGen));
-      // Re-use the tree that was just built for the drawing above, rather
+      // Reuse the tree that was just built for the drawing above, rather
       // than building a second, separate one -- layout() only adds x/y
       // position fields to each node, it doesn't touch the children, so
       // the same tree can safely be walked again to count generations.
