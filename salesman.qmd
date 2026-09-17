@@ -8,10 +8,11 @@ resources:
 ---
 
 
-This trail loops through nine stops on the map, from √ to μ Travelling Salesman -- passing along the way through Ω, ≤, ≥, Σ, ≠ and φ. Suppose you wanted to visit each of the other stops once whilst minimising the distance that you travel.
+In the image below you can see a route that starts at Analemma and ends at this stop. Suppose you wanted to identify the route that goes through the same set of stops but minimises the total distance travelled.
+
+![](tspschematic.png)
 
 This is the **Travelling Salesman Problem** (TSP) -- one of the most famous problems in mathematics and computer science. It sounds simple: just try every order of stops and keep the shortest. With 5 stops there are only 12 distinct routes to check. With 10 stops there are already 181,440. With 20 stops there are over 60 quadrillion -- so many that a computer checking a billion routes every single second would still need about two years to get through them all. Trying every option, which works fine for a handful of stops, becomes hopeless almost immediately -- and no computer, however fast, escapes that by brute force alone.
-
 
 Real versions of this problem sit behind delivery route planning, circuit board drilling, and DNA sequencing. 
 
