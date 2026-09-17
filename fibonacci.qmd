@@ -11,10 +11,11 @@ Look at a pinecone from the bottom. How many spirals go in the clockwise directi
 
 ![Fibonacci Numbers in Pinecone. There are $8$ spirals in the clockwise direction and $13$ spirals in the counter-clockwise direction. Image from [MENSA for Kids](https://www.mensaforkids.org/teach/lesson-plans/fabulous-fibonacci/). ](figures/Fibonacci-pinecones.jpg){width="2.4in" fig-pos="H"}
 
-The number of spirals found on pine cones are almost always Fibonacci numbers, which are 
+The number of spirals found on pine cones are almost always Fibonacci numbers, which appear in the Fibonacci sequence:
 
 $0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, \ldots$
 
+Note that, in the Fibonacci sequence, the next number is found by adding the two previous ones.
 
 ::: {.content-hidden when-format="pdf"}
 
