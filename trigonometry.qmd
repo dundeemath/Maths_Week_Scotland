@@ -6,7 +6,7 @@ image: 'trigonometry_preview.png'
 categories: [Trigonometry, Geometry, Measurement]
 ---
 
-![](trigonometry_preview.png){width="1.8in"}
+![](trigonometry_preview.png){width="6in"}
 
 Suppose you need to measure the height of the tree in front of you, standing on the ground with nothing but your own two feet and the phone that you are using on this tour.
 

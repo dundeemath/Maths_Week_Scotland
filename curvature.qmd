@@ -5,24 +5,22 @@ image: 'leaf_preview.png'
 categories: [Differential equations, Geometry, Calculus]
 ---
 
+*Diggers Speedwell* (left) and *Kelanchoe Berharensis* (right, in the greenhouse) are two example of plant species with crinkly leaves:
 
-::: {#fig-curved layout-ncol=2}
-
-![](Diggers_Speedwell.png){width="2.0in"}
-
-![](bg_wrinkle_crop.png){width="3.0in"}
-
-*Diggers Speedwell* and *Kelanchoe Berharensis* (in the greenhouse) are two example of plant species with crinkly leaves.
-:::
+![](Diggers_Speedwell.png){height="1.8in"}
+![](bg_wrinkle_crop.png){height="1.8in"}
 
 Why are some leaves more wrinkled than others? And what causes this to happen?
 
-Consider a circular disc of radius, $R$. The perimeter of the circle is $2\pi R$ whilst the area is $\pi R^2$. It can be shown that this circle is the minimal perimeter needed to contain the area $\pi R^2$.
+Consider a circular disc of radius, $R$. The perimeter of the circle is $2\pi R$ whilst the area is $\pi R^2$.
+It can be shown that this circle is the minimal perimeter needed to contain the area $\pi R^2$.
 
-Now imagine distorting the disc so that the circumference is wrinkled. Now the circumference of the wrinkled perimeter is larger than $2 \pi R$
+Now imagine distorting the disc so that the circumference is wrinkled.
+Now the circumference of the wrinkled perimeter is larger than $2 \pi R$
 
-One way to make a wrinkled surface is to have different regions of the surface grow at different rates. Essentially, take a circle and allow the outer region  
-to grow at a faster rate than the inner region. This results in there being more material in the outer region which then wrinkles up.
+One way to make a wrinkled surface is to have different regions of the surface grow at different rates.
+Essentially, take a circle and allow the outer region to grow at a faster rate than the inner region.
+This results in there being more material in the outer region which then wrinkles up.
 
 
 ::: {.content-hidden when-format="pdf"}

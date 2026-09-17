@@ -14,10 +14,9 @@ Plant leaves display a remarkable variety of symmetrical arrangements. Many leav
 
 ::: {#fig-curved layout-ncol=2}
 
+![An equilateral triangle](equilateral_triangle_elegant_arrow.png){height="3.0in"}
 
-![An equilateral triangle](equilateral_triangle_elegant_arrow.png){width="1.0in"}
-
-![A trifold-symmetric leaf](trifold_leaf_clipped_veins.png){width="1.0in"}
+![A trifold-symmetric leaf](trifold_leaf_clipped_veins.png){height="3.0in"}
 
 :::
 

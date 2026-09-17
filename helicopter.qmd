@@ -8,10 +8,10 @@ The seeds from lime, maple, and other trees spin and fly a little bit like helic
 
 *Design 1 (pink photos):* Fasten the ends together with a paper clip into a kind of triangle shape.
 
-![Design 1: Flat pre-cut origami paper](figures/Design1_1_pink.jpg){height="1.15in" fig-pos="H"}
-![Design 1: Completed paper spinner](figures/Design1_2_pink.jpg){height="1.15in" fig-pos="H"}
-![Design 2: Flat pre-cut origami paper](figures/Design2_1_yellow.jpg){height="1.15in" fig-pos="H"}
-![Design 2: Completed paper spinner](figures/Design2_2_yellow.jpg){height="1.15in" fig-pos="H"}
+![Design 1: Flat pre-cut origami paper](figures/Design1_1_pink.jpg){height="1.45in" fig-pos="H"}
+![Design 1: Completed paper spinner](figures/Design1_2_pink.jpg){height="1.45in" fig-pos="H"}
+![Design 2: Flat pre-cut origami paper](figures/Design2_1_yellow.jpg){height="1.45in" fig-pos="H"}
+![Design 2: Completed paper spinner](figures/Design2_2_yellow.jpg){height="1.45in" fig-pos="H"}
 
 *Design 2 (yellow photos):*
 

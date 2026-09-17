@@ -10,7 +10,7 @@ If you were to watch the water lily here through a full day  you would see its f
 
 However, if it was left in a room with the lights left on permanently, it would keep opening and closing on roughly the same rhythm for a while, gradually drifting out of step with real time. The water lily isn't just reacting to light like a switch, it has its own internal molecular clock that is entrained to day-night cycle.
 
-![](circadian_schematic.png){height="1.0in" fig-pos="H"}
+![](circadian_schematic.png){width="6in" fig-pos="H"}
 
 Your cells also have an internal molecular clock. And if you'e ever experienced jet lag, your internal molecular clock has become out-of-sync with your new day-night cycle. It takes a number of days of light stimulus in your new environment before your body clock syncs with its environment.
 
