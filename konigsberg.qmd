@@ -4,9 +4,16 @@ format: html
 code-fold: True
 image: 'konigsberg_preview.png'
 categories: [Graph theory, Discrete maths, Topology]
+resources:
+  - euler_graph_only.png
+
 ---
 
+
+
 In the 1700s the city of Königsberg was built around two branches of a river, with an island sitting where they met. Seven bridges connected the four separate pieces of land -- and the people of the city had a favourite Sunday puzzle: could you walk through the city and cross every one of the seven bridges exactly once?
+
+![](euler_graph_only.png){width="1.8in"}
 
 Nobody could ever do it. Nobody could ever explain *why*, either -- until a mathematician called Leonhard Euler looked at the problem in 1736, and realised something surprising: it doesn't matter how big the islands are, how long the bridges are, or what order you visit things in. All that matters is *which* pieces of land are joined to *which*, and by how many bridges. That single idea -- throw away the shape and the distance, keep only the connections -- was the birth of an entire branch of mathematics: graph theory, and later, topology.
 

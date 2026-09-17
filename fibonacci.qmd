@@ -7,9 +7,7 @@ image: 'fibonacci_preview.png'
 
 Look at a pinecone from the bottom. How many spirals go in the clockwise direction (green lines in the photo)? How many spirals go in the counter-clockwise direction (yellow lines)? Wouldn't you expect that they would be the same?
 
-Image from the [MENSA for Kids](https://www.mensaforkids.org/teach/lesson-plans/fabulous-fibonacci/) that shows Fibonacci numbers in pinecone:
-
-![Fibonacci Numbers in Pinecone. There are $8$ spirals in the clockwise direction and $13$ spirals in the counter-clockwise direction.](figures/Fibonacci-pinecones.jpg){width="2.4in" fig-pos="H"}
+![Fibonacci Numbers in Pinecone. There are $8$ spirals in the clockwise direction and $13$ spirals in the counter-clockwise direction. Image from [MENSA for Kids](https://www.mensaforkids.org/teach/lesson-plans/fabulous-fibonacci/). ](figures/Fibonacci-pinecones.jpg){width="2.4in" fig-pos="H"}
 
 The number of spirals found on pine cones are almost always Fibonacci numbers, which are 
 

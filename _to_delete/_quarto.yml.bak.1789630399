@@ -38,14 +38,3 @@ format:
     classoption: [oneside]
     toc: false
     number-sections: false
-    # Figures were all printing as "Figure 1" -- scrbook resets its native
-    # figure counter at every \chapter, and since most chapters only have
-    # one figure, they all landed on the same number. Chapters and sections
-    # aren't numbered anywhere else in this book (number-sections: false,
-    # no toc), so a bare figure number wouldn't tie to anything -- simplest
-    # fix is to drop the "Figure N:" label entirely and keep just the
-    # caption text.
-    include-in-header:
-      text: |
-        \usepackage{caption}
-        \captionsetup[figure]{labelformat=empty}
