@@ -1,5 +1,5 @@
 ---
-title: 'The Travelling Salesman problem ($\mu$)'
+title: "The Travelling Salesman problem (μ)"
 format: html
 image: 'tsp_trail_map_landscape.png'
 categories: [Combinatorics, Algorithms, Discrete maths, Optimisation]

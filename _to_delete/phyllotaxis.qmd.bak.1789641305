@@ -1,5 +1,5 @@
 ---
-title: 'Phyllotaxis ($\sigma$)'
+title: "Phyllotaxis"
 format: html
 code-fold: True
 ---
@@ -12,22 +12,23 @@ Which of the following leaf arrangement pattern do you find in this plant? Pleas
 
 ::: {.content-hidden when-format="pdf"}
 
+## Distichous ($180^\circ$)
+Leaves grow on alternating sides of the stem, forming a flat, two-sided pattern.
 
-| Name | Divergence Angle | Description  |
-|---------|:-----|------:|
-| Distichous      | 180   |    Leaves grow on alternating sides of the stem, forming a flat, two-sided pattern |
-| Fibonacci Spiral     | 137.5  |   Leaves grow around the stem in a tight spiral, using the golden angle to make the best use of space and get as much light as possible  |
-| Decussate       | 90    |     Leaves grow in pairs, with each pair turned at a right angle to the pair below |
-| Tricussate       | 60    |     Three leaves grow from the same point on the stem, spaced evenly around it. Each group of three is rotated $60^\circ$ around the stem from the group below.
+## Fibonacci Spiral ($137.5^\circ$)
+Leaves grow around the stem in a tight spiral, using the golden angle to make the best use of space and get as much light as possible.
 
-: Different divergence angle patterns
+## Decussate ($90^\circ$)
+Leaves grow in pairs, with each pair turned at a right angle to the pair below.
+
+## Tricussate ($60^\circ$)
+Three leaves grow from the same point on the stem, spaced evenly around it. Each group of three is rotated $60^\circ$ around the stem from the group below.
 
 ## Build your own leaf system
 
-You can build your own leaf system using the app below.
-Two things control the pattern: how many leaves grow from each point on the stem (one, a pair, or a whorl of three), and the angle that each new leaf or whorl is rotated from the last. For a single leaf at a time, that angle is free to be anything. You can drag it to 180° for distichous, or to exactly 137.5°, the golden angle, for the Fibonacci spiral. For pairs and whorls, the angle is fixed by how many leaves share each point: 90° for pairs, 60° for whorls of three, matching the decussate and tricussate patterns.
+Two things control the pattern: how many leaves grow from each point on the stem (one, a pair, or a whorl of three), and the angle each new leaf or whorl is rotated from the last. For a single leaf at a time, that angle is free to be anything -- drag it to 180° for distichous, or to exactly 137.5°, the golden angle, for the Fibonacci spiral. For pairs and whorls, the angle is fixed by how many leaves share each point: 90° for pairs, 60° for whorls of three, matching the decussate and tricussate patterns.
 
-The app provides four ways to look at the same pattern: from directly above the stem (how you'd actually classify a real plant), the stem's surface unrolled flat (straight rows reveal how many columns of leaves line up), a side-view diagram of the stem itself, drawn the same way as the pictures above, and a fully 3D view you can rotate yourself.
+Four ways to look at the same pattern: from directly above the stem (how you'd actually classify a real plant), the stem's surface unrolled flat (straight rows reveal how many columns of leaves line up), a side-view diagram of the stem itself, drawn the same way as the pictures above, and a fully 3D view you can rotate yourself -- watch how the same one rule produces four completely different-looking plants.
 
 
 ::: {#fig-phyllotaxis .content-hidden when-format="pdf"}

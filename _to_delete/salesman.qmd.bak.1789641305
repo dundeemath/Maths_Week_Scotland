@@ -1,5 +1,5 @@
 ---
-title: 'The Travelling Salesman problem ($\mu$)'
+title: "The Travelling Salesman problem"
 format: html
 image: 'tsp_trail_map_landscape.png'
 categories: [Combinatorics, Algorithms, Discrete maths, Optimisation]
@@ -19,7 +19,7 @@ Real versions of this problem sit behind delivery route planning, circuit board 
 ::: {.content-hidden when-format="pdf"}
 
 
-The app below shows nine of the trail stops: **√ Analemma** (fixed as your start) and **μ Travelling Salesman** (fixed as your end), plus seven stops in between -- **Ω Tree Height**, **≤ Königsberg**, **≥ Curvature**, **Σ Bird Song**, **≠ Symmetry**, **φ Fibonacci** and **∅ Helicopter Seeds**. Tap those seven, in whichever order you think gives the shortest route from start to end, then use the toggle in the sidebar to compare:
+The app below shows nine of the trail stops: **√** (fixed as your start) and **μ Travelling Salesman** (fixed as your end), plus seven stops in between -- Ω, ≤, ≥, Σ, ≠, φ and ∅. Tap those seven, in whichever order you think gives the shortest route from start to end, then use the toggle in the sidebar to compare:
 
 - **Your route** -- the order you tapped the seven middle stops in.
 - **Optimal route** -- the true shortest order, found by checking all 5040 possibilities exactly.
@@ -155,14 +155,14 @@ With seven stops to order there are 5040 possible routes in total -- still few e
   // -------------------------------------------------------------------
 
   var STOPS = [
-    [728.0, 334.5],   // 0. Omega -- Tree Height (Native Area)
-    [837.0, 461.0],   // 1. <= -- Koenigsberg (Lower Pond)
-    [1175.5, 331.0],  // 2. sqrt -- Analemma -- START (fixed), American Area
-    [1441.0, 495.0],  // 3. >= -- Curvature (Australia and New Zealand Area)
-    [1512.0, 271.5],  // 4. capital sigma -- Σ -- Bird Song (path near Australia/NZ and Asian Area boundary)
-    [1651.0, 486.5],  // 5. != -- Symmetry (Asian Area)
-    [1783.0, 361.5],  // 6. phi -- Fibonacci (Asian Area)
-    [973.0, 469.0],   // 7. empty set -- ∅ -- Helicopter Seeds (Lower Pond, east side)
+    [728.0, 334.5],   // 0. Omega, Native Area
+    [837.0, 461.0],   // 1. <= (Lower Pond)
+    [1175.5, 331.0],  // 2. sqrt -- START (fixed), American Area
+    [1441.0, 495.0],  // 3. >= (Australia and New Zealand Area)
+    [1512.0, 271.5],  // 4. capital sigma -- Σ (path near Australia/NZ and Asian Area boundary)
+    [1651.0, 486.5],  // 5. != (Asian Area)
+    [1783.0, 361.5],  // 6. phi (Asian Area)
+    [973.0, 469.0],   // 7. empty set -- ∅ (Lower Pond, east side)
     [1208.5, 463.0]   // 8. mu -- Travelling Salesman -- END (fixed)
   ];
   var START_IDX = 2;

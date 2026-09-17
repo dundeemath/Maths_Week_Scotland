@@ -1,0 +1,78 @@
+project:
+  type: book
+
+book:
+  title: "Mathematics Trail at the University of Dundee Botanic Gardens"
+  # Reorder this list for the exhibition -- it's the single source of
+  # truth for chapter order (no separate file to keep in sync).
+  chapters:
+    - index.qmd  
+    - phyllotaxis.qmd      # Phyllotaxis
+    - spirals.qmd           # Logarithmic Spiral
+    - symmetry.qmd         # Symmetry in Plants
+    - fractal.qmd          # Fractal
+    - circadian.qmd        # Circadian Rhythm
+    - fibonacci.qmd        # Fibonacci Numbers
+    - birdsong.qmd         # Bird Song
+    - analemma.qmd        # The Analemma Project
+    - trigonometry.qmd     # Estimating the Height of a Tree using Trigonometry
+    - curvature.qmd        # Why leaves crinkle: differential growth in a disc
+    - salesman.qmd         # The Travelling Salesman Problem [pure JS app]
+    - helicopter.qmd       # Helicopter Seeds
+    - konigsberg.qmd       # Seven Bridges of Koenigsberg (currently just a stub, "Topic in Graph Theory.")
+    - questionnaire.qmd    # End of Maths Trail Questionnaire (interactive form -- drop, or paper version?)
+
+format:
+  html:
+    theme: cosmo
+    css: mobile.css
+    include-in-header: js_apps_switch.html
+    toc: false
+    number-sections: false
+  pdf:
+    documentclass: scrbook
+    # oneside: without this, scrbook's default twoside layout forces every
+    # chapter to start on a fresh right-hand (odd) page, which is what was
+    # inserting a blank page after every 1-page chapter. oneside makes
+    # chapters run straight on, back to back.
+    classoption: [oneside]
+    toc: false
+    number-sections: false
+    # Figures were all printing as "Figure 1" -- scrbook resets its native
+    # figure counter at every \chapter, and since most chapters only have
+    # one figure, they all landed on the same number. Chapters and sections
+    # aren't numbered anywhere else in this book (number-sections: false,
+    # no toc), so a bare figure number wouldn't tie to anything -- simplest
+    # fix is to drop the "Figure N:" label entirely and keep just the
+    # caption text.
+    include-in-header:
+      text: |
+        \usepackage{caption}
+        \captionsetup[figure]{labelformat=empty}
+        % The trail-map symbols now appear in chapter titles (front matter
+        % `title:` fields), which -- unlike the interactive JS apps -- are
+        % NOT hidden from PDF output. Plain pdflatex doesn't know how to
+        % typeset these Unicode math characters on its own and silently
+        % drops/garbles them. \DeclareUnicodeCharacter tells it exactly what
+        % to draw for each one -- this is a core LaTeX-kernel/inputenc
+        % mechanism, not an extra CTAN package, so it needs nothing beyond
+        % what Quarto's own PDF template already loads (earlier attempt used
+        % the newunicodechar *package* instead, which isn't installed in
+        % this book's TinyTeX and failed to auto-install). Add a new
+        % \DeclareUnicodeCharacter line here (hex codepoint, then the LaTeX
+        % to draw) if a future trail-map symbol gets added to a title and
+        % turns up blank/wrong in the PDF.
+        \usepackage[utf8]{inputenc}
+        \DeclareUnicodeCharacter{2205}{\ensuremath{\emptyset}}
+        \DeclareUnicodeCharacter{2264}{\ensuremath{\leq}}
+        \DeclareUnicodeCharacter{2265}{\ensuremath{\geq}}
+        \DeclareUnicodeCharacter{2260}{\ensuremath{\neq}}
+        \DeclareUnicodeCharacter{00B1}{\ensuremath{\pm}}
+        \DeclareUnicodeCharacter{221A}{\ensuremath{\surd}}
+        \DeclareUnicodeCharacter{03A9}{\ensuremath{\Omega}}
+        \DeclareUnicodeCharacter{03A3}{\ensuremath{\Sigma}}
+        \DeclareUnicodeCharacter{03C3}{\ensuremath{\sigma}}
+        \DeclareUnicodeCharacter{03C6}{\ensuremath{\varphi}}
+        \DeclareUnicodeCharacter{03C0}{\ensuremath{\pi}}
+        \DeclareUnicodeCharacter{03BC}{\ensuremath{\mu}}
+        \DeclareUnicodeCharacter{02E3}{\textsuperscript{x}}
