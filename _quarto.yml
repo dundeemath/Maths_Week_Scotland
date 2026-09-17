@@ -9,7 +9,7 @@ book:
   # under the book: key here rather than a website: key (that's just how Quarto
   # book projects are supposed to configure these -- same keys, different parent).
   google-analytics:
-    tracking-id: "G-BG8TXW50S0"
+    tracking-id: "G-7VNZ42J27R"
     anonymize-ip: true
   # Blocks the GA cookie until a visitor actively agrees -- required for a
   # UK university site under UK GDPR/PECR rather than just being polite.
