@@ -4,21 +4,21 @@ format: html
 code-fold: True
 ---
 
-Logarithmic spirals in plants are a striking example of geometry in nature, where botanical structures grow according to the Golden Ratio and the Fibonacci sequence.
+When a young fern sprout (known as a fiddlehead) is tightly coiled, it forms a logarithmic spiral.
 
-## Spiralling Succulents
-Many varieties of succulents arrange their leaves outward from a central point along an expanding logarithmic trajectry to ensure uniform access to sunlight and water collection.
+![Logarithmic spiral in fiddlehead](figures/Spiral-Fiddlehead.jpeg){width="2.6in" fig-pos="H"}
 
-Image from the [Fractal Dimensions in Circular and Spiral Phenomena](https://www.techrxiv.org/doi/full/10.36227/techrxiv.21766706.v1) that shows logarithmic spiral in Aloe Polyphylla:
 
-![Logarithmic spiral in Aloe Polyphylla](figures/Spiral-Aloe.png){width="1.6in" fig-pos="H"}
+Logarithmic spiral spiral appears often in nature such as:
 
-::: {.content-hidden when-format="pdf"}
+* nautilus shell,
+* hurricane,
+* spiral galaxies.  
 
-## Sunflower Seed Heads
-The packing of seeds in a sunflower head features two sets of overlapping logarithmic spirals - one running clockwise and the other anticlockwise - maximising the number of seeds that can fit into the centre.
+![Logarithmic spiral in Nautilus Shell](figures/Spiral-Nautilus.png){width="2.6in" fig-pos="H"}
+![Logarithmic spiral in Hurricane](figures/Spiral-Hurricane.jpg){width="2.3in" fig-pos="H"}
+![Logarithmic spiral in Spiral Galaxies](figures/Spiral-Galaxies.jpg){width="2.8in" fig-pos="H"}
 
-## Pinecone Scale Arrangements
-Pinecones exhibit steep logarithmic spirals formed by their scaling bracts, tightly safeguarding the seeds inside.
+One of characteristic properties of logarithmic spiral is complete self-similarity. If you shrink or enlarge it by any arbitrary scale factor, not just a specific fixed ratio, and rotate it by an appropriat angle, it matches the original spiral. 
 
-:::
+![Logarithmic spiral is completely self-similar](figures/Spiral-Self-Similarity.png){width="8.0in" fig-pos="H"}
