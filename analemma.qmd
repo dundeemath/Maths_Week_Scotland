@@ -1,5 +1,5 @@
 ---
-title: "The Analemma Project"
+title: "Why does the earth not fall into the sun?"
 format: html
 code-fold: true
 image: 'analemma_preview.png'
