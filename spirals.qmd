@@ -7,11 +7,11 @@ code-fold: True
 When a young fern sprout (known as a fiddlehead) is tightly coiled, it forms a logarithmic spiral.
 Logarithmic spiral spiral appears often in nature such as the nautilus shell, hurricanes, and spiral galaxies.
 
-![Logarithmic spiral in fiddlehead](figures/Spiral-Fiddlehead.jpeg){height="1.6in" fig-pos="H"}
-![Logarithmic spiral in Nautilus Shell](figures/Spiral-Nautilus.png){height="1.6in" fig-pos="H"}
-![Logarithmic spiral in Hurricane](figures/Spiral-Hurricane.jpg){height="1.6in" fig-pos="H"}
-![Logarithmic spiral in Spiral Galaxies](figures/Spiral-Galaxies.jpg){height="1.6in" fig-pos="H"}
+![Logarithmic spiral in fiddlehead](figures/Spiral-Fiddlehead.jpeg){height="1.05in" fig-pos="H"}
+![Logarithmic spiral in Nautilus Shell](figures/Spiral-Nautilus.png){height="1.05in" fig-pos="H"}
+![Logarithmic spiral in Hurricane](figures/Spiral-Hurricane.jpg){height="1.05in" fig-pos="H"}
+![Logarithmic spiral in Spiral Galaxies](figures/Spiral-Galaxies.jpg){height="1.05in" fig-pos="H"}
 
 One of characteristic properties of logarithmic spiral is complete self-similarity. If you shrink or enlarge it by any arbitrary scale factor, not just a specific fixed ratio, and rotate it by an appropriat angle, it matches the original spiral. 
 
-![Logarithmic spiral is completely self-similar](figures/Spiral-Self-Similarity.png){width="6in" fig-pos="H"}
+![Logarithmic spiral is completely self-similar](figures/Spiral-Self-Similarity.png){width="4.8in" fig-pos="H"}
