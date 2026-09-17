@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Fractals – Maths Trail at the Dundee Botanic Gardens</title>
+<title>Fractals – Mathematics Trail at the University of Dundee Botanic Gardens</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -93,7 +93,8 @@ ul.task-list li input[type="checkbox"] {
     [id^="fig-circadian"], [id^="fig-leaf-growth"],
     [id^="fig-fibonacci-bees"], [id^="fig-fractal-fern"],
     [id^="fig-konigsberg"], [id^="fig-phyllotaxis"],
-    [id^="fig-tsp"], [id^="fig-tree-height"], [id^="fig-birdsong"]
+    [id^="fig-tsp"], [id^="fig-tree-height"], [id^="fig-birdsong"],
+    [id^="fig-symmetry-group"]
   ) {
     display: none !important;
   }
@@ -104,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
      way, by walking up from the app element itself. */
   document.addEventListener("DOMContentLoaded", function () {
     if (window.SHOW_JS_APPS !== false) return;
-    document.querySelectorAll('[id$="-app"], [id^="fig-tsp"], [id^="fig-birdsong"]').forEach(function (el) {
+    document.querySelectorAll('[id$="-app"], [id^="fig-tsp"], [id^="fig-birdsong"], [id^="fig-symmetry-group"]').forEach(function (el) {
       var figure = el.closest("figure") || el.closest('[id^="fig-"]') || el;
       figure.style.display = "none";
     });
@@ -139,7 +140,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Maths Trail at the Dundee Botanic Gardens</a> 
+      <a href="./">Mathematics Trail at the University of Dundee Botanic Gardens</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -236,7 +237,11 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-title">Fractals</span></h1>
-</div>
+  <div class="quarto-categories">
+    <div class="quarto-category">Dynamical systems</div>
+    <div class="quarto-category">Discrete maths</div>
+  </div>
+  </div>
 
 
 
@@ -253,12 +258,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>A fractal is a structure that possessed the property of <strong>self-similarity</strong>. Specifically, it refers to a structure where the exact same shape repeatedly appears when the entire figure is broken down into several smaller parts.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/Fractal-fern.png" class="img-fluid figure-img" style="width:1.8in"></p>
-<figcaption>Fractal pattern in fern leave</figcaption>
-</figure>
-</div>
+<p><img src="figures/Fractal-fern.png" class="img-fluid" style="width:1.8in" data-fig-pos="H"></p>
 <p>While fractal patterns and shapes appear complex at first glance, they are actually the result of repeating simple rules and operations.</p>
 <p>While fractals are a concept rooted in geometry, the fractal approach can also be applied to analyse various phenomena, such as stock prices, currency fluctuations, and social structures.</p>
 <p>Many examples of fractals can also be observed in the natural world. These include a wide variety of examples, such as <strong>snowflakes</strong>, <em>seashells</em> (like turban shells and nautiluses), the shapes of cumulonimbus clouds, and the circulatory system in the human body (including the heart, blood vessels, and lymphatic vessels).</p>

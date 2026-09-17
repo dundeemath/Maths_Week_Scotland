@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Seven Bridges of Königsberg – Maths Trail at the Dundee Botanic Gardens</title>
+<title>Seven Bridges of Königsberg – Mathematics Trail at the University of Dundee Botanic Gardens</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -93,7 +93,8 @@ ul.task-list li input[type="checkbox"] {
     [id^="fig-circadian"], [id^="fig-leaf-growth"],
     [id^="fig-fibonacci-bees"], [id^="fig-fractal-fern"],
     [id^="fig-konigsberg"], [id^="fig-phyllotaxis"],
-    [id^="fig-tsp"], [id^="fig-tree-height"], [id^="fig-birdsong"]
+    [id^="fig-tsp"], [id^="fig-tree-height"], [id^="fig-birdsong"],
+    [id^="fig-symmetry-group"]
   ) {
     display: none !important;
   }
@@ -104,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
      way, by walking up from the app element itself. */
   document.addEventListener("DOMContentLoaded", function () {
     if (window.SHOW_JS_APPS !== false) return;
-    document.querySelectorAll('[id$="-app"], [id^="fig-tsp"], [id^="fig-birdsong"]').forEach(function (el) {
+    document.querySelectorAll('[id$="-app"], [id^="fig-tsp"], [id^="fig-birdsong"], [id^="fig-symmetry-group"]').forEach(function (el) {
       var figure = el.closest("figure") || el.closest('[id^="fig-"]') || el;
       figure.style.display = "none";
     });
@@ -139,7 +140,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Maths Trail at the Dundee Botanic Gardens</a> 
+      <a href="./">Mathematics Trail at the University of Dundee Botanic Gardens</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -258,6 +259,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>In the 1700s the city of Königsberg was built around two branches of a river, with an island sitting where they met. Seven bridges connected the four separate pieces of land – and the people of the city had a favourite Sunday puzzle: could you walk through the city and cross every one of the seven bridges exactly once?</p>
+<p><img src="euler_graph_only.png" class="img-fluid" style="width:1.8in"></p>
 <p>Nobody could ever do it. Nobody could ever explain <em>why</em>, either – until a mathematician called Leonhard Euler looked at the problem in 1736, and realised something surprising: it doesn’t matter how big the islands are, how long the bridges are, or what order you visit things in. All that matters is <em>which</em> pieces of land are joined to <em>which</em>, and by how many bridges. That single idea – throw away the shape and the distance, keep only the connections – was the birth of an entire branch of mathematics: graph theory, and later, topology.</p>
 <section id="find-it-in-the-gardens" class="level2">
 <h2 class="anchored" data-anchor-id="find-it-in-the-gardens">Find it in the gardens</h2>

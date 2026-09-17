@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Why leaves crinkle? – Maths Trail at the Dundee Botanic Gardens</title>
+<title>Why leaves crinkle? – Mathematics Trail at the University of Dundee Botanic Gardens</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -93,7 +93,8 @@ ul.task-list li input[type="checkbox"] {
     [id^="fig-circadian"], [id^="fig-leaf-growth"],
     [id^="fig-fibonacci-bees"], [id^="fig-fractal-fern"],
     [id^="fig-konigsberg"], [id^="fig-phyllotaxis"],
-    [id^="fig-tsp"], [id^="fig-tree-height"], [id^="fig-birdsong"]
+    [id^="fig-tsp"], [id^="fig-tree-height"], [id^="fig-birdsong"],
+    [id^="fig-symmetry-group"]
   ) {
     display: none !important;
   }
@@ -104,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
      way, by walking up from the app element itself. */
   document.addEventListener("DOMContentLoaded", function () {
     if (window.SHOW_JS_APPS !== false) return;
-    document.querySelectorAll('[id$="-app"], [id^="fig-tsp"], [id^="fig-birdsong"]').forEach(function (el) {
+    document.querySelectorAll('[id$="-app"], [id^="fig-tsp"], [id^="fig-birdsong"], [id^="fig-symmetry-group"]').forEach(function (el) {
       var figure = el.closest("figure") || el.closest('[id^="fig-"]') || el;
       figure.style.display = "none";
     });
@@ -168,7 +169,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Maths Trail at the Dundee Botanic Gardens</a> 
+      <a href="./">Mathematics Trail at the University of Dundee Botanic Gardens</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -286,13 +287,29 @@ window.Quarto = {
 </header>
 
 
-<p><img src="bg_wrinkle_crop.png" class="img-fluid" style="width:2.2in" data-fig-pos="H"></p>
+<div id="fig-curved" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-curved-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 40.0%;justify-content: center;">
+<p><img src="Diggers_Speedwell.png" class="img-fluid figure-img" style="width:2in"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 60.0%;justify-content: center;">
+<p><img src="bg_wrinkle_crop.png" class="img-fluid figure-img" style="width:3in"></p>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-curved-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11.1: <em>Diggers Speedwell</em> and <em>Kelanchoe Berharensis</em> (in the greenhouse) are two example of plant species with crinklyleaves.
+</figcaption>
+</figure>
+</div>
 <p>Why are some leaves more wrinkled than others? And what causes this to happen?</p>
 <p>Consider a circular disc of radius, <span class="math inline">\(R\)</span>.</p>
-<p>The perimeter is <span class="math inline">\(2\pi R\)</span> whilst the area of the circle is <span class="math inline">\(\pi R^2\)</span>. It can be shown that this circle is the most efficient way to contain the area <span class="math inline">\(\pi R^2\)</span>.</p>
-<p>Now imagine distorting the disc so that the circumference is wrinkled. The circumference of the wrinkled shape is larger than <span class="math inline">\(2 \pi R\)</span>.</p>
-<p>In the plant at this stop, notice that the leaves are wrinkled rather than smooth. Why does evolution find this shape for this particular plant and how does it happen?</p>
-<p>One way to make a wrinkled surface is to have different regions of the surface grow at different rates. Essentially, take a circle and allow the outer region to grow at a faster rate than the inner region. The effect of the differential growth is that the faster growing region wrinkles.</p>
+<p>The perimeter is <span class="math inline">\(2\pi R\)</span> whilst the area of the circle is <span class="math inline">\(\pi R^2\)</span>. It can be shown that this circle is the minimal perimeter to contain the area <span class="math inline">\(\pi R^2\)</span>.</p>
+<p>Now imagine distorting the disc so that the circumference is wrinkled. The circumference of the wrinkled perimeter is larger than <span class="math inline">\(2 \pi R\)</span></p>
+<p>Why does evolution find this shape for this particular plant and how does it happen?</p>
+<p>One way to make a wrinkled surface is to have different regions of the surface grow at different rates. Essentially, take a circle and allow the outer region to grow at a faster rate than the inner region. This results in their being more material in the outer region which then wrinkles up.</p>
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-leaf-growth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <style>
@@ -596,7 +613,7 @@ window.Quarto = {
 </script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-leaf-growth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;11.1: A differential-growth leaf simulator: drag the rim growth rate up from 1.0 and a flat disc is forced to crinkle, exactly as a real leaf margin does when it grows faster than the tissue near its centre.
+Figure&nbsp;11.2: A differential-growth leaf simulator: drag the rim growth rate up from 1.0 and a flat disc is forced to crinkle, exactly as a real leaf margin does when it grows faster than the tissue near its centre.
 </figcaption>
 </figure>
 <!--
