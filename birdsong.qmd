@@ -12,6 +12,10 @@ A short window of any recorded sound can be decomposed into a sum of sine waves 
 
 Do this over and over on a sliding window as the recording plays out, and stack the results side by side, and you get a **spectrogram** -- a picture with time along one axis, frequency along the other, and colour showing how strong each frequency is at each moment. A pure whistled note shows up as a single bright horizontal band. A complex trill, with several frequencies sliding around at once, shows up as a tangle of curved streaks. Birdsong is a particularly rich example: many species sing well above the pitch of human speech, and pack in rapid frequency sweeps that are hard to pick out by ear but leap out immediately in a spectrogram.
 
+There is a Dundee based local community project [Biodiversidee](https://biodiversidee.vercel.app/) tracking bird song using the [Cornell Birdnet-Pi software]( https://birdnet.cornell.edu/birdnet-pi/) - including one running at the Botatic Garden setup by David Martin of the University of Dundee. Here's one of their recordings of a Robin:
+
+![Frequency plot of six seconds with two robin calls](figures/European_Robin-2026-09-17-birdnet.png){height="2in"}
+
 ::: {.content-hidden when-format="pdf"}
 
 Press record, then let a birdsong recording (or a whistle, or your own voice) play into the microphone for up to 10 seconds. The app then computes and displays the spectrogram of what it heard, entirely on your own device -- nothing is uploaded anywhere.
