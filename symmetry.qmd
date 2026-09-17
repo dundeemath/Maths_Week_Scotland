@@ -2,6 +2,7 @@
 title: "Symmetry in Plants"
 format: html
 code-fold: True
+categories: [Geometry, Permutations, Group theory]
 resources:
   - equilateral_triangle_elegant_arrow.png
   - trifold_leaf_clipped_veins.png

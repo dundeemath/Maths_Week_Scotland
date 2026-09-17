@@ -8,9 +8,7 @@ Plants arrange their leaves around a stem in regular patterns. The angle between
 
 Which of the following leaf arrangement pattern do you find in this plant? Please record the number of each leaf arrangement pattern in the table provided on the Maths Trail map: **distichous** ($180^\circ$), **Fibonacci spiral** ($137.5^\circ$), **decussate** ($90^\circ$), or **tricussate** ($60^\circ$).
 
-Image from the [University of Tokyo](https://www.u-tokyo.ac.jp/focus/en/press/z0508_00047.html) that shows the classification patterns:
-
-![Phyllotactic Patterns](figures/phase-locking.jpg){width="2.4in" fig-pos="H"}
+![Phyllotactic Patterns. Image from the [University of Tokyo](https://www.u-tokyo.ac.jp/focus/en/press/z0508_00047.html).](figures/phase-locking.jpg){width="2.4in" fig-pos="H"}
 
 ::: {.content-hidden when-format="pdf"}
 

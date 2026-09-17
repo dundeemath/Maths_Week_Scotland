@@ -2,6 +2,8 @@
 title: "Fractals"
 format: html
 code-fold: True
+categories: [Dynamical systems,Discrete maths]
+
 ---
 
 A fractal is a structure that possessed the property of **self-similarity**. Specifically, it refers to a structure where the exact same shape repeatedly appears when the entire figure is broken down into several smaller parts.

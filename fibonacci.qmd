@@ -3,6 +3,8 @@ title: "Fibonacci Numbers"
 format: html
 code-fold: True
 image: 'fibonacci_preview.png'
+categories: [Sequences, Genetics]
+
 ---
 
 Look at a pinecone from the bottom. How many spirals go in the clockwise direction (green lines in the photo)? How many spirals go in the counter-clockwise direction (yellow lines)? Wouldn't you expect that they would be the same?
