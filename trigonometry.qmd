@@ -25,6 +25,7 @@ $$\text{tree height} = \text{eye height} + \text{distance} \times \tan(\text{ang
 
 ::: {.content-hidden when-format="pdf"}
 
+![An almost correct sight line. ](trigsightline.jpeg){width=2in}
 
 The distance is easy to estimate: pace it out.
 
@@ -219,7 +220,7 @@ $$\text{angle} = \arctan\!\left(\frac{\text{phone height}}{\text{phone width}}\r
 
   // PLACEHOLDER -- replace with the real, confirmed height (in metres) of
   // the tree used at this stop on the trail before this goes live.
-  var TRUE_TREE_HEIGHT_M = 35.0;
+  var TRUE_TREE_HEIGHT_M = 17.5;
   var TREE_NAME = "the tree";
 
   var PHONE_PRESETS = [
@@ -434,7 +435,7 @@ $$\text{angle} = \arctan\!\left(\frac{\text{phone height}}{\text{phone width}}\r
     var lines = [];
     lines.push("<strong>Sighting angle:</strong> " + (d.angle * 180 / Math.PI).toFixed(1) + "&deg; (fixed by your phone's shape)");
     lines.push("<strong>Distance walked:</strong> " + d.distanceM.toFixed(1) + " m");
-    lines.push("<strong>Your estimated height:</strong> " + d.estM.toFixed(1) + " m");
+    lines.push("<strong>Your estimate for tree height:</strong> " + d.estM.toFixed(1) + " m");
     if (revealed) {
       var errorM = d.estM - TRUE_TREE_HEIGHT_M;
       var pct = Math.abs(errorM) / TRUE_TREE_HEIGHT_M * 100.0;
