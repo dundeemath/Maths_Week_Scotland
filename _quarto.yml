@@ -21,13 +21,13 @@ book:
     - index.qmd  
     - phyllotaxis.qmd      # Phyllotaxis
     - spirals.qmd           # Logarithmic Spiral
-    - symmetry.qmd         # Symmetry in Plants
     - fractal.qmd          # Fractal
-    - circadian.qmd        # Circadian Rhythm
-    - fibonacci.qmd        # Fibonacci Numbers
-    - birdsong.qmd         # Bird Song
-    - analemma.qmd        # The Analemma Project
+    - circadian.qmd
     - trigonometry.qmd     # Estimating the Height of a Tree using Trigonometry
+    - analemma.qmd        # The Analemma Project
+    - birdsong.qmd         # Bird Song
+    - fibonacci.qmd
+    - symmetry.qmd         # Symmetry in Plants        # Fibonacci Numbers
     - curvature.qmd        # Why leaves crinkle: differential growth in a disc
     - salesman.qmd         # The Travelling Salesman Problem [pure JS app]
     - helicopter.qmd       # Helicopter Seeds
