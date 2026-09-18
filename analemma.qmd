@@ -16,9 +16,368 @@ The Analemma traces that figure-of-eight because the Earth's orbit isn't a perfe
 
 ::: {.content-hidden when-format="pdf"}
 
+## Simulating a planet orbiting the sun?
+
+In the app below change the initial speed and direction of the orbiting object. Can you find conditions for which the planet crashes into the sun rather than stay in an eliiptical orbit? 
+
+::: {#fig-newton-gravity .content-hidden when-format="pdf"}
+```{=html}
+<style>
+  #new-app, #new-app * { box-sizing: border-box; }
+  #new-app {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: flex-start;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    max-width: 1040px;
+    text-align: left;
+  }
+  #new-app h5,
+  #new-app label,
+  #new-app .summary-text { text-align: left; }
+  #new-app .sidebar { flex: 0 0 260px; min-width: 0; }
+  #new-app .canvas-wrap { flex: 1 1 400px; min-width: 0; }
+  #new-app h5 { margin: 12px 0 8px 0; font-size: 14px; }
+  #new-app h5:first-child { margin-top: 0; }
+  #new-app label { display: block; font-size: 13px; margin: 10px 0 4px 0; line-height: 1.3; }
+  #new-app input[type="range"] { width: 100%; }
+  #new-app .note { font-size: 12px; color: #555; margin: 2px 0 0 0; }
+  #new-app hr { margin: 14px 0; border: none; border-top: 1px solid #ddd; }
+  #new-app .btn-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  #new-app button {
+    padding: 6px 14px; font-size: 13px; border-radius: 4px; cursor: pointer;
+    background: #2f5d8a; color: #fff; border: none;
+  }
+  #new-app .summary-text { font-size: 13px; line-height: 1.55; }
+  #new-app canvas { width: 100%; height: auto; display: block; border-radius: 6px; }
+  @media (max-width: 520px) {
+    #new-app { gap: 8px; }
+    #new-app h5 { font-size: 12px; }
+    #new-app label { font-size: 11px; margin: 8px 0 3px 0; }
+    #new-app .note { font-size: 10px; }
+    #new-app button { padding: 5px 8px; font-size: 11px; }
+    #new-app .summary-text { font-size: 11px; line-height: 1.45; }
+  }
+</style>
+
+<div id="new-app">
+  <div class="sidebar">
+    <h5>Launch speed (× circular speed)</h5>
+    <label for="new-speed">Speed: <strong id="new-speed-val">1.00</strong></label>
+    <input id="new-speed" type="range" min="0.1" max="2.0" step="0.02" value="1.0">
+    <p class="note"><em>1.0 = perfect circle; 1.41 = escapes the Sun entirely.</em></p>
+    <h5>Launch angle from tangential</h5>
+    <label for="new-angle">Angle: <strong id="new-angle-val">0</strong>&deg;</label>
+    <input id="new-angle" type="range" min="-90" max="90" step="1" value="0">
+    <p class="note"><em>0&deg; = sideways (tangential); negative angles aim inward, towards the Sun.</em></p>
+    <h5>Time</h5>
+    <input id="new-time" type="range" min="0" max="3" step="0.01" value="0">
+    <div class="btn-row">
+      <button id="new-play" type="button">Play / Pause</button>
+    </div>
+    <hr>
+    <div id="new-summary" class="summary-text"></div>
+  </div>
+  <div class="canvas-wrap">
+    <canvas id="new-canvas" width="650" height="540"></canvas>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  if (window.SHOW_JS_APPS === false) return;
+
+  var GM_SUN = 4 * Math.PI * Math.PI; // AU^3/year^2 -- makes Earth's orbit (a=1 AU) have a 1-year period
+  var R_START = 1.0;   // AU, fixed starting distance from the Sun
+  var R_CRASH = 0.10;  // AU, an enlarged "you've hit the Sun" radius, purely so a crash is visible
+  var V_CIRC = Math.sqrt(GM_SUN / R_START);
+
+  function initialState(speedFactor, angleDeg) {
+    var speed = speedFactor * V_CIRC;
+    var theta = angleDeg * Math.PI / 180;
+    return [R_START, 0.0, speed * Math.sin(theta), speed * Math.cos(theta)];
+  }
+
+  // Classify the orbit from its initial conditions alone (energy and
+  // angular momentum) -- exact, not an approximation.
+  function classifyOrbit(x0, y0, vx0, vy0) {
+    var r0 = Math.hypot(x0, y0);
+    var v0sq = vx0 * vx0 + vy0 * vy0;
+    var energy = 0.5 * v0sq - GM_SUN / r0;
+    var L = x0 * vy0 - y0 * vx0;
+    var info = { energy: energy, L: L, bound: energy < 0 };
+    if (energy < 0) {
+      var a = -GM_SUN / (2 * energy);
+      var eSq = Math.max(0.0, 1 - (L * L) / (GM_SUN * a));
+      var e = Math.sqrt(eSq);
+      info.a = a; info.e = e;
+      info.period = 2 * Math.PI * Math.sqrt(Math.pow(a, 3) / GM_SUN);
+      info.periapsis = a * (1 - e);
+      info.apoapsis = a * (1 + e);
+    }
+    return info;
+  }
+
+  // Velocity-Verlet integration of F = -GM/r^2, with an adaptive step size
+  // proportional to the local orbital timescale (~r^1.5), fine near the
+  // Sun and coarse far away.
+  function simulateNewtonOrbit(x0, y0, vx0, vy0, maxTime, maxSteps, rCrash, eta) {
+    maxSteps = maxSteps || 6000;
+    rCrash = (rCrash === undefined) ? R_CRASH : rCrash;
+    eta = eta || 0.01;
+    var xs = [x0], ys = [y0], ts = [0.0];
+    var x = x0, y = y0, vx = vx0, vy = vy0, t = 0.0, crashed = false;
+    for (var s = 0; s < maxSteps; s++) {
+      var r = Math.hypot(x, y);
+      if (r < rCrash) { crashed = true; break; }
+      var dt = eta * Math.pow(r, 1.5) / Math.sqrt(GM_SUN);
+      dt = Math.min(dt, maxTime / 40.0);
+      var ax = -GM_SUN * x / Math.pow(r, 3);
+      var ay = -GM_SUN * y / Math.pow(r, 3);
+      var vxh = vx + 0.5 * ax * dt;
+      var vyh = vy + 0.5 * ay * dt;
+      x = x + vxh * dt; y = y + vyh * dt; t += dt;
+      var r2 = Math.hypot(x, y);
+      if (r2 < rCrash) { crashed = true; xs.push(x); ys.push(y); ts.push(t); break; }
+      var ax2 = -GM_SUN * x / Math.pow(r2, 3);
+      var ay2 = -GM_SUN * y / Math.pow(r2, 3);
+      vx = vxh + 0.5 * ax2 * dt; vy = vyh + 0.5 * ay2 * dt;
+      xs.push(x); ys.push(y); ts.push(t);
+      if (t >= maxTime) break;
+    }
+    return { xs: xs, ys: ys, ts: ts, crashed: crashed };
+  }
+
+  function runNewtonSim(speedFactor, angleDeg) {
+    var s0 = initialState(speedFactor, angleDeg);
+    var info = classifyOrbit(s0[0], s0[1], s0[2], s0[3]);
+    var maxTime = info.bound ? Math.min(3 * info.period, 15.0) : 4.0;
+    var sim = simulateNewtonOrbit(s0[0], s0[1], s0[2], s0[3], maxTime);
+    info.crashed = sim.crashed; info.xs = sim.xs; info.ys = sim.ys; info.ts = sim.ts;
+    return info;
+  }
+
+  function interpPosition(t, ts, xs, ys) {
+    var n = ts.length;
+    if (t <= ts[0]) return [xs[0], ys[0]];
+    if (t >= ts[n - 1]) return [xs[n - 1], ys[n - 1]];
+    var lo = 0, hi = n - 1;
+    while (hi - lo > 1) {
+      var mid = (lo + hi) >> 1;
+      if (ts[mid] <= t) lo = mid; else hi = mid;
+    }
+    var frac = (ts[hi] !== ts[lo]) ? (t - ts[lo]) / (ts[hi] - ts[lo]) : 0.0;
+    return [xs[lo] + frac * (xs[hi] - xs[lo]), ys[lo] + frac * (ys[hi] - ys[lo])];
+  }
+
+  // Exact instantaneous speed from conservation of energy, rather than
+  // differencing the (adaptively, unevenly spaced) simulated positions.
+  function speedFromEnergy(energy, r) {
+    var vsq = 2 * (energy + GM_SUN / r);
+    return Math.sqrt(Math.max(0.0, vsq));
+  }
+
+  // A bound, uncrashed orbit is a closed ellipse retracing itself exactly
+  // every period -- loop over one period for a seamless replay. A crashed
+  // or escaping trajectory has no such periodicity, so it just replays its
+  // finite simulated arc.
+  function nLoopWindow(sim) {
+    if (sim.bound && !sim.crashed) return Math.max(sim.period, 0.01);
+    return Math.max(sim.ts[sim.ts.length - 1], 0.01);
+  }
+
+  // Approximation of matplotlib's "plasma" colormap.
+  var PLASMA_STOPS = [
+    [0.0, [13, 8, 135]], [0.1, [70, 3, 159]], [0.2, [114, 1, 168]],
+    [0.3, [156, 23, 158]], [0.4, [189, 55, 134]], [0.5, [216, 87, 107]],
+    [0.6, [237, 121, 83]], [0.7, [251, 159, 58]], [0.8, [253, 202, 38]],
+    [0.9, [240, 249, 33]], [1.0, [240, 249, 33]]
+  ];
+  function plasma(t) {
+    t = Math.max(0, Math.min(1, t));
+    for (var i = 0; i < PLASMA_STOPS.length - 1; i++) {
+      var t0 = PLASMA_STOPS[i][0], t1 = PLASMA_STOPS[i + 1][0];
+      if (t >= t0 && t <= t1) {
+        var f = (t1 > t0) ? (t - t0) / (t1 - t0) : 0;
+        var c0 = PLASMA_STOPS[i][1], c1 = PLASMA_STOPS[i + 1][1];
+        var r = Math.round(c0[0] + (c1[0] - c0[0]) * f);
+        var g = Math.round(c0[1] + (c1[1] - c0[1]) * f);
+        var b = Math.round(c0[2] + (c1[2] - c0[2]) * f);
+        return "rgb(" + r + "," + g + "," + b + ")";
+      }
+    }
+    var last = PLASMA_STOPS[PLASMA_STOPS.length - 1][1];
+    return "rgb(" + last[0] + "," + last[1] + "," + last[2] + ")";
+  }
+
+  var speedSlider = document.getElementById("new-speed");
+  var speedVal = document.getElementById("new-speed-val");
+  var angleSlider = document.getElementById("new-angle");
+  var angleVal = document.getElementById("new-angle-val");
+  var timeSlider = document.getElementById("new-time");
+  var playBtn = document.getElementById("new-play");
+  var summary = document.getElementById("new-summary");
+  var canvas = document.getElementById("new-canvas");
+  var ctx = canvas.getContext("2d");
+
+  var state = { sim: null };
+
+  var PLOT_W = 500; // px, square plot region within the canvas
+  var PLOT_PAD = 20;
+
+  function render() {
+    var sim = state.sim;
+    var xs = sim.xs, ys = sim.ys, ts = sim.ts;
+    var t = parseFloat(timeSlider.value);
+
+    var loopMax = nLoopWindow(sim);
+    if (sim.bound && !sim.crashed) {
+      var cut = ts.length;
+      for (var i = 0; i < ts.length; i++) { if (ts[i] > loopMax) { cut = i; break; } }
+      cut = Math.max(cut, 2);
+      xs = xs.slice(0, cut); ys = ys.slice(0, cut); ts = ts.slice(0, cut);
+    }
+
+    var pos = interpPosition(t, ts, xs, ys);
+    var px = pos[0], py = pos[1];
+
+    var speeds = [];
+    for (var i = 0; i < xs.length; i++) speeds.push(speedFromEnergy(sim.energy, Math.hypot(xs[i], ys[i])));
+
+    var vLo, vHi;
+    if (sim.bound) {
+      var vPeri = speedFromEnergy(sim.energy, sim.periapsis);
+      var vApo = speedFromEnergy(sim.energy, sim.apoapsis);
+      vLo = Math.min(vPeri, vApo); vHi = Math.max(vPeri, vApo);
+    } else {
+      vLo = Math.min.apply(null, speeds); vHi = Math.max.apply(null, speeds);
+    }
+    if (vHi - vLo < 1e-4) vHi = vLo + 1e-4;
+    function norm(v) { return (v - vLo) / (vHi - vLo); }
+
+    var absXs = xs.map(Math.abs), absYs = ys.map(Math.abs);
+    var span = Math.max(Math.max.apply(null, absXs), Math.max.apply(null, absYs), R_START) * 1.15;
+    function sx(x) { return PLOT_PAD + (x + span) / (2 * span) * PLOT_W; }
+    function sy(y) { return PLOT_PAD + PLOT_W - (y + span) / (2 * span) * PLOT_W; }
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#fbfbf8";
+    ctx.fillRect(0, 0, PLOT_W + 2 * PLOT_PAD, PLOT_W + 2 * PLOT_PAD);
+
+    var rCrashPx = R_CRASH / (2 * span) * PLOT_W;
+    ctx.beginPath();
+    ctx.fillStyle = "rgba(242,193,78,0.35)";
+    ctx.arc(sx(0), sy(0), rCrashPx, 0, 2 * Math.PI);
+    ctx.fill();
+
+    for (var i2 = 0; i2 < xs.length - 1; i2++) {
+      var segSpeed = (speeds[i2] + speeds[i2 + 1]) / 2;
+      ctx.strokeStyle = plasma(norm(segSpeed));
+      ctx.lineWidth = 2.4;
+      ctx.beginPath();
+      ctx.moveTo(sx(xs[i2]), sy(ys[i2]));
+      ctx.lineTo(sx(xs[i2 + 1]), sy(ys[i2 + 1]));
+      ctx.stroke();
+    }
+
+    ctx.beginPath();
+    ctx.fillStyle = "#d99a2b";
+    ctx.arc(sx(0), sy(0), 9, 0, 2 * Math.PI);
+    ctx.fill();
+
+    var vHere = speedFromEnergy(sim.energy, Math.hypot(px, py));
+    ctx.beginPath();
+    ctx.fillStyle = plasma(norm(vHere));
+    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 1.6;
+    ctx.arc(sx(px), sy(py), 6.5, 0, 2 * Math.PI);
+    ctx.fill(); ctx.stroke();
+
+    // Colour bar -- speed scale, top = fastest (periapsis), bottom = slowest.
+    var barX = PLOT_W + 2 * PLOT_PAD + 32, barY = 34, barW = 16, barH = canvas.height - 64;
+    var grad = ctx.createLinearGradient(0, barY, 0, barY + barH);
+    for (var gstep = 0; gstep <= 10; gstep++) grad.addColorStop(gstep / 10, plasma(1 - gstep / 10));
+    ctx.fillStyle = grad;
+    ctx.fillRect(barX, barY, barW, barH);
+    ctx.strokeStyle = "#999"; ctx.lineWidth = 1;
+    ctx.strokeRect(barX, barY, barW, barH);
+    ctx.fillStyle = "#333";
+    ctx.font = "10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+    ctx.textAlign = "left";
+    ctx.fillText(vHi.toFixed(2), barX + barW + 4, barY + 8);
+    ctx.fillText(vLo.toFixed(2), barX + barW + 4, barY + barH);
+    ctx.fillText("Speed", barX - 4, barY - 20);
+    ctx.fillText("(AU/yr)", barX - 4, barY - 8);
+
+    timeSlider.value = t;
+
+    var lines = [];
+    if (sim.crashed) {
+      lines.push("<strong>Crashed into the Sun</strong> at simulated time " +
+        sim.ts[sim.ts.length - 1].toFixed(3) + " years -- not enough sideways speed " +
+        "(or aimed too directly inward) to miss it.");
+    } else if (!sim.bound) {
+      lines.push("<strong>Escapes to infinity.</strong> This launch speed and angle give the " +
+        "planet more energy than it needs to stay bound to the Sun at all -- it never comes back.");
+    } else {
+      var shape = sim.e < 0.01 ? "a circle" : "an ellipse";
+      lines.push("<strong>Settles into " + shape + "</strong>" );
+    }
+    summary.innerHTML = lines.join("<br><br>");
+  }
+
+  var playing = false, timerId = null;
+  function stop() {
+    playing = false;
+    if (timerId !== null) { clearInterval(timerId); timerId = null; }
+  }
+  function start() {
+    playing = true;
+    timerId = setInterval(function () {
+      var loopMax = nLoopWindow(state.sim);
+      var dt = loopMax / 60.0;
+      var t = parseFloat(timeSlider.value) + dt;
+      if (t >= loopMax) t = loopMax > 0 ? (t % loopMax) : 0.0;
+      timeSlider.value = t;
+      render();
+    }, 150);
+  }
+  playBtn.addEventListener("click", function () { if (playing) stop(); else start(); });
+
+  function recompute() {
+    state.sim = runNewtonSim(parseFloat(speedSlider.value), parseFloat(angleSlider.value));
+    var newMax = nLoopWindow(state.sim);
+    timeSlider.max = newMax.toFixed(4);
+    timeSlider.value = 0;
+    render();
+  }
+
+  speedSlider.addEventListener("input", function () {
+    speedVal.textContent = parseFloat(speedSlider.value).toFixed(2);
+    recompute();
+  });
+  angleSlider.addEventListener("input", function () {
+    angleVal.textContent = parseFloat(angleSlider.value).toFixed(0);
+    recompute();
+  });
+  timeSlider.addEventListener("input", render);
+
+  speedVal.textContent = parseFloat(speedSlider.value).toFixed(2);
+  angleVal.textContent = parseFloat(angleSlider.value).toFixed(0);
+  recompute();
+})();
+</script>
+```
+:::
+
+
+To understand how the simulations work we need to go back to the discoveries of Galileo, Kepler and Newton. 
+
 ### 1. Galileo: evidence that not everything orbits the Earth
 
-In 1610, Galileo pointed his new telescope at Jupiter and found four points of light that moved back and forth alongside it, night after night. They were not fixed stars: they were moons, clearly orbiting Jupiter and not the Earth. That alone was enough to break the ancient assumption that every heavenly body must circle the Earth. Press play below and watch Io, Europa, Ganymede and Callisto (Jupiter's four largest moons, still called the "Galilean moons") complete their real orbital periods, from under two days for Io up to nearly seventeen for Callisto.
+In 1610, Galileo discovered four moons orbiting Jupiter. Press play below and watch Jupiter's four largest moons complete their real orbital periods. Note that the inner-most moons orbit faster than the outer-most ones.
 
 ::: {#fig-galileo-moons .content-hidden when-format="pdf"}
 ```{=html}
@@ -186,7 +545,11 @@ In 1610, Galileo pointed his new telescope at Jupiter and found four points of l
 
 ### 2. Kepler: ellipses, equal areas, and a hidden pattern
 
-Johannes Kepler found that planets do not move in perfect circles, nor at constant speed. He distilled the pattern into three laws: orbits are **ellipses** with the Sun at one focus (not the centre); a planet **sweeps out equal areas in equal times**, moving faster when close to the Sun and slower when far away; and the **square of the orbital period is proportional to the cube of the orbit's size** -- the same constant of proportionality for every planet in the solar system. Explore all three below with Mercury, Earth, Mars and Jupiter's real orbital data.
+Johannes Kepler found that planets in the solar system do not move in perfect circles, nor at constant speed. He distilled the pattern into three laws: 
+- orbits are **ellipses** with the Sun at one focus (not the centre); - a planet **sweeps out equal areas in equal times**, moving faster when close to the Sun and slower when far away; 
+- the **square of the orbital period is proportional to the cube of the orbit's size** 
+
+Below you can explore all three below with Mercury, Earth, Mars and Jupiter's real orbital data. Against note that inner-most planets orbit faster than outer-most ones.
 
 ::: {#fig-kepler-orbits .content-hidden when-format="pdf"}
 ```{=html}
@@ -513,364 +876,7 @@ Johannes Kepler found that planets do not move in perfect circles, nor at consta
 
 ### 3. Newton: why doesn't it just fall in?
 
-Kepler described *what* orbits look like; Newton explained *why*. His law of universal gravitation says the Sun pulls every planet straight towards itself, with a force that falls off as the square of the distance -- and nothing more. So why doesn't that pull simply drag every planet straight into the Sun? The answer is **sideways motion**: a planet is always "falling" towards the Sun, but it is also always moving sideways fast enough to keep missing it. Below, you control a planet's launch speed and direction directly. Aim it steeply inward without enough sideways speed, and it crashes. Give it enough sideways speed, and the very same gravity that would have pulled it in instead bends its path into a closed ellipse -- or, with enough speed, flings it away for good. The path is coloured by the planet's instantaneous speed -- watch it turn bright near the Sun and dark on the far side of an elliptical orbit, direct visual evidence of Kepler's second law: the planet moves fastest exactly where it's closest to the Sun.
-
-::: {#fig-newton-gravity .content-hidden when-format="pdf"}
-```{=html}
-<style>
-  #new-app, #new-app * { box-sizing: border-box; }
-  #new-app {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    align-items: flex-start;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-    max-width: 1040px;
-    text-align: left;
-  }
-  #new-app h5,
-  #new-app label,
-  #new-app .summary-text { text-align: left; }
-  #new-app .sidebar { flex: 0 0 260px; min-width: 0; }
-  #new-app .canvas-wrap { flex: 1 1 400px; min-width: 0; }
-  #new-app h5 { margin: 12px 0 8px 0; font-size: 14px; }
-  #new-app h5:first-child { margin-top: 0; }
-  #new-app label { display: block; font-size: 13px; margin: 10px 0 4px 0; line-height: 1.3; }
-  #new-app input[type="range"] { width: 100%; }
-  #new-app .note { font-size: 12px; color: #555; margin: 2px 0 0 0; }
-  #new-app hr { margin: 14px 0; border: none; border-top: 1px solid #ddd; }
-  #new-app .btn-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-  #new-app button {
-    padding: 6px 14px; font-size: 13px; border-radius: 4px; cursor: pointer;
-    background: #2f5d8a; color: #fff; border: none;
-  }
-  #new-app .summary-text { font-size: 13px; line-height: 1.55; }
-  #new-app canvas { width: 100%; height: auto; display: block; border-radius: 6px; }
-  @media (max-width: 520px) {
-    #new-app { gap: 8px; }
-    #new-app h5 { font-size: 12px; }
-    #new-app label { font-size: 11px; margin: 8px 0 3px 0; }
-    #new-app .note { font-size: 10px; }
-    #new-app button { padding: 5px 8px; font-size: 11px; }
-    #new-app .summary-text { font-size: 11px; line-height: 1.45; }
-  }
-</style>
-
-<div id="new-app">
-  <div class="sidebar">
-    <h5>Launch speed (× circular speed)</h5>
-    <label for="new-speed">Speed: <strong id="new-speed-val">1.00</strong></label>
-    <input id="new-speed" type="range" min="0.1" max="2.0" step="0.02" value="1.0">
-    <p class="note"><em>1.0 = perfect circle; 1.41 = escapes the Sun entirely.</em></p>
-    <h5>Launch angle from tangential</h5>
-    <label for="new-angle">Angle: <strong id="new-angle-val">0</strong>&deg;</label>
-    <input id="new-angle" type="range" min="-90" max="90" step="1" value="0">
-    <p class="note"><em>0&deg; = sideways (tangential); negative angles aim inward, towards the Sun.</em></p>
-    <h5>Time</h5>
-    <input id="new-time" type="range" min="0" max="3" step="0.01" value="0">
-    <div class="btn-row">
-      <button id="new-play" type="button">Play / Pause</button>
-    </div>
-    <hr>
-    <div id="new-summary" class="summary-text"></div>
-  </div>
-  <div class="canvas-wrap">
-    <canvas id="new-canvas" width="650" height="540"></canvas>
-  </div>
-</div>
-
-<script>
-(function () {
-  "use strict";
-  if (window.SHOW_JS_APPS === false) return;
-
-  var GM_SUN = 4 * Math.PI * Math.PI; // AU^3/year^2 -- makes Earth's orbit (a=1 AU) have a 1-year period
-  var R_START = 1.0;   // AU, fixed starting distance from the Sun
-  var R_CRASH = 0.10;  // AU, an enlarged "you've hit the Sun" radius, purely so a crash is visible
-  var V_CIRC = Math.sqrt(GM_SUN / R_START);
-
-  function initialState(speedFactor, angleDeg) {
-    var speed = speedFactor * V_CIRC;
-    var theta = angleDeg * Math.PI / 180;
-    return [R_START, 0.0, speed * Math.sin(theta), speed * Math.cos(theta)];
-  }
-
-  // Classify the orbit from its initial conditions alone (energy and
-  // angular momentum) -- exact, not an approximation.
-  function classifyOrbit(x0, y0, vx0, vy0) {
-    var r0 = Math.hypot(x0, y0);
-    var v0sq = vx0 * vx0 + vy0 * vy0;
-    var energy = 0.5 * v0sq - GM_SUN / r0;
-    var L = x0 * vy0 - y0 * vx0;
-    var info = { energy: energy, L: L, bound: energy < 0 };
-    if (energy < 0) {
-      var a = -GM_SUN / (2 * energy);
-      var eSq = Math.max(0.0, 1 - (L * L) / (GM_SUN * a));
-      var e = Math.sqrt(eSq);
-      info.a = a; info.e = e;
-      info.period = 2 * Math.PI * Math.sqrt(Math.pow(a, 3) / GM_SUN);
-      info.periapsis = a * (1 - e);
-      info.apoapsis = a * (1 + e);
-    }
-    return info;
-  }
-
-  // Velocity-Verlet integration of F = -GM/r^2, with an adaptive step size
-  // proportional to the local orbital timescale (~r^1.5), fine near the
-  // Sun and coarse far away.
-  function simulateNewtonOrbit(x0, y0, vx0, vy0, maxTime, maxSteps, rCrash, eta) {
-    maxSteps = maxSteps || 6000;
-    rCrash = (rCrash === undefined) ? R_CRASH : rCrash;
-    eta = eta || 0.01;
-    var xs = [x0], ys = [y0], ts = [0.0];
-    var x = x0, y = y0, vx = vx0, vy = vy0, t = 0.0, crashed = false;
-    for (var s = 0; s < maxSteps; s++) {
-      var r = Math.hypot(x, y);
-      if (r < rCrash) { crashed = true; break; }
-      var dt = eta * Math.pow(r, 1.5) / Math.sqrt(GM_SUN);
-      dt = Math.min(dt, maxTime / 40.0);
-      var ax = -GM_SUN * x / Math.pow(r, 3);
-      var ay = -GM_SUN * y / Math.pow(r, 3);
-      var vxh = vx + 0.5 * ax * dt;
-      var vyh = vy + 0.5 * ay * dt;
-      x = x + vxh * dt; y = y + vyh * dt; t += dt;
-      var r2 = Math.hypot(x, y);
-      if (r2 < rCrash) { crashed = true; xs.push(x); ys.push(y); ts.push(t); break; }
-      var ax2 = -GM_SUN * x / Math.pow(r2, 3);
-      var ay2 = -GM_SUN * y / Math.pow(r2, 3);
-      vx = vxh + 0.5 * ax2 * dt; vy = vyh + 0.5 * ay2 * dt;
-      xs.push(x); ys.push(y); ts.push(t);
-      if (t >= maxTime) break;
-    }
-    return { xs: xs, ys: ys, ts: ts, crashed: crashed };
-  }
-
-  function runNewtonSim(speedFactor, angleDeg) {
-    var s0 = initialState(speedFactor, angleDeg);
-    var info = classifyOrbit(s0[0], s0[1], s0[2], s0[3]);
-    var maxTime = info.bound ? Math.min(3 * info.period, 15.0) : 4.0;
-    var sim = simulateNewtonOrbit(s0[0], s0[1], s0[2], s0[3], maxTime);
-    info.crashed = sim.crashed; info.xs = sim.xs; info.ys = sim.ys; info.ts = sim.ts;
-    return info;
-  }
-
-  function interpPosition(t, ts, xs, ys) {
-    var n = ts.length;
-    if (t <= ts[0]) return [xs[0], ys[0]];
-    if (t >= ts[n - 1]) return [xs[n - 1], ys[n - 1]];
-    var lo = 0, hi = n - 1;
-    while (hi - lo > 1) {
-      var mid = (lo + hi) >> 1;
-      if (ts[mid] <= t) lo = mid; else hi = mid;
-    }
-    var frac = (ts[hi] !== ts[lo]) ? (t - ts[lo]) / (ts[hi] - ts[lo]) : 0.0;
-    return [xs[lo] + frac * (xs[hi] - xs[lo]), ys[lo] + frac * (ys[hi] - ys[lo])];
-  }
-
-  // Exact instantaneous speed from conservation of energy, rather than
-  // differencing the (adaptively, unevenly spaced) simulated positions.
-  function speedFromEnergy(energy, r) {
-    var vsq = 2 * (energy + GM_SUN / r);
-    return Math.sqrt(Math.max(0.0, vsq));
-  }
-
-  // A bound, uncrashed orbit is a closed ellipse retracing itself exactly
-  // every period -- loop over one period for a seamless replay. A crashed
-  // or escaping trajectory has no such periodicity, so it just replays its
-  // finite simulated arc.
-  function nLoopWindow(sim) {
-    if (sim.bound && !sim.crashed) return Math.max(sim.period, 0.01);
-    return Math.max(sim.ts[sim.ts.length - 1], 0.01);
-  }
-
-  // Approximation of matplotlib's "plasma" colormap.
-  var PLASMA_STOPS = [
-    [0.0, [13, 8, 135]], [0.1, [70, 3, 159]], [0.2, [114, 1, 168]],
-    [0.3, [156, 23, 158]], [0.4, [189, 55, 134]], [0.5, [216, 87, 107]],
-    [0.6, [237, 121, 83]], [0.7, [251, 159, 58]], [0.8, [253, 202, 38]],
-    [0.9, [240, 249, 33]], [1.0, [240, 249, 33]]
-  ];
-  function plasma(t) {
-    t = Math.max(0, Math.min(1, t));
-    for (var i = 0; i < PLASMA_STOPS.length - 1; i++) {
-      var t0 = PLASMA_STOPS[i][0], t1 = PLASMA_STOPS[i + 1][0];
-      if (t >= t0 && t <= t1) {
-        var f = (t1 > t0) ? (t - t0) / (t1 - t0) : 0;
-        var c0 = PLASMA_STOPS[i][1], c1 = PLASMA_STOPS[i + 1][1];
-        var r = Math.round(c0[0] + (c1[0] - c0[0]) * f);
-        var g = Math.round(c0[1] + (c1[1] - c0[1]) * f);
-        var b = Math.round(c0[2] + (c1[2] - c0[2]) * f);
-        return "rgb(" + r + "," + g + "," + b + ")";
-      }
-    }
-    var last = PLASMA_STOPS[PLASMA_STOPS.length - 1][1];
-    return "rgb(" + last[0] + "," + last[1] + "," + last[2] + ")";
-  }
-
-  var speedSlider = document.getElementById("new-speed");
-  var speedVal = document.getElementById("new-speed-val");
-  var angleSlider = document.getElementById("new-angle");
-  var angleVal = document.getElementById("new-angle-val");
-  var timeSlider = document.getElementById("new-time");
-  var playBtn = document.getElementById("new-play");
-  var summary = document.getElementById("new-summary");
-  var canvas = document.getElementById("new-canvas");
-  var ctx = canvas.getContext("2d");
-
-  var state = { sim: null };
-
-  var PLOT_W = 500; // px, square plot region within the canvas
-  var PLOT_PAD = 20;
-
-  function render() {
-    var sim = state.sim;
-    var xs = sim.xs, ys = sim.ys, ts = sim.ts;
-    var t = parseFloat(timeSlider.value);
-
-    var loopMax = nLoopWindow(sim);
-    if (sim.bound && !sim.crashed) {
-      var cut = ts.length;
-      for (var i = 0; i < ts.length; i++) { if (ts[i] > loopMax) { cut = i; break; } }
-      cut = Math.max(cut, 2);
-      xs = xs.slice(0, cut); ys = ys.slice(0, cut); ts = ts.slice(0, cut);
-    }
-
-    var pos = interpPosition(t, ts, xs, ys);
-    var px = pos[0], py = pos[1];
-
-    var speeds = [];
-    for (var i = 0; i < xs.length; i++) speeds.push(speedFromEnergy(sim.energy, Math.hypot(xs[i], ys[i])));
-
-    var vLo, vHi;
-    if (sim.bound) {
-      var vPeri = speedFromEnergy(sim.energy, sim.periapsis);
-      var vApo = speedFromEnergy(sim.energy, sim.apoapsis);
-      vLo = Math.min(vPeri, vApo); vHi = Math.max(vPeri, vApo);
-    } else {
-      vLo = Math.min.apply(null, speeds); vHi = Math.max.apply(null, speeds);
-    }
-    if (vHi - vLo < 1e-4) vHi = vLo + 1e-4;
-    function norm(v) { return (v - vLo) / (vHi - vLo); }
-
-    var absXs = xs.map(Math.abs), absYs = ys.map(Math.abs);
-    var span = Math.max(Math.max.apply(null, absXs), Math.max.apply(null, absYs), R_START) * 1.15;
-    function sx(x) { return PLOT_PAD + (x + span) / (2 * span) * PLOT_W; }
-    function sy(y) { return PLOT_PAD + PLOT_W - (y + span) / (2 * span) * PLOT_W; }
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#fbfbf8";
-    ctx.fillRect(0, 0, PLOT_W + 2 * PLOT_PAD, PLOT_W + 2 * PLOT_PAD);
-
-    var rCrashPx = R_CRASH / (2 * span) * PLOT_W;
-    ctx.beginPath();
-    ctx.fillStyle = "rgba(242,193,78,0.35)";
-    ctx.arc(sx(0), sy(0), rCrashPx, 0, 2 * Math.PI);
-    ctx.fill();
-
-    for (var i2 = 0; i2 < xs.length - 1; i2++) {
-      var segSpeed = (speeds[i2] + speeds[i2 + 1]) / 2;
-      ctx.strokeStyle = plasma(norm(segSpeed));
-      ctx.lineWidth = 2.4;
-      ctx.beginPath();
-      ctx.moveTo(sx(xs[i2]), sy(ys[i2]));
-      ctx.lineTo(sx(xs[i2 + 1]), sy(ys[i2 + 1]));
-      ctx.stroke();
-    }
-
-    ctx.beginPath();
-    ctx.fillStyle = "#d99a2b";
-    ctx.arc(sx(0), sy(0), 9, 0, 2 * Math.PI);
-    ctx.fill();
-
-    var vHere = speedFromEnergy(sim.energy, Math.hypot(px, py));
-    ctx.beginPath();
-    ctx.fillStyle = plasma(norm(vHere));
-    ctx.strokeStyle = "#ffffff";
-    ctx.lineWidth = 1.6;
-    ctx.arc(sx(px), sy(py), 6.5, 0, 2 * Math.PI);
-    ctx.fill(); ctx.stroke();
-
-    // Colour bar -- speed scale, top = fastest (periapsis), bottom = slowest.
-    var barX = PLOT_W + 2 * PLOT_PAD + 32, barY = 34, barW = 16, barH = canvas.height - 64;
-    var grad = ctx.createLinearGradient(0, barY, 0, barY + barH);
-    for (var gstep = 0; gstep <= 10; gstep++) grad.addColorStop(gstep / 10, plasma(1 - gstep / 10));
-    ctx.fillStyle = grad;
-    ctx.fillRect(barX, barY, barW, barH);
-    ctx.strokeStyle = "#999"; ctx.lineWidth = 1;
-    ctx.strokeRect(barX, barY, barW, barH);
-    ctx.fillStyle = "#333";
-    ctx.font = "10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
-    ctx.textAlign = "left";
-    ctx.fillText(vHi.toFixed(2), barX + barW + 4, barY + 8);
-    ctx.fillText(vLo.toFixed(2), barX + barW + 4, barY + barH);
-    ctx.fillText("Speed", barX - 4, barY - 20);
-    ctx.fillText("(AU/yr)", barX - 4, barY - 8);
-
-    timeSlider.value = t;
-
-    var lines = [];
-    if (sim.crashed) {
-      lines.push("<strong>Crashed into the Sun</strong> at simulated time " +
-        sim.ts[sim.ts.length - 1].toFixed(3) + " years -- not enough sideways speed " +
-        "(or aimed too directly inward) to miss it.");
-    } else if (!sim.bound) {
-      lines.push("<strong>Escapes to infinity.</strong> This launch speed and angle give the " +
-        "planet more energy than it needs to stay bound to the Sun at all -- it never comes back.");
-    } else {
-      var shape = sim.e < 0.01 ? "a circle" : "an ellipse";
-      lines.push("<strong>Settles into " + shape + "</strong>, exactly as Newton's law predicts: " +
-        "eccentricity e=" + sim.e.toFixed(3) + ", period " + sim.period.toFixed(3) +
-        " years, ranging from " + sim.periapsis.toFixed(3) + " AU to " + sim.apoapsis.toFixed(3) +
-        " AU from the Sun.");
-    }
-    lines.push("Total energy: <strong>" + sim.energy.toFixed(3) + "</strong> (in these units) -- " +
-      "negative means bound to the Sun, zero or positive means enough speed to escape.");
-    summary.innerHTML = lines.join("<br><br>");
-  }
-
-  var playing = false, timerId = null;
-  function stop() {
-    playing = false;
-    if (timerId !== null) { clearInterval(timerId); timerId = null; }
-  }
-  function start() {
-    playing = true;
-    timerId = setInterval(function () {
-      var loopMax = nLoopWindow(state.sim);
-      var dt = loopMax / 60.0;
-      var t = parseFloat(timeSlider.value) + dt;
-      if (t >= loopMax) t = loopMax > 0 ? (t % loopMax) : 0.0;
-      timeSlider.value = t;
-      render();
-    }, 150);
-  }
-  playBtn.addEventListener("click", function () { if (playing) stop(); else start(); });
-
-  function recompute() {
-    state.sim = runNewtonSim(parseFloat(speedSlider.value), parseFloat(angleSlider.value));
-    var newMax = nLoopWindow(state.sim);
-    timeSlider.max = newMax.toFixed(4);
-    timeSlider.value = 0;
-    render();
-  }
-
-  speedSlider.addEventListener("input", function () {
-    speedVal.textContent = parseFloat(speedSlider.value).toFixed(2);
-    recompute();
-  });
-  angleSlider.addEventListener("input", function () {
-    angleVal.textContent = parseFloat(angleSlider.value).toFixed(0);
-    recompute();
-  });
-  timeSlider.addEventListener("input", render);
-
-  speedVal.textContent = parseFloat(speedSlider.value).toFixed(2);
-  angleVal.textContent = parseFloat(angleSlider.value).toFixed(0);
-  recompute();
-})();
-</script>
-```
-:::
+Kepler described *what* orbits look like; Newton explained *why*. His law of universal gravitation says the Sun pulls every planet straight towards itself, with a force that falls off as the square of the distance -- and nothing more. So why doesn't that pull simply drag every planet straight into the Sun? The answer is **sideways motion**: a planet is always "falling" towards the Sun, but it is also always moving sideways fast enough to keep missing it. In the app at the top of the page, you control a planet's launch speed and direction directly. Aim it steeply inward without enough sideways speed, and it crashes. Give it enough sideways speed, and the very same gravity that would have pulled it in instead bends its path into a closed ellipse -- or, with enough speed, flings it away for good. The path is coloured by the planet's instantaneous speed -- watch it turn bright near the Sun and dark on the far side of an elliptical orbit, direct visual evidence of Kepler's second law: the planet moves fastest exactly where it's closest to the Sun.
 
 ### 4. Bonus -- Einstein: the ellipse itself slowly turns
 
