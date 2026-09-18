@@ -14,4 +14,4 @@ Logarithmic spiral spiral appears often in nature such as the nautilus shell, hu
 
 One of characteristic properties of logarithmic spiral is complete self-similarity. If you shrink or enlarge it by any arbitrary scale factor, not just a specific fixed ratio, and rotate it by an appropriate angle, it matches the original spiral.
 
-![Logarithmic spiral is completely self-similar](figures/Spiral-Self-Similarity.png){width="6in" fig-pos="H"}
+![A logarithmic spiral is completely self-similar.](figures/Spiral-Self-Similarity.png){width="6in" fig-pos="H"}

@@ -2,9 +2,9 @@
 title: Botanic Garden Maths Trail (S)
 ---
 
-Welcome! While exploring the [Botanic Gardens](https://www.dundee.ac.uk/botanic), you can use
-a smart phone to scan QR codes taking you to pages on our [Maths Trail](https://www.dundee.ac.uk/events/maths-trail-dundee-botanic-garden)
-website. This was created for the [Maths Week Scotland](https://mathsweek.scot) 2026 programme of events.
+Welcome! While exploring the [Botanic Garden](https://www.dundee.ac.uk/botanic), you can use
+a smart phone to scan QR codes that will take you to the appropriate  [Maths Trail](https://www.dundee.ac.uk/events/maths-trail-dundee-botanic-garden)
+webpage. This trail was created for the [Maths Week Scotland](https://mathsweek.scot) 2026 programme of events.
 
 ![Maths Trail Map](figures/Maths_Trail_Map.jpg)
 
