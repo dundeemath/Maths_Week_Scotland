@@ -6,19 +6,17 @@ image: 'analemma_preview.png'
 categories: [Orbital mechanics, Astronomy, Calculus]
 ---
 
-Artist Lucy Smith created the [Analemma Project](https://artlucy.uk/index.php/the-analemma-project/) sculpture. She completed her PhD "Making the Conceptual Tangible: The Role of Art in Communicating Science" here at the University of Dundee.
-
-The [Analemma](https://en.wikipedia.org/wiki/Analemma) is an unequal figure-of-eight shape, created by tracking the sun's position in the sky at the same time each day over a period of one year.
+The sculpture in the middle of the grassy area behind you was created
+by artist Lucy Smith [Analemma Project](https://artlucy.uk/index.php/the-analemma-project/). She completed her PhD "Making the Conceptual Tangible: The Role of Art in Communicating Science" here at the University of Dundee.
 
 ## Why doesn't the Earth fall onto the Sun?
 
-The Analemma traces that figure-of-eight because the Earth's orbit isn't a perfect circle travelled at constant speed -- it's an ellipse, and Earth moves faster when it's closer to the Sun. Working out exactly *why* orbits look like this took the better part of three centuries. **Galileo** discovered  that not everything orbits the Earth; **Kepler**,  worked out the precise shape of orbit based on observations; **Newton** explained *why*  from a single law of gravity; and **Einstein**'s' general relativity is needed to explain a tiny mismatch between Newton's theory and Mercury's orbit.
 
 ::: {.content-hidden when-format="pdf"}
 
 ## Simulating a planet orbiting the sun?
 
-In the app below change the initial speed and direction of the orbiting object. Can you find conditions for which the planet crashes into the sun rather than stay in an eliiptical orbit? 
+The app below demonstrates why the earth does not fall into the sun. Change the initial speed and direction of the orbiting object. Can you find conditions for which the planet crashes into the sun rather than stay in an elliptical orbit? 
 
 ::: {#fig-newton-gravity .content-hidden when-format="pdf"}
 ```{=html}
@@ -1193,6 +1191,9 @@ Newton's theory predicts a perfectly closed ellipse, retraced forever. For most 
 ```
 :::
 
-A note on accuracy: sections 1-3 use real orbital data and exact physics -- the Galilean moons' real periods, the four planets' real semi-major axes and eccentricities, and an honest numerical simulation of Newton's law of gravity (the same simulation used to classify every orbit as crashing, elliptical, or escaping, and to measure the equal-areas result directly rather than assume it). Section 4's relativistic correction is deliberately simplified and exaggerated for visibility -- it has the right qualitative behaviour (it explains why the orbit precesses at all) but is not the precise Schwarzschild correction, and the demo says so directly rather than presenting the exaggerated numbers as Mercury's real effect.
-
 :::
+
+
+The [Analemma](https://en.wikipedia.org/wiki/Analemma) is an unequal figure-of-eight shape, created by tracking the sun's position in the sky at the same time each day over a period of one year. The Analemma traces that figure-of-eight because the Earth's orbit isn't a perfect circle travelled at constant speed. Instead, it's an ellipse, and Earth moves faster when it's closer to the Sun. Working out exactly *why* orbits look like this took the better part of three centuries. **Galileo** discovered  that not everything orbits the Earth; **Kepler**,  worked out the precise shape of orbit based on observations; **Newton** explained *why*  from a single law of gravity; and **Einstein**'s' general relativity is needed to explain a tiny mismatch between Newton's theory and Mercury's orbit.
+
+

@@ -113,7 +113,7 @@ With seven stops to order there are 5040 possible routes in total -- still few e
 
 <div id="tsp-app">
   <div class="tsp-canvas-wrap">
-    <canvas id="tsp-canvas" width="1225" height="453"></canvas>
+    <canvas id="tsp-canvas" width="1856" height="696"></canvas>
   </div>
   <div class="tsp-sidebar">
     <h5>Plan the middle leg</h5>
@@ -140,14 +140,12 @@ With seven stops to order there are 5040 possible routes in total -- still few e
   // version (PythonForApps/salesman_py.qmd) to plain JavaScript +
   // <canvas>. Runs entirely in the browser, no Python runtime required.
   //
-  // Nine trail stops, read off Philip's cropped landscape trail map
-  // (tsp_trail_map_landscape.png -- Philip trimmed the unused left
-  // portion and title off the original UpdatedTrailMap.png; the
-  // remaining artwork is pixel-for-pixel unscaled, just cropped).
-  // Coordinates were recomputed for this crop by feature-matching it
-  // against the previous full-map image (OpenCV ORB, 1364/1533 inlier
-  // matches -> a pure ~(621,182)px crop offset, no scaling or rotation)
-  // and confirmed by overlaying the transformed points on the new image.
+  // Nine trail stops, read directly off the full, un-cropped, landscape
+  // trail map (tsp_trail_map_landscape.png -- a plain copy of Philip's
+  // "UpdatedTrailMap.png", used as-is with no recolouring or editing).
+  // Pixel coordinates were found by detecting each badge's blue circle
+  // in the image (OpenCV colour-blob + contour detection) and confirmed
+  // visually against a contact sheet of crops, not eyeballed.
   //
   // stop 2 (sqrt) is the fixed START, stop 8 (mu, Travelling Salesman)
   // is the fixed END. The player's job is to find the shortest order to
@@ -157,15 +155,15 @@ With seven stops to order there are 5040 possible routes in total -- still few e
   // -------------------------------------------------------------------
 
   var STOPS = [
-    [107.0, 152.6],   // 0. Omega -- Tree Height (Native Area)
-    [216.0, 279.0],   // 1. <= -- Koenigsberg (Lower Pond)
-    [554.5, 149.1],   // 2. sqrt -- Analemma -- START (fixed), American Area
-    [819.9, 313.1],   // 3. >= -- Curvature (Australia and New Zealand Area)
-    [890.9, 89.6],    // 4. capital sigma -- Σ -- Bird Song (path near Australia/NZ and Asian Area boundary)
-    [1029.9, 304.6],  // 5. != -- Symmetry (Asian Area)
-    [1161.9, 179.6],  // 6. phi -- Fibonacci (Asian Area)
-    [352.0, 287.0],   // 7. empty set -- ∅ -- Helicopter Seeds (Lower Pond, east side)
-    [587.5, 281.1]    // 8. mu -- Travelling Salesman -- END (fixed)
+    [728.0, 334.5],   // 0. Omega -- Tree Height (Native Area)
+    [837.0, 461.0],   // 1. <= -- Koenigsberg (Lower Pond)
+    [1175.5, 331.0],  // 2. sqrt -- Analemma -- START (fixed), American Area
+    [1441.0, 495.0],  // 3. >= -- Curvature (Australia and New Zealand Area)
+    [1512.0, 271.5],  // 4. capital sigma -- Σ -- Bird Song (path near Australia/NZ and Asian Area boundary)
+    [1651.0, 486.5],  // 5. != -- Symmetry (Asian Area)
+    [1783.0, 361.5],  // 6. phi -- Fibonacci (Asian Area)
+    [973.0, 469.0],   // 7. empty set -- ∅ -- Helicopter Seeds (Lower Pond, east side)
+    [1208.5, 463.0]   // 8. mu -- Travelling Salesman -- END (fixed)
   ];
   var START_IDX = 2;
   var END_IDX = 8;

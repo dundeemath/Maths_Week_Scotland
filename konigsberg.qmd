@@ -19,7 +19,7 @@ Nobody could ever do it. Nobody could ever explain *why*, either -- until a math
 
 ## Find it in the gardens
 
-This same puzzle has been laid out here in the Botanic Gardens. Look for four regions of the path network joined by logs standing in for the seven bridges. Before you read any further, go and try it for yourself: can you walk a route that crosses every log exactly once?
+In this region of the Botanic Gardens there is a stream with some bridges? How many bridges can you find? HOw does the topology of the gridges compare to Königsberg?
 
 ## Try it here
 
