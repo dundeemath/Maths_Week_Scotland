@@ -8,7 +8,8 @@ categories: [Trigonometry, Geometry, Measurement]
 
 ![](trigonometry_preview.png){width="6in"}
 
-Suppose you need to measure the height of the tree in front of you, standing on the ground with nothing but your own two feet and the phone that you are using on this tour.
+
+You need to measure the height of the large vertical tree in the open space beside you. You can do this standing on the ground with nothing but your own two feet and the phone that you are using.
 
 ## The idea
 
@@ -18,8 +19,9 @@ Everything below comes down to one right-angled triangle:
 - the point on the tree that is at the same height as your eye,
 - the top of the tree.
 
-Given this triangle, the vertical height of the tree can be estimated given the walking distance to the tree and the slope of the hypotenuse, i.e.
-$$\text{tree height} = \text{eye height} + \text{distance} \times \tan(\text{angle})$$
+By measuring the walking distance ot the base of the tree we can estimate the height using trigonometry.
+
+
 
 
 
@@ -27,25 +29,14 @@ $$\text{tree height} = \text{eye height} + \text{distance} \times \tan(\text{ang
 
 ![An almost correct sight line. ](trigsightline.jpeg){width=2in}
 
-The distance is easy to estimate: pace it out.
-
-To estimate the angle accurately we would use a *clinometer*. However, we can get a good approximation using your phone!
-
-Hold your phone flat, in landscape orientation, right beside your eye, with its bottom edge level and its near-bottom corner at your eye (see diagram).
-
-Now you need to adjust your position so that the sight line across the diagonal of your phone extends to the tip of the tree.
-
-Because the phone's shape never changes, that sightline always makes exactly the same angle with the horizontal -- fixed the moment you know its width and height, and the same every single time you use it:
-
-$$\text{angle} = \arctan\!\left(\frac{\text{phone height}}{\text{phone width}}\right)$$
 
 
 ## Try it yourself
 
 1. Stand facing the tree, somewhere with room to walk backwards.
-2. Hold your phone flat, in landscape orientation, right beside your eye -- bottom edge level, near-bottom corner at your eye.
-3. Sight past that corner, along the phone's diagonal, out towards the tree.
-4. Stop looking at your phone and adjust your position by walking forwards or backwards. Repeat steps 1-4 until the treetop lines up exactly along the diagonal line.
+2. Hold your phone flat, in landscape orientation (see photo).
+3. Sight across the phone's diagonal and imagine a line extending towards the top of the tree.
+4. Stop looking at your phone and adjust your position by walking forwards or backwards. Repeat steps 1-4 until the treetop lines up along the diagonal line.
 5. Now count the number of paces you needed to get to the base of the tree.
 6. Enter your pace count, your own pace length, and your eye height into the calculator below.
 7. Hit **Reveal the true height!** and see how close you got.
@@ -168,8 +159,8 @@ $$\text{angle} = \arctan\!\left(\frac{\text{phone height}}{\text{phone width}}\r
     <label for="tree-eye">Your eye height (cm): <strong id="tree-eye-val">150</strong></label>
     <input id="tree-eye" type="range" min="50" max="220" step="1" value="150">
     <p class="hint">Measure straight up from the ground to the corner of your eye -- or roughly your height minus about 10 cm.</p>
-    <label for="tree-pacelen">Your pace length (cm): <strong id="tree-pacelen-val">75</strong></label>
-    <input id="tree-pacelen" type="range" min="20" max="150" step="1" value="75">
+    <label for="tree-pacelen">Your pace length (cm): <strong id="tree-pacelen-val">50</strong></label>
+    <input id="tree-pacelen" type="range" min="20" max="150" step="1" value="50">
     <p class="hint">Walk 10 natural paces, measure the total distance, and divide by 10 to find your own pace length.</p>
     <hr>
     <h5>3. Your result</h5>
@@ -220,7 +211,7 @@ $$\text{angle} = \arctan\!\left(\frac{\text{phone height}}{\text{phone width}}\r
 
   // PLACEHOLDER -- replace with the real, confirmed height (in metres) of
   // the tree used at this stop on the trail before this goes live.
-  var TRUE_TREE_HEIGHT_M = 17.5;
+  var TRUE_TREE_HEIGHT_M = 13.5;
   var TREE_NAME = "the tree";
 
   var PHONE_PRESETS = [
@@ -499,6 +490,16 @@ $$\text{angle} = \arctan\!\left(\frac{\text{phone height}}{\text{phone width}}\r
 ```
 :::
 
-A note on accuracy: the trigonometry here is exact -- given a truly level sightline, a correctly measured pace length and eye height, and a phone held steadily, this method recovers the real height. In practice, all four of those introduce small errors (which is exactly why it's a *good estimate*, not a laser rangefinder), so don't be surprised if your first go is off by a metre or two either way -- try pacing out your pace length carefully first, and see if your estimate improves.
+A note on accuracy: the trigonometry here is exact -- given a truly level sightline, a correctly measured pace length and eye height, and a phone held steadily, this method recovers the real height. In practice, all four of those introduce small errors (which is exactly why it's a *good estimate*, not a laser rangefinder).
 
 :::
+
+
+
+To estimate the angle accurately we would use a *clinometer*. Because the phone's shape never changes, that sightline always makes exactly the same angle with the horizontal which is fixed the moment you know its width and height:
+
+$$\text{angle} = \arctan\!\left(\frac{\text{phone height}}{\text{phone width}}\right)$$
+
+
+Given this triangle, the vertical height of the tree can be estimated given the walking distance to the tree and the slope of the hypotenuse, i.e.
+$$\text{tree height} = \text{eye height} + \text{distance} \times \tan(\text{angle}).$$
