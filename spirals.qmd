@@ -5,7 +5,7 @@ code-fold: True
 ---
 
 When a young fern sprout (known as a fiddlehead) is tightly coiled, it forms a logarithmic spiral.
-Logarithmic spirals often appearin nature, such as in nautilus shells, hurricanes, and spiral galaxies.
+Logarithmic spirals often appear in nature, such as in nautilus shells, hurricanes, and spiral galaxies.
 
 ![Logarithmic spiral in fiddlehead](figures/Spiral-Fiddlehead.jpeg){height="1.3in" fig-pos="H"}
 ![Logarithmic spiral in Nautilus Shell](figures/Spiral-Nautilus.png){height="1.3in" fig-pos="H"}
