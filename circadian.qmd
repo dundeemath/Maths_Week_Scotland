@@ -8,13 +8,13 @@ categories: [Differential equations, Dynamical systems, Biology]
 
 If you were to watch the water lily here through a full day  you would see its flowers open in the morning and close again in the evening.
 
-However, if it was left in a room with the lights left on permanently, it would keep opening and closing on roughly the same rhythm for a while, gradually drifting out of step with real time. The water lily isn't just reacting to light like a switch, it has its own internal molecular clock that is entrained to day-night cycle.
+However, if it was left in a room with the lights left on permanently, it would keep opening and closing on roughly the same rhythm for a while, gradually drifting out of step with real time. The water lily doesn’t simply react to light like an on/off switch. It has its own internal molecular clock, which is kept in sync with the natural cycle of day and night.
 
 ![](circadian_schematic.png){width="6in" fig-pos="H"}
 
-Your cells also have an internal molecular clock. And if you'e ever experienced jet lag, your internal molecular clock has become out-of-sync with your new day-night cycle. It takes a number of days of light stimulus in your new environment before your body clock syncs with its environment.
+The cells in your body also have an internal molecular clock. If you've ever experienced jet lag, your internal molecular clock has become out-of-sync with your new day-night cycle. It can take several days of exposure to the light and dark cycle in a new environment for your body clock to adjust and get back in sync.
 
-Understanding the conditions under which an oscillator can become entrained is a mathematical problem. Usually it depends on the type of oscillator and how the oscillator responds to the entraining stimulus. 
+Working out when an oscillator can become entrained, or synchronised with an outside rhythm, is a mathematical problem. It usually depends on the type of oscillator and how it responds to the signal that is trying to bring it into sync.
 
 ::: {.content-hidden when-format="pdf"}
 
