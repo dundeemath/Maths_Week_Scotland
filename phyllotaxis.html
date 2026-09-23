@@ -311,57 +311,28 @@ window.Quarto = {
 </header>
 
 
-<p>Plants arrange their leaves around a stem in regular patterns. The angle between one leaf and the next is called the divergence angle, and this pattern of leaf arrangement is known as phyllotaxis. Many different plant species share similar phyllotaxis patterns, and these can be described using a small number of mathematical patterns such as <strong>distichous</strong> (<span class="math inline">\(180^\circ\)</span>), <strong>Fibonacci spiral</strong> (<span class="math inline">\(137.5^\circ\)</span>), <strong>decussate</strong> (<span class="math inline">\(90^\circ\)</span>), or <strong>tricussate</strong> (<span class="math inline">\(60^\circ\)</span>).</p>
+<p>Plants arrange their leaves around a stem in regular patterns. If you look directly down the stem of a plant, you can estimate the angle that the next leaf down is rotated through.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><video src="DivergenceAngleDemo.mov" class="img-fluid" controls=""><a href="DivergenceAngleDemo.mov">Video</a></video></p>
+<figcaption>A rotation of the plant stem reveals the divergence angle. At the start of the movie the bottom branch points towards me. After a rotation of the stem by the divergence angle, the next branch up points towards me.</figcaption>
+</figure>
+</div>
+<p>The angle is called the divergence angle and the pattern of leaf arrangement is known as phyllotaxis. Many different plant species share similar phyllotaxis patterns.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figures/phase-locking.jpg" class="img-fluid figure-img" style="width:5in"></p>
 <figcaption>Phyllotactic Patterns. Image from the <a href="https://www.u-tokyo.ac.jp/focus/en/press/z0508_00047.html">University of Tokyo</a>.</figcaption>
 </figure>
 </div>
-<p>These plants have the distichous (left) and decussate (right) patterns:</p>
+<p>When the leaves are on opposite sides of the stem, the divergence angle is <span class="math inline">\(180^\circ\)</span>. This is known as <strong>distichous</strong> (see image below). Other commonly found angles are <span class="math inline">\(137.5^\circ\)</span> (Fibonacci spiral), <span class="math inline">\(90^\circ\)</span> (<strong>decussate</strong>), or <span class="math inline">\(60^\circ\)</span> (<strong>tricussate</strong>).</p>
+<p>The plants in the image below have distichous (left) and decussate (right) patterns:</p>
 <p><img src="figures/distichous.jpg" style="height:2in" data-fig-pos="H" alt="Phyllotaxis Example 1"> <img src="figures/decussate.jpg" style="height:2in" data-fig-pos="H" alt="Phyllotaxis Example 2"></p>
 <p>There are many plants in the garden, but just a few phyllotaxis patterns.</p>
-<table class="caption-top table">
-<caption>Different divergence angle patterns</caption>
-<colgroup>
-<col style="width: 36%">
-<col style="width: 36%">
-<col style="width: 28%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th style="text-align: left;">Divergence Angle</th>
-<th style="text-align: right;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Distichous</td>
-<td style="text-align: left;">180</td>
-<td style="text-align: right;">Leaves grow on alternating sides of the stem, forming a flat, two-sided pattern</td>
-</tr>
-<tr class="even">
-<td>Fibonacci Spiral</td>
-<td style="text-align: left;">137.5</td>
-<td style="text-align: right;">Leaves grow around the stem in a tight spiral, using the golden angle to make the best use of space and get as much light as possible</td>
-</tr>
-<tr class="odd">
-<td>Decussate</td>
-<td style="text-align: left;">90</td>
-<td style="text-align: right;">Leaves grow in pairs, with each pair turned at a right angle to the pair below</td>
-</tr>
-<tr class="even">
-<td>Tricussate</td>
-<td style="text-align: left;">60</td>
-<td style="text-align: right;">Three leaves grow from the same point on the stem, spaced evenly around it. Each group of three is rotated <span class="math inline">\(60^\circ\)</span> around the stem from the group below.</td>
-</tr>
-</tbody>
-</table>
 <section id="build-your-own-leaf-system" class="level2">
 <h2 class="anchored" data-anchor-id="build-your-own-leaf-system">Build your own leaf system</h2>
-<p>You can build your own leaf system using the app below. Two things control the pattern: how many leaves grow from each point on the stem (one, a pair, or a whorl of three), and the angle that each new leaf or whorl is rotated from the last. For a single leaf at a time, that angle is free to be anything. You can drag it to 180° for distichous, or to exactly 137.5°, the golden angle, for the Fibonacci spiral. For pairs and whorls, the angle is fixed by how many leaves share each point: 90° for pairs, 60° for whorls of three, matching the decussate and tricussate patterns.</p>
-<p>The app provides four ways to look at the same pattern: from directly above the stem (how you’d actually classify a real plant), the stem’s surface unrolled flat (straight rows reveal how many columns of leaves line up), a side-view diagram of the stem itself, drawn the same way as the pictures above, and a fully 3D view you can rotate yourself.</p>
+<p>You can simulate your own leaf system using the app below. Two things control the pattern: how many leaves grow from each point on the stem (one, a pair, or a whorl of three), and the divergence angle. For a single leaf at a time, that angle is free to be anything. You can drag it to 180° for distichous, or to exactly 137.5°, the golden angle, for the Fibonacci spiral. For pairs and whorls, the angle is fixed by how many leaves share each point: 90° for pairs, 60° for whorls of three, matching the decussate and tricussate patterns.</p>
+<p>The app provides three ways to look at the same pattern: from directly above the stem (how you’d actually classify a real plant), the stem’s surface unrolled flat (straight rows reveal how many columns of leaves line up), and a fully 3D view you can rotate yourself.</p>
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-phyllotaxis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div id="phyllo-js-app" class="phyllo-app">
@@ -390,7 +361,6 @@ window.Quarto = {
     <div class="phyllo-radio-group" id="phyllo-view-group">
       <label><input type="radio" name="phyllo-view" value="unrolled"> Unrolled stem</label>
       <label><input type="radio" name="phyllo-view" value="topdown"> Top-down</label>
-      <label><input type="radio" name="phyllo-view" value="stem"> Leaf diagram (side view)</label>
       <label><input type="radio" name="phyllo-view" value="3d" checked=""> 3D view (drag to rotate)</label>
     </div>
 
@@ -812,76 +782,6 @@ window.Quarto = {
   }
 
   // ---------------------------------------------------------------
-  // View: 2D leaf diagram (side view)
-  // ---------------------------------------------------------------
-  function drawStem2D(ctx, leaves, nNodes) {
-    const dz = 1.0;
-    const depthWobble = 0.35;
-    const leafLen = 1.5 * Math.sqrt(0.8);
-    const leafWidth = 0.55 * Math.sqrt(0.8);
-    const maxH = (nNodes - 1) * dz;
-
-    const s = makeEqualScaler(-2.3, 2.3, -0.5, maxH + 0.6, 30, CSS_W - 30, 40, CSS_H - 30);
-
-    // stem
-    const [sx0, sy0] = s(0, 0);
-    const [sx1, sy1] = s(0, maxH);
-    ctx.strokeStyle = "#6b4226";
-    ctx.lineWidth = 9;
-    ctx.lineCap = "round";
-    ctx.beginPath(); ctx.moveTo(sx0, sy0); ctx.lineTo(sx1, sy1); ctx.stroke();
-
-    // node ticks
-    ctx.strokeStyle = "#4a2d16";
-    ctx.lineWidth = 3;
-    for (let j = 0; j < nNodes; j++) {
-      const [x0, y0] = s(-0.07, j * dz);
-      const [x1, y1] = s(0.07, j * dz);
-      ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
-    }
-
-    const scaleFactor = Math.hypot(s(1, 0)[0] - s(0, 0)[0], s(1, 0)[1] - s(0, 0)[1]);
-
-    for (const leaf of leaves) {
-      const theta = leaf.theta, j = leaf.j;
-      const height = j * dz;
-      const thetaUp = Math.sin(theta) >= 0 ? theta : -theta;
-      const cosThetaUp = Math.cos(thetaUp);
-      let side;
-      if (cosThetaUp > 1e-9) side = 1;
-      else if (cosThetaUp < -1e-9) side = -1;
-      else side = 0;
-      const angleDeg = 90 - side * LEAF_TILT_FROM_VERTICAL;
-      const angleRad = (angleDeg * Math.PI) / 180;
-      const baseX = 0.0;
-      const baseY = height + Math.sin(thetaUp) * depthWobble;
-      const halfLen = leafLen / 2;
-      const centerX = baseX + halfLen * Math.cos(angleRad);
-      const centerY = baseY + halfLen * Math.sin(angleRad);
-      const color = ylgn(0.35 + (0.5 * j) / Math.max(nNodes - 1, 1));
-
-      const [px, py] = s(centerX, centerY);
-      ctx.save();
-      ctx.translate(px, py);
-      // canvas y is flipped relative to data y, so a positive data-space
-      // rotation appears as a negative canvas rotation
-      ctx.rotate(-angleRad);
-      ctx.globalAlpha = 0.8;
-      ctx.fillStyle = color;
-      ctx.strokeStyle = "#2f4f1f";
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.ellipse(0, 0, (leafLen / 2) * scaleFactor, (leafWidth / 2) * scaleFactor, 0, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.stroke();
-      ctx.globalAlpha = 1;
-      ctx.restore();
-    }
-
-    drawTitle(ctx, "Leaves on the stem, viewed from the side");
-  }
-
-  // ---------------------------------------------------------------
   // View: genuine 3D, camera controlled by azim/elev (drag or slider)
   // ---------------------------------------------------------------
   function project(x, y, z, azimRad, elevRad) {
@@ -1004,11 +904,10 @@ window.Quarto = {
   function render() {
     const ctx = getCtx();
     const view = state.view;
-    const nNodes = view === "stem" || view === "3d" ? STEM_VIEW_NODES : N_NODES;
+    const nNodes = view === "3d" ? STEM_VIEW_NODES : N_NODES;
     const leaves = generateLeaves(state.k, currentAngle(), nNodes);
 
     if (view === "unrolled") drawUnrolled(ctx, leaves, nNodes);
-    else if (view === "stem") drawStem2D(ctx, leaves, nNodes);
     else if (view === "3d") draw3D(ctx, leaves, nNodes, state.azim, state.elev);
     else drawTopdown(ctx, leaves, nNodes);
 
@@ -1130,7 +1029,43 @@ window.Quarto = {
 Figure&nbsp;2.1
 </figcaption>
 
-<p>Switch between “leaves per node” to compare alternate leaves against paired and whorled arrangements, and try all four views on the same pattern – the leaf diagram is the most direct comparison to the picture above, the unrolled view makes the difference between a repeating and a non-repeating angle especially clear, and the 3D view is the one to spin around to see how the whorled patterns really wrap around the stem. On the 3D view, click (or touch) and drag directly on the plant to spin it and tilt the camera up or down – the slider still works too, and the two stay in sync.</p>
+<table class="caption-top table">
+<caption>Different divergence angle patterns</caption>
+<colgroup>
+<col style="width: 36%">
+<col style="width: 36%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th style="text-align: left;">Divergence Angle</th>
+<th style="text-align: right;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Distichous</td>
+<td style="text-align: left;">180</td>
+<td style="text-align: right;">Leaves grow on alternating sides of the stem, forming a flat, two-sided pattern</td>
+</tr>
+<tr class="even">
+<td>Fibonacci Spiral</td>
+<td style="text-align: left;">137.5</td>
+<td style="text-align: right;">Leaves grow around the stem in a tight spiral, using the golden angle to make the best use of space and get as much light as possible</td>
+</tr>
+<tr class="odd">
+<td>Decussate</td>
+<td style="text-align: left;">90</td>
+<td style="text-align: right;">Leaves grow in pairs, with each pair turned at a right angle to the pair below</td>
+</tr>
+<tr class="even">
+<td>Tricussate</td>
+<td style="text-align: left;">60</td>
+<td style="text-align: right;">Three leaves grow from the same point on the stem, spaced evenly around it. Each group of three is rotated <span class="math inline">\(60^\circ\)</span> around the stem from the group below.</td>
+</tr>
+</tbody>
+</table>
 
 
 

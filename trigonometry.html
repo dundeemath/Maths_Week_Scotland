@@ -316,8 +316,8 @@ window.Quarto = {
 </header>
 
 
-<p><img src="trigonometry_preview.png" class="img-fluid" style="width:6in"></p>
-<p>You need to measure the height of the large vertical tree in the open space beside you. You can do this standing on the ground with nothing but your own two feet and the phone that you are using.</p>
+<p><img src="trigonometry_preview.png" class="img-fluid" style="width:5in"> <img src="trigtreedisplay.png" class="img-fluid" style="width:2in"></p>
+<p>Your task is to measure the height of the large vertical tree in the open space beside you (see image below). You can do this standing on the ground with nothing but your own two feet and the phone that you are using.</p>
 <section id="the-idea" class="level2">
 <h2 class="anchored" data-anchor-id="the-idea">The idea</h2>
 <p>Everything below comes down to one right-angled triangle:</p>
@@ -326,7 +326,7 @@ window.Quarto = {
 <li>the point on the tree that is at the same height as your eye,</li>
 <li>the top of the tree.</li>
 </ul>
-<p>By measuring the walking distance ot the base of the tree we can estimate the height using trigonometry.</p>
+<p>By measuring the walking distance to the base of the tree we can estimate the height using trigonometry.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="trigsightline.jpeg" class="img-fluid figure-img" style="width:2in"></p>
@@ -339,7 +339,7 @@ window.Quarto = {
 <ol type="1">
 <li>Stand facing the tree, somewhere with room to walk backwards.</li>
 <li>Hold your phone flat, in landscape orientation (see photo).</li>
-<li>Sight across the phone’s diagonal and imagine a line extending towards the top of the tree.</li>
+<li>Sight across the phone’s diagonal (see image above) and imagine a line extending towards the top of the tree.</li>
 <li>Stop looking at your phone and adjust your position by walking forwards or backwards. Repeat steps 1-4 until the treetop lines up along the diagonal line.</li>
 <li>Now count the number of paces you needed to get to the base of the tree.</li>
 <li>Enter your pace count, your own pace length, and your eye height into the calculator below.</li>
@@ -363,11 +363,12 @@ window.Quarto = {
   #tree-app #tree-summary {
     text-align: left;
   }
-  #tree-app .sidebar {
-    flex: 0 0 240px;
+  #tree-app .tree-sidebar {
+    flex: 2 1 320px;
   }
   #tree-app .canvas-wrap {
-    flex: 1 1 400px;
+    flex: 1 1 300px;
+    max-width: 400px;
     min-width: 0;
   }
   #tree-app h5 {
@@ -434,8 +435,8 @@ window.Quarto = {
   }
   @media (max-width: 520px) {
     #tree-app { gap: 8px; }
-    #tree-app .sidebar { flex-basis: 100%; }
-    #tree-app .canvas-wrap { flex-basis: 100%; }
+    #tree-app .tree-sidebar { flex-basis: 100%; }
+    #tree-app .canvas-wrap { flex-basis: 100%; max-width: none; }
     #tree-app h5 { font-size: 12px; }
     #tree-app label { font-size: 11px; margin: 8px 0 3px 0; }
     #tree-app button { padding: 5px 8px; font-size: 11px; }
@@ -445,7 +446,7 @@ window.Quarto = {
 </style>
 
 <div id="tree-app">
-  <div class="sidebar">
+  <div class="tree-sidebar">
     <h5 class="anchored">1. Your phone</h5>
     <label for="tree-phone-preset">Pick roughly your phone's shape</label>
     <select id="tree-phone-preset">

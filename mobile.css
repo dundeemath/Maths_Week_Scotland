@@ -26,3 +26,18 @@
 body {
   padding-top: 0 !important;
 }
+
+/* Figure captions default to the theme's 90% size, which comes out
+   around 15px against this site's 17px body text -- fine at arm's
+   length on a laptop, a bit small held closer on a phone. Bump them
+   back up to full body-text size on narrow screens only; the selector
+   is scoped under main.content (rather than a bare .figure-caption)
+   purely so it reliably outranks the theme's own same-specificity
+   rule regardless of stylesheet load order. */
+@media (max-width: 520px) {
+  #quarto-content.page-columns > main.content figcaption,
+  #quarto-content.page-columns > main.content .figure-caption {
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+}
