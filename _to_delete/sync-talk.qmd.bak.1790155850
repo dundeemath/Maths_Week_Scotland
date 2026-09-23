@@ -113,8 +113,7 @@ myself."
 ---
 
 <div class="r-fit-text">
-
-1665\.
+1665.
 
 Two pendulum clocks.
 
@@ -161,12 +160,11 @@ out. Let it run a beat in silence before advancing.
 ---
 
 <div class="r-fit-text">
-Applause
-
+Applause --
 
 ragged at first.
 
-Then, one clap.
+Then, somehow, one clap.
 </div>
 
 <aside class="notes">
@@ -208,7 +206,7 @@ better than anything staged.
 ---
 
 <div class="r-fit-text">
-Simulating synchronisation.
+Watch it happen.
 </div>
 
 <aside class="notes">
@@ -260,7 +258,7 @@ from shiny import App, Inputs, Outputs, Session, reactive, render, ui
 
 N_MIN, N_MAX, N_DEFAULT = 3, 20, 8
 DT = 0.01
-TICK_INTERVAL = 0.15
+TICK_INTERVAL = 0.045
 
 # Natural frequencies are drawn uniformly on [MEAN - spread, MEAN + spread].
 # MEAN is fixed and always positive; "spread" is the presenter-facing knob
@@ -2127,8 +2125,10 @@ Why  am I interested?
 </div>
 
 ---
+## {#somitoid-video background-video="../somitoid_montage_1.mp4" background-video-loop="true" background-video-muted="true" background-size="cover"}
 
-## {#somitoid-video background-video="somitoid_montage_1.mp4" background-video-loop="true" background-video-muted="true" background-size="cover"}
+
+
 
 <!-- Personal beat -- only Philip can write this one honestly.
      Swap this placeholder for a couple of sentences on what first
@@ -2169,6 +2169,8 @@ line, then stop talking. No "in conclusion, I've covered..."
 
 <br>
 
+Sync Dial: built right into this deck -- scroll back to "Watch it
+happen" for another go.
 
 
 <aside class="notes">

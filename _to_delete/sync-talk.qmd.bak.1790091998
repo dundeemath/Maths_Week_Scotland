@@ -1,0 +1,585 @@
+---
+title: "The Secret Rhythm of Everything"
+subtitle: "How things fall into step without a conductor"
+author: "Philip Murray"
+format:
+  revealjs:
+    theme: black
+    transition: fade
+    background-transition: fade
+    center: true
+    slide-number: false
+    progress: true
+    controls: true
+    hash: true
+    width: 1280
+    height: 720
+    fig-align: center
+filters:
+  - shinylive
+---
+
+<!--
+  Standalone Quarto revealjs deck -- NOT part of the book's `chapters:` list
+  in _quarto.yml, so `quarto render` (the whole-book render) will skip it.
+  Render it on its own with:
+
+      quarto render sync-talk.qmd
+
+  which drops sync-talk.html next to it. Open that file directly in a
+  browser for the talk; press "S" during the talk to open Speaker View
+  (shows these notes + a timer on a second screen/laptop while the
+  audience sees only the slide).
+
+  Built from the saved outline "The Secret Rhythm of Everything"
+  (claude/metronome-ted-talk-outline.md) and the synchronisation demo
+  (claude/open-day-synchronisation-demo.md) -- swap in the live links
+  below for the real "Metronomes in Step" guide / "Sync Dial" simulator
+  once you have them to hand, and bring the physical metronome rig.
+-->
+
+<style>
+  /* Both of the shinylive extension's own stylesheets paint this box for
+     a plain white page, not this deck's black slides:
+       - resources/css/shinylive-quarto.css wraps it in a light, rounded,
+         drop-shadowed card (div.shinylive-wrapper / div.output-content).
+       - the bundled shinylive.css (Components/App.css, Viewer.css) goes
+         further and hard-codes white on the panel *inside* the container
+         (".shinylive-container > div { background-color: var(--colors-bg)
+         /* white */ }") and on the app iframe itself
+         (".shinylive-viewer iframe { background-color: white; }") --
+         that second one is the actual stray white sliver down the right/
+         bottom edge once the outer wrapper alone is fixed.
+     All overridden here to #191919 -- the same shade reveal.js's own
+     "black" theme and this app's own body use -- rather than plain
+     transparent, so there's no seam if any of these boxes turns out
+     very slightly larger than the content painted inside it. Scoped to
+     this deck only, rather than touching either shared extension file
+     that every other *_py.qmd page on the site still relies on. */
+  div.shinylive-wrapper,
+  div.output-content {
+    background-color: #191919 !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  .shinylive-container,
+  .shinylive-container > div,
+  .shinylive-viewer,
+  .shinylive-viewer iframe,
+  .shinylive-viewer .loading-wrapper {
+    background-color: #191919 !important;
+  }
+  iframe.app-frame,
+  .app-frame {
+    border: none !important;
+    border-radius: 0 !important;
+  }
+</style>
+
+## {.center}
+
+<div class="r-fit-text">
+What do those metronomes,\
+a room full of people clapping,\
+and the cells that keep your heart beating\
+have in common?
+</div>
+
+<aside class="notes">
+0:00-2:00 -- COLD OPEN. Start the physical metronomes ("Metronomes in
+Step") running *before* you say anything -- let them tick, visibly out
+of step, while the room settles. Don't explain them yet. Ask this
+question and leave it hanging. No agenda, no "let me tell you about
+myself."
+</aside>
+
+---
+
+<div class="r-fit-text">
+1665.
+
+Two pendulum clocks.
+
+One wall.
+</div>
+
+<aside class="notes">
+2:00-7:00 (story 1 of 4) -- Christiaan Huygens, bedridden and bored,
+notices two pendulum clocks hanging on the same wall drift into
+perfect lockstep -- and drift back out the moment you separate them.
+Metronomes still ticking in the background the whole time. You've
+planted them; you haven't returned to them yet.
+</aside>
+
+---
+
+<div class="r-fit-text">
+A riverbank.
+
+Thousands of fireflies.
+
+No leader.
+</div>
+
+<aside class="notes">
+Story 2 -- fireflies in parts of Southeast Asia flashing in unison
+across a whole riverbank, with no leader.
+</aside>
+
+---
+
+<div class="r-fit-text">
+Applause --
+
+ragged at first.
+
+Then, somehow, one clap.
+</div>
+
+<aside class="notes">
+Story 3 -- an audience's applause, ragged at first, occasionally
+slipping into a single unified clap.
+</aside>
+
+---
+
+<div class="r-fit-text">
+Your heart.
+
+Thousands of unreliable cells.
+
+One beat. Every second. Your whole life.
+</div>
+
+<aside class="notes">
+Story 4 -- pacemaker cells in your heart, thousands of individually
+unreliable cells, somehow agreeing on one beat, every second, for
+your entire life. This closes the story run -- next slide names it.
+</aside>
+
+---
+
+## Coupled oscillator theory
+
+### the Kuramoto model
+
+<aside class="notes">
+7:00-9:00 -- THE TURN. Name it: this is mathematics, a real active
+research area. Check the metronomes here, live, in front of the room.
+If they haven't locked in step yet: say so, let the tension sit
+("they're not there yet -- watch"). If they HAVE synced already,
+that's a genuine "it happened while we were talking" moment --
+better than anything staged.
+</aside>
+
+---
+
+<div class="r-fit-text">
+Watch it happen.
+</div>
+
+<aside class="notes">
+9:00-18:00 -- CENTREPIECE, longest section by design, don't rush once
+running. Advance to the next slide -- the Sync Dial is built straight
+into this deck now, so there's no switching to another window or
+tab. Drag the coupling slider K from low to high, live, and let the
+room watch the order parameter r climb from near 0 toward 1 as the
+oscillators lock into phase. The "New starting phases" button gives
+you a fresh, unsynchronised starting point if you want to run it a
+second time. Come back to this deck for the next slide once the room
+has seen it happen.
+</aside>
+
+---
+
+### Sync Dial
+
+```{shinylive-python}
+#| standalone: true
+#| components: [viewer]
+#| viewerHeight: 480
+
+## file: app.py
+import numpy as np
+import matplotlib.pyplot as plt
+
+from shiny import App, Inputs, Outputs, Session, reactive, render, ui
+
+# ---------------------------------------------------------------------------
+# Live companion to the "Before"/"After" diagrams on the surrounding
+# slides. N phases (set by the presenter with the "Oscillators" slider)
+# evolve continuously by Euler-integrating the Kuramoto model
+#     dtheta_i/dt = omega_i + (K/N) * sum_j sin(theta_j - theta_i)
+# a fixed step at a time, driven purely by a timer -- K is the only thing
+# the presenter drags live for the "watch it happen" moment. Natural
+# frequencies are drawn strictly positive (all oscillators spin the same
+# way, at slightly different rates) so the "Before" state reads as
+# scattered, out-of-step motion rather than some dots visibly running
+# backwards. The "Frequency spread" slider controls how different those
+# rates are -- the wider the spread, the more coupling K it takes to pull
+# everyone into phase -- which is the live bifurcation demo for the
+# "Dynamical systems & bifurcation" slide later in the deck: dial the
+# spread up at a fixed K and watch r collapse back down, or note how much
+# higher K has to climb to re-synchronise a wider spread. Colours match
+# the static SVG diagrams exactly: dashed grey unit circle (#666), teal
+# oscillators (#4fd1c5), orange order-parameter arrow (#f6ad55).
+# ---------------------------------------------------------------------------
+
+N_MIN, N_MAX, N_DEFAULT = 3, 20, 8
+DT = 0.01
+TICK_INTERVAL = 0.045
+
+# Natural frequencies are drawn uniformly on [MEAN - spread, MEAN + spread].
+# MEAN is fixed and always positive; "spread" is the presenter-facing knob
+# -- not literally a standard deviation (the draw is uniform, not normal),
+# but the same role: it's the one number that sets how different the
+# oscillators' natural rhythms are, from identical (spread = 0, instant,
+# unconditional synchrony for any K > 0) to quite different (spread near
+# its max, where low-to-moderate K visibly fails to lock the room in).
+OMEGA_MEAN = 1.1
+SPREAD_MIN, SPREAD_MAX, SPREAD_DEFAULT = 0.0, 1.0, 0.7  # default matches the
+# fixed [0.4, 1.8] range used before this became a slider
+
+CIRCLE_GREY = "#666666"
+TEAL = "#4fd1c5"
+ORANGE = "#f6ad55"
+TEXT = "#e8e8e8"
+
+
+def kuramoto_step(theta, omega, K, dt):
+    n = len(theta)
+    diff = theta[None, :] - theta[:, None]  # theta_j - theta_i
+    coupling = (K / n) * np.sin(diff).sum(axis=1)
+    return theta + (omega + coupling) * dt
+
+
+def order_parameter(theta):
+    z = np.mean(np.exp(1j * theta))
+    return abs(z), np.angle(z)
+
+
+def new_state(rng, n, spread):
+    theta = rng.uniform(0, 2 * np.pi, n)
+    lo = max(0.02, OMEGA_MEAN - spread)  # stay strictly positive even at max spread
+    hi = OMEGA_MEAN + spread
+    omega = rng.uniform(lo, hi, n)
+    return theta, omega
+
+
+app_ui = ui.page_sidebar(
+    ui.sidebar(
+        ui.h5("Oscillators", style=f"color:{TEXT};"),
+        ui.input_slider("N", "N", min=N_MIN, max=N_MAX, value=N_DEFAULT,
+                         step=1, width="100%"),
+        ui.h5("Frequency spread", style=f"color:{TEXT};margin-top:1rem;"),
+        ui.input_slider("spread", "spread", min=SPREAD_MIN, max=SPREAD_MAX,
+                         value=SPREAD_DEFAULT, step=0.05, width="100%"),
+        ui.h5("Coupling", style=f"color:{TEXT};margin-top:1rem;"),
+        ui.input_slider("K", "K", min=0, max=4, value=0, step=0.05,
+                         width="100%"),
+        ui.input_action_button("reset", "New starting phases",
+                                class_="btn-sm"),
+        ui.output_ui("r_readout"),
+        width=250,
+        style=f"background-color:#141414;color:{TEXT};",
+    ),
+    ui.output_plot("circle_plot", height="420px"),
+    ui.tags.style("""
+        body { background-color: #191919 !important; }
+        .form-range { accent-color: #f6ad55; }
+    """),
+)
+
+
+def server(input: Inputs, output: Outputs, session: Session):
+    rng = np.random.default_rng()
+    theta0, omega0 = new_state(rng, N_DEFAULT, SPREAD_DEFAULT)
+    theta = reactive.value(theta0)
+    omega = reactive.value(omega0)
+
+    # Re-seed whenever the oscillator count or the frequency spread
+    # changes (the arrays must be resized / redrawn), or the presenter
+    # asks for a fresh start. This effect only WRITES theta/omega -- it
+    # never reads them back -- so it can safely depend on
+    # input.N/input.spread/input.reset without the self-triggering
+    # problem described below.
+    @reactive.effect
+    @reactive.event(input.N, input.spread, input.reset)
+    def _reseed():
+        th, om = new_state(rng, input.N(), input.spread())
+        theta.set(th)
+        omega.set(om)
+
+    # Timer-driven animation. theta is both read and written here, which is
+    # exactly the setup that caused a real self-triggering bug in the
+    # fractal-fern app (see the note in analemma_py.qmd) -- the fix is the
+    # same one used there: read the current state via reactive.isolate()
+    # so this effect's only re-trigger source is its own invalidate_later
+    # call, never its own write to theta.
+    @reactive.effect
+    def _tick():
+        reactive.invalidate_later(TICK_INTERVAL)
+        with reactive.isolate():
+            th = theta()
+            om = omega()
+            K = input.K()
+        theta.set(kuramoto_step(th, om, K, DT))
+
+    @output
+    @render.plot
+    def circle_plot():
+        th = theta()
+        n = len(th)
+        r, psi = order_parameter(th)
+
+        fig, ax = plt.subplots(figsize=(5.4, 4.6))
+        fig.patch.set_alpha(0)
+        ax.set_facecolor("none")
+        ax.set_xlim(-1.35, 1.35)
+        ax.set_ylim(-1.35, 1.35)
+        ax.set_aspect("equal")
+        ax.axis("off")
+
+        circle = plt.Circle((0, 0), 1, fill=False, edgecolor=CIRCLE_GREY,
+                             linestyle="--", linewidth=1.2)
+        ax.add_patch(circle)
+
+        xs, ys = np.cos(th), np.sin(th)
+        dot_size = max(35, min(150, 1200 / n))
+        ax.scatter(xs, ys, s=dot_size, color=TEAL, zorder=3, edgecolor="none")
+
+        if r < 0.04:
+            ax.scatter([0], [0], s=30, color="#e8e8e8", zorder=2)
+        else:
+            ax.annotate(
+                "", xy=(r * np.cos(psi), r * np.sin(psi)), xytext=(0, 0),
+                arrowprops=dict(arrowstyle="-|>", color=ORANGE,
+                                 linewidth=5, mutation_scale=25),
+                zorder=4,
+            )
+
+        return fig
+
+    @output
+    @render.ui
+    def r_readout():
+        th = theta()
+        r, _ = order_parameter(th)
+        return ui.HTML(
+            f"<div style='font-size:2rem;color:{TEXT};margin-top:0.75rem;'>"
+            f"r &asymp; <strong>{r:.2f}</strong></div>"
+        )
+
+
+app = App(app_ui, server)
+```
+
+<aside class="notes">
+This is the live centrepiece itself -- give the room's attention to
+the K slider here rather than to the deck. See the previous slide's
+notes for pacing. If you want to re-run it from scratch mid-talk,
+"New starting phases" reshuffles both the starting positions and the
+natural frequencies.
+</aside>
+
+---
+
+### Before
+
+<svg viewBox="0 0 300 300" width="380" style="display:block;margin:0 auto;">
+  <circle cx="150" cy="150" r="120" fill="none" stroke="#666" stroke-dasharray="4 4"/>
+  <circle cx="150" cy="150" r="3" fill="#e8e8e8"/>
+  <circle cx="267" cy="125" r="8" fill="#4fd1c5"/>
+  <circle cx="181" cy="34"  r="8" fill="#4fd1c5"/>
+  <circle cx="61"  cy="70"  r="8" fill="#4fd1c5"/>
+  <circle cx="31"  cy="133" r="8" fill="#4fd1c5"/>
+  <circle cx="46"  cy="210" r="8" fill="#4fd1c5"/>
+  <circle cx="119" cy="266" r="8" fill="#4fd1c5"/>
+  <circle cx="206" cy="256" r="8" fill="#4fd1c5"/>
+  <circle cx="259" cy="201" r="8" fill="#4fd1c5"/>
+</svg>
+
+Eight independent phases, scattered.\
+Order parameter *r* ≈ 0.
+
+<aside class="notes">
+Each dot is one oscillator's phase, plotted on the unit circle in the
+complex plane. Scattered around the circle -> their average (the
+order parameter) sits near the centre -> r close to 0 -> no
+synchrony. This is the metronomes/fireflies/applause before they
+fall into step.
+</aside>
+
+---
+
+### After
+
+<svg viewBox="0 0 300 300" width="380" style="display:block;margin:0 auto;">
+  <circle cx="150" cy="150" r="120" fill="none" stroke="#666" stroke-dasharray="4 4"/>
+  <line x1="150" y1="150" x2="228" y2="72" stroke="#f6ad55" stroke-width="5" marker-end="url(#arrow)"/>
+  <circle cx="248" cy="81" r="7" fill="#4fd1c5"/>
+  <circle cx="242" cy="73" r="7" fill="#4fd1c5"/>
+  <circle cx="239" cy="70" r="7" fill="#4fd1c5"/>
+  <circle cx="235" cy="65" r="7" fill="#4fd1c5"/>
+  <circle cx="232" cy="62" r="7" fill="#4fd1c5"/>
+  <circle cx="227" cy="58" r="7" fill="#4fd1c5"/>
+  <circle cx="222" cy="54" r="7" fill="#4fd1c5"/>
+  <circle cx="214" cy="48" r="7" fill="#4fd1c5"/>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#f6ad55"/>
+    </marker>
+  </defs>
+</svg>
+
+Eight phases, locked together.\
+Order parameter *r* ≈ 0.95.
+
+<aside class="notes">
+Same eight oscillators, now clustered at nearly the same phase.
+Their average -- the bold arrow -- now reaches almost to the edge of
+the circle. r near 1: synchrony. Connect verbally back to the
+metronomes on the table: same mathematics, two different machines.
+</aside>
+
+---
+
+<div class="r-fit-text">
+$$\frac{d\theta_i}{dt} = \omega_i + \frac{K}{N}\sum_{j=1}^{N} \sin(\theta_j - \theta_i)$$
+</div>
+
+$$r\,e^{i\psi} = \frac{1}{N}\sum_{j=1}^{N} e^{i\theta_j}$$
+
+<aside class="notes">
+Introduce this only *after* the room has watched it happen on the
+Sync Dial. Frame it as "here's the four-line description of what you
+just watched" -- not a thing to be understood, just recognised.
+Top: how fast oscillator i's phase moves -- its own natural rhythm
+omega_i, plus a pull from everyone else, strength K. Bottom: r is
+literally the two diagrams you just saw, written as one complex
+number.
+</aside>
+
+---
+
+<div class="r-fit-text">
+Same mathematics.
+
+Two different machines.
+</div>
+
+<aside class="notes">
+Point back at the physical metronomes on the table -- ticking in step
+now, if the timing has worked. Leave slack in this whole centrepiece
+section; live demos are where talks go long, and that's fine here.
+</aside>
+
+---
+
+## Why this is a maths degree
+
+<aside class="notes">
+18:00-25:00 -- WIDEN THE LENS. Zoom out from the demo to why this is
+a maths degree, not a party trick. Make each of the next four beats
+personal and quick, not a module list.
+</aside>
+
+---
+
+### Differential equations
+
+The metronomes' motion is, quite literally, a system of them.
+
+---
+
+### Complex analysis
+
+The order parameter *r* you just watched *is* a complex number --
+its size is "how in sync," its angle is "the shared rhythm."
+
+---
+
+### Dynamical systems & bifurcation
+
+Below a critical coupling strength, synchrony never happens.\
+Above it, it suddenly does.\
+That sudden flip has a name: a bifurcation.
+
+---
+
+### Network science
+
+Real synchronising systems -- power grids, neurons, cardiac tissue,
+the fireflies -- aren't tidy pairs. They're networks. Whether they
+sync at all depends on the *shape* of the network.
+
+---
+
+<div class="r-fit-text">
+Why this pulled *me* in
+</div>
+
+<!-- Personal beat -- only Philip can write this one honestly.
+     Swap this placeholder for a couple of sentences on what first
+     hooked you about synchronisation / dynamical systems, said live,
+     not read off the slide. -->
+
+<aside class="notes">
+This is the one place in the talk that's allowed to be about you
+rather than the phenomenon. Say briefly, in your own words, why you
+find this compelling -- what pulled you into it. Keep the slide
+itself nearly bare; this beat is spoken, not read.
+</aside>
+
+---
+
+<div class="r-fit-text">
+That's what those metronomes,
+
+a clapping crowd,
+
+and your own heartbeat
+
+have in common.
+
+None of them have a conductor.
+
+They don't need one.
+
+That's the mathematics.
+</div>
+
+<aside class="notes">
+25:00-28:00 -- CLOSE ON THE IMAGE, NOT A SUMMARY. Return physically to
+the metronomes -- now, if the pacing worked, ticking as one. Land this
+line, then stop talking. No "in conclusion, I've covered..."
+</aside>
+
+---
+
+## Questions
+
+<br>
+
+Sync Dial: built right into this deck -- scroll back to "Watch it
+happen" for another go.
+
+Build one yourself: **Metronomes in Step** --
+<https://claude.ai/code/artifact/5fe788f3-90ee-4834-868b-e80efb0651f6>
+
+<aside class="notes">
+28:00-30:00 -- buffer, not padding; built in because the centrepiece
+section is the one most likely to run over. Sources if asked: Steven
+Strogatz, "Sync" (2003); J. Pantaleone, "Synchronization of
+metronomes," American Journal of Physics 70, 992 (2002).
+
+Rehearsal note: time the centrepiece section against the real
+simulator and the physical build specifically -- Pantaleone-style
+metronome sync typically resolves in 1-3 minutes once coupling is
+strong enough, but room noise, an unlevel surface, or too-gentle a
+starting nudge can push that out. Run it a few times beforehand to
+know your real number before trusting the 9:00-18:00 window.
+</aside>

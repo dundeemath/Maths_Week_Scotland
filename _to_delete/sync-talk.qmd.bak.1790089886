@@ -1,0 +1,352 @@
+---
+title: "The Secret Rhythm of Everything"
+subtitle: "How things fall into step without a conductor"
+author: "Philip Murray"
+format:
+  revealjs:
+    theme: black
+    transition: fade
+    background-transition: fade
+    center: true
+    slide-number: false
+    progress: true
+    controls: true
+    hash: true
+    width: 1280
+    height: 720
+    fig-align: center
+---
+
+<!--
+  Standalone Quarto revealjs deck -- NOT part of the book's `chapters:` list
+  in _quarto.yml, so `quarto render` (the whole-book render) will skip it.
+  Render it on its own with:
+
+      quarto render sync-talk.qmd
+
+  which drops sync-talk.html next to it. Open that file directly in a
+  browser for the talk; press "S" during the talk to open Speaker View
+  (shows these notes + a timer on a second screen/laptop while the
+  audience sees only the slide).
+
+  Built from the saved outline "The Secret Rhythm of Everything"
+  (claude/metronome-ted-talk-outline.md) and the synchronisation demo
+  (claude/open-day-synchronisation-demo.md) -- swap in the live links
+  below for the real "Metronomes in Step" guide / "Sync Dial" simulator
+  once you have them to hand, and bring the physical metronome rig.
+-->
+
+## {.center}
+
+::: {.r-fit-text}
+What do those metronomes,\
+a room full of people clapping,\
+and the cells that keep your heart beating\
+have in common?
+:::
+
+::: {.notes}
+0:00-2:00 -- COLD OPEN. Start the physical metronomes ("Metronomes in
+Step") running *before* you say anything -- let them tick, visibly out
+of step, while the room settles. Don't explain them yet. Ask this
+question and leave it hanging. No agenda, no "let me tell you about
+myself."
+:::
+
+---
+
+::: {.r-fit-text}
+1665.
+
+Two pendulum clocks.
+
+One wall.
+:::
+
+::: {.notes}
+2:00-7:00 (story 1 of 4) -- Christiaan Huygens, bedridden and bored,
+notices two pendulum clocks hanging on the same wall drift into
+perfect lockstep -- and drift back out the moment you separate them.
+Metronomes still ticking in the background the whole time. You've
+planted them; you haven't returned to them yet.
+:::
+
+---
+
+::: {.r-fit-text}
+A riverbank.
+
+Thousands of fireflies.
+
+No leader.
+:::
+
+::: {.notes}
+Story 2 -- fireflies in parts of Southeast Asia flashing in unison
+across a whole riverbank, with no leader.
+:::
+
+---
+
+::: {.r-fit-text}
+Applause --
+
+ragged at first.
+
+Then, somehow, one clap.
+:::
+
+::: {.notes}
+Story 3 -- an audience's applause, ragged at first, occasionally
+slipping into a single unified clap.
+:::
+
+---
+
+::: {.r-fit-text}
+Your heart.
+
+Thousands of unreliable cells.
+
+One beat. Every second. Your whole life.
+:::
+
+::: {.notes}
+Story 4 -- pacemaker cells in your heart, thousands of individually
+unreliable cells, somehow agreeing on one beat, every second, for
+your entire life. This closes the story run -- next slide names it.
+:::
+
+---
+
+## Coupled oscillator theory
+
+### the Kuramoto model
+
+::: {.notes}
+7:00-9:00 -- THE TURN. Name it: this is mathematics, a real active
+research area. Check the metronomes here, live, in front of the room.
+If they haven't locked in step yet: say so, let the tension sit
+("they're not there yet -- watch"). If they HAVE synced already,
+that's a genuine "it happened while we were talking" moment --
+better than anything staged.
+:::
+
+---
+
+::: {.r-fit-text}
+Watch it happen.
+:::
+
+::: {.notes}
+9:00-18:00 -- CENTREPIECE, longest section by design, don't rush once
+running. Switch away from the slides to the "Sync Dial" simulator
+(link: <https://claude.ai/code/artifact/c75c561c-d561-4a30-93f9-c7da9d5c65ff>)
+on the shared screen. Drag the coupling slider K from low to high,
+live, and let the room watch the order parameter r climb from near 0
+toward 1 as the oscillators lock into phase. Come back to this deck
+for the next slide once the room has seen it happen.
+:::
+
+---
+
+### Before
+
+::: {layout-ncol="1"}
+<svg viewBox="0 0 300 300" width="380" style="display:block;margin:0 auto;">
+  <circle cx="150" cy="150" r="120" fill="none" stroke="#666" stroke-dasharray="4 4"/>
+  <circle cx="150" cy="150" r="3" fill="#e8e8e8"/>
+  <circle cx="267" cy="125" r="8" fill="#4fd1c5"/>
+  <circle cx="181" cy="34"  r="8" fill="#4fd1c5"/>
+  <circle cx="61"  cy="70"  r="8" fill="#4fd1c5"/>
+  <circle cx="31"  cy="133" r="8" fill="#4fd1c5"/>
+  <circle cx="46"  cy="210" r="8" fill="#4fd1c5"/>
+  <circle cx="119" cy="266" r="8" fill="#4fd1c5"/>
+  <circle cx="206" cy="256" r="8" fill="#4fd1c5"/>
+  <circle cx="259" cy="201" r="8" fill="#4fd1c5"/>
+</svg>
+:::
+
+Eight independent phases, scattered.\
+Order parameter *r* ≈ 0.
+
+::: {.notes}
+Each dot is one oscillator's phase, plotted on the unit circle in the
+complex plane. Scattered around the circle -> their average (the
+order parameter) sits near the centre -> r close to 0 -> no
+synchrony. This is the metronomes/fireflies/applause before they
+fall into step.
+:::
+
+---
+
+### After
+
+::: {layout-ncol="1"}
+<svg viewBox="0 0 300 300" width="380" style="display:block;margin:0 auto;">
+  <circle cx="150" cy="150" r="120" fill="none" stroke="#666" stroke-dasharray="4 4"/>
+  <line x1="150" y1="150" x2="228" y2="72" stroke="#f6ad55" stroke-width="5" marker-end="url(#arrow)"/>
+  <circle cx="248" cy="81" r="7" fill="#4fd1c5"/>
+  <circle cx="242" cy="73" r="7" fill="#4fd1c5"/>
+  <circle cx="239" cy="70" r="7" fill="#4fd1c5"/>
+  <circle cx="235" cy="65" r="7" fill="#4fd1c5"/>
+  <circle cx="232" cy="62" r="7" fill="#4fd1c5"/>
+  <circle cx="227" cy="58" r="7" fill="#4fd1c5"/>
+  <circle cx="222" cy="54" r="7" fill="#4fd1c5"/>
+  <circle cx="214" cy="48" r="7" fill="#4fd1c5"/>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#f6ad55"/>
+    </marker>
+  </defs>
+</svg>
+:::
+
+Eight phases, locked together.\
+Order parameter *r* ≈ 0.95.
+
+::: {.notes}
+Same eight oscillators, now clustered at nearly the same phase.
+Their average -- the bold arrow -- now reaches almost to the edge of
+the circle. r near 1: synchrony. Connect verbally back to the
+metronomes on the table: same mathematics, two different machines.
+:::
+
+---
+
+::: {.r-fit-text}
+$$\frac{d\theta_i}{dt} = \omega_i + \frac{K}{N}\sum_{j=1}^{N} \sin(\theta_j - \theta_i)$$
+:::
+
+$$r\,e^{i\psi} = \frac{1}{N}\sum_{j=1}^{N} e^{i\theta_j}$$
+
+::: {.notes}
+Introduce this only *after* the room has watched it happen on the
+Sync Dial. Frame it as "here's the four-line description of what you
+just watched" -- not a thing to be understood, just recognised.
+Top: how fast oscillator i's phase moves -- its own natural rhythm
+omega_i, plus a pull from everyone else, strength K. Bottom: r is
+literally the two diagrams you just saw, written as one complex
+number.
+:::
+
+---
+
+::: {.r-fit-text}
+Same mathematics.
+
+Two different machines.
+:::
+
+::: {.notes}
+Point back at the physical metronomes on the table -- ticking in step
+now, if the timing has worked. Leave slack in this whole centrepiece
+section; live demos are where talks go long, and that's fine here.
+:::
+
+---
+
+## Why this is a maths degree
+
+::: {.notes}
+18:00-25:00 -- WIDEN THE LENS. Zoom out from the demo to why this is
+a maths degree, not a party trick. Make each of the next four beats
+personal and quick, not a module list.
+:::
+
+---
+
+### Differential equations
+
+The metronomes' motion is, quite literally, a system of them.
+
+---
+
+### Complex analysis
+
+The order parameter *r* you just watched *is* a complex number --
+its size is "how in sync," its angle is "the shared rhythm."
+
+---
+
+### Dynamical systems & bifurcation
+
+Below a critical coupling strength, synchrony never happens.\
+Above it, it suddenly does.\
+That sudden flip has a name: a bifurcation.
+
+---
+
+### Network science
+
+Real synchronising systems -- power grids, neurons, cardiac tissue,
+the fireflies -- aren't tidy pairs. They're networks. Whether they
+sync at all depends on the *shape* of the network.
+
+---
+
+::: {.r-fit-text}
+Why this pulled *me* in
+:::
+
+<!-- Personal beat -- only Philip can write this one honestly.
+     Swap this placeholder for a couple of sentences on what first
+     hooked you about synchronisation / dynamical systems, said live,
+     not read off the slide. -->
+
+::: {.notes}
+This is the one place in the talk that's allowed to be about you
+rather than the phenomenon. Say briefly, in your own words, why you
+find this compelling -- what pulled you into it. Keep the slide
+itself nearly bare; this beat is spoken, not read.
+:::
+
+---
+
+::: {.r-fit-text}
+That's what those metronomes,
+
+a clapping crowd,
+
+and your own heartbeat
+
+have in common.
+
+None of them have a conductor.
+
+They don't need one.
+
+That's the mathematics.
+:::
+
+::: {.notes}
+25:00-28:00 -- CLOSE ON THE IMAGE, NOT A SUMMARY. Return physically to
+the metronomes -- now, if the pacing worked, ticking as one. Land this
+line, then stop talking. No "in conclusion, I've covered..."
+:::
+
+---
+
+## Questions
+
+<br>
+
+Try it yourself: **Sync Dial** --
+<https://claude.ai/code/artifact/c75c561c-d561-4a30-93f9-c7da9d5c65ff>
+
+Build one yourself: **Metronomes in Step** --
+<https://claude.ai/code/artifact/5fe788f3-90ee-4834-868b-e80efb0651f6>
+
+::: {.notes}
+28:00-30:00 -- buffer, not padding; built in because the centrepiece
+section is the one most likely to run over. Sources if asked: Steven
+Strogatz, "Sync" (2003); J. Pantaleone, "Synchronization of
+metronomes," American Journal of Physics 70, 992 (2002).
+
+Rehearsal note: time the centrepiece section against the real
+simulator and the physical build specifically -- Pantaleone-style
+metronome sync typically resolves in 1-3 minutes once coupling is
+strong enough, but room noise, an unlevel surface, or too-gentle a
+starting nudge can push that out. Run it a few times beforehand to
+know your real number before trusting the 9:00-18:00 window.
+:::

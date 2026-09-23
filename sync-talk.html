@@ -1,0 +1,2356 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="sync-talk_files/libs/clipboard/clipboard.min.js"></script>
+<script src="sync-talk_files/libs/quarto-html/tabby.min.js"></script>
+<script src="sync-talk_files/libs/quarto-html/popper.min.js"></script>
+<script src="sync-talk_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="sync-talk_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="sync-talk_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="sync-talk_files/libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<meta name="shinylive:serviceworker_dir" content=".">
+<script src="sync-talk_files/libs/quarto-contrib/shinylive-0.10.14/shinylive/load-shinylive-sw.js" type="module"></script>
+<script src="sync-talk_files/libs/quarto-contrib/shinylive-0.10.14/shinylive/run-python-blocks.js" type="module"></script>
+<link href="sync-talk_files/libs/quarto-contrib/shinylive-0.10.14/shinylive/shinylive.css" rel="stylesheet">
+<link href="sync-talk_files/libs/quarto-contrib/shinylive-quarto-css/shinylive-quarto.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <meta name="author" content="Philip Murray">
+  <title>Finding the beat</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="sync-talk_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="sync-talk_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #f8f8f2;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #f8f8f2; } /* Normal */
+    code span.al { color: #f07178; } /* Alert */
+    code span.an { color: #d4d0ab; } /* Annotation */
+    code span.at { color: #00e0e0; } /* Attribute */
+    code span.bn { color: #d4d0ab; } /* BaseN */
+    code span.bu { color: #abe338; } /* BuiltIn */
+    code span.cf { color: #ffa07a; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #abe338; } /* Char */
+    code span.cn { color: #ffd700; } /* Constant */
+    code span.co { color: #f8f8f2; font-style: italic; } /* Comment */
+    code span.cv { color: #ffd700; } /* CommentVar */
+    code span.do { color: #f8f8f2; } /* Documentation */
+    code span.dt { color: #ffa07a; } /* DataType */
+    code span.dv { color: #d4d0ab; } /* DecVal */
+    code span.er { color: #f07178; text-decoration: underline; } /* Error */
+    code span.ex { color: #00e0e0; font-weight: bold; } /* Extension */
+    code span.fl { color: #d4d0ab; } /* Float */
+    code span.fu { color: #ffa07a; } /* Function */
+    code span.im { color: #abe338; } /* Import */
+    code span.in { color: #d4d0ab; } /* Information */
+    code span.kw { color: #ffa07a; font-weight: bold; } /* Keyword */
+    code span.op { color: #ffa07a; } /* Operator */
+    code span.ot { color: #00e0e0; } /* Other */
+    code span.pp { color: #dcc6e0; } /* Preprocessor */
+    code span.re { color: #00e0e0; background-color: #f8f8f2; } /* RegionMarker */
+    code span.sc { color: #abe338; } /* SpecialChar */
+    code span.ss { color: #abe338; } /* SpecialString */
+    code span.st { color: #abe338; } /* String */
+    code span.va { color: #00e0e0; } /* Variable */
+    code span.vs { color: #abe338; } /* VerbatimString */
+    code span.wa { color: #dcc6e0; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="sync-talk_files/libs/revealjs/dist/theme/quarto-4df01d85d5cf19cc6202400f4f043f84.css">
+  <link href="sync-talk_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="sync-talk_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="sync-talk_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="sync-talk_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-dark">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Finding the beat</h1>
+  <p class="subtitle">How things fall into step without a conductor</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Philip Murray 
+</div>
+</div>
+</div>
+
+</section>
+<section class="slide level2 center">
+
+<!--
+  Standalone Quarto revealjs deck -- NOT part of the book's `chapters:` list
+  in _quarto.yml, so `quarto render` (the whole-book render) will skip it.
+  Render it on its own with:
+
+      quarto render sync-talk.qmd
+
+  which drops sync-talk.html next to it. Open that file directly in a
+  browser for the talk; press "S" during the talk to open Speaker View
+  (shows these notes + a timer on a second screen/laptop while the
+  audience sees only the slide).
+
+  Built from the saved outline "The Secret Rhythm of Everything"
+  (claude/metronome-ted-talk-outline.md) and the synchronisation demo
+  (claude/open-day-synchronisation-demo.md) -- swap in the live links
+  below for the real "Metronomes in Step" guide / "Sync Dial" simulator
+  once you have them to hand, and bring the physical metronome rig.
+-->
+<style>
+  /* Both of the shinylive extension's own stylesheets paint this box for
+     a plain white page, not this deck's black slides:
+       - resources/css/shinylive-quarto.css wraps it in a light, rounded,
+         drop-shadowed card (div.shinylive-wrapper / div.output-content).
+       - the bundled shinylive.css (Components/App.css, Viewer.css) goes
+         further and hard-codes white on the panel *inside* the container
+         (".shinylive-container > div { background-color: var(--colors-bg)
+         /* white */ }") and on the app iframe itself
+         (".shinylive-viewer iframe { background-color: white; }") --
+         that second one is the actual stray white sliver down the right/
+         bottom edge once the outer wrapper alone is fixed.
+     All overridden here to #191919 -- the same shade reveal.js's own
+     "black" theme and this app's own body use -- rather than plain
+     transparent, so there's no seam if any of these boxes turns out
+     very slightly larger than the content painted inside it. Scoped to
+     this deck only, rather than touching either shared extension file
+     that every other *_py.qmd page on the site still relies on. */
+  div.shinylive-wrapper,
+  div.output-content {
+    background-color: #191919 !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  .shinylive-container,
+  .shinylive-container > div,
+  .shinylive-viewer,
+  .shinylive-viewer iframe,
+  .shinylive-viewer .loading-wrapper {
+    background-color: #191919 !important;
+  }
+  iframe.app-frame,
+  .app-frame {
+    border: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* Small, non-interactive companion sim on the "Differential equations"
+     slide -- floated into the top-right corner so it sits beside the
+     equation rather than taking the whole slide the way the Sync Dial
+     does. Scoped to just that one heading's shinylive block (a sibling
+     of the h3, since the chunk isn't wrapped in any div -- nesting it in
+     one confused pandoc's raw-HTML-block parser into swallowing the rest
+     of the document, so this uses only an id + CSS instead) rather than
+     touching the shared shinylive rules above. */
+  h3#diffeq ~ div.shinylive-wrapper {
+    float: right;
+    width: 240px;
+    margin: 0 0 1rem 2rem !important;
+  }
+</style>
+</section>
+<section id="section" class="slide level2 center">
+<h2></h2>
+<div class="r-fit-text">
+<p>What do those metronomes,<br>
+a room full of people clapping,<br>
+and the cells that keep your heart beating<br>
+have in common?</p>
+</div>
+<aside class="notes">
+0:00-2:00 – COLD OPEN. Start the physical metronomes (“Metronomes in Step”) running <em>before</em> you say anything – let them tick, visibly out of step, while the room settles. Don’t explain them yet. Ask this question and leave it hanging. No agenda, no “let me tell you about myself.”
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<div class="r-fit-text">
+<p>1665.</p>
+<p>Two pendulum clocks.</p>
+<p>One wall.</p>
+</div>
+<aside class="notes">
+2:00-7:00 (story 1 of 4) – Christiaan Huygens, bedridden and bored, notices two pendulum clocks hanging on the same wall drift into perfect lockstep – and drift back out the moment you separate them. Metronomes still ticking in the background the whole time. You’ve planted them; you haven’t returned to them yet.
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<div class="r-fit-text">
+<p>A riverbank.</p>
+<p>Thousands of fireflies.</p>
+<p>No leader.</p>
+</div>
+<aside class="notes">
+Story 2 – fireflies in parts of Southeast Asia flashing in unison across a whole riverbank, with no leader. The next slide is the real footage, full screen, no text – let this line land, then advance.
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="fireflies-video" class="slide level2 center" data-background-video="fireflies.mp4" data-background-video-loop="true" data-background-video-muted="true" data-background-size="cover">
+<h2></h2>
+<aside class="notes">
+The fireflies clip itself, full screen, nothing else on the slide. reveal.js’s background-video plays it edge-to-edge behind the slide (data-background-size=“cover” fills the screen, cropping rather than letterboxing) and starts it the moment this slide becomes active – no need to trigger it by hand, and it stops automatically on the way out. Let it run a beat in silence before advancing.
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<div class="r-fit-text">
+<p>Applause</p>
+<p>ragged at first.</p>
+<p>Then, one clap.</p>
+</div>
+<aside class="notes">
+Story 3 – an audience’s applause, ragged at first, occasionally slipping into a single unified clap.
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<div class="r-fit-text">
+<p>Your heart.</p>
+<p>Thousands of unreliable cells.</p>
+<p>One beat. Every second. Your whole life.</p>
+</div>
+<aside class="notes">
+Story 4 – pacemaker cells in your heart, thousands of individually unreliable cells, somehow agreeing on one beat, every second, for your entire life. This closes the story run – next slide names it.
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="coupled-oscillator-theory" class="slide level2 center">
+<h2>Coupled oscillator theory</h2>
+<h3 id="the-kuramoto-model">the Kuramoto model</h3>
+<aside class="notes">
+7:00-9:00 – THE TURN. Name it: this is mathematics, a real active research area. Check the metronomes here, live, in front of the room. If they haven’t locked in step yet: say so, let the tension sit (“they’re not there yet – watch”). If they HAVE synced already, that’s a genuine “it happened while we were talking” moment – better than anything staged.
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<div class="r-fit-text">
+<p>Simulating synchronisation.</p>
+</div>
+<aside class="notes">
+9:00-18:00 – CENTREPIECE, longest section by design, don’t rush once running. Advance to the next slide – the Sync Dial is built straight into this deck now, so there’s no switching to another window or tab. Drag the coupling slider K from low to high, live, and let the room watch the order parameter r climb from near 0 toward 1 as the oscillators lock into phase. The “New starting phases” button gives you a fresh, unsynchronised starting point if you want to run it a second time. Come back to this deck for the next slide once the room has seen it happen.
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="sync-dial">Sync Dial</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-engine="python"><pre class="sourceCode numberSource shinylive-python number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href=""></a>#| '!! shinylive warning !!': |</span>
+<span id="cb1-2"><a href=""></a>#|   shinylive does not work in self-contained HTML documents.</span>
+<span id="cb1-3"><a href=""></a>#|   Please set `embed-resources: false` in your metadata.</span>
+<span id="cb1-4"><a href=""></a>#| standalone: true</span>
+<span id="cb1-5"><a href=""></a>#| components: [viewer]</span>
+<span id="cb1-6"><a href=""></a>#| viewerHeight: 480</span>
+<span id="cb1-7"><a href=""></a></span>
+<span id="cb1-8"><a href=""></a>## file: app.py</span>
+<span id="cb1-9"><a href=""></a>import numpy as np</span>
+<span id="cb1-10"><a href=""></a>import matplotlib.pyplot as plt</span>
+<span id="cb1-11"><a href=""></a></span>
+<span id="cb1-12"><a href=""></a>from shiny import App, Inputs, Outputs, Session, reactive, render, ui</span>
+<span id="cb1-13"><a href=""></a></span>
+<span id="cb1-14"><a href=""></a># ---------------------------------------------------------------------------</span>
+<span id="cb1-15"><a href=""></a># Live companion to the "Before"/"After" diagrams on the surrounding</span>
+<span id="cb1-16"><a href=""></a># slides. N phases (set by the presenter with the "Oscillators" slider)</span>
+<span id="cb1-17"><a href=""></a># evolve continuously by Euler-integrating the Kuramoto model</span>
+<span id="cb1-18"><a href=""></a>#     dtheta_i/dt = omega_i + (K/N) * sum_j sin(theta_j - theta_i)</span>
+<span id="cb1-19"><a href=""></a># a fixed step at a time, driven purely by a timer -- K is the only thing</span>
+<span id="cb1-20"><a href=""></a># the presenter drags live for the "watch it happen" moment. Natural</span>
+<span id="cb1-21"><a href=""></a># frequencies are drawn strictly positive (all oscillators spin the same</span>
+<span id="cb1-22"><a href=""></a># way, at slightly different rates) so the "Before" state reads as</span>
+<span id="cb1-23"><a href=""></a># scattered, out-of-step motion rather than some dots visibly running</span>
+<span id="cb1-24"><a href=""></a># backwards. The "Frequency spread" slider controls how different those</span>
+<span id="cb1-25"><a href=""></a># rates are -- the wider the spread, the more coupling K it takes to pull</span>
+<span id="cb1-26"><a href=""></a># everyone into phase -- which is the live bifurcation demo for the</span>
+<span id="cb1-27"><a href=""></a># "Dynamical systems &amp; bifurcation" slide later in the deck: dial the</span>
+<span id="cb1-28"><a href=""></a># spread up at a fixed K and watch r collapse back down, or note how much</span>
+<span id="cb1-29"><a href=""></a># higher K has to climb to re-synchronise a wider spread. Colours match</span>
+<span id="cb1-30"><a href=""></a># the static SVG diagrams exactly: dashed grey unit circle (#666), teal</span>
+<span id="cb1-31"><a href=""></a># oscillators (#4fd1c5), orange order-parameter arrow (#f6ad55).</span>
+<span id="cb1-32"><a href=""></a># ---------------------------------------------------------------------------</span>
+<span id="cb1-33"><a href=""></a></span>
+<span id="cb1-34"><a href=""></a>N_MIN, N_MAX, N_DEFAULT = 3, 20, 8</span>
+<span id="cb1-35"><a href=""></a>DT = 0.01</span>
+<span id="cb1-36"><a href=""></a>TICK_INTERVAL = 0.15</span>
+<span id="cb1-37"><a href=""></a></span>
+<span id="cb1-38"><a href=""></a># Natural frequencies are drawn uniformly on [MEAN - spread, MEAN + spread].</span>
+<span id="cb1-39"><a href=""></a># MEAN is fixed and always positive; "spread" is the presenter-facing knob</span>
+<span id="cb1-40"><a href=""></a># -- not literally a standard deviation (the draw is uniform, not normal),</span>
+<span id="cb1-41"><a href=""></a># but the same role: it's the one number that sets how different the</span>
+<span id="cb1-42"><a href=""></a># oscillators' natural rhythms are, from identical (spread = 0, instant,</span>
+<span id="cb1-43"><a href=""></a># unconditional synchrony for any K &gt; 0) to quite different (spread near</span>
+<span id="cb1-44"><a href=""></a># its max, where low-to-moderate K visibly fails to lock the room in).</span>
+<span id="cb1-45"><a href=""></a>OMEGA_MEAN = 1.1</span>
+<span id="cb1-46"><a href=""></a>SPREAD_MIN, SPREAD_MAX, SPREAD_DEFAULT = 0.0, 1.0, 0.7  # default matches the</span>
+<span id="cb1-47"><a href=""></a># fixed [0.4, 1.8] range used before this became a slider</span>
+<span id="cb1-48"><a href=""></a></span>
+<span id="cb1-49"><a href=""></a>CIRCLE_GREY = "#666666"</span>
+<span id="cb1-50"><a href=""></a>TEAL = "#4fd1c5"</span>
+<span id="cb1-51"><a href=""></a>ORANGE = "#f6ad55"</span>
+<span id="cb1-52"><a href=""></a>TEXT = "#e8e8e8"</span>
+<span id="cb1-53"><a href=""></a></span>
+<span id="cb1-54"><a href=""></a></span>
+<span id="cb1-55"><a href=""></a>def kuramoto_step(theta, omega, K, dt):</span>
+<span id="cb1-56"><a href=""></a>    n = len(theta)</span>
+<span id="cb1-57"><a href=""></a>    diff = theta[None, :] - theta[:, None]  # theta_j - theta_i</span>
+<span id="cb1-58"><a href=""></a>    coupling = (K / n) * np.sin(diff).sum(axis=1)</span>
+<span id="cb1-59"><a href=""></a>    return theta + (omega + coupling) * dt</span>
+<span id="cb1-60"><a href=""></a></span>
+<span id="cb1-61"><a href=""></a></span>
+<span id="cb1-62"><a href=""></a>def order_parameter(theta):</span>
+<span id="cb1-63"><a href=""></a>    z = np.mean(np.exp(1j * theta))</span>
+<span id="cb1-64"><a href=""></a>    return abs(z), np.angle(z)</span>
+<span id="cb1-65"><a href=""></a></span>
+<span id="cb1-66"><a href=""></a></span>
+<span id="cb1-67"><a href=""></a>def new_state(rng, n, spread):</span>
+<span id="cb1-68"><a href=""></a>    theta = rng.uniform(0, 2 * np.pi, n)</span>
+<span id="cb1-69"><a href=""></a>    lo = max(0.02, OMEGA_MEAN - spread)  # stay strictly positive even at max spread</span>
+<span id="cb1-70"><a href=""></a>    hi = OMEGA_MEAN + spread</span>
+<span id="cb1-71"><a href=""></a>    omega = rng.uniform(lo, hi, n)</span>
+<span id="cb1-72"><a href=""></a>    return theta, omega</span>
+<span id="cb1-73"><a href=""></a></span>
+<span id="cb1-74"><a href=""></a></span>
+<span id="cb1-75"><a href=""></a>app_ui = ui.page_sidebar(</span>
+<span id="cb1-76"><a href=""></a>    ui.sidebar(</span>
+<span id="cb1-77"><a href=""></a>        ui.h5("Oscillators", style=f"color:{TEXT};"),</span>
+<span id="cb1-78"><a href=""></a>        ui.input_slider("N", "N", min=N_MIN, max=N_MAX, value=N_DEFAULT,</span>
+<span id="cb1-79"><a href=""></a>                         step=1, width="100%"),</span>
+<span id="cb1-80"><a href=""></a>        ui.h5("Frequency spread", style=f"color:{TEXT};margin-top:1rem;"),</span>
+<span id="cb1-81"><a href=""></a>        ui.input_slider("spread", "spread", min=SPREAD_MIN, max=SPREAD_MAX,</span>
+<span id="cb1-82"><a href=""></a>                         value=SPREAD_DEFAULT, step=0.05, width="100%"),</span>
+<span id="cb1-83"><a href=""></a>        ui.h5("Coupling", style=f"color:{TEXT};margin-top:1rem;"),</span>
+<span id="cb1-84"><a href=""></a>        ui.input_slider("K", "K", min=0, max=4, value=0, step=0.05,</span>
+<span id="cb1-85"><a href=""></a>                         width="100%"),</span>
+<span id="cb1-86"><a href=""></a>        ui.input_action_button("reset", "New starting phases",</span>
+<span id="cb1-87"><a href=""></a>                                class_="btn-sm"),</span>
+<span id="cb1-88"><a href=""></a>        ui.output_ui("r_readout"),</span>
+<span id="cb1-89"><a href=""></a>        width=250,</span>
+<span id="cb1-90"><a href=""></a>        style=f"background-color:#141414;color:{TEXT};",</span>
+<span id="cb1-91"><a href=""></a>    ),</span>
+<span id="cb1-92"><a href=""></a>    ui.output_plot("circle_plot", height="420px"),</span>
+<span id="cb1-93"><a href=""></a>    ui.tags.style("""</span>
+<span id="cb1-94"><a href=""></a>        body { background-color: #191919 !important; }</span>
+<span id="cb1-95"><a href=""></a>        .form-range { accent-color: #f6ad55; }</span>
+<span id="cb1-96"><a href=""></a>    """),</span>
+<span id="cb1-97"><a href=""></a>)</span>
+<span id="cb1-98"><a href=""></a></span>
+<span id="cb1-99"><a href=""></a></span>
+<span id="cb1-100"><a href=""></a>def server(input: Inputs, output: Outputs, session: Session):</span>
+<span id="cb1-101"><a href=""></a>    rng = np.random.default_rng()</span>
+<span id="cb1-102"><a href=""></a>    theta0, omega0 = new_state(rng, N_DEFAULT, SPREAD_DEFAULT)</span>
+<span id="cb1-103"><a href=""></a>    theta = reactive.value(theta0)</span>
+<span id="cb1-104"><a href=""></a>    omega = reactive.value(omega0)</span>
+<span id="cb1-105"><a href=""></a></span>
+<span id="cb1-106"><a href=""></a>    # Re-seed whenever the oscillator count or the frequency spread</span>
+<span id="cb1-107"><a href=""></a>    # changes (the arrays must be resized / redrawn), or the presenter</span>
+<span id="cb1-108"><a href=""></a>    # asks for a fresh start. This effect only WRITES theta/omega -- it</span>
+<span id="cb1-109"><a href=""></a>    # never reads them back -- so it can safely depend on</span>
+<span id="cb1-110"><a href=""></a>    # input.N/input.spread/input.reset without the self-triggering</span>
+<span id="cb1-111"><a href=""></a>    # problem described below.</span>
+<span id="cb1-112"><a href=""></a>    @reactive.effect</span>
+<span id="cb1-113"><a href=""></a>    @reactive.event(input.N, input.spread, input.reset)</span>
+<span id="cb1-114"><a href=""></a>    def _reseed():</span>
+<span id="cb1-115"><a href=""></a>        th, om = new_state(rng, input.N(), input.spread())</span>
+<span id="cb1-116"><a href=""></a>        theta.set(th)</span>
+<span id="cb1-117"><a href=""></a>        omega.set(om)</span>
+<span id="cb1-118"><a href=""></a></span>
+<span id="cb1-119"><a href=""></a>    # Timer-driven animation. theta is both read and written here, which is</span>
+<span id="cb1-120"><a href=""></a>    # exactly the setup that caused a real self-triggering bug in the</span>
+<span id="cb1-121"><a href=""></a>    # fractal-fern app (see the note in analemma_py.qmd) -- the fix is the</span>
+<span id="cb1-122"><a href=""></a>    # same one used there: read the current state via reactive.isolate()</span>
+<span id="cb1-123"><a href=""></a>    # so this effect's only re-trigger source is its own invalidate_later</span>
+<span id="cb1-124"><a href=""></a>    # call, never its own write to theta.</span>
+<span id="cb1-125"><a href=""></a>    @reactive.effect</span>
+<span id="cb1-126"><a href=""></a>    def _tick():</span>
+<span id="cb1-127"><a href=""></a>        reactive.invalidate_later(TICK_INTERVAL)</span>
+<span id="cb1-128"><a href=""></a>        with reactive.isolate():</span>
+<span id="cb1-129"><a href=""></a>            th = theta()</span>
+<span id="cb1-130"><a href=""></a>            om = omega()</span>
+<span id="cb1-131"><a href=""></a>            K = input.K()</span>
+<span id="cb1-132"><a href=""></a>        theta.set(kuramoto_step(th, om, K, DT))</span>
+<span id="cb1-133"><a href=""></a></span>
+<span id="cb1-134"><a href=""></a>    @output</span>
+<span id="cb1-135"><a href=""></a>    @render.plot</span>
+<span id="cb1-136"><a href=""></a>    def circle_plot():</span>
+<span id="cb1-137"><a href=""></a>        th = theta()</span>
+<span id="cb1-138"><a href=""></a>        n = len(th)</span>
+<span id="cb1-139"><a href=""></a>        r, psi = order_parameter(th)</span>
+<span id="cb1-140"><a href=""></a></span>
+<span id="cb1-141"><a href=""></a>        fig, ax = plt.subplots(figsize=(5.4, 4.6))</span>
+<span id="cb1-142"><a href=""></a>        fig.patch.set_alpha(0)</span>
+<span id="cb1-143"><a href=""></a>        ax.set_facecolor("none")</span>
+<span id="cb1-144"><a href=""></a>        ax.set_xlim(-1.35, 1.35)</span>
+<span id="cb1-145"><a href=""></a>        ax.set_ylim(-1.35, 1.35)</span>
+<span id="cb1-146"><a href=""></a>        ax.set_aspect("equal")</span>
+<span id="cb1-147"><a href=""></a>        ax.axis("off")</span>
+<span id="cb1-148"><a href=""></a></span>
+<span id="cb1-149"><a href=""></a>        circle = plt.Circle((0, 0), 1, fill=False, edgecolor=CIRCLE_GREY,</span>
+<span id="cb1-150"><a href=""></a>                             linestyle="--", linewidth=1.2)</span>
+<span id="cb1-151"><a href=""></a>        ax.add_patch(circle)</span>
+<span id="cb1-152"><a href=""></a></span>
+<span id="cb1-153"><a href=""></a>        xs, ys = np.cos(th), np.sin(th)</span>
+<span id="cb1-154"><a href=""></a>        dot_size = max(35, min(150, 1200 / n))</span>
+<span id="cb1-155"><a href=""></a>        ax.scatter(xs, ys, s=dot_size, color=TEAL, zorder=3, edgecolor="none")</span>
+<span id="cb1-156"><a href=""></a></span>
+<span id="cb1-157"><a href=""></a>        if r &lt; 0.04:</span>
+<span id="cb1-158"><a href=""></a>            ax.scatter([0], [0], s=30, color="#e8e8e8", zorder=2)</span>
+<span id="cb1-159"><a href=""></a>        else:</span>
+<span id="cb1-160"><a href=""></a>            ax.annotate(</span>
+<span id="cb1-161"><a href=""></a>                "", xy=(r * np.cos(psi), r * np.sin(psi)), xytext=(0, 0),</span>
+<span id="cb1-162"><a href=""></a>                arrowprops=dict(arrowstyle="-|&gt;", color=ORANGE,</span>
+<span id="cb1-163"><a href=""></a>                                 linewidth=5, mutation_scale=25),</span>
+<span id="cb1-164"><a href=""></a>                zorder=4,</span>
+<span id="cb1-165"><a href=""></a>            )</span>
+<span id="cb1-166"><a href=""></a></span>
+<span id="cb1-167"><a href=""></a>        return fig</span>
+<span id="cb1-168"><a href=""></a></span>
+<span id="cb1-169"><a href=""></a>    @output</span>
+<span id="cb1-170"><a href=""></a>    @render.ui</span>
+<span id="cb1-171"><a href=""></a>    def r_readout():</span>
+<span id="cb1-172"><a href=""></a>        th = theta()</span>
+<span id="cb1-173"><a href=""></a>        r, _ = order_parameter(th)</span>
+<span id="cb1-174"><a href=""></a>        return ui.HTML(</span>
+<span id="cb1-175"><a href=""></a>            f"&lt;div style='font-size:2rem;color:{TEXT};margin-top:0.75rem;'&gt;"</span>
+<span id="cb1-176"><a href=""></a>            f"r &amp;asymp; &lt;strong&gt;{r:.2f}&lt;/strong&gt;&lt;/div&gt;"</span>
+<span id="cb1-177"><a href=""></a>        )</span>
+<span id="cb1-178"><a href=""></a></span>
+<span id="cb1-179"><a href=""></a></span>
+<span id="cb1-180"><a href=""></a>app = App(app_ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<aside class="notes">
+This is the live centrepiece itself – give the room’s attention to the K slider here rather than to the deck. See the previous slide’s notes for pacing. If you want to re-run it from scratch mid-talk, “New starting phases” reshuffles both the starting positions and the natural frequencies.
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="before">Before</h3>
+<svg viewbox="0 0 300 300" width="380" style="display:block;margin:0 auto;">
+<circle cx="150" cy="150" r="120" fill="none" stroke="#666" stroke-dasharray="4 4"></circle> <circle cx="150" cy="150" r="3" fill="#e8e8e8"></circle> <circle cx="267" cy="125" r="8" fill="#4fd1c5"></circle> <circle cx="181" cy="34" r="8" fill="#4fd1c5"></circle> <circle cx="61" cy="70" r="8" fill="#4fd1c5"></circle> <circle cx="31" cy="133" r="8" fill="#4fd1c5"></circle> <circle cx="46" cy="210" r="8" fill="#4fd1c5"></circle> <circle cx="119" cy="266" r="8" fill="#4fd1c5"></circle> <circle cx="206" cy="256" r="8" fill="#4fd1c5"></circle> <circle cx="259" cy="201" r="8" fill="#4fd1c5"></circle>
+</svg>
+<p>Eight independent phases, scattered.<br>
+Order parameter <em>r</em> ≈ 0.</p>
+<aside class="notes">
+Each dot is one oscillator’s phase, plotted on the unit circle in the complex plane. Scattered around the circle -&gt; their average (the order parameter) sits near the centre -&gt; r close to 0 -&gt; no synchrony. This is the metronomes/fireflies/applause before they fall into step.
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="after">After</h3>
+<svg viewbox="0 0 300 300" width="380" style="display:block;margin:0 auto;">
+<circle cx="150" cy="150" r="120" fill="none" stroke="#666" stroke-dasharray="4 4"></circle> <line x1="150" y1="150" x2="228" y2="72" stroke="#f6ad55" stroke-width="5" marker-end="url(#arrow)"></line> <circle cx="248" cy="81" r="7" fill="#4fd1c5"></circle> <circle cx="242" cy="73" r="7" fill="#4fd1c5"></circle> <circle cx="239" cy="70" r="7" fill="#4fd1c5"></circle> <circle cx="235" cy="65" r="7" fill="#4fd1c5"></circle> <circle cx="232" cy="62" r="7" fill="#4fd1c5"></circle> <circle cx="227" cy="58" r="7" fill="#4fd1c5"></circle> <circle cx="222" cy="54" r="7" fill="#4fd1c5"></circle> <circle cx="214" cy="48" r="7" fill="#4fd1c5"></circle> <defs> <marker id="arrow" markerwidth="10" markerheight="10" refx="6" refy="3" orient="auto"> <path d="M0,0 L6,3 L0,6 Z" fill="#f6ad55"></path> </marker> </defs>
+</svg>
+<p>Eight phases, locked together.<br>
+Order parameter <em>r</em> ≈ 0.95.</p>
+<aside class="notes">
+Same eight oscillators, now clustered at nearly the same phase. Their average – the bold arrow – now reaches almost to the edge of the circle. r near 1: synchrony. Connect verbally back to the metronomes on the table: same mathematics, two different machines.
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<div class="r-fit-text">
+<p>Similar synchrony.</p>
+<p>Multiple different systems.</p>
+</div>
+<aside class="notes">
+Point back at the physical metronomes on the table – ticking in step now, if the timing has worked. Leave slack in this whole centrepiece section; live demos are where talks go long, and that’s fine here.
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="but-its-maths-week-scotland" class="slide level2 center">
+<h2>But it’s Maths Week Scotland!</h2>
+<aside class="notes">
+18:00-25:00 – WIDEN THE LENS. Zoom out from the demo to why this is a maths degree, not a party trick. Make each of the next four beats personal and quick, not a module list.
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="diffeq">Differential equations</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-engine="python"><pre class="sourceCode numberSource shinylive-python number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href=""></a>#| '!! shinylive warning !!': |</span>
+<span id="cb2-2"><a href=""></a>#|   shinylive does not work in self-contained HTML documents.</span>
+<span id="cb2-3"><a href=""></a>#|   Please set `embed-resources: false` in your metadata.</span>
+<span id="cb2-4"><a href=""></a>#| standalone: true</span>
+<span id="cb2-5"><a href=""></a>#| components: [viewer]</span>
+<span id="cb2-6"><a href=""></a>#| viewerHeight: 260</span>
+<span id="cb2-7"><a href=""></a></span>
+<span id="cb2-8"><a href=""></a>## file: app.py</span>
+<span id="cb2-9"><a href=""></a>import numpy as np</span>
+<span id="cb2-10"><a href=""></a>import matplotlib.pyplot as plt</span>
+<span id="cb2-11"><a href=""></a></span>
+<span id="cb2-12"><a href=""></a>from shiny import App, Inputs, Outputs, Session, reactive, render, ui</span>
+<span id="cb2-13"><a href=""></a></span>
+<span id="cb2-14"><a href=""></a># ---------------------------------------------------------------------------</span>
+<span id="cb2-15"><a href=""></a># Small non-interactive companion to the "Sync Dial" simulator later in</span>
+<span id="cb2-16"><a href=""></a># this deck (see that slide's comment for the full model writeup -- same</span>
+<span id="cb2-17"><a href=""></a># Kuramoto model, same visual language: dashed unit circle, teal</span>
+<span id="cb2-18"><a href=""></a># oscillators, orange order-parameter arrow). Stripped of every control</span>
+<span id="cb2-19"><a href=""></a># and sized to sit in the corner of this slide, so there's a real system</span>
+<span id="cb2-20"><a href=""></a># of equations visibly running right next to the equation that describes</span>
+<span id="cb2-21"><a href=""></a># it while the presenter talks through the maths. Fixed at a small,</span>
+<span id="cb2-22"><a href=""></a># comfortably sub-critical coupling (see the bifurcation slide later for</span>
+<span id="cb2-23"><a href=""></a># the full K_c curve) so the phases keep drifting in and out of loose</span>
+<span id="cb2-24"><a href=""></a># alignment rather than settling -- the actual locking moment is saved</span>
+<span id="cb2-25"><a href=""></a># for the Sync Dial a few slides on.</span>
+<span id="cb2-26"><a href=""></a># ---------------------------------------------------------------------------</span>
+<span id="cb2-27"><a href=""></a></span>
+<span id="cb2-28"><a href=""></a>N = 8</span>
+<span id="cb2-29"><a href=""></a>DT = 0.01</span>
+<span id="cb2-30"><a href=""></a>TICK_INTERVAL = 0.045</span>
+<span id="cb2-31"><a href=""></a>OMEGA_MEAN = 1.1</span>
+<span id="cb2-32"><a href=""></a>SPREAD = 0.7</span>
+<span id="cb2-33"><a href=""></a>K_FIXED = 0.2</span>
+<span id="cb2-34"><a href=""></a></span>
+<span id="cb2-35"><a href=""></a>CIRCLE_GREY = "#666666"</span>
+<span id="cb2-36"><a href=""></a>TEAL = "#4fd1c5"</span>
+<span id="cb2-37"><a href=""></a>ORANGE = "#f6ad55"</span>
+<span id="cb2-38"><a href=""></a></span>
+<span id="cb2-39"><a href=""></a></span>
+<span id="cb2-40"><a href=""></a>def kuramoto_step(theta, omega, K, dt):</span>
+<span id="cb2-41"><a href=""></a>    n = len(theta)</span>
+<span id="cb2-42"><a href=""></a>    diff = theta[None, :] - theta[:, None]  # theta_j - theta_i</span>
+<span id="cb2-43"><a href=""></a>    coupling = (K / n) * np.sin(diff).sum(axis=1)</span>
+<span id="cb2-44"><a href=""></a>    return theta + (omega + coupling) * dt</span>
+<span id="cb2-45"><a href=""></a></span>
+<span id="cb2-46"><a href=""></a></span>
+<span id="cb2-47"><a href=""></a>def order_parameter(theta):</span>
+<span id="cb2-48"><a href=""></a>    z = np.mean(np.exp(1j * theta))</span>
+<span id="cb2-49"><a href=""></a>    return abs(z), np.angle(z)</span>
+<span id="cb2-50"><a href=""></a></span>
+<span id="cb2-51"><a href=""></a></span>
+<span id="cb2-52"><a href=""></a>rng = np.random.default_rng()</span>
+<span id="cb2-53"><a href=""></a>_theta0 = rng.uniform(0, 2 * np.pi, N)</span>
+<span id="cb2-54"><a href=""></a>_lo = max(0.02, OMEGA_MEAN - SPREAD)</span>
+<span id="cb2-55"><a href=""></a>_hi = OMEGA_MEAN + SPREAD</span>
+<span id="cb2-56"><a href=""></a>OMEGA = rng.uniform(_lo, _hi, N)  # fixed for the app's whole life -- only</span>
+<span id="cb2-57"><a href=""></a># theta evolves, so it's a plain closure variable rather than a second</span>
+<span id="cb2-58"><a href=""></a># reactive.value with nothing left to make it reactive.</span>
+<span id="cb2-59"><a href=""></a></span>
+<span id="cb2-60"><a href=""></a>app_ui = ui.page_fluid(</span>
+<span id="cb2-61"><a href=""></a>    ui.output_plot("mini_plot", height="240px"),</span>
+<span id="cb2-62"><a href=""></a>    ui.tags.style("""</span>
+<span id="cb2-63"><a href=""></a>        body { background-color: #191919 !important; margin: 0; padding: 0; }</span>
+<span id="cb2-64"><a href=""></a>        .container-fluid { padding: 0 !important; margin: 0 !important; }</span>
+<span id="cb2-65"><a href=""></a>    """),</span>
+<span id="cb2-66"><a href=""></a>)</span>
+<span id="cb2-67"><a href=""></a></span>
+<span id="cb2-68"><a href=""></a></span>
+<span id="cb2-69"><a href=""></a>def server(input: Inputs, output: Outputs, session: Session):</span>
+<span id="cb2-70"><a href=""></a>    theta = reactive.value(_theta0)</span>
+<span id="cb2-71"><a href=""></a></span>
+<span id="cb2-72"><a href=""></a>    # Timer-driven animation. theta is both read and written here -- read</span>
+<span id="cb2-73"><a href=""></a>    # via reactive.isolate() so this effect's only re-trigger source is</span>
+<span id="cb2-74"><a href=""></a>    # its own invalidate_later call (see the "Sync Dial" slide's comment</span>
+<span id="cb2-75"><a href=""></a>    # for the self-triggering bug this avoids).</span>
+<span id="cb2-76"><a href=""></a>    @reactive.effect</span>
+<span id="cb2-77"><a href=""></a>    def _tick():</span>
+<span id="cb2-78"><a href=""></a>        reactive.invalidate_later(TICK_INTERVAL)</span>
+<span id="cb2-79"><a href=""></a>        with reactive.isolate():</span>
+<span id="cb2-80"><a href=""></a>            th = theta()</span>
+<span id="cb2-81"><a href=""></a>        theta.set(kuramoto_step(th, OMEGA, K_FIXED, DT))</span>
+<span id="cb2-82"><a href=""></a></span>
+<span id="cb2-83"><a href=""></a>    @output</span>
+<span id="cb2-84"><a href=""></a>    @render.plot</span>
+<span id="cb2-85"><a href=""></a>    def mini_plot():</span>
+<span id="cb2-86"><a href=""></a>        th = theta()</span>
+<span id="cb2-87"><a href=""></a>        r, psi = order_parameter(th)</span>
+<span id="cb2-88"><a href=""></a></span>
+<span id="cb2-89"><a href=""></a>        fig, ax = plt.subplots(figsize=(2.6, 2.6))</span>
+<span id="cb2-90"><a href=""></a>        fig.patch.set_alpha(0)</span>
+<span id="cb2-91"><a href=""></a>        ax.set_facecolor("none")</span>
+<span id="cb2-92"><a href=""></a>        ax.set_xlim(-1.35, 1.35)</span>
+<span id="cb2-93"><a href=""></a>        ax.set_ylim(-1.35, 1.35)</span>
+<span id="cb2-94"><a href=""></a>        ax.set_aspect("equal")</span>
+<span id="cb2-95"><a href=""></a>        ax.axis("off")</span>
+<span id="cb2-96"><a href=""></a></span>
+<span id="cb2-97"><a href=""></a>        circle = plt.Circle((0, 0), 1, fill=False, edgecolor=CIRCLE_GREY,</span>
+<span id="cb2-98"><a href=""></a>                             linestyle="--", linewidth=1.2)</span>
+<span id="cb2-99"><a href=""></a>        ax.add_patch(circle)</span>
+<span id="cb2-100"><a href=""></a></span>
+<span id="cb2-101"><a href=""></a>        xs, ys = np.cos(th), np.sin(th)</span>
+<span id="cb2-102"><a href=""></a>        ax.scatter(xs, ys, s=70, color=TEAL, zorder=3, edgecolor="none")</span>
+<span id="cb2-103"><a href=""></a></span>
+<span id="cb2-104"><a href=""></a>        if r &lt; 0.04:</span>
+<span id="cb2-105"><a href=""></a>            ax.scatter([0], [0], s=20, color="#e8e8e8", zorder=2)</span>
+<span id="cb2-106"><a href=""></a>        else:</span>
+<span id="cb2-107"><a href=""></a>            ax.annotate(</span>
+<span id="cb2-108"><a href=""></a>                "", xy=(r * np.cos(psi), r * np.sin(psi)), xytext=(0, 0),</span>
+<span id="cb2-109"><a href=""></a>                arrowprops=dict(arrowstyle="-|&gt;", color=ORANGE,</span>
+<span id="cb2-110"><a href=""></a>                                 linewidth=4, mutation_scale=18),</span>
+<span id="cb2-111"><a href=""></a>                zorder=4,</span>
+<span id="cb2-112"><a href=""></a>            )</span>
+<span id="cb2-113"><a href=""></a></span>
+<span id="cb2-114"><a href=""></a>        return fig</span>
+<span id="cb2-115"><a href=""></a></span>
+<span id="cb2-116"><a href=""></a></span>
+<span id="cb2-117"><a href=""></a>app = App(app_ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The metronomes’ motion can be described by a system of them:</p>
+<p><span class="math display">\[\frac{d\theta_i}{dt} = \omega_i + \frac{K}{N}\sum_{j=1}^{N} \sin(\theta_j - \theta_i)\]</span></p>
+<aside class="notes">
+This is the equation the demo was running – and the little panel top right is that same system running live right now, no controls, fixed below the critical coupling so it keeps drifting rather than settling. Pause here and point at the moving dots: each one <em>is</em> a theta_i(t), and what you’re watching is this equation being numerically integrated in real time. How fast oscillator i’s phase moves – its own natural rhythm omega_i, plus a pull from everyone else, strength K. Frame the equation itself as “here’s the four-line description of what you just watched a few slides ago,” not a thing to be understood, just recognised.
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="complex-analysis">Complex analysis</h3>
+<p>The order parameter <em>r</em> you just watched <em>is</em> a complex number – its size is “how in sync,” its angle is “the shared rhythm.”</p>
+<p><span class="math display">\[r\,e^{i\psi} = \frac{1}{N}\sum_{j=1}^{N} e^{i\theta_j}\]</span></p>
+<svg id="complex-analysis-diagram" xlink="http://www.w3.org/1999/xlink" width="420" height="420" viewbox="0 0 295.488 295.488" xmlns="http://www.w3.org/2000/svg" version="1.1" style="display:block;margin:0 auto;">
+<metadata> <rdf:rdf xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"> <cc:work> <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type> <dc:date>2026-09-22T17:51:06.594512</dc:date> <dc:format>image/svg+xml</dc:format> <dc:creator> <cc:agent> <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title> </cc:agent> </dc:creator> </cc:work> </rdf:rdf> </metadata> <defs> <style type="text/css">#complex-analysis-diagram *{stroke-linejoin: round; stroke-linecap: butt}</style> </defs> <g id="figure_1"> <g id="patch_1"> <path d="M -0 295.488 
+L 295.488 295.488 
+L 295.488 0 
+L -0 0 
+L -0 295.488 
+z
+" style="fill: none; opacity: 0"></path> </g> <g id="axes_1"> <g id="patch_2"> <path d="M 147.744 240.740129 
+C 172.406862 240.740129 196.062917 230.94147 213.502193 213.502193 
+C 230.94147 196.062917 240.740129 172.406862 240.740129 147.744 
+C 240.740129 123.081138 230.94147 99.425083 213.502193 81.985807 
+C 196.062917 64.54653 172.406862 54.747871 147.744 54.747871 
+C 123.081138 54.747871 99.425083 64.54653 81.985807 81.985807 
+C 64.54653 99.425083 54.747871 123.081138 54.747871 147.744 
+C 54.747871 172.406862 64.54653 196.062917 81.985807 213.502193 
+C 99.425083 230.94147 123.081138 240.740129 147.744 240.740129 
+L 147.744 240.740129 
+z
+" clip-path="url(#pcac54476ef)" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #666666; stroke-width: 1.2; stroke-linejoin: miter"></path> </g> <g id="line2d_1"> <path d="M 147.744 147.744 
+L 287.238194 147.744 
+" clip-path="url(#pcac54476ef)" style="fill: none; stroke-dasharray: 0.9,1.8; stroke-dashoffset: 0; stroke: #555555; stroke-width: 0.9"></path> </g> <g id="line2d_2"> <path d="M 147.744 147.744 
+L 237.849105 124.736389 
+" clip-path="url(#pcac54476ef)" style="fill: none; stroke: #555555; stroke-width: 0.8; stroke-linecap: square"></path> </g> <g id="line2d_3"> <path d="M 147.744 147.744 
+L 209.119878 77.877831 
+" clip-path="url(#pcac54476ef)" style="fill: none; stroke: #555555; stroke-width: 0.8; stroke-linecap: square"></path> </g> <g id="line2d_4"> <path d="M 147.744 147.744 
+L 168.110774 57.005505 
+" clip-path="url(#pcac54476ef)" style="fill: none; stroke: #555555; stroke-width: 0.8; stroke-linecap: square"></path> </g> <g id="line2d_5"> <path d="M 147.744 147.744 
+L 237.849105 170.751611 
+" clip-path="url(#pcac54476ef)" style="fill: none; stroke: #555555; stroke-width: 0.8; stroke-linecap: square"></path> </g> <g id="line2d_6"> <path d="M 147.744 147.744 
+L 122.115174 58.349127 
+" clip-path="url(#pcac54476ef)" style="fill: none; stroke: #555555; stroke-width: 0.8; stroke-linecap: square"></path> </g> <g id="line2d_7"> <path d="M 147.744 147.744 
+L 221.776712 204.023993 
+" clip-path="url(#pcac54476ef)" style="fill: none; stroke: #555555; stroke-width: 0.8; stroke-linecap: square"></path> </g> <g id="PathCollection_1"> <path d="M 237.849105 128.609373 
+C 238.876232 128.609373 239.861429 128.201291 240.587717 127.475002 
+C 241.314006 126.748714 241.722088 125.763517 241.722088 124.736389 
+C 241.722088 123.709262 241.314006 122.724065 240.587717 121.997777 
+C 239.861429 121.271488 238.876232 120.863406 237.849105 120.863406 
+C 236.821977 120.863406 235.83678 121.271488 235.110492 121.997777 
+C 234.384203 122.724065 233.976121 123.709262 233.976121 124.736389 
+C 233.976121 125.763517 234.384203 126.748714 235.110492 127.475002 
+C 235.83678 128.201291 236.821977 128.609373 237.849105 128.609373 
+z
+" clip-path="url(#pcac54476ef)" style="fill: #4fd1c5"></path> </g> <g id="PathCollection_2"> <path d="M 209.119878 81.750814 
+C 210.147005 81.750814 211.132202 81.342732 211.858491 80.616443 
+C 212.584779 79.890155 212.992861 78.904958 212.992861 77.877831 
+C 212.992861 76.850703 212.584779 75.865506 211.858491 75.139218 
+C 211.132202 74.412929 210.147005 74.004847 209.119878 74.004847 
+C 208.092751 74.004847 207.107554 74.412929 206.381265 75.139218 
+C 205.654976 75.865506 205.246894 76.850703 205.246894 77.877831 
+C 205.246894 78.904958 205.654976 79.890155 206.381265 80.616443 
+C 207.107554 81.342732 208.092751 81.750814 209.119878 81.750814 
+z
+" clip-path="url(#pcac54476ef)" style="fill: #4fd1c5"></path> </g> <g id="PathCollection_3"> <path d="M 168.110774 60.878488 
+C 169.137901 60.878488 170.123098 60.470406 170.849387 59.744118 
+C 171.575676 59.017829 171.983757 58.032632 171.983757 57.005505 
+C 171.983757 55.978378 171.575676 54.993181 170.849387 54.266892 
+C 170.123098 53.540603 169.137901 53.132521 168.110774 53.132521 
+C 167.083647 53.132521 166.09845 53.540603 165.372161 54.266892 
+C 164.645873 54.993181 164.237791 55.978378 164.237791 57.005505 
+C 164.237791 58.032632 164.645873 59.017829 165.372161 59.744118 
+C 166.09845 60.470406 167.083647 60.878488 168.110774 60.878488 
+z
+" clip-path="url(#pcac54476ef)" style="fill: #4fd1c5"></path> </g> <g id="PathCollection_4"> <path d="M 237.849105 174.624594 
+C 238.876232 174.624594 239.861429 174.216512 240.587717 173.490223 
+C 241.314006 172.763935 241.722088 171.778738 241.722088 170.751611 
+C 241.722088 169.724483 241.314006 168.739286 240.587717 168.012998 
+C 239.861429 167.286709 238.876232 166.878627 237.849105 166.878627 
+C 236.821977 166.878627 235.83678 167.286709 235.110492 168.012998 
+C 234.384203 168.739286 233.976121 169.724483 233.976121 170.751611 
+C 233.976121 171.778738 234.384203 172.763935 235.110492 173.490223 
+C 235.83678 174.216512 236.821977 174.624594 237.849105 174.624594 
+z
+" clip-path="url(#pcac54476ef)" style="fill: #4fd1c5"></path> </g> <g id="PathCollection_5"> <path d="M 122.115174 62.222111 
+C 123.142301 62.222111 124.127498 61.814029 124.853787 61.08774 
+C 125.580075 60.361451 125.988157 59.376254 125.988157 58.349127 
+C 125.988157 57.322 125.580075 56.336803 124.853787 55.610514 
+C 124.127498 54.884226 123.142301 54.476144 122.115174 54.476144 
+C 121.088047 54.476144 120.10285 54.884226 119.376561 55.610514 
+C 118.650272 56.336803 118.242191 57.322 118.242191 58.349127 
+C 118.242191 59.376254 118.650272 60.361451 119.376561 61.08774 
+C 120.10285 61.814029 121.088047 62.222111 122.115174 62.222111 
+z
+" clip-path="url(#pcac54476ef)" style="fill: #4fd1c5"></path> </g> <g id="PathCollection_6"> <path d="M 221.776712 207.896976 
+C 222.803839 207.896976 223.789036 207.488894 224.515324 206.762606 
+C 225.241613 206.036317 225.649695 205.05112 225.649695 204.023993 
+C 225.649695 202.996866 225.241613 202.011669 224.515324 201.28538 
+C 223.789036 200.559092 222.803839 200.15101 221.776712 200.15101 
+C 220.749584 200.15101 219.764387 200.559092 219.038099 201.28538 
+C 218.31181 202.011669 217.903728 202.996866 217.903728 204.023993 
+C 217.903728 205.05112 218.31181 206.036317 219.038099 206.762606 
+C 219.764387 207.488894 220.749584 207.896976 221.776712 207.896976 
+z
+" clip-path="url(#pcac54476ef)" style="fill: #4fd1c5"></path> </g> <g id="PathCollection_7"> <defs> <path id="me48b719dbf" d="M 0 2.12132 
+C 0.562581 2.12132 1.102195 1.897805 1.5 1.5 
+C 1.897805 1.102195 2.12132 0.562581 2.12132 0 
+C 2.12132 -0.562581 1.897805 -1.102195 1.5 -1.5 
+C 1.102195 -1.897805 0.562581 -2.12132 0 -2.12132 
+C -0.562581 -2.12132 -1.102195 -1.897805 -1.5 -1.5 
+C -1.897805 -1.102195 -2.12132 -0.562581 -2.12132 0 
+C -2.12132 0.562581 -1.897805 1.102195 -1.5 1.5 
+C -1.102195 1.897805 -0.562581 2.12132 0 2.12132 
+z
+" style="stroke: #e8e8e8"></path> </defs> <g clip-path="url(#pcac54476ef)"> <use href="#me48b719dbf" x="147.744" y="147.744" style="fill: #e8e8e8; stroke: #e8e8e8"></use> </g> </g> <g id="text_1"> <!-- $\theta_1$ --> <g style="fill: #4fd1c5" transform="translate(257.672228 116.971121) scale(0.13 -0.13)"> <defs> <path id="DejaVuSans-Oblique-3b8" d="M 2913 2219 
+L 925 2219 
+Q 791 1284 928 888 
+Q 1100 400 1566 400 
+Q 2034 400 2391 891 
+Q 2703 1322 2913 2219 
+z
+M 3009 2750 
+Q 3094 3638 2984 3950 
+Q 2813 4444 2353 4444 
+Q 1875 4444 1525 3956 
+Q 1250 3563 1034 2750 
+L 3009 2750 
+z
+M 2444 4913 
+Q 3194 4913 3494 4250 
+Q 3794 3591 3566 2422 
+Q 3341 1256 2781 594 
+Q 2225 -72 1475 -72 
+Q 722 -72 425 594 
+Q 128 1256 353 2422 
+Q 581 3591 1134 4250 
+Q 1691 4913 2444 4913 
+z
+" transform="scale(0.015625)"></path> <path id="DejaVuSans-31" d="M 794 531 
+L 1825 531 
+L 1825 4091 
+L 703 3866 
+L 703 4441 
+L 1819 4666 
+L 2450 4666 
+L 2450 531 
+L 3481 531 
+L 3481 0 
+L 794 0 
+L 794 531 
+z
+" transform="scale(0.015625)"></path> </defs> <use href="#DejaVuSans-Oblique-3b8" transform="translate(0 0.234375)"></use> <use href="#DejaVuSans-31" transform="translate(61.181641 -16.171875) scale(0.7)"></use> </g> </g> <g id="text_2"> <!-- $\theta_2$ --> <g style="fill: #4fd1c5" transform="translate(222.622571 59.803679) scale(0.13 -0.13)"> <defs> <path id="DejaVuSans-32" d="M 1228 531 
+L 3431 531 
+L 3431 0 
+L 469 0 
+L 469 531 
+Q 828 903 1448 1529 
+Q 2069 2156 2228 2338 
+Q 2531 2678 2651 2914 
+Q 2772 3150 2772 3378 
+Q 2772 3750 2511 3984 
+Q 2250 4219 1831 4219 
+Q 1534 4219 1204 4116 
+Q 875 4013 500 3803 
+L 500 4441 
+Q 881 4594 1212 4672 
+Q 1544 4750 1819 4750 
+Q 2544 4750 2975 4387 
+Q 3406 4025 3406 3419 
+Q 3406 3131 3298 2873 
+Q 3191 2616 2906 2266 
+Q 2828 2175 2409 1742 
+Q 1991 1309 1228 531 
+z
+" transform="scale(0.015625)"></path> </defs> <use href="#DejaVuSans-Oblique-3b8" transform="translate(0 0.234375)"></use> <use href="#DejaVuSans-32" transform="translate(61.181641 -16.171875) scale(0.7)"></use> </g> </g> <g id="text_3"> <!-- $\theta_3$ --> <g style="fill: #4fd1c5" transform="translate(172.591464 34.339442) scale(0.13 -0.13)"> <defs> <path id="DejaVuSans-33" d="M 2597 2516 
+Q 3050 2419 3304 2112 
+Q 3559 1806 3559 1356 
+Q 3559 666 3084 287 
+Q 2609 -91 1734 -91 
+Q 1441 -91 1130 -33 
+Q 819 25 488 141 
+L 488 750 
+Q 750 597 1062 519 
+Q 1375 441 1716 441 
+Q 2309 441 2620 675 
+Q 2931 909 2931 1356 
+Q 2931 1769 2642 2001 
+Q 2353 2234 1838 2234 
+L 1294 2234 
+L 1294 2753 
+L 1863 2753 
+Q 2328 2753 2575 2939 
+Q 2822 3125 2822 3475 
+Q 2822 3834 2567 4026 
+Q 2313 4219 1838 4219 
+Q 1578 4219 1281 4162 
+Q 984 4106 628 3988 
+L 628 4550 
+Q 988 4650 1302 4700 
+Q 1616 4750 1894 4750 
+Q 2613 4750 3031 4423 
+Q 3450 4097 3450 3541 
+Q 3450 3153 3228 2886 
+Q 3006 2619 2597 2516 
+z
+" transform="scale(0.015625)"></path> </defs> <use href="#DejaVuSans-Oblique-3b8" transform="translate(0 0.234375)"></use> <use href="#DejaVuSans-33" transform="translate(61.181641 -16.171875) scale(0.7)"></use> </g> </g> <g id="text_4"> <!-- $\theta_4$ --> <g style="fill: #4fd1c5" transform="translate(257.672228 185.691254) scale(0.13 -0.13)"> <defs> <path id="DejaVuSans-34" d="M 2419 4116 
+L 825 1625 
+L 2419 1625 
+L 2419 4116 
+z
+M 2253 4666 
+L 3047 4666 
+L 3047 1625 
+L 3713 1625 
+L 3713 1100 
+L 3047 1100 
+L 3047 0 
+L 2419 0 
+L 2419 1100 
+L 313 1100 
+L 313 1709 
+L 2253 4666 
+z
+" transform="scale(0.015625)"></path> </defs> <use href="#DejaVuSans-Oblique-3b8" transform="translate(0 0.234375)"></use> <use href="#DejaVuSans-34" transform="translate(61.181641 -16.171875) scale(0.7)"></use> </g> </g> <g id="text_5"> <!-- $\theta_5$ --> <g style="fill: #4fd1c5" transform="translate(102.306832 35.978661) scale(0.13 -0.13)"> <defs> <path id="DejaVuSans-35" d="M 691 4666 
+L 3169 4666 
+L 3169 4134 
+L 1269 4134 
+L 1269 2991 
+Q 1406 3038 1543 3061 
+Q 1681 3084 1819 3084 
+Q 2600 3084 3056 2656 
+Q 3513 2228 3513 1497 
+Q 3513 744 3044 326 
+Q 2575 -91 1722 -91 
+Q 1428 -91 1123 -41 
+Q 819 9 494 109 
+L 494 744 
+Q 775 591 1075 516 
+Q 1375 441 1709 441 
+Q 2250 441 2565 725 
+Q 2881 1009 2881 1497 
+Q 2881 1984 2565 2268 
+Q 2250 2553 1709 2553 
+Q 1456 2553 1204 2497 
+Q 953 2441 691 2322 
+L 691 4666 
+z
+" transform="scale(0.015625)"></path> </defs> <use href="#DejaVuSans-Oblique-3b8" transform="translate(0 0.234375)"></use> <use href="#DejaVuSans-35" transform="translate(61.181641 -16.171875) scale(0.7)"></use> </g> </g> <g id="text_6"> <!-- $\theta_6$ --> <g style="fill: #4fd1c5" transform="translate(238.063908 226.28356) scale(0.13 -0.13)"> <defs> <path id="DejaVuSans-36" d="M 2113 2584 
+Q 1688 2584 1439 2293 
+Q 1191 2003 1191 1497 
+Q 1191 994 1439 701 
+Q 1688 409 2113 409 
+Q 2538 409 2786 701 
+Q 3034 994 3034 1497 
+Q 3034 2003 2786 2293 
+Q 2538 2584 2113 2584 
+z
+M 3366 4563 
+L 3366 3988 
+Q 3128 4100 2886 4159 
+Q 2644 4219 2406 4219 
+Q 1781 4219 1451 3797 
+Q 1122 3375 1075 2522 
+Q 1259 2794 1537 2939 
+Q 1816 3084 2150 3084 
+Q 2853 3084 3261 2657 
+Q 3669 2231 3669 1497 
+Q 3669 778 3244 343 
+Q 2819 -91 2113 -91 
+Q 1303 -91 875 529 
+Q 447 1150 447 2328 
+Q 447 3434 972 4092 
+Q 1497 4750 2381 4750 
+Q 2619 4750 2861 4703 
+Q 3103 4656 3366 4563 
+z
+" transform="scale(0.015625)"></path> </defs> <use href="#DejaVuSans-Oblique-3b8" transform="translate(0 0.234375)"></use> <use href="#DejaVuSans-36" transform="translate(61.181641 -16.171875) scale(0.7)"></use> </g> </g> <g id="patch_3"> <path d="M 186.802374 147.744 
+C 186.802374 144.105613 186.293987 140.485006 185.291974 136.987317 
+C 184.289962 133.489627 182.804118 130.149041 180.877589 127.062562 
+" clip-path="url(#pcac54476ef)" style="fill: none; stroke: #f6ad55; stroke-width: 1.6; stroke-linejoin: miter"></path> </g> <g id="patch_4"> <path d="M 149.439369 146.685779 
+Q 173.607363 131.600517 193.033163 119.475254 
+" style="fill: none; stroke: #f6ad55; stroke-width: 5; stroke-linecap: round"></path> <path d="M 181.902564 120.528714 
+L 193.033163 119.475254 
+L 187.197572 129.011809 
+z
+" style="fill: #f6ad55; stroke: #f6ad55; stroke-width: 5; stroke-linecap: round"></path> </g> <g id="text_7"> <!-- $r$ --> <g style="fill: #f6ad55" transform="translate(155.913084 124.713377) scale(0.2 -0.2)"> <defs> <path id="DejaVuSans-Oblique-72" d="M 2853 2969 
+Q 2766 3016 2653 3041 
+Q 2541 3066 2413 3066 
+Q 1953 3066 1609 2717 
+Q 1266 2369 1153 1784 
+L 800 0 
+L 225 0 
+L 909 3500 
+L 1484 3500 
+L 1375 2956 
+Q 1603 3259 1920 3421 
+Q 2238 3584 2597 3584 
+Q 2691 3584 2781 3573 
+Q 2872 3563 2963 3538 
+L 2853 2969 
+z
+" transform="scale(0.015625)"></path> </defs> <use href="#DejaVuSans-Oblique-72"></use> </g> </g> <g id="text_8"> <!-- $\psi$ --> <g style="fill: #f6ad55" transform="translate(199.01996 136.283176) scale(0.18 -0.18)"> <defs> <path id="DejaVuSans-Oblique-3c8" d="M 1591 -78 
+Q 891 38 616 341 
+Q 278 713 425 1472 
+L 819 3500 
+L 1400 3500 
+L 1009 1494 
+Q 900 922 1119 684 
+Q 1313 478 1691 434 
+L 2284 3500 
+L 2856 3500 
+L 2263 438 
+Q 2681 481 2928 688 
+Q 3247 950 3353 1497 
+L 3741 3500 
+L 4322 3500 
+L 3928 1475 
+Q 3775 688 3300 344 
+Q 2872 34 2163 -75 
+L 1919 -1331 
+L 1347 -1331 
+L 1591 -78 
+z
+" transform="scale(0.015625)"></path> </defs> <use href="#DejaVuSans-Oblique-3c8" transform="translate(0 0.3125)"></use> </g> </g> </g> </g> <defs> <clippath id="pcac54476ef"> <rect x="3.6" y="3.6" width="288.288" height="288.288"></rect> </clippath> </defs>
+</svg>
+<aside class="notes">
+r is literally the two “Before”/“After” diagrams from a few slides back, written as one complex number: its size <em>r</em> is how clustered the phases are, its angle psi is the shared rhythm they’ve locked onto. The schematic above makes both pieces of the equation visible at once: each theta_j is one dot’s angle on the unit circle, and r e^(i psi) – the orange arrow – is their average as a single complex number, with its own length r and angle psi.
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="dynamical-systems-bifurcation">Dynamical systems &amp; bifurcation</h3>
+<p>Below a critical coupling strength, synchrony never happens.<br>
+Above it, it suddenly does.<br>
+That sudden flip has a name: a bifurcation.</p>
+<svg id="bifurcation-diagram" xlink="http://www.w3.org/1999/xlink" width="620" height="396" viewbox="0 0 518.4 331.2" xmlns="http://www.w3.org/2000/svg" version="1.1" style="display:block;margin:0 auto;">
+<metadata> <rdf:rdf xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"> <cc:work> <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type> <dc:date>2026-09-22T15:43:58.948678</dc:date> <dc:format>image/svg+xml</dc:format> <dc:creator> <cc:agent> <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title> </cc:agent> </dc:creator> </cc:work> </rdf:rdf> </metadata> <defs> <style type="text/css">#bifurcation-diagram *{stroke-linejoin: round; stroke-linecap: butt}</style> </defs> <g id="figure_1"> <g id="patch_1"> <path d="M 0 331.2 
+L 518.4 331.2 
+L 518.4 0 
+L 0 0 
+L 0 331.2 
+z
+" style="fill: none; opacity: 0"></path> </g> <g id="axes_1"> <g id="patch_2"> <path d="M 55.01 282.76 
+L 504.135 282.76 
+L 504.135 10.8 
+L 55.01 10.8 
+L 55.01 282.76 
+z
+" style="fill: none"></path> </g> <g id="FillBetweenPolyCollection_1"> <defs> <path id="m9208bce3ef" d="M 55.01 -76.905046 
+L 55.01 -66.265364 
+L 69.045156 -66.453871 
+L 83.080313 -63.330129 
+L 97.115469 -63.705718 
+L 111.150625 -88.532876 
+L 125.185781 -59.329719 
+L 139.220938 -93.24426 
+L 153.256094 -179.82572 
+L 167.29125 -274.155904 
+L 181.326406 -284.361047 
+L 195.361563 -289.990902 
+L 209.396719 -293.634207 
+L 223.431875 -296.182922 
+L 237.467031 -298.056072 
+L 251.502188 -299.481978 
+L 265.537344 -300.596913 
+L 279.5725 -301.487513 
+L 293.607656 -302.211508 
+L 307.642813 -302.808806 
+L 321.677969 -303.307834 
+L 335.713125 -303.729347 
+L 349.748281 -304.088819 
+L 363.783438 -304.397999 
+L 377.818594 -304.665952 
+L 391.85375 -304.899766 
+L 405.888906 -305.105055 
+L 419.924063 -305.286316 
+L 433.959219 -305.447185 
+L 447.994375 -305.590633 
+L 462.029531 -305.719102 
+L 476.064688 -305.834621 
+L 490.099844 -305.938883 
+L 504.135 -306.033312 
+L 504.135 -306.120441 
+L 504.135 -306.120441 
+L 490.099844 -306.03191 
+L 476.064688 -305.934174 
+L 462.029531 -305.825902 
+L 447.994375 -305.705512 
+L 433.959219 -305.571111 
+L 419.924063 -305.420419 
+L 405.888906 -305.250667 
+L 391.85375 -305.058465 
+L 377.818594 -304.839626 
+L 363.783438 -304.588925 
+L 349.748281 -304.299773 
+L 335.713125 -303.963757 
+L 321.677969 -303.569981 
+L 307.642813 -303.104125 
+L 293.607656 -302.547017 
+L 279.5725 -301.872471 
+L 265.537344 -301.043841 
+L 251.502188 -300.008344 
+L 237.467031 -298.687226 
+L 223.431875 -296.957602 
+L 209.396719 -294.616048 
+L 195.361563 -291.296392 
+L 181.326406 -286.24658 
+L 167.29125 -277.470645 
+L 153.256094 -237.657111 
+L 139.220938 -181.761488 
+L 125.185781 -146.978721 
+L 111.150625 -117.320763 
+L 97.115469 -106.963514 
+L 83.080313 -93.775654 
+L 69.045156 -83.762475 
+L 55.01 -76.905046 
+z
+"></path> </defs> <g clip-path="url(#p38c39a8ab9)"> <use href="#m9208bce3ef" x="0" y="331.2" style="fill: #4fd1c5; fill-opacity: 0.18"></use> </g> </g> <g id="matplotlib.axis_1"> <g id="xtick_1"> <g id="line2d_1"> <defs> <path id="m15b98c9cd3" d="M 0 0 
+L 0 3.5 
+" style="stroke: #888888; stroke-width: 0.8"></path> </defs> <g> <use href="#m15b98c9cd3" x="55.01" y="282.76" style="fill: #888888; stroke: #888888; stroke-width: 0.8"></use> </g> </g> <g id="text_1"> <!-- 0 --> <g style="fill: #888888" transform="translate(51.510625 298.118281) scale(0.11 -0.11)"> <defs> <path id="DejaVuSans-30" d="M 2034 4250 
+Q 1547 4250 1301 3770 
+Q 1056 3291 1056 2328 
+Q 1056 1369 1301 889 
+Q 1547 409 2034 409 
+Q 2525 409 2770 889 
+Q 3016 1369 3016 2328 
+Q 3016 3291 2770 3770 
+Q 2525 4250 2034 4250 
+z
+M 2034 4750 
+Q 2819 4750 3233 4129 
+Q 3647 3509 3647 2328 
+Q 3647 1150 3233 529 
+Q 2819 -91 2034 -91 
+Q 1250 -91 836 529 
+Q 422 1150 422 2328 
+Q 422 3509 836 4129 
+Q 1250 4750 2034 4750 
+z
+" transform="scale(0.015625)"></path> </defs> <use href="#DejaVuSans-30"></use> </g> </g> </g> <g id="xtick_2"> <g id="line2d_2"> <g> <use href="#m15b98c9cd3" x="167.29125" y="282.76" style="fill: #888888; stroke: #888888; stroke-width: 0.8"></use> </g> </g> <g id="text_2"> <!-- 1 --> <g style="fill: #888888" transform="translate(163.791875 298.118281) scale(0.11 -0.11)"> <defs> <path id="DejaVuSans-31" d="M 794 531 
+L 1825 531 
+L 1825 4091 
+L 703 3866 
+L 703 4441 
+L 1819 4666 
+L 2450 4666 
+L 2450 531 
+L 3481 531 
+L 3481 0 
+L 794 0 
+L 794 531 
+z
+" transform="scale(0.015625)"></path> </defs> <use href="#DejaVuSans-31"></use> </g> </g> </g> <g id="xtick_3"> <g id="line2d_3"> <g> <use href="#m15b98c9cd3" x="279.5725" y="282.76" style="fill: #888888; stroke: #888888; stroke-width: 0.8"></use> </g> </g> <g id="text_3"> <!-- 2 --> <g style="fill: #888888" transform="translate(276.073125 298.118281) scale(0.11 -0.11)"> <defs> <path id="DejaVuSans-32" d="M 1228 531 
+L 3431 531 
+L 3431 0 
+L 469 0 
+L 469 531 
+Q 828 903 1448 1529 
+Q 2069 2156 2228 2338 
+Q 2531 2678 2651 2914 
+Q 2772 3150 2772 3378 
+Q 2772 3750 2511 3984 
+Q 2250 4219 1831 4219 
+Q 1534 4219 1204 4116 
+Q 875 4013 500 3803 
+L 500 4441 
+Q 881 4594 1212 4672 
+Q 1544 4750 1819 4750 
+Q 2544 4750 2975 4387 
+Q 3406 4025 3406 3419 
+Q 3406 3131 3298 2873 
+Q 3191 2616 2906 2266 
+Q 2828 2175 2409 1742 
+Q 1991 1309 1228 531 
+z
+" transform="scale(0.015625)"></path> </defs> <use href="#DejaVuSans-32"></use> </g> </g> </g> <g id="xtick_4"> <g id="line2d_4"> <g> <use href="#m15b98c9cd3" x="391.85375" y="282.76" style="fill: #888888; stroke: #888888; stroke-width: 0.8"></use> </g> </g> <g id="text_4"> <!-- 3 --> <g style="fill: #888888" transform="translate(388.354375 298.118281) scale(0.11 -0.11)"> <defs> <path id="DejaVuSans-33" d="M 2597 2516 
+Q 3050 2419 3304 2112 
+Q 3559 1806 3559 1356 
+Q 3559 666 3084 287 
+Q 2609 -91 1734 -91 
+Q 1441 -91 1130 -33 
+Q 819 25 488 141 
+L 488 750 
+Q 750 597 1062 519 
+Q 1375 441 1716 441 
+Q 2309 441 2620 675 
+Q 2931 909 2931 1356 
+Q 2931 1769 2642 2001 
+Q 2353 2234 1838 2234 
+L 1294 2234 
+L 1294 2753 
+L 1863 2753 
+Q 2328 2753 2575 2939 
+Q 2822 3125 2822 3475 
+Q 2822 3834 2567 4026 
+Q 2313 4219 1838 4219 
+Q 1578 4219 1281 4162 
+Q 984 4106 628 3988 
+L 628 4550 
+Q 988 4650 1302 4700 
+Q 1616 4750 1894 4750 
+Q 2613 4750 3031 4423 
+Q 3450 4097 3450 3541 
+Q 3450 3153 3228 2886 
+Q 3006 2619 2597 2516 
+z
+" transform="scale(0.015625)"></path> </defs> <use href="#DejaVuSans-33"></use> </g> </g> </g> <g id="xtick_5"> <g id="line2d_5"> <g> <use href="#m15b98c9cd3" x="504.135" y="282.76" style="fill: #888888; stroke: #888888; stroke-width: 0.8"></use> </g> </g> <g id="text_5"> <!-- 4 --> <g style="fill: #888888" transform="translate(500.635625 298.118281) scale(0.11 -0.11)"> <defs> <path id="DejaVuSans-34" d="M 2419 4116 
+L 825 1625 
+L 2419 1625 
+L 2419 4116 
+z
+M 2253 4666 
+L 3047 4666 
+L 3047 1625 
+L 3713 1625 
+L 3713 1100 
+L 3047 1100 
+L 3047 0 
+L 2419 0 
+L 2419 1100 
+L 313 1100 
+L 313 1709 
+L 2253 4666 
+z
+" transform="scale(0.015625)"></path> </defs> <use href="#DejaVuSans-34"></use> </g> </g> </g> <g id="text_6"> <!-- Coupling strength  $K$ --> <g style="fill: #e8e8e8" transform="translate(212.9475 314.285937) scale(0.13 -0.13)"> <defs> <path id="DejaVuSans-43" d="M 4122 4306 
+L 4122 3641 
+Q 3803 3938 3442 4084 
+Q 3081 4231 2675 4231 
+Q 1875 4231 1450 3742 
+Q 1025 3253 1025 2328 
+Q 1025 1406 1450 917 
+Q 1875 428 2675 428 
+Q 3081 428 3442 575 
+Q 3803 722 4122 1019 
+L 4122 359 
+Q 3791 134 3420 21 
+Q 3050 -91 2638 -91 
+Q 1578 -91 968 557 
+Q 359 1206 359 2328 
+Q 359 3453 968 4101 
+Q 1578 4750 2638 4750 
+Q 3056 4750 3426 4639 
+Q 3797 4528 4122 4306 
+z
+" transform="scale(0.015625)"></path> <path id="DejaVuSans-6f" d="M 1959 3097 
+Q 1497 3097 1228 2736 
+Q 959 2375 959 1747 
+Q 959 1119 1226 758 
+Q 1494 397 1959 397 
+Q 2419 397 2687 759 
+Q 2956 1122 2956 1747 
+Q 2956 2369 2687 2733 
+Q 2419 3097 1959 3097 
+z
+M 1959 3584 
+Q 2709 3584 3137 3096 
+Q 3566 2609 3566 1747 
+Q 3566 888 3137 398 
+Q 2709 -91 1959 -91 
+Q 1206 -91 779 398 
+Q 353 888 353 1747 
+Q 353 2609 779 3096 
+Q 1206 3584 1959 3584 
+z
+" transform="scale(0.015625)"></path> <path id="DejaVuSans-75" d="M 544 1381 
+L 544 3500 
+L 1119 3500 
+L 1119 1403 
+Q 1119 906 1312 657 
+Q 1506 409 1894 409 
+Q 2359 409 2629 706 
+Q 2900 1003 2900 1516 
+L 2900 3500 
+L 3475 3500 
+L 3475 0 
+L 2900 0 
+L 2900 538 
+Q 2691 219 2414 64 
+Q 2138 -91 1772 -91 
+Q 1169 -91 856 284 
+Q 544 659 544 1381 
+z
+M 1991 3584 
+L 1991 3584 
+z
+" transform="scale(0.015625)"></path> <path id="DejaVuSans-70" d="M 1159 525 
+L 1159 -1331 
+L 581 -1331 
+L 581 3500 
+L 1159 3500 
+L 1159 2969 
+Q 1341 3281 1617 3432 
+Q 1894 3584 2278 3584 
+Q 2916 3584 3314 3078 
+Q 3713 2572 3713 1747 
+Q 3713 922 3314 415 
+Q 2916 -91 2278 -91 
+Q 1894 -91 1617 61 
+Q 1341 213 1159 525 
+z
+M 3116 1747 
+Q 3116 2381 2855 2742 
+Q 2594 3103 2138 3103 
+Q 1681 3103 1420 2742 
+Q 1159 2381 1159 1747 
+Q 1159 1113 1420 752 
+Q 1681 391 2138 391 
+Q 2594 391 2855 752 
+Q 3116 1113 3116 1747 
+z
+" transform="scale(0.015625)"></path> <path id="DejaVuSans-6c" d="M 603 4863 
+L 1178 4863 
+L 1178 0 
+L 603 0 
+L 603 4863 
+z
+" transform="scale(0.015625)"></path> <path id="DejaVuSans-69" d="M 603 3500 
+L 1178 3500 
+L 1178 0 
+L 603 0 
+L 603 3500 
+z
+M 603 4863 
+L 1178 4863 
+L 1178 4134 
+L 603 4134 
+L 603 4863 
+z
+" transform="scale(0.015625)"></path> <path id="DejaVuSans-6e" d="M 3513 2113 
+L 3513 0 
+L 2938 0 
+L 2938 2094 
+Q 2938 2591 2744 2837 
+Q 2550 3084 2163 3084 
+Q 1697 3084 1428 2787 
+Q 1159 2491 1159 1978 
+L 1159 0 
+L 581 0 
+L 581 3500 
+L 1159 3500 
+L 1159 2956 
+Q 1366 3272 1645 3428 
+Q 1925 3584 2291 3584 
+Q 2894 3584 3203 3211 
+Q 3513 2838 3513 2113 
+z
+" transform="scale(0.015625)"></path> <path id="DejaVuSans-67" d="M 2906 1791 
+Q 2906 2416 2648 2759 
+Q 2391 3103 1925 3103 
+Q 1463 3103 1205 2759 
+Q 947 2416 947 1791 
+Q 947 1169 1205 825 
+Q 1463 481 1925 481 
+Q 2391 481 2648 825 
+Q 2906 1169 2906 1791 
+z
+M 3481 434 
+Q 3481 -459 3084 -895 
+Q 2688 -1331 1869 -1331 
+Q 1566 -1331 1297 -1286 
+Q 1028 -1241 775 -1147 
+L 775 -588 
+Q 1028 -725 1275 -790 
+Q 1522 -856 1778 -856 
+Q 2344 -856 2625 -561 
+Q 2906 -266 2906 331 
+L 2906 616 
+Q 2728 306 2450 153 
+Q 2172 0 1784 0 
+Q 1141 0 747 490 
+Q 353 981 353 1791 
+Q 353 2603 747 3093 
+Q 1141 3584 1784 3584 
+Q 2172 3584 2450 3431 
+Q 2728 3278 2906 2969 
+L 2906 3500 
+L 3481 3500 
+L 3481 434 
+z
+" transform="scale(0.015625)"></path> <path id="DejaVuSans-20" transform="scale(0.015625)"></path> <path id="DejaVuSans-73" d="M 2834 3397 
+L 2834 2853 
+Q 2591 2978 2328 3040 
+Q 2066 3103 1784 3103 
+Q 1356 3103 1142 2972 
+Q 928 2841 928 2578 
+Q 928 2378 1081 2264 
+Q 1234 2150 1697 2047 
+L 1894 2003 
+Q 2506 1872 2764 1633 
+Q 3022 1394 3022 966 
+Q 3022 478 2636 193 
+Q 2250 -91 1575 -91 
+Q 1294 -91 989 -36 
+Q 684 19 347 128 
+L 347 722 
+Q 666 556 975 473 
+Q 1284 391 1588 391 
+Q 1994 391 2212 530 
+Q 2431 669 2431 922 
+Q 2431 1156 2273 1281 
+Q 2116 1406 1581 1522 
+L 1381 1569 
+Q 847 1681 609 1914 
+Q 372 2147 372 2553 
+Q 372 3047 722 3315 
+Q 1072 3584 1716 3584 
+Q 2034 3584 2315 3537 
+Q 2597 3491 2834 3397 
+z
+" transform="scale(0.015625)"></path> <path id="DejaVuSans-74" d="M 1172 4494 
+L 1172 3500 
+L 2356 3500 
+L 2356 3053 
+L 1172 3053 
+L 1172 1153 
+Q 1172 725 1289 603 
+Q 1406 481 1766 481 
+L 2356 481 
+L 2356 0 
+L 1766 0 
+Q 1100 0 847 248 
+Q 594 497 594 1153 
+L 594 3053 
+L 172 3053 
+L 172 3500 
+L 594 3500 
+L 594 4494 
+L 1172 4494 
+z
+" transform="scale(0.015625)"></path> <path id="DejaVuSans-72" d="M 2631 2963 
+Q 2534 3019 2420 3045 
+Q 2306 3072 2169 3072 
+Q 1681 3072 1420 2755 
+Q 1159 2438 1159 1844 
+L 1159 0 
+L 581 0 
+L 581 3500 
+L 1159 3500 
+L 1159 2956 
+Q 1341 3275 1631 3429 
+Q 1922 3584 2338 3584 
+Q 2397 3584 2469 3576 
+Q 2541 3569 2628 3553 
+L 2631 2963 
+z
+" transform="scale(0.015625)"></path> <path id="DejaVuSans-65" d="M 3597 1894 
+L 3597 1613 
+L 953 1613 
+Q 991 1019 1311 708 
+Q 1631 397 2203 397 
+Q 2534 397 2845 478 
+Q 3156 559 3463 722 
+L 3463 178 
+Q 3153 47 2828 -22 
+Q 2503 -91 2169 -91 
+Q 1331 -91 842 396 
+Q 353 884 353 1716 
+Q 353 2575 817 3079 
+Q 1281 3584 2069 3584 
+Q 2775 3584 3186 3129 
+Q 3597 2675 3597 1894 
+z
+M 3022 2063 
+Q 3016 2534 2758 2815 
+Q 2500 3097 2075 3097 
+Q 1594 3097 1305 2825 
+Q 1016 2553 972 2059 
+L 3022 2063 
+z
+" transform="scale(0.015625)"></path> <path id="DejaVuSans-68" d="M 3513 2113 
+L 3513 0 
+L 2938 0 
+L 2938 2094 
+Q 2938 2591 2744 2837 
+Q 2550 3084 2163 3084 
+Q 1697 3084 1428 2787 
+Q 1159 2491 1159 1978 
+L 1159 0 
+L 581 0 
+L 581 4863 
+L 1159 4863 
+L 1159 2956 
+Q 1366 3272 1645 3428 
+Q 1925 3584 2291 3584 
+Q 2894 3584 3203 3211 
+Q 3513 2838 3513 2113 
+z
+" transform="scale(0.015625)"></path> <path id="DejaVuSans-Oblique-4b" d="M 1081 4666 
+L 1716 4666 
+L 1331 2700 
+L 3781 4666 
+L 4622 4666 
+L 1850 2438 
+L 3878 0 
+L 3109 0 
+L 1247 2272 
+L 806 0 
+L 172 0 
+L 1081 4666 
+z
+" transform="scale(0.015625)"></path> </defs> <use href="#DejaVuSans-43" transform="translate(0 0.015625)"></use> <use href="#DejaVuSans-6f" transform="translate(69.824219 0.015625)"></use> <use href="#DejaVuSans-75" transform="translate(131.005859 0.015625)"></use> <use href="#DejaVuSans-70" transform="translate(194.384766 0.015625)"></use> <use href="#DejaVuSans-6c" transform="translate(257.861328 0.015625)"></use> <use href="#DejaVuSans-69" transform="translate(285.644531 0.015625)"></use> <use href="#DejaVuSans-6e" transform="translate(313.427734 0.015625)"></use> <use href="#DejaVuSans-67" transform="translate(376.806641 0.015625)"></use> <use href="#DejaVuSans-20" transform="translate(440.283203 0.015625)"></use> <use href="#DejaVuSans-73" transform="translate(472.070312 0.015625)"></use> <use href="#DejaVuSans-74" transform="translate(524.169922 0.015625)"></use> <use href="#DejaVuSans-72" transform="translate(563.378906 0.015625)"></use> <use href="#DejaVuSans-65" transform="translate(604.492188 0.015625)"></use> <use href="#DejaVuSans-6e" transform="translate(666.015625 0.015625)"></use> <use href="#DejaVuSans-67" transform="translate(729.394531 0.015625)"></use> <use href="#DejaVuSans-74" transform="translate(792.871094 0.015625)"></use> <use href="#DejaVuSans-68" transform="translate(832.080078 0.015625)"></use> <use href="#DejaVuSans-20" transform="translate(895.458984 0.015625)"></use> <use href="#DejaVuSans-20" transform="translate(927.246094 0.015625)"></use> <use href="#DejaVuSans-Oblique-4b" transform="translate(959.033203 0.015625)"></use> </g> </g> </g> <g id="matplotlib.axis_2"> <g id="ytick_1"> <g id="line2d_6"> <defs> <path id="ma6dedb5252" d="M 0 0 
+L -3.5 0 
+" style="stroke: #888888; stroke-width: 0.8"></path> </defs> <g> <use href="#ma6dedb5252" x="55.01" y="282.76" style="fill: #888888; stroke: #888888; stroke-width: 0.8"></use> </g> </g> <g id="text_7"> <!-- 0.0 --> <g style="fill: #888888" transform="translate(30.516563 286.939141) scale(0.11 -0.11)"> <defs> <path id="DejaVuSans-2e" d="M 684 794 
+L 1344 794 
+L 1344 0 
+L 684 0 
+L 684 794 
+z
+" transform="scale(0.015625)"></path> </defs> <use href="#DejaVuSans-30"></use> <use href="#DejaVuSans-2e" transform="translate(63.623047 0)"></use> <use href="#DejaVuSans-30" transform="translate(95.410156 0)"></use> </g> </g> </g> <g id="ytick_2"> <g id="line2d_7"> <g> <use href="#ma6dedb5252" x="55.01" y="153.255238" style="fill: #888888; stroke: #888888; stroke-width: 0.8"></use> </g> </g> <g id="text_8"> <!-- 0.5 --> <g style="fill: #888888" transform="translate(30.516563 157.434379) scale(0.11 -0.11)"> <defs> <path id="DejaVuSans-35" d="M 691 4666 
+L 3169 4666 
+L 3169 4134 
+L 1269 4134 
+L 1269 2991 
+Q 1406 3038 1543 3061 
+Q 1681 3084 1819 3084 
+Q 2600 3084 3056 2656 
+Q 3513 2228 3513 1497 
+Q 3513 744 3044 326 
+Q 2575 -91 1722 -91 
+Q 1428 -91 1123 -41 
+Q 819 9 494 109 
+L 494 744 
+Q 775 591 1075 516 
+Q 1375 441 1709 441 
+Q 2250 441 2565 725 
+Q 2881 1009 2881 1497 
+Q 2881 1984 2565 2268 
+Q 2250 2553 1709 2553 
+Q 1456 2553 1204 2497 
+Q 953 2441 691 2322 
+L 691 4666 
+z
+" transform="scale(0.015625)"></path> </defs> <use href="#DejaVuSans-30"></use> <use href="#DejaVuSans-2e" transform="translate(63.623047 0)"></use> <use href="#DejaVuSans-35" transform="translate(95.410156 0)"></use> </g> </g> </g> <g id="ytick_3"> <g id="line2d_8"> <g> <use href="#ma6dedb5252" x="55.01" y="23.750476" style="fill: #888888; stroke: #888888; stroke-width: 0.8"></use> </g> </g> <g id="text_9"> <!-- 1.0 --> <g style="fill: #888888" transform="translate(30.516563 27.929617) scale(0.11 -0.11)"> <use href="#DejaVuSans-31"></use> <use href="#DejaVuSans-2e" transform="translate(63.623047 0)"></use> <use href="#DejaVuSans-30" transform="translate(95.410156 0)"></use> </g> </g> </g> <g id="text_10"> <!-- Order parameter  $r$ --> <g style="fill: #e8e8e8" transform="translate(23.786563 208.595) rotate(-90) scale(0.13 -0.13)"> <defs> <path id="DejaVuSans-4f" d="M 2522 4238 
+Q 1834 4238 1429 3725 
+Q 1025 3213 1025 2328 
+Q 1025 1447 1429 934 
+Q 1834 422 2522 422 
+Q 3209 422 3611 934 
+Q 4013 1447 4013 2328 
+Q 4013 3213 3611 3725 
+Q 3209 4238 2522 4238 
+z
+M 2522 4750 
+Q 3503 4750 4090 4092 
+Q 4678 3434 4678 2328 
+Q 4678 1225 4090 567 
+Q 3503 -91 2522 -91 
+Q 1538 -91 948 565 
+Q 359 1222 359 2328 
+Q 359 3434 948 4092 
+Q 1538 4750 2522 4750 
+z
+" transform="scale(0.015625)"></path> <path id="DejaVuSans-64" d="M 2906 2969 
+L 2906 4863 
+L 3481 4863 
+L 3481 0 
+L 2906 0 
+L 2906 525 
+Q 2725 213 2448 61 
+Q 2172 -91 1784 -91 
+Q 1150 -91 751 415 
+Q 353 922 353 1747 
+Q 353 2572 751 3078 
+Q 1150 3584 1784 3584 
+Q 2172 3584 2448 3432 
+Q 2725 3281 2906 2969 
+z
+M 947 1747 
+Q 947 1113 1208 752 
+Q 1469 391 1925 391 
+Q 2381 391 2643 752 
+Q 2906 1113 2906 1747 
+Q 2906 2381 2643 2742 
+Q 2381 3103 1925 3103 
+Q 1469 3103 1208 2742 
+Q 947 2381 947 1747 
+z
+" transform="scale(0.015625)"></path> <path id="DejaVuSans-61" d="M 2194 1759 
+Q 1497 1759 1228 1600 
+Q 959 1441 959 1056 
+Q 959 750 1161 570 
+Q 1363 391 1709 391 
+Q 2188 391 2477 730 
+Q 2766 1069 2766 1631 
+L 2766 1759 
+L 2194 1759 
+z
+M 3341 1997 
+L 3341 0 
+L 2766 0 
+L 2766 531 
+Q 2569 213 2275 61 
+Q 1981 -91 1556 -91 
+Q 1019 -91 701 211 
+Q 384 513 384 1019 
+Q 384 1609 779 1909 
+Q 1175 2209 1959 2209 
+L 2766 2209 
+L 2766 2266 
+Q 2766 2663 2505 2880 
+Q 2244 3097 1772 3097 
+Q 1472 3097 1187 3025 
+Q 903 2953 641 2809 
+L 641 3341 
+Q 956 3463 1253 3523 
+Q 1550 3584 1831 3584 
+Q 2591 3584 2966 3190 
+Q 3341 2797 3341 1997 
+z
+" transform="scale(0.015625)"></path> <path id="DejaVuSans-6d" d="M 3328 2828 
+Q 3544 3216 3844 3400 
+Q 4144 3584 4550 3584 
+Q 5097 3584 5394 3201 
+Q 5691 2819 5691 2113 
+L 5691 0 
+L 5113 0 
+L 5113 2094 
+Q 5113 2597 4934 2840 
+Q 4756 3084 4391 3084 
+Q 3944 3084 3684 2787 
+Q 3425 2491 3425 1978 
+L 3425 0 
+L 2847 0 
+L 2847 2094 
+Q 2847 2600 2669 2842 
+Q 2491 3084 2119 3084 
+Q 1678 3084 1418 2786 
+Q 1159 2488 1159 1978 
+L 1159 0 
+L 581 0 
+L 581 3500 
+L 1159 3500 
+L 1159 2956 
+Q 1356 3278 1631 3431 
+Q 1906 3584 2284 3584 
+Q 2666 3584 2933 3390 
+Q 3200 3197 3328 2828 
+z
+" transform="scale(0.015625)"></path> <path id="DejaVuSans-Oblique-72" d="M 2853 2969 
+Q 2766 3016 2653 3041 
+Q 2541 3066 2413 3066 
+Q 1953 3066 1609 2717 
+Q 1266 2369 1153 1784 
+L 800 0 
+L 225 0 
+L 909 3500 
+L 1484 3500 
+L 1375 2956 
+Q 1603 3259 1920 3421 
+Q 2238 3584 2597 3584 
+Q 2691 3584 2781 3573 
+Q 2872 3563 2963 3538 
+L 2853 2969 
+z
+" transform="scale(0.015625)"></path> </defs> <use href="#DejaVuSans-4f" transform="translate(0 0.015625)"></use> <use href="#DejaVuSans-72" transform="translate(78.710938 0.015625)"></use> <use href="#DejaVuSans-64" transform="translate(119.824219 0.015625)"></use> <use href="#DejaVuSans-65" transform="translate(183.300781 0.015625)"></use> <use href="#DejaVuSans-72" transform="translate(244.824219 0.015625)"></use> <use href="#DejaVuSans-20" transform="translate(285.9375 0.015625)"></use> <use href="#DejaVuSans-70" transform="translate(317.724609 0.015625)"></use> <use href="#DejaVuSans-61" transform="translate(381.201172 0.015625)"></use> <use href="#DejaVuSans-72" transform="translate(442.480469 0.015625)"></use> <use href="#DejaVuSans-61" transform="translate(483.59375 0.015625)"></use> <use href="#DejaVuSans-6d" transform="translate(544.873047 0.015625)"></use> <use href="#DejaVuSans-65" transform="translate(642.285156 0.015625)"></use> <use href="#DejaVuSans-74" transform="translate(703.808594 0.015625)"></use> <use href="#DejaVuSans-65" transform="translate(743.017578 0.015625)"></use> <use href="#DejaVuSans-72" transform="translate(804.541016 0.015625)"></use> <use href="#DejaVuSans-20" transform="translate(845.654297 0.015625)"></use> <use href="#DejaVuSans-20" transform="translate(877.441406 0.015625)"></use> <use href="#DejaVuSans-Oblique-72" transform="translate(909.228516 0.015625)"></use> </g> </g> </g> <g id="line2d_9"> <path d="M 147.18865 282.76 
+L 147.18865 10.8 
+" clip-path="url(#p38c39a8ab9)" style="fill: none; stroke-dasharray: 4.81,2.08; stroke-dashoffset: 0; stroke: #888888; stroke-width: 1.3"></path> </g> <g id="patch_3"> <path d="M 55.01 282.76 
+L 55.01 10.8 
+" style="fill: none; stroke: #888888; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"></path> </g> <g id="patch_4"> <path d="M 55.01 282.76 
+L 504.135 282.76 
+" style="fill: none; stroke: #888888; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"></path> </g> <g id="line2d_10"> <path d="M 55.01 259.614795 
+L 69.045156 256.091827 
+L 83.080313 252.647108 
+L 97.115469 245.865384 
+L 111.150625 228.27318 
+L 125.185781 228.04578 
+L 139.220938 193.697126 
+L 153.256094 122.458584 
+L 167.29125 55.386726 
+L 181.326406 45.896187 
+L 195.361563 40.556353 
+L 209.396719 37.074872 
+L 223.431875 34.629738 
+L 237.467031 32.828351 
+L 251.502188 31.454839 
+L 265.537344 30.379623 
+L 279.5725 29.520008 
+L 293.607656 28.820738 
+L 307.642813 28.243535 
+L 321.677969 27.761092 
+L 335.713125 27.353448 
+L 349.748281 27.005704 
+L 363.783438 26.706538 
+L 377.818594 26.447211 
+L 391.85375 26.220885 
+L 405.888906 26.022139 
+L 419.924063 25.846632 
+L 433.959219 25.690852 
+L 447.994375 25.551928 
+L 462.029531 25.427498 
+L 476.064688 25.315603 
+L 490.099844 25.214604 
+L 504.135 25.123124 
+" clip-path="url(#p38c39a8ab9)" style="fill: none; stroke: #f6ad55; stroke-width: 3; stroke-linecap: square"></path> </g> <g id="text_11"> <!-- $K_c$ --> <g style="fill: #888888" transform="translate(153.925525 269.809524) scale(0.13 -0.13)"> <defs> <path id="DejaVuSans-Oblique-63" d="M 3431 3366 
+L 3316 2797 
+Q 3109 2947 2876 3022 
+Q 2644 3097 2394 3097 
+Q 2119 3097 1870 3000 
+Q 1622 2903 1453 2725 
+Q 1184 2453 1037 2087 
+Q 891 1722 891 1331 
+Q 891 859 1127 628 
+Q 1363 397 1844 397 
+Q 2081 397 2348 469 
+Q 2616 541 2906 684 
+L 2797 116 
+Q 2547 13 2283 -39 
+Q 2019 -91 1741 -91 
+Q 1044 -91 669 257 
+Q 294 606 294 1253 
+Q 294 1797 489 2255 
+Q 684 2713 1069 3078 
+Q 1331 3328 1684 3456 
+Q 2038 3584 2456 3584 
+Q 2700 3584 2940 3529 
+Q 3181 3475 3431 3366 
+z
+" transform="scale(0.015625)"></path> </defs> <use href="#DejaVuSans-Oblique-4b" transform="translate(0 0.09375)"></use> <use href="#DejaVuSans-Oblique-63" transform="translate(65.576172 -16.3125) scale(0.7)"></use> </g> </g> </g> </g> <defs> <clippath id="p38c39a8ab9"> <rect x="55.01" y="10.8" width="449.125" height="271.96"></rect> </clippath> </defs>
+</svg>
+<aside class="notes">
+Order parameter r at steady state, as a function of coupling K, for the same spread-0.7 noisy frequency distribution as the Sync Dial’s default (averaged over several random draws – the shaded band shows how much that steady-state r varies from one random draw to another). Flat and low, then a sudden climb around K_c: that’s the bifurcation. Point back at the Sync Dial slide – this is the curve the room was tracing out live by dragging K.
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="network-science">Network science</h3>
+<p>Real synchronising systems – power grids, neurons, cardiac tissue, the fireflies – aren’t tidy pairs. They’re networks. Whether they sync at all depends on the properties of the network.</p>
+</section>
+<section class="slide level2 center">
+
+<div class="r-fit-text">
+<p>Why am I interested?</p>
+</div>
+</section>
+<section id="somitoid-video" class="slide level2 center" data-background-video="somitoid_montage_1.mp4" data-background-video-loop="true" data-background-video-muted="true" data-background-size="cover">
+<h2></h2>
+<!-- Personal beat -- only Philip can write this one honestly.
+     Swap this placeholder for a couple of sentences on what first
+     hooked you about synchronisation / dynamical systems, said live,
+     not read off the slide. -->
+<aside class="notes">
+This is the one place in the talk that’s allowed to be about you rather than the phenomenon. Say briefly, in your own words, why you find this compelling – what pulled you into it. Keep the slide itself nearly bare; this beat is spoken, not read.
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<div class="r-fit-text">
+<p>What do the metronomes,</p>
+<p>a clapping crowd,</p>
+<p>and your own heartbeat</p>
+<p>have in common?</p>
+<p>They don’t need a conductor.</p>
+</div>
+<aside class="notes">
+25:00-28:00 – CLOSE ON THE IMAGE, NOT A SUMMARY. Return physically to the metronomes – now, if the pacing worked, ticking as one. Land this line, then stop talking. No “in conclusion, I’ve covered…”
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="questions" class="slide level2 center">
+<h2>Questions</h2>
+<p><br></p>
+<aside class="notes">
+<p>28:00-30:00 – buffer, not padding; built in because the centrepiece section is the one most likely to run over. Sources if asked: Steven Strogatz, “Sync” (2003); J. Pantaleone, “Synchronization of metronomes,” American Journal of Physics 70, 992 (2002).</p>
+Rehearsal note: time the centrepiece section against the real simulator and the physical build specifically – Pantaleone-style metronome sync typically resolves in 1-3 minutes once coupling is strong enough, but room noise, an unlevel surface, or too-gentle a starting nudge can push that out. Run it a few times beforehand to know your real number before trusting the 9:00-18:00 window.
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="sync-talk_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="sync-talk_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="sync-talk_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="sync-talk_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="sync-talk_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="sync-talk_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="sync-talk_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="sync-talk_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="sync-talk_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="sync-talk_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 720,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

@@ -113,8 +113,7 @@ myself."
 ---
 
 <div class="r-fit-text">
-
-1665\.
+1665.
 
 Two pendulum clocks.
 
@@ -139,34 +138,27 @@ Thousands of fireflies.
 No leader.
 </div>
 
+<video data-autoplay loop muted playsinline width="380"
+       style="display:block;margin:0.5rem auto 0;border-radius:8px;">
+  <source src="fireflies.mp4" type="video/mp4">
+</video>
+
 <aside class="notes">
 Story 2 -- fireflies in parts of Southeast Asia flashing in unison
-across a whole riverbank, with no leader. The next slide is the real
-footage, full screen, no text -- let this line land, then advance.
-</aside>
-
----
-
-## {#fireflies-video background-video="fireflies.mp4" background-video-loop="true" background-video-muted="true" background-size="cover"}
-
-<aside class="notes">
-The fireflies clip itself, full screen, nothing else on the slide.
-reveal.js's background-video plays it edge-to-edge behind the slide
-(data-background-size="cover" fills the screen, cropping rather than
-letterboxing) and starts it the moment this slide becomes active --
-no need to trigger it by hand, and it stops automatically on the way
-out. Let it run a beat in silence before advancing.
+across a whole riverbank, with no leader. The clip loops
+automatically once this slide is reached (reveal.js's data-autoplay,
+not the plain HTML autoplay -- it starts on arrival at this slide,
+not at page load, and reveal.js pauses it again on the way out).
 </aside>
 
 ---
 
 <div class="r-fit-text">
-Applause
-
+Applause --
 
 ragged at first.
 
-Then, one clap.
+Then, somehow, one clap.
 </div>
 
 <aside class="notes">
@@ -208,7 +200,7 @@ better than anything staged.
 ---
 
 <div class="r-fit-text">
-Simulating synchronisation.
+Watch it happen.
 </div>
 
 <aside class="notes">
@@ -260,7 +252,7 @@ from shiny import App, Inputs, Outputs, Session, reactive, render, ui
 
 N_MIN, N_MAX, N_DEFAULT = 3, 20, 8
 DT = 0.01
-TICK_INTERVAL = 0.15
+TICK_INTERVAL = 0.045
 
 # Natural frequencies are drawn uniformly on [MEAN - spread, MEAN + spread].
 # MEAN is fixed and always positive; "spread" is the presenter-facing knob
@@ -478,9 +470,9 @@ metronomes on the table: same mathematics, two different machines.
 ---
 
 <div class="r-fit-text">
-Similar synchrony.
+Same mathematics.
 
-Multiple different systems.
+Two different systems.
 </div>
 
 <aside class="notes">
@@ -620,7 +612,7 @@ def server(input: Inputs, output: Outputs, session: Session):
 app = App(app_ui, server)
 ```
 
-The metronomes' motion can be described by a system of them:
+The metronomes' motion is, quite literally, a system of them.
 
 $$\frac{d\theta_i}{dt} = \omega_i + \frac{K}{N}\sum_{j=1}^{N} \sin(\theta_j - \theta_i)$$
 
@@ -2118,17 +2110,13 @@ tracing out live by dragging K.
 
 Real synchronising systems -- power grids, neurons, cardiac tissue,
 the fireflies -- aren't tidy pairs. They're networks. Whether they
-sync at all depends on the properties of the network.
+sync at all depends on the *shape* of the network.
 
 ---
 
 <div class="r-fit-text">
-Why  am I interested?
+Why this pulled *me* in
 </div>
-
----
-
-## {#somitoid-video background-video="somitoid_montage_1.mp4" background-video-loop="true" background-video-muted="true" background-size="cover"}
 
 <!-- Personal beat -- only Philip can write this one honestly.
      Swap this placeholder for a couple of sentences on what first
@@ -2169,6 +2157,8 @@ line, then stop talking. No "in conclusion, I've covered..."
 
 <br>
 
+Sync Dial: built right into this deck -- scroll back to "Watch it
+happen" for another go.
 
 
 <aside class="notes">
