@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The Analemma Project – Mathematics Trail at the University of Dundee Botanic Gardens</title>
+<title>Why does the earth not fall into the sun? (√) – Mathematics Trail at the University of Dundee Botanic Gardens</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -33,8 +33,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./trigonometry.html" rel="next">
-<link href="./birdsong.html" rel="prev">
+<link href="./birdsong.html" rel="next">
+<link href="./trigonometry.html" rel="prev">
+<script src="site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -72,6 +74,33 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PVGXR5JFP0"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-PVGXR5JFP0', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"express",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
 <script src="js_apps_switch.js"></script>
 <style>
   /* Hides every interactive app's own element immediately -- before the
@@ -112,6 +141,35 @@ ul.task-list li input[type="checkbox"] {
   });
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="mobile.css">
 </head>
@@ -125,7 +183,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./analemma.html"><span class="chapter-title">The Analemma Project</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./analemma.html"><span class="chapter-title">Why does the earth not fall into the sun? (√)</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -152,77 +210,77 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Maths Week Scotland - Dundee University</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Botanic Garden Maths Trail (S)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./phyllotaxis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phyllotaxis</span></a>
+  <a href="./phyllotaxis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phyllotaxis (<span class="math inline">\(\sigma\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spirals.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Logarithmic Spiral</span></a>
+  <a href="./spirals.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Logarithmic Spiral (<span class="math inline">\(e^x\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./symmetry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Symmetry in Plants</span></a>
+  <a href="./fractal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fractals (<span class="math inline">\(\pm\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./fractal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fractals</span></a>
+  <a href="./circadian.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Circadian Rhythm (<span class="math inline">\(\pi\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./circadian.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Circadian Rhythm</span></a>
+  <a href="./trigonometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Estimating the Height of a Tree using Trigonometry (<span class="math inline">\(\Omega\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./fibonacci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fibonacci Numbers</span></a>
+  <a href="./analemma.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Why does the earth not fall into the sun? (√)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./birdsong.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bird Song</span></a>
+  <a href="./birdsong.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bird Song (<span class="math inline">\(\Sigma\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./analemma.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">The Analemma Project</span></a>
+  <a href="./fibonacci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fibonacci Numbers (<span class="math inline">\(\varphi\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./trigonometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Estimating the Height of a Tree using Trigonometry</span></a>
+  <a href="./symmetry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Symmetry in Plants (<span class="math inline">\(\neq\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./curvature.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why leaves crinkle?</span></a>
+  <a href="./curvature.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why leaves crinkle? (<span class="math inline">\(\geq\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./salesman.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Travelling Salesman problem</span></a>
+  <a href="./salesman.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Travelling Salesman problem (<span class="math inline">\(\mu\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./helicopter.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Helicopter Seeds</span></a>
+  <a href="./helicopter.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Helicopter Seeds (<span class="math inline">\(\emptyset\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./konigsberg.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Seven Bridges of Königsberg</span></a>
+  <a href="./konigsberg.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Seven Bridges of Königsberg (<span class="math inline">\(\leq\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./questionnaire.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">End of Maths Trail Questionnaire</span></a>
+  <a href="./questionnaire.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">End of Maths Trail Questionnaire (E)</span></a>
   </div>
 </li>
     </ul>
@@ -236,7 +294,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">The Analemma Project</span></h1>
+<h1 class="title"><span class="chapter-title">Why does the earth not fall into the sun? (√)</span></h1>
   <div class="quarto-categories">
     <div class="quarto-category">Orbital mechanics</div>
     <div class="quarto-category">Astronomy</div>
@@ -258,14 +316,371 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Artist Lucy Smith created the <a href="https://artlucy.uk/index.php/the-analemma-project/">Analemma Project</a> sculpture. She completed her PhD “Making the Conceptual Tangible: The Role of Art in Communicating Science” here at the University of Dundee.</p>
-<p>The <a href="https://en.wikipedia.org/wiki/Analemma">Analemma</a> is an unequal figure-of-eight shape, created by tracking the sun’s position in the sky at the same time each day over a period of one year.</p>
+<p>The sculpture in the middle of the grassy area behind you was created by artist Lucy Smith <a href="https://artlucy.uk/index.php/the-analemma-project/">Analemma Project</a>. She completed her PhD “Making the Conceptual Tangible: The Role of Art in Communicating Science” here at the University of Dundee.</p>
 <section id="why-doesnt-the-earth-fall-onto-the-sun" class="level2">
 <h2 class="anchored" data-anchor-id="why-doesnt-the-earth-fall-onto-the-sun">Why doesn’t the Earth fall onto the Sun?</h2>
-<p>The Analemma traces that figure-of-eight because the Earth’s orbit isn’t a perfect circle travelled at constant speed – it’s an ellipse, and Earth moves faster when it’s closer to the Sun. Working out exactly <em>why</em> orbits look like this took the better part of three centuries. <strong>Galileo</strong> discovered that not everything orbits the Earth; <strong>Kepler</strong>, worked out the precise shape of orbit based on observations; <strong>Newton</strong> explained <em>why</em> from a single law of gravity; and <strong>Einstein</strong>’s’ general relativity is needed to explain a tiny mismatch between Newton’s theory and Mercury’s orbit.</p>
+</section>
+<section id="simulating-a-planet-orbiting-the-sun" class="level2">
+<h2 class="anchored" data-anchor-id="simulating-a-planet-orbiting-the-sun">Simulating a planet orbiting the sun?</h2>
+<p>The app below demonstrates why the earth does not fall into the sun. Change the initial speed and direction of the orbiting object. Can you find conditions for which the planet crashes into the sun rather than stay in an elliptical orbit?</p>
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-newton-gravity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<style>
+  #new-app, #new-app * { box-sizing: border-box; }
+  #new-app {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: flex-start;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    max-width: 1040px;
+    text-align: left;
+  }
+  #new-app h5,
+  #new-app label,
+  #new-app .summary-text { text-align: left; }
+  #new-app .sidebar { flex: 0 0 260px; min-width: 0; }
+  #new-app .canvas-wrap { flex: 1 1 400px; min-width: 0; }
+  #new-app h5 { margin: 12px 0 8px 0; font-size: 14px; }
+  #new-app h5:first-child { margin-top: 0; }
+  #new-app label { display: block; font-size: 13px; margin: 10px 0 4px 0; line-height: 1.3; }
+  #new-app input[type="range"] { width: 100%; }
+  #new-app .note { font-size: 12px; color: #555; margin: 2px 0 0 0; }
+  #new-app hr { margin: 14px 0; border: none; border-top: 1px solid #ddd; }
+  #new-app .btn-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  #new-app button {
+    padding: 6px 14px; font-size: 13px; border-radius: 4px; cursor: pointer;
+    background: #2f5d8a; color: #fff; border: none;
+  }
+  #new-app .summary-text { font-size: 13px; line-height: 1.55; }
+  #new-app canvas { width: 100%; height: auto; display: block; border-radius: 6px; }
+  @media (max-width: 520px) {
+    #new-app { gap: 8px; }
+    #new-app h5 { font-size: 12px; }
+    #new-app label { font-size: 11px; margin: 8px 0 3px 0; }
+    #new-app .note { font-size: 10px; }
+    #new-app button { padding: 5px 8px; font-size: 11px; }
+    #new-app .summary-text { font-size: 11px; line-height: 1.45; }
+  }
+</style>
+
+<div id="new-app">
+  <div class="sidebar">
+    <h5 class="anchored">Launch speed (× circular speed)</h5>
+    <label for="new-speed">Speed: <strong id="new-speed-val">1.00</strong></label>
+    <input id="new-speed" type="range" min="0.1" max="2.0" step="0.02" value="1.0">
+    <p class="note"><em>1.0 = perfect circle; 1.41 = escapes the Sun entirely.</em></p>
+    <h5 class="anchored">Launch angle from tangential</h5>
+    <label for="new-angle">Angle: <strong id="new-angle-val">0</strong>°</label>
+    <input id="new-angle" type="range" min="-90" max="90" step="1" value="0">
+    <p class="note"><em>0° = sideways (tangential); negative angles aim inward, towards the Sun.</em></p>
+    <h5 class="anchored">Time</h5>
+    <input id="new-time" type="range" min="0" max="3" step="0.01" value="0">
+    <div class="btn-row">
+      <button id="new-play" type="button">Play / Pause</button>
+    </div>
+    <hr>
+    <div id="new-summary" class="summary-text"></div>
+  </div>
+  <div class="canvas-wrap">
+    <canvas id="new-canvas" width="650" height="540"></canvas>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  if (window.SHOW_JS_APPS === false) return;
+
+  var GM_SUN = 4 * Math.PI * Math.PI; // AU^3/year^2 -- makes Earth's orbit (a=1 AU) have a 1-year period
+  var R_START = 1.0;   // AU, fixed starting distance from the Sun
+  var R_CRASH = 0.10;  // AU, an enlarged "you've hit the Sun" radius, purely so a crash is visible
+  var V_CIRC = Math.sqrt(GM_SUN / R_START);
+
+  function initialState(speedFactor, angleDeg) {
+    var speed = speedFactor * V_CIRC;
+    var theta = angleDeg * Math.PI / 180;
+    return [R_START, 0.0, speed * Math.sin(theta), speed * Math.cos(theta)];
+  }
+
+  // Classify the orbit from its initial conditions alone (energy and
+  // angular momentum) -- exact, not an approximation.
+  function classifyOrbit(x0, y0, vx0, vy0) {
+    var r0 = Math.hypot(x0, y0);
+    var v0sq = vx0 * vx0 + vy0 * vy0;
+    var energy = 0.5 * v0sq - GM_SUN / r0;
+    var L = x0 * vy0 - y0 * vx0;
+    var info = { energy: energy, L: L, bound: energy < 0 };
+    if (energy < 0) {
+      var a = -GM_SUN / (2 * energy);
+      var eSq = Math.max(0.0, 1 - (L * L) / (GM_SUN * a));
+      var e = Math.sqrt(eSq);
+      info.a = a; info.e = e;
+      info.period = 2 * Math.PI * Math.sqrt(Math.pow(a, 3) / GM_SUN);
+      info.periapsis = a * (1 - e);
+      info.apoapsis = a * (1 + e);
+    }
+    return info;
+  }
+
+  // Velocity-Verlet integration of F = -GM/r^2, with an adaptive step size
+  // proportional to the local orbital timescale (~r^1.5), fine near the
+  // Sun and coarse far away.
+  function simulateNewtonOrbit(x0, y0, vx0, vy0, maxTime, maxSteps, rCrash, eta) {
+    maxSteps = maxSteps || 6000;
+    rCrash = (rCrash === undefined) ? R_CRASH : rCrash;
+    eta = eta || 0.01;
+    var xs = [x0], ys = [y0], ts = [0.0];
+    var x = x0, y = y0, vx = vx0, vy = vy0, t = 0.0, crashed = false;
+    for (var s = 0; s < maxSteps; s++) {
+      var r = Math.hypot(x, y);
+      if (r < rCrash) { crashed = true; break; }
+      var dt = eta * Math.pow(r, 1.5) / Math.sqrt(GM_SUN);
+      dt = Math.min(dt, maxTime / 40.0);
+      var ax = -GM_SUN * x / Math.pow(r, 3);
+      var ay = -GM_SUN * y / Math.pow(r, 3);
+      var vxh = vx + 0.5 * ax * dt;
+      var vyh = vy + 0.5 * ay * dt;
+      x = x + vxh * dt; y = y + vyh * dt; t += dt;
+      var r2 = Math.hypot(x, y);
+      if (r2 < rCrash) { crashed = true; xs.push(x); ys.push(y); ts.push(t); break; }
+      var ax2 = -GM_SUN * x / Math.pow(r2, 3);
+      var ay2 = -GM_SUN * y / Math.pow(r2, 3);
+      vx = vxh + 0.5 * ax2 * dt; vy = vyh + 0.5 * ay2 * dt;
+      xs.push(x); ys.push(y); ts.push(t);
+      if (t >= maxTime) break;
+    }
+    return { xs: xs, ys: ys, ts: ts, crashed: crashed };
+  }
+
+  function runNewtonSim(speedFactor, angleDeg) {
+    var s0 = initialState(speedFactor, angleDeg);
+    var info = classifyOrbit(s0[0], s0[1], s0[2], s0[3]);
+    var maxTime = info.bound ? Math.min(3 * info.period, 15.0) : 4.0;
+    var sim = simulateNewtonOrbit(s0[0], s0[1], s0[2], s0[3], maxTime);
+    info.crashed = sim.crashed; info.xs = sim.xs; info.ys = sim.ys; info.ts = sim.ts;
+    return info;
+  }
+
+  function interpPosition(t, ts, xs, ys) {
+    var n = ts.length;
+    if (t <= ts[0]) return [xs[0], ys[0]];
+    if (t >= ts[n - 1]) return [xs[n - 1], ys[n - 1]];
+    var lo = 0, hi = n - 1;
+    while (hi - lo > 1) {
+      var mid = (lo + hi) >> 1;
+      if (ts[mid] <= t) lo = mid; else hi = mid;
+    }
+    var frac = (ts[hi] !== ts[lo]) ? (t - ts[lo]) / (ts[hi] - ts[lo]) : 0.0;
+    return [xs[lo] + frac * (xs[hi] - xs[lo]), ys[lo] + frac * (ys[hi] - ys[lo])];
+  }
+
+  // Exact instantaneous speed from conservation of energy, rather than
+  // differencing the (adaptively, unevenly spaced) simulated positions.
+  function speedFromEnergy(energy, r) {
+    var vsq = 2 * (energy + GM_SUN / r);
+    return Math.sqrt(Math.max(0.0, vsq));
+  }
+
+  // A bound, uncrashed orbit is a closed ellipse retracing itself exactly
+  // every period -- loop over one period for a seamless replay. A crashed
+  // or escaping trajectory has no such periodicity, so it just replays its
+  // finite simulated arc.
+  function nLoopWindow(sim) {
+    if (sim.bound && !sim.crashed) return Math.max(sim.period, 0.01);
+    return Math.max(sim.ts[sim.ts.length - 1], 0.01);
+  }
+
+  // Approximation of matplotlib's "plasma" colormap.
+  var PLASMA_STOPS = [
+    [0.0, [13, 8, 135]], [0.1, [70, 3, 159]], [0.2, [114, 1, 168]],
+    [0.3, [156, 23, 158]], [0.4, [189, 55, 134]], [0.5, [216, 87, 107]],
+    [0.6, [237, 121, 83]], [0.7, [251, 159, 58]], [0.8, [253, 202, 38]],
+    [0.9, [240, 249, 33]], [1.0, [240, 249, 33]]
+  ];
+  function plasma(t) {
+    t = Math.max(0, Math.min(1, t));
+    for (var i = 0; i < PLASMA_STOPS.length - 1; i++) {
+      var t0 = PLASMA_STOPS[i][0], t1 = PLASMA_STOPS[i + 1][0];
+      if (t >= t0 && t <= t1) {
+        var f = (t1 > t0) ? (t - t0) / (t1 - t0) : 0;
+        var c0 = PLASMA_STOPS[i][1], c1 = PLASMA_STOPS[i + 1][1];
+        var r = Math.round(c0[0] + (c1[0] - c0[0]) * f);
+        var g = Math.round(c0[1] + (c1[1] - c0[1]) * f);
+        var b = Math.round(c0[2] + (c1[2] - c0[2]) * f);
+        return "rgb(" + r + "," + g + "," + b + ")";
+      }
+    }
+    var last = PLASMA_STOPS[PLASMA_STOPS.length - 1][1];
+    return "rgb(" + last[0] + "," + last[1] + "," + last[2] + ")";
+  }
+
+  var speedSlider = document.getElementById("new-speed");
+  var speedVal = document.getElementById("new-speed-val");
+  var angleSlider = document.getElementById("new-angle");
+  var angleVal = document.getElementById("new-angle-val");
+  var timeSlider = document.getElementById("new-time");
+  var playBtn = document.getElementById("new-play");
+  var summary = document.getElementById("new-summary");
+  var canvas = document.getElementById("new-canvas");
+  var ctx = canvas.getContext("2d");
+
+  var state = { sim: null };
+
+  var PLOT_W = 500; // px, square plot region within the canvas
+  var PLOT_PAD = 20;
+
+  function render() {
+    var sim = state.sim;
+    var xs = sim.xs, ys = sim.ys, ts = sim.ts;
+    var t = parseFloat(timeSlider.value);
+
+    var loopMax = nLoopWindow(sim);
+    if (sim.bound && !sim.crashed) {
+      var cut = ts.length;
+      for (var i = 0; i < ts.length; i++) { if (ts[i] > loopMax) { cut = i; break; } }
+      cut = Math.max(cut, 2);
+      xs = xs.slice(0, cut); ys = ys.slice(0, cut); ts = ts.slice(0, cut);
+    }
+
+    var pos = interpPosition(t, ts, xs, ys);
+    var px = pos[0], py = pos[1];
+
+    var speeds = [];
+    for (var i = 0; i < xs.length; i++) speeds.push(speedFromEnergy(sim.energy, Math.hypot(xs[i], ys[i])));
+
+    var vLo, vHi;
+    if (sim.bound) {
+      var vPeri = speedFromEnergy(sim.energy, sim.periapsis);
+      var vApo = speedFromEnergy(sim.energy, sim.apoapsis);
+      vLo = Math.min(vPeri, vApo); vHi = Math.max(vPeri, vApo);
+    } else {
+      vLo = Math.min.apply(null, speeds); vHi = Math.max.apply(null, speeds);
+    }
+    if (vHi - vLo < 1e-4) vHi = vLo + 1e-4;
+    function norm(v) { return (v - vLo) / (vHi - vLo); }
+
+    var absXs = xs.map(Math.abs), absYs = ys.map(Math.abs);
+    var span = Math.max(Math.max.apply(null, absXs), Math.max.apply(null, absYs), R_START) * 1.15;
+    function sx(x) { return PLOT_PAD + (x + span) / (2 * span) * PLOT_W; }
+    function sy(y) { return PLOT_PAD + PLOT_W - (y + span) / (2 * span) * PLOT_W; }
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#fbfbf8";
+    ctx.fillRect(0, 0, PLOT_W + 2 * PLOT_PAD, PLOT_W + 2 * PLOT_PAD);
+
+    var rCrashPx = R_CRASH / (2 * span) * PLOT_W;
+    ctx.beginPath();
+    ctx.fillStyle = "rgba(242,193,78,0.35)";
+    ctx.arc(sx(0), sy(0), rCrashPx, 0, 2 * Math.PI);
+    ctx.fill();
+
+    for (var i2 = 0; i2 < xs.length - 1; i2++) {
+      var segSpeed = (speeds[i2] + speeds[i2 + 1]) / 2;
+      ctx.strokeStyle = plasma(norm(segSpeed));
+      ctx.lineWidth = 2.4;
+      ctx.beginPath();
+      ctx.moveTo(sx(xs[i2]), sy(ys[i2]));
+      ctx.lineTo(sx(xs[i2 + 1]), sy(ys[i2 + 1]));
+      ctx.stroke();
+    }
+
+    ctx.beginPath();
+    ctx.fillStyle = "#d99a2b";
+    ctx.arc(sx(0), sy(0), 9, 0, 2 * Math.PI);
+    ctx.fill();
+
+    var vHere = speedFromEnergy(sim.energy, Math.hypot(px, py));
+    ctx.beginPath();
+    ctx.fillStyle = plasma(norm(vHere));
+    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 1.6;
+    ctx.arc(sx(px), sy(py), 6.5, 0, 2 * Math.PI);
+    ctx.fill(); ctx.stroke();
+
+    // Colour bar -- speed scale, top = fastest (periapsis), bottom = slowest.
+    var barX = PLOT_W + 2 * PLOT_PAD + 32, barY = 34, barW = 16, barH = canvas.height - 64;
+    var grad = ctx.createLinearGradient(0, barY, 0, barY + barH);
+    for (var gstep = 0; gstep <= 10; gstep++) grad.addColorStop(gstep / 10, plasma(1 - gstep / 10));
+    ctx.fillStyle = grad;
+    ctx.fillRect(barX, barY, barW, barH);
+    ctx.strokeStyle = "#999"; ctx.lineWidth = 1;
+    ctx.strokeRect(barX, barY, barW, barH);
+    ctx.fillStyle = "#333";
+    ctx.font = "10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+    ctx.textAlign = "left";
+    ctx.fillText(vHi.toFixed(2), barX + barW + 4, barY + 8);
+    ctx.fillText(vLo.toFixed(2), barX + barW + 4, barY + barH);
+    ctx.fillText("Speed", barX - 4, barY - 20);
+    ctx.fillText("(AU/yr)", barX - 4, barY - 8);
+
+    timeSlider.value = t;
+
+    var lines = [];
+    if (sim.crashed) {
+      lines.push("<strong>Crashed into the Sun</strong> at simulated time " +
+        sim.ts[sim.ts.length - 1].toFixed(3) + " years -- not enough sideways speed " +
+        "(or aimed too directly inward) to miss it.");
+    } else if (!sim.bound) {
+      lines.push("<strong>Escapes to infinity.</strong> This launch speed and angle give the " +
+        "planet more energy than it needs to stay bound to the Sun at all -- it never comes back.");
+    } else {
+      var shape = sim.e < 0.01 ? "a circle" : "an ellipse";
+      lines.push("<strong>Settles into " + shape + "</strong>" );
+    }
+    summary.innerHTML = lines.join("<br><br>");
+  }
+
+  var playing = false, timerId = null;
+  function stop() {
+    playing = false;
+    if (timerId !== null) { clearInterval(timerId); timerId = null; }
+  }
+  function start() {
+    playing = true;
+    timerId = setInterval(function () {
+      var loopMax = nLoopWindow(state.sim);
+      var dt = loopMax / 60.0;
+      var t = parseFloat(timeSlider.value) + dt;
+      if (t >= loopMax) t = loopMax > 0 ? (t % loopMax) : 0.0;
+      timeSlider.value = t;
+      render();
+    }, 150);
+  }
+  playBtn.addEventListener("click", function () { if (playing) stop(); else start(); });
+
+  function recompute() {
+    state.sim = runNewtonSim(parseFloat(speedSlider.value), parseFloat(angleSlider.value));
+    var newMax = nLoopWindow(state.sim);
+    timeSlider.max = newMax.toFixed(4);
+    timeSlider.value = 0;
+    render();
+  }
+
+  speedSlider.addEventListener("input", function () {
+    speedVal.textContent = parseFloat(speedSlider.value).toFixed(2);
+    recompute();
+  });
+  angleSlider.addEventListener("input", function () {
+    angleVal.textContent = parseFloat(angleSlider.value).toFixed(0);
+    recompute();
+  });
+  timeSlider.addEventListener("input", render);
+
+  speedVal.textContent = parseFloat(speedSlider.value).toFixed(2);
+  angleVal.textContent = parseFloat(angleSlider.value).toFixed(0);
+  recompute();
+})();
+</script>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-newton-gravity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.1
+</figcaption>
+</figure>
+<p>To understand how the simulations work we need to go back to the discoveries of Galileo, Kepler and Newton.</p>
 <section id="galileo-evidence-that-not-everything-orbits-the-earth" class="level3">
 <h3 class="anchored" data-anchor-id="galileo-evidence-that-not-everything-orbits-the-earth">1. Galileo: evidence that not everything orbits the Earth</h3>
-<p>In 1610, Galileo pointed his new telescope at Jupiter and found four points of light that moved back and forth alongside it, night after night. They were not fixed stars: they were moons, clearly orbiting Jupiter and not the Earth. That alone was enough to break the ancient assumption that every heavenly body must circle the Earth. Press play below and watch Io, Europa, Ganymede and Callisto (Jupiter’s four largest moons, still called the “Galilean moons”) complete their real orbital periods, from under two days for Io up to nearly seventeen for Callisto.</p>
+<p>In 1610, Galileo discovered four moons orbiting Jupiter. Press play below and watch Jupiter’s four largest moons complete their real orbital periods. Note that the inner-most moons orbit faster than the outer-most ones.</p>
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-galileo-moons-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <style>
@@ -429,13 +844,14 @@ ul.task-list li input[type="checkbox"] {
 </script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-galileo-moons-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;9.1
+Figure&nbsp;7.2
 </figcaption>
 </figure>
 </section>
 <section id="kepler-ellipses-equal-areas-and-a-hidden-pattern" class="level3">
 <h3 class="anchored" data-anchor-id="kepler-ellipses-equal-areas-and-a-hidden-pattern">2. Kepler: ellipses, equal areas, and a hidden pattern</h3>
-<p>Johannes Kepler found that planets do not move in perfect circles, nor at constant speed. He distilled the pattern into three laws: orbits are <strong>ellipses</strong> with the Sun at one focus (not the centre); a planet <strong>sweeps out equal areas in equal times</strong>, moving faster when close to the Sun and slower when far away; and the <strong>square of the orbital period is proportional to the cube of the orbit’s size</strong> – the same constant of proportionality for every planet in the solar system. Explore all three below with Mercury, Earth, Mars and Jupiter’s real orbital data.</p>
+<p>Johannes Kepler found that planets in the solar system do not move in perfect circles, nor at constant speed. He distilled the pattern into three laws: - orbits are <strong>ellipses</strong> with the Sun at one focus (not the centre); - a planet <strong>sweeps out equal areas in equal times</strong>, moving faster when close to the Sun and slower when far away; - the <strong>square of the orbital period is proportional to the cube of the orbit’s size</strong></p>
+<p>Below you can explore all three below with Mercury, Earth, Mars and Jupiter’s real orbital data. Against note that inner-most planets orbit faster than outer-most ones.</p>
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-kepler-orbits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <style>
@@ -758,372 +1174,13 @@ Figure&nbsp;9.1
 </script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-kepler-orbits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;9.2
+Figure&nbsp;7.3
 </figcaption>
 </figure>
 </section>
 <section id="newton-why-doesnt-it-just-fall-in" class="level3">
 <h3 class="anchored" data-anchor-id="newton-why-doesnt-it-just-fall-in">3. Newton: why doesn’t it just fall in?</h3>
-<p>Kepler described <em>what</em> orbits look like; Newton explained <em>why</em>. His law of universal gravitation says the Sun pulls every planet straight towards itself, with a force that falls off as the square of the distance – and nothing more. So why doesn’t that pull simply drag every planet straight into the Sun? The answer is <strong>sideways motion</strong>: a planet is always “falling” towards the Sun, but it is also always moving sideways fast enough to keep missing it. Below, you control a planet’s launch speed and direction directly. Aim it steeply inward without enough sideways speed, and it crashes. Give it enough sideways speed, and the very same gravity that would have pulled it in instead bends its path into a closed ellipse – or, with enough speed, flings it away for good. The path is coloured by the planet’s instantaneous speed – watch it turn bright near the Sun and dark on the far side of an elliptical orbit, direct visual evidence of Kepler’s second law: the planet moves fastest exactly where it’s closest to the Sun.</p>
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-newton-gravity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<style>
-  #new-app, #new-app * { box-sizing: border-box; }
-  #new-app {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    align-items: flex-start;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-    max-width: 1040px;
-    text-align: left;
-  }
-  #new-app h5,
-  #new-app label,
-  #new-app .summary-text { text-align: left; }
-  #new-app .sidebar { flex: 0 0 260px; min-width: 0; }
-  #new-app .canvas-wrap { flex: 1 1 400px; min-width: 0; }
-  #new-app h5 { margin: 12px 0 8px 0; font-size: 14px; }
-  #new-app h5:first-child { margin-top: 0; }
-  #new-app label { display: block; font-size: 13px; margin: 10px 0 4px 0; line-height: 1.3; }
-  #new-app input[type="range"] { width: 100%; }
-  #new-app .note { font-size: 12px; color: #555; margin: 2px 0 0 0; }
-  #new-app hr { margin: 14px 0; border: none; border-top: 1px solid #ddd; }
-  #new-app .btn-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-  #new-app button {
-    padding: 6px 14px; font-size: 13px; border-radius: 4px; cursor: pointer;
-    background: #2f5d8a; color: #fff; border: none;
-  }
-  #new-app .summary-text { font-size: 13px; line-height: 1.55; }
-  #new-app canvas { width: 100%; height: auto; display: block; border-radius: 6px; }
-  @media (max-width: 520px) {
-    #new-app { gap: 8px; }
-    #new-app h5 { font-size: 12px; }
-    #new-app label { font-size: 11px; margin: 8px 0 3px 0; }
-    #new-app .note { font-size: 10px; }
-    #new-app button { padding: 5px 8px; font-size: 11px; }
-    #new-app .summary-text { font-size: 11px; line-height: 1.45; }
-  }
-</style>
-
-<div id="new-app">
-  <div class="sidebar">
-    <h5 class="anchored">Launch speed (× circular speed)</h5>
-    <label for="new-speed">Speed: <strong id="new-speed-val">1.00</strong></label>
-    <input id="new-speed" type="range" min="0.1" max="2.0" step="0.02" value="1.0">
-    <p class="note"><em>1.0 = perfect circle; 1.41 = escapes the Sun entirely.</em></p>
-    <h5 class="anchored">Launch angle from tangential</h5>
-    <label for="new-angle">Angle: <strong id="new-angle-val">0</strong>°</label>
-    <input id="new-angle" type="range" min="-90" max="90" step="1" value="0">
-    <p class="note"><em>0° = sideways (tangential); negative angles aim inward, towards the Sun.</em></p>
-    <h5 class="anchored">Time</h5>
-    <input id="new-time" type="range" min="0" max="3" step="0.01" value="0">
-    <div class="btn-row">
-      <button id="new-play" type="button">Play / Pause</button>
-    </div>
-    <hr>
-    <div id="new-summary" class="summary-text"></div>
-  </div>
-  <div class="canvas-wrap">
-    <canvas id="new-canvas" width="650" height="540"></canvas>
-  </div>
-</div>
-
-<script>
-(function () {
-  "use strict";
-  if (window.SHOW_JS_APPS === false) return;
-
-  var GM_SUN = 4 * Math.PI * Math.PI; // AU^3/year^2 -- makes Earth's orbit (a=1 AU) have a 1-year period
-  var R_START = 1.0;   // AU, fixed starting distance from the Sun
-  var R_CRASH = 0.10;  // AU, an enlarged "you've hit the Sun" radius, purely so a crash is visible
-  var V_CIRC = Math.sqrt(GM_SUN / R_START);
-
-  function initialState(speedFactor, angleDeg) {
-    var speed = speedFactor * V_CIRC;
-    var theta = angleDeg * Math.PI / 180;
-    return [R_START, 0.0, speed * Math.sin(theta), speed * Math.cos(theta)];
-  }
-
-  // Classify the orbit from its initial conditions alone (energy and
-  // angular momentum) -- exact, not an approximation.
-  function classifyOrbit(x0, y0, vx0, vy0) {
-    var r0 = Math.hypot(x0, y0);
-    var v0sq = vx0 * vx0 + vy0 * vy0;
-    var energy = 0.5 * v0sq - GM_SUN / r0;
-    var L = x0 * vy0 - y0 * vx0;
-    var info = { energy: energy, L: L, bound: energy < 0 };
-    if (energy < 0) {
-      var a = -GM_SUN / (2 * energy);
-      var eSq = Math.max(0.0, 1 - (L * L) / (GM_SUN * a));
-      var e = Math.sqrt(eSq);
-      info.a = a; info.e = e;
-      info.period = 2 * Math.PI * Math.sqrt(Math.pow(a, 3) / GM_SUN);
-      info.periapsis = a * (1 - e);
-      info.apoapsis = a * (1 + e);
-    }
-    return info;
-  }
-
-  // Velocity-Verlet integration of F = -GM/r^2, with an adaptive step size
-  // proportional to the local orbital timescale (~r^1.5), fine near the
-  // Sun and coarse far away.
-  function simulateNewtonOrbit(x0, y0, vx0, vy0, maxTime, maxSteps, rCrash, eta) {
-    maxSteps = maxSteps || 6000;
-    rCrash = (rCrash === undefined) ? R_CRASH : rCrash;
-    eta = eta || 0.01;
-    var xs = [x0], ys = [y0], ts = [0.0];
-    var x = x0, y = y0, vx = vx0, vy = vy0, t = 0.0, crashed = false;
-    for (var s = 0; s < maxSteps; s++) {
-      var r = Math.hypot(x, y);
-      if (r < rCrash) { crashed = true; break; }
-      var dt = eta * Math.pow(r, 1.5) / Math.sqrt(GM_SUN);
-      dt = Math.min(dt, maxTime / 40.0);
-      var ax = -GM_SUN * x / Math.pow(r, 3);
-      var ay = -GM_SUN * y / Math.pow(r, 3);
-      var vxh = vx + 0.5 * ax * dt;
-      var vyh = vy + 0.5 * ay * dt;
-      x = x + vxh * dt; y = y + vyh * dt; t += dt;
-      var r2 = Math.hypot(x, y);
-      if (r2 < rCrash) { crashed = true; xs.push(x); ys.push(y); ts.push(t); break; }
-      var ax2 = -GM_SUN * x / Math.pow(r2, 3);
-      var ay2 = -GM_SUN * y / Math.pow(r2, 3);
-      vx = vxh + 0.5 * ax2 * dt; vy = vyh + 0.5 * ay2 * dt;
-      xs.push(x); ys.push(y); ts.push(t);
-      if (t >= maxTime) break;
-    }
-    return { xs: xs, ys: ys, ts: ts, crashed: crashed };
-  }
-
-  function runNewtonSim(speedFactor, angleDeg) {
-    var s0 = initialState(speedFactor, angleDeg);
-    var info = classifyOrbit(s0[0], s0[1], s0[2], s0[3]);
-    var maxTime = info.bound ? Math.min(3 * info.period, 15.0) : 4.0;
-    var sim = simulateNewtonOrbit(s0[0], s0[1], s0[2], s0[3], maxTime);
-    info.crashed = sim.crashed; info.xs = sim.xs; info.ys = sim.ys; info.ts = sim.ts;
-    return info;
-  }
-
-  function interpPosition(t, ts, xs, ys) {
-    var n = ts.length;
-    if (t <= ts[0]) return [xs[0], ys[0]];
-    if (t >= ts[n - 1]) return [xs[n - 1], ys[n - 1]];
-    var lo = 0, hi = n - 1;
-    while (hi - lo > 1) {
-      var mid = (lo + hi) >> 1;
-      if (ts[mid] <= t) lo = mid; else hi = mid;
-    }
-    var frac = (ts[hi] !== ts[lo]) ? (t - ts[lo]) / (ts[hi] - ts[lo]) : 0.0;
-    return [xs[lo] + frac * (xs[hi] - xs[lo]), ys[lo] + frac * (ys[hi] - ys[lo])];
-  }
-
-  // Exact instantaneous speed from conservation of energy, rather than
-  // differencing the (adaptively, unevenly spaced) simulated positions.
-  function speedFromEnergy(energy, r) {
-    var vsq = 2 * (energy + GM_SUN / r);
-    return Math.sqrt(Math.max(0.0, vsq));
-  }
-
-  // A bound, uncrashed orbit is a closed ellipse retracing itself exactly
-  // every period -- loop over one period for a seamless replay. A crashed
-  // or escaping trajectory has no such periodicity, so it just replays its
-  // finite simulated arc.
-  function nLoopWindow(sim) {
-    if (sim.bound && !sim.crashed) return Math.max(sim.period, 0.01);
-    return Math.max(sim.ts[sim.ts.length - 1], 0.01);
-  }
-
-  // Approximation of matplotlib's "plasma" colormap.
-  var PLASMA_STOPS = [
-    [0.0, [13, 8, 135]], [0.1, [70, 3, 159]], [0.2, [114, 1, 168]],
-    [0.3, [156, 23, 158]], [0.4, [189, 55, 134]], [0.5, [216, 87, 107]],
-    [0.6, [237, 121, 83]], [0.7, [251, 159, 58]], [0.8, [253, 202, 38]],
-    [0.9, [240, 249, 33]], [1.0, [240, 249, 33]]
-  ];
-  function plasma(t) {
-    t = Math.max(0, Math.min(1, t));
-    for (var i = 0; i < PLASMA_STOPS.length - 1; i++) {
-      var t0 = PLASMA_STOPS[i][0], t1 = PLASMA_STOPS[i + 1][0];
-      if (t >= t0 && t <= t1) {
-        var f = (t1 > t0) ? (t - t0) / (t1 - t0) : 0;
-        var c0 = PLASMA_STOPS[i][1], c1 = PLASMA_STOPS[i + 1][1];
-        var r = Math.round(c0[0] + (c1[0] - c0[0]) * f);
-        var g = Math.round(c0[1] + (c1[1] - c0[1]) * f);
-        var b = Math.round(c0[2] + (c1[2] - c0[2]) * f);
-        return "rgb(" + r + "," + g + "," + b + ")";
-      }
-    }
-    var last = PLASMA_STOPS[PLASMA_STOPS.length - 1][1];
-    return "rgb(" + last[0] + "," + last[1] + "," + last[2] + ")";
-  }
-
-  var speedSlider = document.getElementById("new-speed");
-  var speedVal = document.getElementById("new-speed-val");
-  var angleSlider = document.getElementById("new-angle");
-  var angleVal = document.getElementById("new-angle-val");
-  var timeSlider = document.getElementById("new-time");
-  var playBtn = document.getElementById("new-play");
-  var summary = document.getElementById("new-summary");
-  var canvas = document.getElementById("new-canvas");
-  var ctx = canvas.getContext("2d");
-
-  var state = { sim: null };
-
-  var PLOT_W = 500; // px, square plot region within the canvas
-  var PLOT_PAD = 20;
-
-  function render() {
-    var sim = state.sim;
-    var xs = sim.xs, ys = sim.ys, ts = sim.ts;
-    var t = parseFloat(timeSlider.value);
-
-    var loopMax = nLoopWindow(sim);
-    if (sim.bound && !sim.crashed) {
-      var cut = ts.length;
-      for (var i = 0; i < ts.length; i++) { if (ts[i] > loopMax) { cut = i; break; } }
-      cut = Math.max(cut, 2);
-      xs = xs.slice(0, cut); ys = ys.slice(0, cut); ts = ts.slice(0, cut);
-    }
-
-    var pos = interpPosition(t, ts, xs, ys);
-    var px = pos[0], py = pos[1];
-
-    var speeds = [];
-    for (var i = 0; i < xs.length; i++) speeds.push(speedFromEnergy(sim.energy, Math.hypot(xs[i], ys[i])));
-
-    var vLo, vHi;
-    if (sim.bound) {
-      var vPeri = speedFromEnergy(sim.energy, sim.periapsis);
-      var vApo = speedFromEnergy(sim.energy, sim.apoapsis);
-      vLo = Math.min(vPeri, vApo); vHi = Math.max(vPeri, vApo);
-    } else {
-      vLo = Math.min.apply(null, speeds); vHi = Math.max.apply(null, speeds);
-    }
-    if (vHi - vLo < 1e-4) vHi = vLo + 1e-4;
-    function norm(v) { return (v - vLo) / (vHi - vLo); }
-
-    var absXs = xs.map(Math.abs), absYs = ys.map(Math.abs);
-    var span = Math.max(Math.max.apply(null, absXs), Math.max.apply(null, absYs), R_START) * 1.15;
-    function sx(x) { return PLOT_PAD + (x + span) / (2 * span) * PLOT_W; }
-    function sy(y) { return PLOT_PAD + PLOT_W - (y + span) / (2 * span) * PLOT_W; }
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#fbfbf8";
-    ctx.fillRect(0, 0, PLOT_W + 2 * PLOT_PAD, PLOT_W + 2 * PLOT_PAD);
-
-    var rCrashPx = R_CRASH / (2 * span) * PLOT_W;
-    ctx.beginPath();
-    ctx.fillStyle = "rgba(242,193,78,0.35)";
-    ctx.arc(sx(0), sy(0), rCrashPx, 0, 2 * Math.PI);
-    ctx.fill();
-
-    for (var i2 = 0; i2 < xs.length - 1; i2++) {
-      var segSpeed = (speeds[i2] + speeds[i2 + 1]) / 2;
-      ctx.strokeStyle = plasma(norm(segSpeed));
-      ctx.lineWidth = 2.4;
-      ctx.beginPath();
-      ctx.moveTo(sx(xs[i2]), sy(ys[i2]));
-      ctx.lineTo(sx(xs[i2 + 1]), sy(ys[i2 + 1]));
-      ctx.stroke();
-    }
-
-    ctx.beginPath();
-    ctx.fillStyle = "#d99a2b";
-    ctx.arc(sx(0), sy(0), 9, 0, 2 * Math.PI);
-    ctx.fill();
-
-    var vHere = speedFromEnergy(sim.energy, Math.hypot(px, py));
-    ctx.beginPath();
-    ctx.fillStyle = plasma(norm(vHere));
-    ctx.strokeStyle = "#ffffff";
-    ctx.lineWidth = 1.6;
-    ctx.arc(sx(px), sy(py), 6.5, 0, 2 * Math.PI);
-    ctx.fill(); ctx.stroke();
-
-    // Colour bar -- speed scale, top = fastest (periapsis), bottom = slowest.
-    var barX = PLOT_W + 2 * PLOT_PAD + 32, barY = 34, barW = 16, barH = canvas.height - 64;
-    var grad = ctx.createLinearGradient(0, barY, 0, barY + barH);
-    for (var gstep = 0; gstep <= 10; gstep++) grad.addColorStop(gstep / 10, plasma(1 - gstep / 10));
-    ctx.fillStyle = grad;
-    ctx.fillRect(barX, barY, barW, barH);
-    ctx.strokeStyle = "#999"; ctx.lineWidth = 1;
-    ctx.strokeRect(barX, barY, barW, barH);
-    ctx.fillStyle = "#333";
-    ctx.font = "10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
-    ctx.textAlign = "left";
-    ctx.fillText(vHi.toFixed(2), barX + barW + 4, barY + 8);
-    ctx.fillText(vLo.toFixed(2), barX + barW + 4, barY + barH);
-    ctx.fillText("Speed", barX - 4, barY - 20);
-    ctx.fillText("(AU/yr)", barX - 4, barY - 8);
-
-    timeSlider.value = t;
-
-    var lines = [];
-    if (sim.crashed) {
-      lines.push("<strong>Crashed into the Sun</strong> at simulated time " +
-        sim.ts[sim.ts.length - 1].toFixed(3) + " years -- not enough sideways speed " +
-        "(or aimed too directly inward) to miss it.");
-    } else if (!sim.bound) {
-      lines.push("<strong>Escapes to infinity.</strong> This launch speed and angle give the " +
-        "planet more energy than it needs to stay bound to the Sun at all -- it never comes back.");
-    } else {
-      var shape = sim.e < 0.01 ? "a circle" : "an ellipse";
-      lines.push("<strong>Settles into " + shape + "</strong>, exactly as Newton's law predicts: " +
-        "eccentricity e=" + sim.e.toFixed(3) + ", period " + sim.period.toFixed(3) +
-        " years, ranging from " + sim.periapsis.toFixed(3) + " AU to " + sim.apoapsis.toFixed(3) +
-        " AU from the Sun.");
-    }
-    lines.push("Total energy: <strong>" + sim.energy.toFixed(3) + "</strong> (in these units) -- " +
-      "negative means bound to the Sun, zero or positive means enough speed to escape.");
-    summary.innerHTML = lines.join("<br><br>");
-  }
-
-  var playing = false, timerId = null;
-  function stop() {
-    playing = false;
-    if (timerId !== null) { clearInterval(timerId); timerId = null; }
-  }
-  function start() {
-    playing = true;
-    timerId = setInterval(function () {
-      var loopMax = nLoopWindow(state.sim);
-      var dt = loopMax / 60.0;
-      var t = parseFloat(timeSlider.value) + dt;
-      if (t >= loopMax) t = loopMax > 0 ? (t % loopMax) : 0.0;
-      timeSlider.value = t;
-      render();
-    }, 150);
-  }
-  playBtn.addEventListener("click", function () { if (playing) stop(); else start(); });
-
-  function recompute() {
-    state.sim = runNewtonSim(parseFloat(speedSlider.value), parseFloat(angleSlider.value));
-    var newMax = nLoopWindow(state.sim);
-    timeSlider.max = newMax.toFixed(4);
-    timeSlider.value = 0;
-    render();
-  }
-
-  speedSlider.addEventListener("input", function () {
-    speedVal.textContent = parseFloat(speedSlider.value).toFixed(2);
-    recompute();
-  });
-  angleSlider.addEventListener("input", function () {
-    angleVal.textContent = parseFloat(angleSlider.value).toFixed(0);
-    recompute();
-  });
-  timeSlider.addEventListener("input", render);
-
-  speedVal.textContent = parseFloat(speedSlider.value).toFixed(2);
-  angleVal.textContent = parseFloat(angleSlider.value).toFixed(0);
-  recompute();
-})();
-</script>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-newton-gravity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;9.3
-</figcaption>
-</figure>
+<p>Kepler described <em>what</em> orbits look like; Newton explained <em>why</em>. His law of universal gravitation says the Sun pulls every planet straight towards itself, with a force that falls off as the square of the distance – and nothing more. So why doesn’t that pull simply drag every planet straight into the Sun? The answer is <strong>sideways motion</strong>: a planet is always “falling” towards the Sun, but it is also always moving sideways fast enough to keep missing it. In the app at the top of the page, you control a planet’s launch speed and direction directly. Aim it steeply inward without enough sideways speed, and it crashes. Give it enough sideways speed, and the very same gravity that would have pulled it in instead bends its path into a closed ellipse – or, with enough speed, flings it away for good. The path is coloured by the planet’s instantaneous speed – watch it turn bright near the Sun and dark on the far side of an elliptical orbit, direct visual evidence of Kepler’s second law: the planet moves fastest exactly where it’s closest to the Sun.</p>
 </section>
 <section id="bonus-einstein-the-ellipse-itself-slowly-turns" class="level3">
 <h3 class="anchored" data-anchor-id="bonus-einstein-the-ellipse-itself-slowly-turns">4. Bonus – Einstein: the ellipse itself slowly turns</h3>
@@ -1438,10 +1495,10 @@ Figure&nbsp;9.3
 </script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-einstein-precession-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;9.4
+Figure&nbsp;7.4
 </figcaption>
 </figure>
-<p>A note on accuracy: sections 1-3 use real orbital data and exact physics – the Galilean moons’ real periods, the four planets’ real semi-major axes and eccentricities, and an honest numerical simulation of Newton’s law of gravity (the same simulation used to classify every orbit as crashing, elliptical, or escaping, and to measure the equal-areas result directly rather than assume it). Section 4’s relativistic correction is deliberately simplified and exaggerated for visibility – it has the right qualitative behaviour (it explains why the orbit precesses at all) but is not the precise Schwarzschild correction, and the demo says so directly rather than presenting the exaggerated numbers as Mercury’s real effect.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Analemma">Analemma</a> is an unequal figure-of-eight shape, created by tracking the sun’s position in the sky at the same time each day over a period of one year. The Analemma traces that figure-of-eight because the Earth’s orbit isn’t a perfect circle travelled at constant speed. Instead, it’s an ellipse, and Earth moves faster when it’s closer to the Sun. Working out exactly <em>why</em> orbits look like this took the better part of three centuries. <strong>Galileo</strong> discovered that not everything orbits the Earth; <strong>Kepler</strong>, worked out the precise shape of orbit based on observations; <strong>Newton</strong> explained <em>why</em> from a single law of gravity; and <strong>Einstein</strong>’s’ general relativity is needed to explain a tiny mismatch between Newton’s theory and Mercury’s orbit.</p>
 
 
 </section>
@@ -1850,17 +1907,30 @@ Figure&nbsp;9.4
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./birdsong.html" class="pagination-link" aria-label="Bird Song">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Bird Song</span></span>
+      <a href="./trigonometry.html" class="pagination-link" aria-label="Estimating the Height of a Tree using Trigonometry ($\Omega$)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Estimating the Height of a Tree using Trigonometry (<span class="math inline">\(\Omega\)</span>)</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./trigonometry.html" class="pagination-link" aria-label="Estimating the Height of a Tree using Trigonometry">
-        <span class="nav-page-text"><span class="chapter-title">Estimating the Height of a Tree using Trigonometry</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./birdsong.html" class="pagination-link" aria-label="Bird Song ($\Sigma$)">
+        <span class="nav-page-text"><span class="chapter-title">Bird Song (<span class="math inline">\(\Sigma\)</span>)</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 

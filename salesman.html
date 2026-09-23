@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The Travelling Salesman problem – Mathematics Trail at the University of Dundee Botanic Gardens</title>
+<title>The Travelling Salesman problem (\mu) – Mathematics Trail at the University of Dundee Botanic Gardens</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -35,6 +35,8 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="./">
 <link href="./helicopter.html" rel="next">
 <link href="./curvature.html" rel="prev">
+<script src="site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -72,6 +74,33 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PVGXR5JFP0"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-PVGXR5JFP0', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"express",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
 <script src="js_apps_switch.js"></script>
 <style>
   /* Hides every interactive app's own element immediately -- before the
@@ -112,6 +141,35 @@ ul.task-list li input[type="checkbox"] {
   });
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="mobile.css">
 </head>
@@ -125,7 +183,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./salesman.html"><span class="chapter-title">The Travelling Salesman problem</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./salesman.html"><span class="chapter-title">The Travelling Salesman problem (<span class="math inline">\(\mu\)</span>)</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -152,77 +210,77 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Maths Week Scotland - Dundee University</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Botanic Garden Maths Trail (S)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./phyllotaxis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phyllotaxis</span></a>
+  <a href="./phyllotaxis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phyllotaxis (<span class="math inline">\(\sigma\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spirals.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Logarithmic Spiral</span></a>
+  <a href="./spirals.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Logarithmic Spiral (<span class="math inline">\(e^x\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./symmetry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Symmetry in Plants</span></a>
+  <a href="./fractal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fractals (<span class="math inline">\(\pm\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./fractal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fractals</span></a>
+  <a href="./circadian.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Circadian Rhythm (<span class="math inline">\(\pi\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./circadian.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Circadian Rhythm</span></a>
+  <a href="./trigonometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Estimating the Height of a Tree using Trigonometry (<span class="math inline">\(\Omega\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./fibonacci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fibonacci Numbers</span></a>
+  <a href="./analemma.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why does the earth not fall into the sun? (√)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./birdsong.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bird Song</span></a>
+  <a href="./birdsong.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bird Song (<span class="math inline">\(\Sigma\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./analemma.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Analemma Project</span></a>
+  <a href="./fibonacci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fibonacci Numbers (<span class="math inline">\(\varphi\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./trigonometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Estimating the Height of a Tree using Trigonometry</span></a>
+  <a href="./symmetry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Symmetry in Plants (<span class="math inline">\(\neq\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./curvature.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why leaves crinkle?</span></a>
+  <a href="./curvature.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why leaves crinkle? (<span class="math inline">\(\geq\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./salesman.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">The Travelling Salesman problem</span></a>
+  <a href="./salesman.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">The Travelling Salesman problem (<span class="math inline">\(\mu\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./helicopter.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Helicopter Seeds</span></a>
+  <a href="./helicopter.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Helicopter Seeds (<span class="math inline">\(\emptyset\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./konigsberg.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Seven Bridges of Königsberg</span></a>
+  <a href="./konigsberg.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Seven Bridges of Königsberg (<span class="math inline">\(\leq\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./questionnaire.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">End of Maths Trail Questionnaire</span></a>
+  <a href="./questionnaire.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">End of Maths Trail Questionnaire (E)</span></a>
   </div>
 </li>
     </ul>
@@ -236,7 +294,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">The Travelling Salesman problem</span></h1>
+<h1 class="title"><span class="chapter-title">The Travelling Salesman problem (<span class="math inline">\(\mu\)</span>)</span></h1>
   <div class="quarto-categories">
     <div class="quarto-category">Combinatorics</div>
     <div class="quarto-category">Algorithms</div>
@@ -263,7 +321,7 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="tspschematic.png" class="img-fluid"></p>
 <p>This is the <strong>Travelling Salesman Problem</strong> (TSP) – one of the most famous problems in mathematics and computer science. It sounds simple: just try every order of stops and keep the shortest. With 5 stops there are only 12 distinct routes to check. With 10 stops there are already 181,440. With 20 stops there are over 60 quadrillion – so many that a computer checking a billion routes every single second would still need about two years to get through them all. Trying every option, which works fine for a handful of stops, becomes hopeless almost immediately – and no computer, however fast, escapes that by brute force alone.</p>
 <p>Real versions of this problem sit behind delivery route planning, circuit board drilling, and DNA sequencing.</p>
-<p>The app below shows nine of the trail stops: <strong>√</strong> (fixed as your start) and <strong>μ Travelling Salesman</strong> (fixed as your end), plus seven stops in between – Ω, ≤, ≥, Σ, ≠, φ and ∅. Tap those seven, in whichever order you think gives the shortest route from start to end, then use the toggle in the sidebar to compare:</p>
+<p>The app below shows nine of the trail stops: <strong>√ Analemma</strong> (fixed as your start) and <strong>μ Travelling Salesman</strong> (fixed as your end), plus seven stops in between – <strong>Ω Tree Height</strong>, <strong>≤ Königsberg</strong>, <strong>≥ Curvature</strong>, <strong>Σ Bird Song</strong>, <strong>≠ Symmetry</strong>, <strong>φ Fibonacci</strong> and <strong>∅ Helicopter Seeds</strong>. Tap those seven, in whichever order you think gives the shortest route from start to end, then use the toggle in the sidebar to compare:</p>
 <ul>
 <li><strong>Your route</strong> – the order you tapped the seven middle stops in.</li>
 <li><strong>Optimal route</strong> – the true shortest order, found by checking all 5040 possibilities exactly.</li>
@@ -355,7 +413,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div id="tsp-app">
   <div class="tsp-canvas-wrap">
-    <canvas id="tsp-canvas" width="1856" height="696"></canvas>
+    <canvas id="tsp-canvas" width="1225" height="453"></canvas>
   </div>
   <div class="tsp-sidebar">
     <h5 class="anchored">Plan the middle leg</h5>
@@ -382,12 +440,14 @@ ul.task-list li input[type="checkbox"] {
   // version (PythonForApps/salesman_py.qmd) to plain JavaScript +
   // <canvas>. Runs entirely in the browser, no Python runtime required.
   //
-  // Nine trail stops, read directly off the full, un-cropped, landscape
-  // trail map (tsp_trail_map_landscape.png -- a plain copy of Philip's
-  // "UpdatedTrailMap.png", used as-is with no recolouring or editing).
-  // Pixel coordinates were found by detecting each badge's blue circle
-  // in the image (OpenCV colour-blob + contour detection) and confirmed
-  // visually against a contact sheet of crops, not eyeballed.
+  // Nine trail stops, read off Philip's cropped landscape trail map
+  // (tsp_trail_map_landscape.png -- Philip trimmed the unused left
+  // portion and title off the original UpdatedTrailMap.png; the
+  // remaining artwork is pixel-for-pixel unscaled, just cropped).
+  // Coordinates were recomputed for this crop by feature-matching it
+  // against the previous full-map image (OpenCV ORB, 1364/1533 inlier
+  // matches -> a pure ~(621,182)px crop offset, no scaling or rotation)
+  // and confirmed by overlaying the transformed points on the new image.
   //
   // stop 2 (sqrt) is the fixed START, stop 8 (mu, Travelling Salesman)
   // is the fixed END. The player's job is to find the shortest order to
@@ -397,15 +457,15 @@ ul.task-list li input[type="checkbox"] {
   // -------------------------------------------------------------------
 
   var STOPS = [
-    [728.0, 334.5],   // 0. Omega, Native Area
-    [837.0, 461.0],   // 1. <= (Lower Pond)
-    [1175.5, 331.0],  // 2. sqrt -- START (fixed), American Area
-    [1441.0, 495.0],  // 3. >= (Australia and New Zealand Area)
-    [1512.0, 271.5],  // 4. capital sigma -- Σ (path near Australia/NZ and Asian Area boundary)
-    [1651.0, 486.5],  // 5. != (Asian Area)
-    [1783.0, 361.5],  // 6. phi (Asian Area)
-    [973.0, 469.0],   // 7. empty set -- ∅ (Lower Pond, east side)
-    [1208.5, 463.0]   // 8. mu -- Travelling Salesman -- END (fixed)
+    [107.0, 152.6],   // 0. Omega -- Tree Height (Native Area)
+    [216.0, 279.0],   // 1. <= -- Koenigsberg (Lower Pond)
+    [554.5, 149.1],   // 2. sqrt -- Analemma -- START (fixed), American Area
+    [819.9, 313.1],   // 3. >= -- Curvature (Australia and New Zealand Area)
+    [890.9, 89.6],    // 4. capital sigma -- Σ -- Bird Song (path near Australia/NZ and Asian Area boundary)
+    [1029.9, 304.6],  // 5. != -- Symmetry (Asian Area)
+    [1161.9, 179.6],  // 6. phi -- Fibonacci (Asian Area)
+    [352.0, 287.0],   // 7. empty set -- ∅ -- Helicopter Seeds (Lower Pond, east side)
+    [587.5, 281.1]    // 8. mu -- Travelling Salesman -- END (fixed)
   ];
   var START_IDX = 2;
   var END_IDX = 8;
@@ -999,17 +1059,30 @@ Figure&nbsp;12.1: Tap the seven middle stops on the map above to build your rout
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./curvature.html" class="pagination-link" aria-label="Why leaves crinkle?">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Why leaves crinkle?</span></span>
+      <a href="./curvature.html" class="pagination-link" aria-label="Why leaves crinkle? ($\geq$)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Why leaves crinkle? (<span class="math inline">\(\geq\)</span>)</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./helicopter.html" class="pagination-link" aria-label="Helicopter Seeds">
-        <span class="nav-page-text"><span class="chapter-title">Helicopter Seeds</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./helicopter.html" class="pagination-link" aria-label="Helicopter Seeds ($\emptyset$)">
+        <span class="nav-page-text"><span class="chapter-title">Helicopter Seeds (<span class="math inline">\(\emptyset\)</span>)</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 

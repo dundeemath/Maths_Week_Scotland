@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Fractals – Mathematics Trail at the University of Dundee Botanic Gardens</title>
+<title>Fractals (\pm) – Mathematics Trail at the University of Dundee Botanic Gardens</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -34,7 +34,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./circadian.html" rel="next">
-<link href="./symmetry.html" rel="prev">
+<link href="./spirals.html" rel="prev">
+<script src="site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -72,6 +74,33 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PVGXR5JFP0"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-PVGXR5JFP0', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"express",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
 <script src="js_apps_switch.js"></script>
 <style>
   /* Hides every interactive app's own element immediately -- before the
@@ -112,6 +141,35 @@ ul.task-list li input[type="checkbox"] {
   });
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="mobile.css">
 </head>
@@ -125,7 +183,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fractal.html"><span class="chapter-title">Fractals</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fractal.html"><span class="chapter-title">Fractals (<span class="math inline">\(\pm\)</span>)</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -152,77 +210,77 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Maths Week Scotland - Dundee University</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Botanic Garden Maths Trail (S)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./phyllotaxis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phyllotaxis</span></a>
+  <a href="./phyllotaxis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phyllotaxis (<span class="math inline">\(\sigma\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spirals.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Logarithmic Spiral</span></a>
+  <a href="./spirals.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Logarithmic Spiral (<span class="math inline">\(e^x\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./symmetry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Symmetry in Plants</span></a>
+  <a href="./fractal.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Fractals (<span class="math inline">\(\pm\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./fractal.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Fractals</span></a>
+  <a href="./circadian.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Circadian Rhythm (<span class="math inline">\(\pi\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./circadian.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Circadian Rhythm</span></a>
+  <a href="./trigonometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Estimating the Height of a Tree using Trigonometry (<span class="math inline">\(\Omega\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./fibonacci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fibonacci Numbers</span></a>
+  <a href="./analemma.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why does the earth not fall into the sun? (√)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./birdsong.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bird Song</span></a>
+  <a href="./birdsong.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bird Song (<span class="math inline">\(\Sigma\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./analemma.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Analemma Project</span></a>
+  <a href="./fibonacci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fibonacci Numbers (<span class="math inline">\(\varphi\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./trigonometry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Estimating the Height of a Tree using Trigonometry</span></a>
+  <a href="./symmetry.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Symmetry in Plants (<span class="math inline">\(\neq\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./curvature.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why leaves crinkle?</span></a>
+  <a href="./curvature.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Why leaves crinkle? (<span class="math inline">\(\geq\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./salesman.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Travelling Salesman problem</span></a>
+  <a href="./salesman.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The Travelling Salesman problem (<span class="math inline">\(\mu\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./helicopter.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Helicopter Seeds</span></a>
+  <a href="./helicopter.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Helicopter Seeds (<span class="math inline">\(\emptyset\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./konigsberg.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Seven Bridges of Königsberg</span></a>
+  <a href="./konigsberg.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Seven Bridges of Königsberg (<span class="math inline">\(\leq\)</span>)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./questionnaire.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">End of Maths Trail Questionnaire</span></a>
+  <a href="./questionnaire.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">End of Maths Trail Questionnaire (E)</span></a>
   </div>
 </li>
     </ul>
@@ -236,7 +294,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Fractals</span></h1>
+<h1 class="title"><span class="chapter-title">Fractals (<span class="math inline">\(\pm\)</span>)</span></h1>
   <div class="quarto-categories">
     <div class="quarto-category">Dynamical systems</div>
     <div class="quarto-category">Discrete maths</div>
@@ -257,20 +315,18 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>A fractal is a structure that possessed the property of <strong>self-similarity</strong>. Specifically, it refers to a structure where the exact same shape repeatedly appears when the entire figure is broken down into several smaller parts.</p>
-<p><img src="figures/Fractal-fern.png" class="img-fluid" style="width:1.8in" data-fig-pos="H"></p>
-<p>While fractal patterns and shapes appear complex at first glance, they are actually the result of repeating simple rules and operations.</p>
-<p>While fractals are a concept rooted in geometry, the fractal approach can also be applied to analyse various phenomena, such as stock prices, currency fluctuations, and social structures.</p>
-<p>Many examples of fractals can also be observed in the natural world. These include a wide variety of examples, such as <strong>snowflakes</strong>, <em>seashells</em> (like turban shells and nautiluses), the shapes of cumulonimbus clouds, and the circulatory system in the human body (including the heart, blood vessels, and lymphatic vessels).</p>
+<p>A fractal is a structure that has the property of <strong>self-similarity</strong>. This means that the exact same shape repeatedly appears at smaller and smaller scales.</p>
+<p><img src="figures/Fractal-fern.png" class="img-fluid" style="width:6in" data-fig-pos="H"></p>
+<p>Fractal patterns can look very complicated at first glance, but they are actually created by repeating simple rules again and again.</p>
+<p>Fractals come from geometry, but the same ideas can also be used to study patterns in things like stock prices, changes in currency values, and the way social groups are organised.</p>
+<p>Many examples of fractals can also be found in the natural world. Examples include <strong>snowflakes</strong>, <em>seashells</em> (such as turban shells and nautiluses), the shapes of cumulonimbus clouds, and the circulatory system in the human body (including the heart, blood vessels, and lymphatic vessels).</p>
 <section id="build-a-fractal-fern-yourself" class="level2">
 <h2 class="anchored" data-anchor-id="build-a-fractal-fern-yourself">Build a fractal fern yourself</h2>
-<p>Below, build a fractal fern yourself, using exactly the same idea as the real fern pictured above: just four simple rules, each applied at random with its own fixed probability, plotting one point at a time. No fern shape is ever drawn directly – it emerges purely from repeating those four rules tens of thousands of times.</p>
-<p>Everything below is built from one idea, introduced in three steps: start with a single point and a single rule, then pick between a few different <em>shrink-towards-a-corner</em> rules at random, step by step, then use that same idea with Barnsley’s own four rules to build a fern.</p>
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-fractal-fern-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p>In the app below you can visualise the construction of a fractal fern pattern. In the simulation there are just four simple rules, each applied at random with its own fixed probability. No fern shape is ever instructed. Instead, it emerges purely from repeating those four rules tens of thousands of times.</p>
+<p>The simulation has some parameters. If you adjust these you can see how the final pattern depends sensitively on the rules.</p>
 <style>
-  #fern-app, #fern-app * { box-sizing: border-box; }
-  #fern-app {
+  .fractal-app, .fractal-app * { box-sizing: border-box; }
+  .fractal-app {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -278,93 +334,93 @@ ul.task-list li input[type="checkbox"] {
     max-width: 1040px;
     text-align: left;
   }
-  #fern-app h4, #fern-app h6, #fern-app label, #fern-app .fern-summary {
+  .fractal-app h4, .fractal-app h6, .fractal-app label, .fractal-app .fern-summary {
     text-align: left;
   }
-  #fern-app .fern-card {
+  .fractal-app .fern-card {
     border: 1px solid #e2e2e2;
     border-radius: 8px;
     padding: 14px;
     background: #fff;
   }
-  #fern-app .fern-card h4 {
+  .fractal-app .fern-card h4 {
     margin: 0 0 6px 0;
     font-size: 16px;
   }
-  #fern-app .fern-desc {
+  .fractal-app .fern-desc {
     font-size: 13px;
     color: #444;
     line-height: 1.5;
     margin: 0 0 10px 0;
   }
-  #fern-app .fern-row {
+  .fractal-app .fern-row {
     display: flex;
     flex-wrap: wrap;
     gap: 14px;
     align-items: flex-start;
   }
-  #fern-app .fern-sidebar {
+  .fractal-app .fern-sidebar {
     flex: 0 0 240px;
     min-width: 200px;
   }
-  #fern-app .fern-canvas-wrap {
+  .fractal-app .fern-canvas-wrap {
     flex: 1 1 360px;
     min-width: 0;
   }
-  #fern-app h6 {
+  .fractal-app h6 {
     margin: 0 0 6px 0;
     font-size: 13px;
     font-weight: 600;
     color: #333;
   }
-  #fern-app label {
+  .fractal-app label {
     display: block;
     font-size: 13px;
     margin: 8px 0 4px 0;
     line-height: 1.3;
   }
-  #fern-app input[type="range"] {
+  .fractal-app input[type="range"] {
     width: 100%;
   }
-  #fern-app input[type="number"] {
+  .fractal-app input[type="number"] {
     width: 70px;
     font-size: 13px;
     padding: 3px 4px;
   }
-  #fern-app hr {
+  .fractal-app hr {
     margin: 12px 0;
     border: none;
     border-top: 1px solid #ddd;
   }
-  #fern-app .fern-btn-row {
+  .fractal-app .fern-btn-row {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
     margin-top: 8px;
   }
-  #fern-app button {
+  .fractal-app button {
     padding: 6px 12px;
     font-size: 13px;
     border-radius: 4px;
     cursor: pointer;
   }
-  #fern-app .fern-btn-primary {
+  .fractal-app .fern-btn-primary {
     background: #2f7d4f;
     color: #fff;
     border: none;
   }
-  #fern-app .fern-btn-secondary {
+  .fractal-app .fern-btn-secondary {
     background: #eee;
     color: #333;
     border: 1px solid #ccc;
   }
-  #fern-app .fern-summary {
+  .fractal-app .fern-summary {
     font-size: 13px;
     line-height: 1.55;
     margin-top: 10px;
   }
-  #fern-app .fern-summary strong { color: #1a1a1a; }
-  #fern-app canvas {
+  .fractal-app .fern-summary strong { color: #1a1a1a; }
+  .fractal-app canvas {
     width: 100%;
     height: auto;
     display: block;
@@ -372,149 +428,38 @@ ul.task-list li input[type="checkbox"] {
     background: #fbfbf8;
     border: 1px solid #eee;
   }
-  #fern-app .fern-radio label {
+  .fractal-app .fern-radio label {
     display: inline-flex;
     align-items: center;
     gap: 5px;
     font-size: 13px;
     margin: 4px 12px 4px 0;
   }
-  #fern-app .fern-radio input { margin: 0; }
-  #fern-app details.fern-rules-table {
+  .fractal-app .fern-radio input { margin: 0; }
+  .fractal-app details.fern-rules-table {
     margin-top: 10px;
     font-size: 12.5px;
   }
-  #fern-app details.fern-rules-table summary {
+  .fractal-app details.fern-rules-table summary {
     cursor: pointer;
     font-size: 13px;
     color: #2f7d4f;
   }
-  #fern-app details.fern-rules-table ul {
+  .fractal-app details.fern-rules-table ul {
     margin: 8px 0 0 0;
     padding-left: 18px;
   }
   @media (max-width: 520px) {
-    #fern-app .fern-card { padding: 10px; }
-    #fern-app .fern-card h4 { font-size: 14px; }
-    #fern-app .fern-desc { font-size: 12px; }
-    #fern-app .fern-sidebar { flex-basis: 100%; }
-    #fern-app .fern-canvas-wrap { flex-basis: 100%; }
-    #fern-app label { font-size: 12px; }
-    #fern-app button { padding: 5px 10px; font-size: 12px; }
-    #fern-app .fern-summary { font-size: 12px; }
+    .fractal-app .fern-card { padding: 10px; }
+    .fractal-app .fern-card h4 { font-size: 14px; }
+    .fractal-app .fern-desc { font-size: 12px; }
+    .fractal-app .fern-sidebar { flex-basis: 100%; }
+    .fractal-app .fern-canvas-wrap { flex-basis: 100%; }
+    .fractal-app label { font-size: 12px; }
+    .fractal-app button { padding: 5px 10px; font-size: 12px; }
+    .fractal-app .fern-summary { font-size: 12px; }
   }
 </style>
-
-<div id="fern-app">
-
-  <div class="fern-card">
-    <h4 class="anchored">1. Start simple: one point, one rule</h4>
-    <p class="fern-desc">A <strong>rule</strong> takes a point (x, y) and maps it to a new point
-      (x′, y′) = (a·x + b·y + e, c·x + d·y + f).
-      That's it -- six numbers, one point in, one point out. Try the sliders, then press
-      "Apply this rule again" to feed the new point back into the same rule, and watch where it goes next.</p>
-    <div class="fern-row">
-      <div class="fern-sidebar">
-        <h6 class="anchored">Starting point</h6>
-        <label for="fern-s1-x0">x</label>
-        <input id="fern-s1-x0" type="number" step="0.1" value="1.0">
-        <label for="fern-s1-y0">y</label>
-        <input id="fern-s1-y0" type="number" step="0.1" value="1.0">
-        <h6 style="margin-top:10px;" class="anchored">The rule</h6>
-        <label for="fern-s1-a">a: <strong id="fern-s1-a-val">0.70</strong></label>
-        <input id="fern-s1-a" type="range" min="-1.5" max="1.5" step="0.05" value="0.70">
-        <label for="fern-s1-b">b: <strong id="fern-s1-b-val">-0.50</strong></label>
-        <input id="fern-s1-b" type="range" min="-1.5" max="1.5" step="0.05" value="-0.50">
-        <label for="fern-s1-c">c: <strong id="fern-s1-c-val">0.50</strong></label>
-        <input id="fern-s1-c" type="range" min="-1.5" max="1.5" step="0.05" value="0.50">
-        <label for="fern-s1-d">d: <strong id="fern-s1-d-val">0.70</strong></label>
-        <input id="fern-s1-d" type="range" min="-1.5" max="1.5" step="0.05" value="0.70">
-        <label for="fern-s1-e">e: <strong id="fern-s1-e-val">0.40</strong></label>
-        <input id="fern-s1-e" type="range" min="-2.0" max="2.0" step="0.1" value="0.40">
-        <label for="fern-s1-f">f: <strong id="fern-s1-f-val">0.20</strong></label>
-        <input id="fern-s1-f" type="range" min="-2.0" max="2.0" step="0.1" value="0.20">
-        <div class="fern-btn-row">
-          <button id="fern-s1-apply" class="fern-btn-primary" type="button">Apply this rule again</button>
-          <button id="fern-s1-reset" class="fern-btn-secondary" type="button">Reset</button>
-        </div>
-        <div id="fern-s1-summary" class="fern-summary"></div>
-      </div>
-      <div class="fern-canvas-wrap">
-        <canvas id="fern-canvas-1" width="480" height="420"></canvas>
-      </div>
-    </div>
-  </div>
-
-  <div class="fern-card">
-    <h4 class="anchored">2. Add more rules -- and randomness</h4>
-    <p class="fern-desc">Fractals don't use one fixed rule -- they repeat a simple recipe, over and over:
-      start at any point; pick one of the triangle's three corners at random, each equally likely;
-      move the current point exactly halfway towards that corner, and plot the new point; then repeat,
-      tens of thousands of times. Do that, and out comes the famous <strong>Sierpinski triangle</strong>.
-      (This "halfway to a random corner" trick is special to the triangle -- try it on a square and you
-      just get a solidly filled square, not a fractal. The fern below gets its fractal structure a
-      different way, using rules that rotate and stretch as well as shrink.)</p>
-    <div class="fern-row">
-      <div class="fern-sidebar">
-        <h6 class="anchored">Number of points</h6>
-        <input id="fern-s2-n" type="range" min="500" max="8000" step="500" value="4000">
-        <div class="fern-btn-row">
-          <button id="fern-s2-animate" class="fern-btn-primary" type="button">Watch it build, point by point</button>
-        </div>
-        <div id="fern-s2-summary" class="fern-summary"></div>
-      </div>
-      <div class="fern-canvas-wrap">
-        <canvas id="fern-canvas-2" width="480" height="420"></canvas>
-      </div>
-    </div>
-  </div>
-
-  <div class="fern-card">
-    <h4 class="anchored">3. Barnsley's fern, simplified</h4>
-    <p class="fern-desc">Same idea again -- several rules, chosen at random, applied over and over -- but
-      now with Barnsley's own four published rules for a fern. All 28 of the raw numbers behind those
-      four rules matter, but that's too many to play with directly, so here are four knobs that each
-      nudge a meaningful part of the shape. All four start at the setting that reproduces Barnsley's
-      exact original fern; most other settings look nothing like a fern, and a few don't converge at all.</p>
-    <div class="fern-row">
-      <div class="fern-sidebar">
-        <h6 class="anchored">Number of points</h6>
-        <input id="fern-s3-n" type="range" min="1000" max="40000" step="1000" value="15000">
-        <div class="fern-btn-row">
-          <button id="fern-s3-animate" class="fern-btn-primary" type="button">Watch it build, point by point</button>
-        </div>
-        <hr>
-        <h6 class="anchored">Colour</h6>
-        <div class="fern-radio">
-          <label><input type="radio" name="fern-s3-color" value="natural" checked=""> Natural green</label>
-          <label><input type="radio" name="fern-s3-color" value="rule"> By generating rule (see the self-similarity)</label>
-        </div>
-        <hr>
-        <h6 class="anchored">Shape</h6>
-        <label for="fern-s3-rotation">Leaflet rotation: <strong id="fern-s3-rotation-val">0</strong>°</label>
-        <input id="fern-s3-rotation" type="range" min="-45" max="45" step="1" value="0">
-        <label for="fern-s3-leaflet">Leaflet size: <strong id="fern-s3-leaflet-val">1.0</strong></label>
-        <input id="fern-s3-leaflet" type="range" min="0.2" max="7.0" step="0.1" value="1.0">
-        <label for="fern-s3-stem">Stem length: <strong id="fern-s3-stem-val">1.0</strong></label>
-        <input id="fern-s3-stem" type="range" min="0.2" max="5.0" step="0.1" value="1.0">
-        <label for="fern-s3-lean">Overall lean: <strong id="fern-s3-lean-val">0.0</strong></label>
-        <input id="fern-s3-lean" type="range" min="-4.0" max="4.0" step="0.1" value="0.0">
-        <div class="fern-btn-row">
-          <button id="fern-s3-reset" class="fern-btn-secondary" type="button">Reset to Barnsley's fern</button>
-        </div>
-      </div>
-      <div class="fern-canvas-wrap">
-        <canvas id="fern-canvas" width="640" height="700"></canvas>
-        <div id="fern-s3-summary" class="fern-summary"></div>
-        <details class="fern-rules-table">
-          <summary>See the raw numbers these four knobs produce</summary>
-          <ul id="fern-s3-rules-list"></ul>
-        </details>
-      </div>
-    </div>
-  </div>
-
-</div>
 
 <script>
 (function () {
@@ -522,6 +467,12 @@ ul.task-list li input[type="checkbox"] {
   if (window.SHOW_JS_APPS === false) return;
 
   // -------------------------------------------------------------------
+  // Shared library for the three fractal demos below (Barnsley's fern,
+  // "building a pattern from first principles", and the Sierpinski
+  // triangle extra). Each demo's own <script> block is otherwise
+  // independent -- this is the only code they have in common, exposed
+  // once here as window.FractalLib so it isn't duplicated three times.
+  //
   // Ported 1:1 (same maths, same constants) from the Python/Shinylive
   // version (fractal_app/app.py). Runs as plain JavaScript, entirely in
   // the browser -- no Python runtime to download.
@@ -529,16 +480,11 @@ ul.task-list li input[type="checkbox"] {
   // Each "rule" is an affine map (x,y) -> (a*x+b*y+e, c*x+d*y+f). The
   // "chaos game" repeatedly picks one of several rules at random (each
   // with a fixed probability) and applies it to wherever the last point
-  // landed -- that's the entire mechanism behind every panel below.
+  // landed -- that's the entire mechanism behind every demo below.
   // -------------------------------------------------------------------
-
-  var root = document.getElementById("fern-app");
-  if (!root) return;
 
   var SEED = 42;
   var CLIP = 1.0e4;
-
-  function $(id) { return root.querySelector("#" + id); }
 
   function fmtN(n) {
     n = Math.round(n);
@@ -579,27 +525,6 @@ ul.task-list li input[type="checkbox"] {
     return [x, y, clipped];
   }
 
-  // ---------------------------------------------------------------
-  // Section 1: a single point, mapped by a single rule, repeatedly.
-  // ---------------------------------------------------------------
-  function iterateSingleRule(x0, y0, a, b, c, d, e, f, n) {
-    var xs = [x0], ys = [y0];
-    var clipped = false;
-    var x = x0, y = y0;
-    for (var i = 0; i < n; i++) {
-      var nx = a * x + b * y + e;
-      var ny = c * x + d * y + f;
-      var r = clipPoint(nx, ny);
-      nx = r[0]; ny = r[1]; clipped = clipped || r[2];
-      xs.push(nx); ys.push(ny);
-      x = nx; y = ny;
-    }
-    return { xs: xs, ys: ys, clipped: clipped };
-  }
-
-  // ---------------------------------------------------------------
-  // Shared "chaos game" mechanism for sections 2 and 3.
-  // ---------------------------------------------------------------
   function normalizeProbs(rules) {
     var n = rules.length;
     var raw = rules.map(function (r) { return Math.max(r[6], 0.0); });
@@ -815,308 +740,480 @@ ul.task-list li input[type="checkbox"] {
     };
   }
 
-  // =================================================================
-  // Section 1
-  // =================================================================
-  (function () {
-    var canvas = $("fern-canvas-1");
-    var ctx = canvas.getContext("2d");
-    var summaryEl = $("fern-s1-summary");
-    var x0In = $("fern-s1-x0"), y0In = $("fern-s1-y0");
-    var sliders = {
-      a: $("fern-s1-a"), b: $("fern-s1-b"), c: $("fern-s1-c"),
-      d: $("fern-s1-d"), e: $("fern-s1-e"), f: $("fern-s1-f")
-    };
-    var vals = {
-      a: $("fern-s1-a-val"), b: $("fern-s1-b-val"), c: $("fern-s1-c-val"),
-      d: $("fern-s1-d-val"), e: $("fern-s1-e-val"), f: $("fern-s1-f-val")
-    };
-    var applyBtn = $("fern-s1-apply"), resetBtn = $("fern-s1-reset");
-    var count = 0;
+  window.FractalLib = {
+    SEED: SEED, CLIP: CLIP,
+    fmtN: fmtN, makeRng: makeRng, clipPoint: clipPoint,
+    normalizeProbs: normalizeProbs, generatePoints: generatePoints,
+    dataBounds: dataBounds, computeTransform: computeTransform,
+    drawPoints: drawPoints, stepFormulaHtml: stepFormulaHtml,
+    makeWatchBuilder: makeWatchBuilder
+  };
+})();
+</script>
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fractal-fern-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="fern-app" class="fractal-app">
 
-    function safe(v, dflt) { var n = parseFloat(v); return isFinite(n) ? n : dflt; }
+  <div class="fern-card">
+    <div class="fern-row">
+      <div class="fern-sidebar">
+        <h6 class="anchored">Number of points</h6>
+        <input id="fern-s3-n" type="range" min="1000" max="40000" step="1000" value="15000">
+        <div class="fern-btn-row">
+          <button id="fern-s3-animate" class="fern-btn-primary" type="button">Watch it build, point by point</button>
+        </div>
+        <hr>
+        <h6 class="anchored">Colour</h6>
+        <div class="fern-radio">
+          <label><input type="radio" name="fern-s3-color" value="natural" checked=""> Natural green</label>
+          <label><input type="radio" name="fern-s3-color" value="rule"> By generating rule (see the self-similarity)</label>
+        </div>
+        <hr>
+        <h6 class="anchored">Shape</h6>
+        <label for="fern-s3-rotation">Leaflet rotation: <strong id="fern-s3-rotation-val">0</strong>°</label>
+        <input id="fern-s3-rotation" type="range" min="-45" max="45" step="1" value="0">
+        <label for="fern-s3-leaflet">Leaflet size: <strong id="fern-s3-leaflet-val">1.0</strong></label>
+        <input id="fern-s3-leaflet" type="range" min="0.2" max="7.0" step="0.1" value="1.0">
+        <label for="fern-s3-stem">Stem length: <strong id="fern-s3-stem-val">1.0</strong></label>
+        <input id="fern-s3-stem" type="range" min="0.2" max="5.0" step="0.1" value="1.0">
+        <label for="fern-s3-lean">Overall lean: <strong id="fern-s3-lean-val">0.0</strong></label>
+        <input id="fern-s3-lean" type="range" min="-4.0" max="4.0" step="0.1" value="0.0">
+        <div class="fern-btn-row">
+          <button id="fern-s3-reset" class="fern-btn-secondary" type="button">Reset to Barnsley's fern</button>
+        </div>
+      </div>
+      <div class="fern-canvas-wrap">
+        <canvas id="fern-canvas" width="640" height="700"></canvas>
+        <div id="fern-s3-summary" class="fern-summary"></div>
+        <details class="fern-rules-table">
+          <summary>See the raw numbers these four knobs produce</summary>
+          <ul id="fern-s3-rules-list"></ul>
+        </details>
+      </div>
+    </div>
+  </div>
 
-    function render() {
-      var x0 = safe(x0In.value, 1.0), y0 = safe(y0In.value, 1.0);
-      var a = safe(sliders.a.value, 0), b = safe(sliders.b.value, 0);
-      var c = safe(sliders.c.value, 0), d = safe(sliders.d.value, 0);
-      var e = safe(sliders.e.value, 0), f = safe(sliders.f.value, 0);
-      for (var k in vals) vals[k].textContent = safe(sliders[k].value, 0).toFixed(2);
+</div>
 
-      var res = iterateSingleRule(x0, y0, a, b, c, d, e, f, count);
-      var xs = res.xs, ys = res.ys;
+<script>
+(function () {
+  "use strict";
+  if (window.SHOW_JS_APPS === false) return;
+  var lib = window.FractalLib;
+  if (!lib) return;
 
-      var W = canvas.width, H = canvas.height;
-      ctx.clearRect(0, 0, W, H);
-      ctx.fillStyle = "#fbfbf8";
-      ctx.fillRect(0, 0, W, H);
-      var b2 = dataBounds(xs, ys, 0, xs.length);
-      var xpad = (b2[1] - b2[0]) * 0.15 + 0.4, ypad = (b2[3] - b2[2]) * 0.15 + 0.4;
-      var tr = (function () {
-        var xmin = b2[0] - xpad, xmax = b2[1] + xpad, ymin = b2[2] - ypad, ymax = b2[3] + ypad;
-        var dataW = Math.max(xmax - xmin, 1e-6), dataH = Math.max(ymax - ymin, 1e-6);
-        var scale = Math.min(W / dataW, H / dataH);
-        var offX = (W - dataW * scale) / 2, offY = (H - dataH * scale) / 2;
-        return {
-          sx: function (x) { return offX + (x - xmin) * scale; },
-          sy: function (y) { return H - (offY + (y - ymin) * scale); }
-        };
-      })();
+  var root = document.getElementById("fern-app");
+  if (!root) return;
+  function $(id) { return root.querySelector("#" + id); }
 
-      // guide lines through the origin
-      ctx.strokeStyle = "#e3e3e3"; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(0, tr.sy(0)); ctx.lineTo(W, tr.sy(0)); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(tr.sx(0), 0); ctx.lineTo(tr.sx(0), H); ctx.stroke();
+  var CLASSIC_RULES = [
+    [0.00, 0.00, 0.00, 0.16, 0.00, 0.00, 0.01],
+    [0.85, 0.04, -0.04, 0.85, 0.00, 1.60, 0.85],
+    [0.20, -0.26, 0.23, 0.22, 0.00, 1.60, 0.07],
+    [-0.15, 0.28, 0.26, 0.24, 0.00, 0.44, 0.07]
+  ];
+  var RULE_NAMES = ["Stem", "Whole-fern copy", "Left leaflet", "Right leaflet"];
+  var RULE_COLORS = ["#6b4226", "#2e7d32", "#1565c0", "#c77f00"];
+  var SLOW_POINTS = 240, SLOW_DELAY = 100, FAST_FRAMES = 50, FAST_DELAY = 50;
 
-      // connecting line
-      ctx.strokeStyle = "#9aa0a6"; ctx.globalAlpha = 0.7; ctx.lineWidth = 1.0;
-      ctx.beginPath();
-      for (var i = 0; i < xs.length; i++) {
-        var px = tr.sx(xs[i]), py = tr.sy(ys[i]);
-        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-      }
-      ctx.stroke();
-      ctx.globalAlpha = 1.0;
+  var canvas = $("fern-canvas");
+  var ctx = canvas.getContext("2d");
+  var nSlider = $("fern-s3-n");
+  var animateBtn = $("fern-s3-animate");
+  var resetBtn = $("fern-s3-reset");
+  var summaryEl = $("fern-s3-summary");
+  var rulesListEl = $("fern-s3-rules-list");
+  var rotationSlider = $("fern-s3-rotation"), leafletSlider = $("fern-s3-leaflet");
+  var stemSlider = $("fern-s3-stem"), leanSlider = $("fern-s3-lean");
+  var rotationVal = $("fern-s3-rotation-val"), leafletVal = $("fern-s3-leaflet-val");
+  var stemVal = $("fern-s3-stem-val"), leanVal = $("fern-s3-lean-val");
+  var colorRadios = root.querySelectorAll('input[name="fern-s3-color"]');
 
-      // intermediate points
-      if (xs.length > 2) {
-        ctx.fillStyle = "#9aa0a6";
-        for (var j = 1; j < xs.length - 1; j++) {
-          var qx = tr.sx(xs[j]), qy = tr.sy(ys[j]);
-          ctx.beginPath(); ctx.arc(qx, qy, 3, 0, 2 * Math.PI); ctx.fill();
-        }
-      }
-      // start point (black) and current point (pink)
-      ctx.fillStyle = "#222";
-      ctx.beginPath(); ctx.arc(tr.sx(xs[0]), tr.sy(ys[0]), 5, 0, 2 * Math.PI); ctx.fill();
-      if (xs.length > 1) {
-        ctx.fillStyle = "#d81b60";
-        ctx.beginPath();
-        ctx.arc(tr.sx(xs[xs.length - 1]), tr.sy(ys[ys.length - 1]), 5.5, 0, 2 * Math.PI);
-        ctx.fill();
-      }
+  function colorMode() {
+    var checked = root.querySelector('input[name="fern-s3-color"]:checked');
+    return checked ? checked.value : "natural";
+  }
 
-      var lines = [];
-      if (count === 0) {
-        lines.push('Press "Apply this rule again" to map the black point using the rule above -- the new point will appear in pink.');
-      } else {
-        var px2 = xs[xs.length - 2], py2 = ys[ys.length - 2];
-        var nx = xs[xs.length - 1], ny = ys[ys.length - 1];
-        lines.push("<strong>After " + count + " application" + (count !== 1 ? "s" : "") + " of the rule:</strong>");
-        lines.push(
-          "x&prime; = " + a.toFixed(2) + " &times; " + px2.toFixed(3) + " + " + b.toFixed(2) + " &times; " + py2.toFixed(3) +
-          " + " + e.toFixed(2) + " = <strong>" + nx.toFixed(3) + "</strong><br>" +
-          "y&prime; = " + c.toFixed(2) + " &times; " + px2.toFixed(3) + " + " + d.toFixed(2) + " &times; " + py2.toFixed(3) +
-          " + " + f.toFixed(2) + " = <strong>" + ny.toFixed(3) + "</strong>"
-        );
-        if (res.clipped) {
-          lines.push("This rule doesn't contract -- the point is shooting off to huge values (capped here so the plot doesn't break). Try smaller a/b/c/d values, or press reset.");
-        } else if (count >= 5) {
-          lines.push("Notice the point is settling towards one fixed spot rather than wandering off -- that's what it means for a rule to <strong>contract</strong>. Every rule used below is built to do exactly this.");
-        }
-      }
-      summaryEl.innerHTML = lines.join("<br><br>");
-    }
-
-    applyBtn.addEventListener("click", function () { count = Math.min(count + 1, 30); render(); });
-    resetBtn.addEventListener("click", function () { count = 0; render(); });
-    x0In.addEventListener("input", render);
-    y0In.addEventListener("input", render);
-    Object.keys(sliders).forEach(function (k) { sliders[k].addEventListener("input", render); });
-
-    render();
-  })();
-
-  // =================================================================
-  // Section 2 -- Sierpinski triangle
-  // =================================================================
-  (function () {
-    var TRIANGLE_CORNERS = [[0.0, 0.0], [1.0, 0.0], [0.5, 0.866]];
-    var TRIANGLE_NAMES = ["Corner A", "Corner B", "Corner C"];
-    var TRIANGLE_COLORS = ["#c0392b", "#2e7d32", "#1565c0"];
-    var TRIANGLE_RULES = TRIANGLE_CORNERS.map(function (c) {
-      return [0.5, 0.0, 0.0, 0.5, c[0] / 2, c[1] / 2, 1.0 / 3.0];
+  function simplifiedRules(rotationDeg, leafletScale, stemMult, lean) {
+    var rules = CLASSIC_RULES.map(function (r) { return r.slice(); });
+    rules[0][3] = CLASSIC_RULES[0][3] * stemMult;
+    rules[1][1] = CLASSIC_RULES[1][1] + lean;
+    var theta = rotationDeg * Math.PI / 180;
+    var ct = Math.cos(theta), st = Math.sin(theta);
+    [2, 3].forEach(function (i) {
+      var a = CLASSIC_RULES[i][0], b = CLASSIC_RULES[i][1], c = CLASSIC_RULES[i][2], d = CLASSIC_RULES[i][3];
+      rules[i][0] = (ct * a - st * c) * leafletScale;
+      rules[i][1] = (ct * b - st * d) * leafletScale;
+      rules[i][2] = (st * a + ct * c) * leafletScale;
+      rules[i][3] = (st * b + ct * d) * leafletScale;
     });
-    var MAX_POINTS_2 = 8000, SLOW_POINTS_2 = 18, SLOW_DELAY_2 = 300, FAST_FRAMES_2 = 12, FAST_DELAY_2 = 100;
+    return rules;
+  }
 
-    var canvas = $("fern-canvas-2");
-    var ctx = canvas.getContext("2d");
-    var nSlider = $("fern-s2-n");
-    var animateBtn = $("fern-s2-animate");
-    var summaryEl = $("fern-s2-summary");
+  function currentRules() {
+    return simplifiedRules(
+      parseFloat(rotationSlider.value), parseFloat(leafletSlider.value),
+      parseFloat(stemSlider.value), parseFloat(leanSlider.value)
+    );
+  }
 
-    function target() { return parseInt(nSlider.value, 10); }
+  function target() { return parseInt(nSlider.value, 10); }
 
-    function onReveal(revealed, animating) {
-      var n = Math.max(revealed, 1);
-      var res = generatePoints(n, TRIANGLE_RULES, SEED);
-      var highlightI = (animating && revealed >= 1) ? revealed - 1 : null;
-      drawPoints(ctx, canvas.width, canvas.height, res.xs, res.ys, res.ruleIdx, n, "rule", TRIANGLE_COLORS, null, highlightI);
+  function updateSliderLabels() {
+    rotationVal.textContent = parseFloat(rotationSlider.value).toFixed(0);
+    leafletVal.textContent = parseFloat(leafletSlider.value).toFixed(1);
+    stemVal.textContent = parseFloat(stemSlider.value).toFixed(1);
+    leanVal.textContent = parseFloat(leanSlider.value).toFixed(1);
+  }
 
-      var probs = normalizeProbs(TRIANGLE_RULES);
-      var lines = [];
-      if (animating && revealed >= 1 && revealed <= SLOW_POINTS_2) {
-        lines.push(stepFormulaHtml(revealed, target(), TRIANGLE_RULES, res.ruleIdx, res.xs, res.ys, TRIANGLE_NAMES, probs));
-      } else if (animating) {
-        lines.push("<strong>Building the triangle: " + fmtN(revealed) + " / " + fmtN(target()) + " points</strong>");
-      } else {
-        lines.push("<strong>Points plotted:</strong> " + fmtN(revealed));
-      }
-      summaryEl.innerHTML = lines.join("<br><br>");
+  function updateRulesTable(rules, probs) {
+    var html = "";
+    for (var i = 0; i < RULE_NAMES.length; i++) {
+      var r = rules[i];
+      html += "<li><strong>" + RULE_NAMES[i] + "</strong>: a=" + r[0].toFixed(3) + ", b=" + r[1].toFixed(3) +
+        ", c=" + r[2].toFixed(3) + ", d=" + r[3].toFixed(3) + ", e=" + r[4].toFixed(3) + ", f=" + r[5].toFixed(3) +
+        ", p=" + Math.round(probs[i] * 100) + "%</li>";
+    }
+    rulesListEl.innerHTML = html;
+  }
+
+  function onReveal(revealed, animating) {
+    updateSliderLabels();
+    var n = Math.max(revealed, 1);
+    var rules = currentRules();
+    var res = lib.generatePoints(n, rules, lib.SEED);
+    var highlightI = (animating && revealed >= 1) ? revealed - 1 : null;
+    lib.drawPoints(ctx, canvas.width, canvas.height, res.xs, res.ys, res.ruleIdx, n, colorMode(), RULE_COLORS, "#2f7a3d", highlightI);
+
+    var probs = lib.normalizeProbs(rules);
+    var lines = [];
+    if (animating && revealed >= 1 && revealed <= SLOW_POINTS) {
+      lines.push(lib.stepFormulaHtml(revealed, target(), rules, res.ruleIdx, res.xs, res.ys, RULE_NAMES, probs));
+    } else if (animating) {
+      lines.push("<strong>Building the fern: " + lib.fmtN(revealed) + " / " + lib.fmtN(target()) + " points</strong>");
+    } else {
+      lines.push("<strong>Points plotted:</strong> " + lib.fmtN(revealed));
     }
 
-    var builder = makeWatchBuilder({
-      slowPoints: SLOW_POINTS_2, slowDelay: SLOW_DELAY_2,
-      fastFrames: FAST_FRAMES_2, fastDelay: FAST_DELAY_2,
-      onReveal: onReveal, targetFn: target
-    });
-
-    nSlider.addEventListener("input", function () { builder.fastRebuild(1500); });
-    animateBtn.addEventListener("click", function () { builder.start(); });
-
-    builder.fastRebuild(1500);
-  })();
-
-  // =================================================================
-  // Section 3 -- Barnsley's fern, simplified
-  // =================================================================
-  (function () {
-    var CLASSIC_RULES = [
-      [0.00, 0.00, 0.00, 0.16, 0.00, 0.00, 0.01],
-      [0.85, 0.04, -0.04, 0.85, 0.00, 1.60, 0.85],
-      [0.20, -0.26, 0.23, 0.22, 0.00, 1.60, 0.07],
-      [-0.15, 0.28, 0.26, 0.24, 0.00, 0.44, 0.07]
-    ];
-    var RULE_NAMES = ["Stem", "Whole-fern copy", "Left leaflet", "Right leaflet"];
-    var RULE_COLORS = ["#6b4226", "#2e7d32", "#1565c0", "#c77f00"];
-    var SLOW_POINTS = 24, SLOW_DELAY = 300, FAST_FRAMES = 14, FAST_DELAY = 100;
-
-    var canvas = $("fern-canvas");
-    var ctx = canvas.getContext("2d");
-    var nSlider = $("fern-s3-n");
-    var animateBtn = $("fern-s3-animate");
-    var resetBtn = $("fern-s3-reset");
-    var summaryEl = $("fern-s3-summary");
-    var rulesListEl = $("fern-s3-rules-list");
-    var rotationSlider = $("fern-s3-rotation"), leafletSlider = $("fern-s3-leaflet");
-    var stemSlider = $("fern-s3-stem"), leanSlider = $("fern-s3-lean");
-    var rotationVal = $("fern-s3-rotation-val"), leafletVal = $("fern-s3-leaflet-val");
-    var stemVal = $("fern-s3-stem-val"), leanVal = $("fern-s3-lean-val");
-    var colorRadios = root.querySelectorAll('input[name="fern-s3-color"]');
-
-    function colorMode() {
-      var checked = root.querySelector('input[name="fern-s3-color"]:checked');
-      return checked ? checked.value : "natural";
+    if (res.clipped) {
+      lines.push("<strong>These settings don't contract</strong> -- points are shooting off to huge values and being capped so the app doesn't crash. Try a smaller leaflet size or a smaller lean, or press \"Reset to Barnsley's fern\".");
     }
 
-    function simplifiedRules(rotationDeg, leafletScale, stemMult, lean) {
-      var rules = CLASSIC_RULES.map(function (r) { return r.slice(); });
-      rules[0][3] = CLASSIC_RULES[0][3] * stemMult;
-      rules[1][1] = CLASSIC_RULES[1][1] + lean;
-      var theta = rotationDeg * Math.PI / 180;
-      var ct = Math.cos(theta), st = Math.sin(theta);
-      [2, 3].forEach(function (i) {
-        var a = CLASSIC_RULES[i][0], b = CLASSIC_RULES[i][1], c = CLASSIC_RULES[i][2], d = CLASSIC_RULES[i][3];
-        rules[i][0] = (ct * a - st * c) * leafletScale;
-        rules[i][1] = (ct * b - st * d) * leafletScale;
-        rules[i][2] = (st * a + ct * c) * leafletScale;
-        rules[i][3] = (st * b + ct * d) * leafletScale;
-      });
-      return rules;
+    var ruleLines = RULE_NAMES.map(function (name, i) {
+      return "&bull; <strong>" + name + "</strong>: " + Math.round(probs[i] * 100) + "%";
+    }).join("<br>");
+    lines.push("Every point is drawn by picking one of 4 rules at random, each with a fixed probability, then plotting where it sends the previous point:<br>" + ruleLines);
+    lines.push("On Barnsley's own numbers, the <strong>whole-fern copy</strong> rule alone (picked 85% of the time) draws a complete smaller copy of the entire fern -- the same self-similarity idea explained further down the page, just with cleverer rules.");
+    if (colorMode() === "rule") {
+      lines.push("Colours above show which rule drew each point.");
     }
 
-    function currentRules() {
-      return simplifiedRules(
-        parseFloat(rotationSlider.value), parseFloat(leafletSlider.value),
-        parseFloat(stemSlider.value), parseFloat(leanSlider.value)
-      );
-    }
+    summaryEl.innerHTML = lines.join("<br><br>");
+    updateRulesTable(rules, probs);
+  }
 
-    function target() { return parseInt(nSlider.value, 10); }
+  var builder = lib.makeWatchBuilder({
+    slowPoints: SLOW_POINTS, slowDelay: SLOW_DELAY,
+    fastFrames: FAST_FRAMES, fastDelay: FAST_DELAY,
+    onReveal: onReveal, targetFn: target
+  });
 
-    function updateSliderLabels() {
-      rotationVal.textContent = parseFloat(rotationSlider.value).toFixed(0);
-      leafletVal.textContent = parseFloat(leafletSlider.value).toFixed(1);
-      stemVal.textContent = parseFloat(stemSlider.value).toFixed(1);
-      leanVal.textContent = parseFloat(leanSlider.value).toFixed(1);
-    }
-
-    function updateRulesTable(rules, probs) {
-      var html = "";
-      for (var i = 0; i < RULE_NAMES.length; i++) {
-        var r = rules[i];
-        html += "<li><strong>" + RULE_NAMES[i] + "</strong>: a=" + r[0].toFixed(3) + ", b=" + r[1].toFixed(3) +
-          ", c=" + r[2].toFixed(3) + ", d=" + r[3].toFixed(3) + ", e=" + r[4].toFixed(3) + ", f=" + r[5].toFixed(3) +
-          ", p=" + Math.round(probs[i] * 100) + "%</li>";
-      }
-      rulesListEl.innerHTML = html;
-    }
-
-    function onReveal(revealed, animating) {
-      updateSliderLabels();
-      var n = Math.max(revealed, 1);
-      var rules = currentRules();
-      var res = generatePoints(n, rules, SEED);
-      var highlightI = (animating && revealed >= 1) ? revealed - 1 : null;
-      drawPoints(ctx, canvas.width, canvas.height, res.xs, res.ys, res.ruleIdx, n, colorMode(), RULE_COLORS, "#2f7a3d", highlightI);
-
-      var probs = normalizeProbs(rules);
-      var lines = [];
-      if (animating && revealed >= 1 && revealed <= SLOW_POINTS) {
-        lines.push(stepFormulaHtml(revealed, target(), rules, res.ruleIdx, res.xs, res.ys, RULE_NAMES, probs));
-      } else if (animating) {
-        lines.push("<strong>Building the fern: " + fmtN(revealed) + " / " + fmtN(target()) + " points</strong>");
-      } else {
-        lines.push("<strong>Points plotted:</strong> " + fmtN(revealed));
-      }
-
-      if (res.clipped) {
-        lines.push("<strong>These settings don't contract</strong> -- points are shooting off to huge values and being capped so the app doesn't crash. Try a smaller leaflet size or a smaller lean, or press \"Reset to Barnsley's fern\".");
-      }
-
-      var ruleLines = RULE_NAMES.map(function (name, i) {
-        return "&bull; <strong>" + name + "</strong>: " + Math.round(probs[i] * 100) + "%";
-      }).join("<br>");
-      lines.push("Every point is drawn by picking one of 4 rules at random, each with a fixed probability, then plotting where it sends the previous point:<br>" + ruleLines);
-      lines.push("On Barnsley's own numbers, the <strong>whole-fern copy</strong> rule alone (picked 85% of the time) draws a complete smaller copy of the entire fern -- the same self-similarity idea from step 2, just with cleverer rules.");
-      if (colorMode() === "rule") {
-        lines.push("Colours above show which rule drew each point.");
-      }
-
-      summaryEl.innerHTML = lines.join("<br><br>");
-      updateRulesTable(rules, probs);
-    }
-
-    var builder = makeWatchBuilder({
-      slowPoints: SLOW_POINTS, slowDelay: SLOW_DELAY,
-      fastFrames: FAST_FRAMES, fastDelay: FAST_DELAY,
-      onReveal: onReveal, targetFn: target
-    });
-
-    nSlider.addEventListener("input", function () { builder.fastRebuild(3000); });
-    animateBtn.addEventListener("click", function () { builder.start(); });
-    [rotationSlider, leafletSlider, stemSlider, leanSlider].forEach(function (s) {
-      s.addEventListener("input", function () { builder.fastRebuild(3000); });
-    });
-    colorRadios.forEach(function (r) {
-      r.addEventListener("change", function () { onReveal(builder.getRevealed(), builder.isAnimating()); });
-    });
-    resetBtn.addEventListener("click", function () {
-      rotationSlider.value = 0; leafletSlider.value = 1.0; stemSlider.value = 1.0; leanSlider.value = 0.0;
-      builder.fastRebuild(3000);
-    });
-
+  nSlider.addEventListener("input", function () { builder.fastRebuild(3000); });
+  animateBtn.addEventListener("click", function () { builder.start(); });
+  [rotationSlider, leafletSlider, stemSlider, leanSlider].forEach(function (s) {
+    s.addEventListener("input", function () { builder.fastRebuild(3000); });
+  });
+  colorRadios.forEach(function (r) {
+    r.addEventListener("change", function () { onReveal(builder.getRevealed(), builder.isAnimating()); });
+  });
+  resetBtn.addEventListener("click", function () {
+    rotationSlider.value = 0; leafletSlider.value = 1.0; stemSlider.value = 1.0; leanSlider.value = 0.0;
     builder.fastRebuild(3000);
-  })();
+  });
 
+  builder.start();
 })();
 </script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-fractal-fern-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5.1
+Figure&nbsp;4.1
 </figcaption>
 </figure>
-<p>Turn on “By generating rule” to see the self-similarity directly: colour each point by which of the four rules drew it, and the largest green portion – on its own – already looks like a complete, smaller fern. That is exactly what it means to break a structure down into smaller parts that are the same shape as the whole.</p>
+<hr>
+</section>
+<section id="building-a-pattern-from-first-principles" class="level2">
+<h2 class="anchored" data-anchor-id="building-a-pattern-from-first-principles">Building a pattern from first principles</h2>
+<p>If you’re curious how the simulation above works, here’s the same idea unpacked in two simpler steps, starting with just one point and one rule.</p>
+<p>A <strong>rule</strong> takes a point (x, y) and maps it to a new point (x′, y′) = (a·x + b·y + e, c·x + d·y + f). That’s it – six numbers, one point in, one point out. Try the sliders, then press “Apply this rule again” to feed the new point back into the same rule, and watch where it goes next.</p>
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fractal-firstprinciples-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="firstprinciples-app" class="fractal-app">
+
+  <div class="fern-card">
+    <div class="fern-row">
+      <div class="fern-sidebar">
+        <h6 class="anchored">Starting point</h6>
+        <label for="fp-x0">x</label>
+        <input id="fp-x0" type="number" step="0.1" value="1.0">
+        <label for="fp-y0">y</label>
+        <input id="fp-y0" type="number" step="0.1" value="1.0">
+        <h6 style="margin-top:10px;" class="anchored">The rule</h6>
+        <label for="fp-a">a: <strong id="fp-a-val">0.70</strong></label>
+        <input id="fp-a" type="range" min="-1.5" max="1.5" step="0.05" value="0.70">
+        <label for="fp-b">b: <strong id="fp-b-val">-0.50</strong></label>
+        <input id="fp-b" type="range" min="-1.5" max="1.5" step="0.05" value="-0.50">
+        <label for="fp-c">c: <strong id="fp-c-val">0.50</strong></label>
+        <input id="fp-c" type="range" min="-1.5" max="1.5" step="0.05" value="0.50">
+        <label for="fp-d">d: <strong id="fp-d-val">0.70</strong></label>
+        <input id="fp-d" type="range" min="-1.5" max="1.5" step="0.05" value="0.70">
+        <label for="fp-e">e: <strong id="fp-e-val">0.40</strong></label>
+        <input id="fp-e" type="range" min="-2.0" max="2.0" step="0.1" value="0.40">
+        <label for="fp-f">f: <strong id="fp-f-val">0.20</strong></label>
+        <input id="fp-f" type="range" min="-2.0" max="2.0" step="0.1" value="0.20">
+        <div class="fern-btn-row">
+          <button id="fp-apply" class="fern-btn-primary" type="button">Apply this rule again</button>
+          <button id="fp-reset" class="fern-btn-secondary" type="button">Reset</button>
+        </div>
+        <div id="fp-summary" class="fern-summary"></div>
+      </div>
+      <div class="fern-canvas-wrap">
+        <canvas id="fp-canvas" width="480" height="420"></canvas>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+  if (window.SHOW_JS_APPS === false) return;
+  var lib = window.FractalLib;
+  if (!lib) return;
+
+  var root = document.getElementById("firstprinciples-app");
+  if (!root) return;
+  function $(id) { return root.querySelector("#" + id); }
+
+  // A single rule, applied to itself over and over: (x,y) -> (a*x+b*y+e, c*x+d*y+f).
+  function iterateSingleRule(x0, y0, a, b, c, d, e, f, n) {
+    var xs = [x0], ys = [y0];
+    var clipped = false;
+    var x = x0, y = y0;
+    for (var i = 0; i < n; i++) {
+      var nx = a * x + b * y + e;
+      var ny = c * x + d * y + f;
+      var r = lib.clipPoint(nx, ny);
+      nx = r[0]; ny = r[1]; clipped = clipped || r[2];
+      xs.push(nx); ys.push(ny);
+      x = nx; y = ny;
+    }
+    return { xs: xs, ys: ys, clipped: clipped };
+  }
+
+  var canvas = $("fp-canvas");
+  var ctx = canvas.getContext("2d");
+  var summaryEl = $("fp-summary");
+  var x0In = $("fp-x0"), y0In = $("fp-y0");
+  var sliders = {
+    a: $("fp-a"), b: $("fp-b"), c: $("fp-c"),
+    d: $("fp-d"), e: $("fp-e"), f: $("fp-f")
+  };
+  var vals = {
+    a: $("fp-a-val"), b: $("fp-b-val"), c: $("fp-c-val"),
+    d: $("fp-d-val"), e: $("fp-e-val"), f: $("fp-f-val")
+  };
+  var applyBtn = $("fp-apply"), resetBtn = $("fp-reset");
+  var count = 0;
+
+  function safe(v, dflt) { var n = parseFloat(v); return isFinite(n) ? n : dflt; }
+
+  function render() {
+    var x0 = safe(x0In.value, 1.0), y0 = safe(y0In.value, 1.0);
+    var a = safe(sliders.a.value, 0), b = safe(sliders.b.value, 0);
+    var c = safe(sliders.c.value, 0), d = safe(sliders.d.value, 0);
+    var e = safe(sliders.e.value, 0), f = safe(sliders.f.value, 0);
+    for (var k in vals) vals[k].textContent = safe(sliders[k].value, 0).toFixed(2);
+
+    var res = iterateSingleRule(x0, y0, a, b, c, d, e, f, count);
+    var xs = res.xs, ys = res.ys;
+
+    var W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = "#fbfbf8";
+    ctx.fillRect(0, 0, W, H);
+    var b2 = lib.dataBounds(xs, ys, 0, xs.length);
+    var xpad = (b2[1] - b2[0]) * 0.15 + 0.4, ypad = (b2[3] - b2[2]) * 0.15 + 0.4;
+    var tr = (function () {
+      var xmin = b2[0] - xpad, xmax = b2[1] + xpad, ymin = b2[2] - ypad, ymax = b2[3] + ypad;
+      var dataW = Math.max(xmax - xmin, 1e-6), dataH = Math.max(ymax - ymin, 1e-6);
+      var scale = Math.min(W / dataW, H / dataH);
+      var offX = (W - dataW * scale) / 2, offY = (H - dataH * scale) / 2;
+      return {
+        sx: function (x) { return offX + (x - xmin) * scale; },
+        sy: function (y) { return H - (offY + (y - ymin) * scale); }
+      };
+    })();
+
+    // guide lines through the origin
+    ctx.strokeStyle = "#e3e3e3"; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(0, tr.sy(0)); ctx.lineTo(W, tr.sy(0)); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(tr.sx(0), 0); ctx.lineTo(tr.sx(0), H); ctx.stroke();
+
+    // connecting line
+    ctx.strokeStyle = "#9aa0a6"; ctx.globalAlpha = 0.7; ctx.lineWidth = 1.0;
+    ctx.beginPath();
+    for (var i = 0; i < xs.length; i++) {
+      var px = tr.sx(xs[i]), py = tr.sy(ys[i]);
+      if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+    ctx.globalAlpha = 1.0;
+
+    // intermediate points
+    if (xs.length > 2) {
+      ctx.fillStyle = "#9aa0a6";
+      for (var j = 1; j < xs.length - 1; j++) {
+        var qx = tr.sx(xs[j]), qy = tr.sy(ys[j]);
+        ctx.beginPath(); ctx.arc(qx, qy, 3, 0, 2 * Math.PI); ctx.fill();
+      }
+    }
+    // start point (black) and current point (pink)
+    ctx.fillStyle = "#222";
+    ctx.beginPath(); ctx.arc(tr.sx(xs[0]), tr.sy(ys[0]), 5, 0, 2 * Math.PI); ctx.fill();
+    if (xs.length > 1) {
+      ctx.fillStyle = "#d81b60";
+      ctx.beginPath();
+      ctx.arc(tr.sx(xs[xs.length - 1]), tr.sy(ys[ys.length - 1]), 5.5, 0, 2 * Math.PI);
+      ctx.fill();
+    }
+
+    var lines = [];
+    if (count === 0) {
+      lines.push('Press "Apply this rule again" to map the black point using the rule above -- the new point will appear in pink.');
+    } else {
+      var px2 = xs[xs.length - 2], py2 = ys[ys.length - 2];
+      var nx = xs[xs.length - 1], ny = ys[ys.length - 1];
+      lines.push("<strong>After " + count + " application" + (count !== 1 ? "s" : "") + " of the rule:</strong>");
+      lines.push(
+        "x&prime; = " + a.toFixed(2) + " &times; " + px2.toFixed(3) + " + " + b.toFixed(2) + " &times; " + py2.toFixed(3) +
+        " + " + e.toFixed(2) + " = <strong>" + nx.toFixed(3) + "</strong><br>" +
+        "y&prime; = " + c.toFixed(2) + " &times; " + px2.toFixed(3) + " + " + d.toFixed(2) + " &times; " + py2.toFixed(3) +
+        " + " + f.toFixed(2) + " = <strong>" + ny.toFixed(3) + "</strong>"
+      );
+      if (res.clipped) {
+        lines.push("This rule doesn't contract -- the point is shooting off to huge values (capped here so the plot doesn't break). Try smaller a/b/c/d values, or press reset.");
+      } else if (count >= 5) {
+        lines.push("Notice the point is settling towards one fixed spot rather than wandering off -- that's what it means for a rule to <strong>contract</strong>. Every rule used below is built to do exactly this.");
+      }
+    }
+    summaryEl.innerHTML = lines.join("<br><br>");
+  }
+
+  applyBtn.addEventListener("click", function () { count = Math.min(count + 1, 30); render(); });
+  resetBtn.addEventListener("click", function () { count = 0; render(); });
+  x0In.addEventListener("input", render);
+  y0In.addEventListener("input", render);
+  Object.keys(sliders).forEach(function (k) { sliders[k].addEventListener("input", render); });
+
+  render();
+})();
+</script>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-fractal-firstprinciples-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.2
+</figcaption>
+</figure>
+<hr>
+</section>
+<section id="extra-sierpinskis-triangle" class="level2">
+<h2 class="anchored" data-anchor-id="extra-sierpinskis-triangle">Extra: Sierpinski’s triangle</h2>
+<p>Fractals don’t use one fixed rule – they repeat a simple recipe, over and over: start at any point; pick one of the triangle’s three corners at random, each equally likely; move the current point exactly halfway towards that corner, and plot the new point; then repeat, tens of thousands of times. Do that, and out comes the famous <strong>Sierpinski triangle</strong>.</p>
+<p>(This “halfway to a random corner” trick is special to the triangle – try it on a square and you just get a solidly filled square, not a fractal. The fern further up the page gets its fractal structure a different way, using rules that rotate and stretch as well as shrink.)</p>
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fractal-sierpinski-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="sierpinski-app" class="fractal-app">
+
+  <div class="fern-card">
+    <div class="fern-row">
+      <div class="fern-sidebar">
+        <h6 class="anchored">Number of points</h6>
+        <input id="sp-n" type="range" min="500" max="8000" step="500" value="4000">
+        <div class="fern-btn-row">
+          <button id="sp-animate" class="fern-btn-primary" type="button">Watch it build, point by point</button>
+        </div>
+        <div id="sp-summary" class="fern-summary"></div>
+      </div>
+      <div class="fern-canvas-wrap">
+        <canvas id="sp-canvas" width="480" height="420"></canvas>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+  if (window.SHOW_JS_APPS === false) return;
+  var lib = window.FractalLib;
+  if (!lib) return;
+
+  var root = document.getElementById("sierpinski-app");
+  if (!root) return;
+  function $(id) { return root.querySelector("#" + id); }
+
+  var TRIANGLE_CORNERS = [[0.0, 0.0], [1.0, 0.0], [0.5, 0.866]];
+  var TRIANGLE_NAMES = ["Corner A", "Corner B", "Corner C"];
+  var TRIANGLE_COLORS = ["#c0392b", "#2e7d32", "#1565c0"];
+  var TRIANGLE_RULES = TRIANGLE_CORNERS.map(function (c) {
+    return [0.5, 0.0, 0.0, 0.5, c[0] / 2, c[1] / 2, 1.0 / 3.0];
+  });
+  var SLOW_POINTS_2 = 18, SLOW_DELAY_2 = 300, FAST_FRAMES_2 = 12, FAST_DELAY_2 = 100;
+
+  var canvas = $("sp-canvas");
+  var ctx = canvas.getContext("2d");
+  var nSlider = $("sp-n");
+  var animateBtn = $("sp-animate");
+  var summaryEl = $("sp-summary");
+
+  function target() { return parseInt(nSlider.value, 10); }
+
+  function onReveal(revealed, animating) {
+    var n = Math.max(revealed, 1);
+    var res = lib.generatePoints(n, TRIANGLE_RULES, lib.SEED);
+    var highlightI = (animating && revealed >= 1) ? revealed - 1 : null;
+    lib.drawPoints(ctx, canvas.width, canvas.height, res.xs, res.ys, res.ruleIdx, n, "rule", TRIANGLE_COLORS, null, highlightI);
+
+    var probs = lib.normalizeProbs(TRIANGLE_RULES);
+    var lines = [];
+    if (animating && revealed >= 1 && revealed <= SLOW_POINTS_2) {
+      lines.push(lib.stepFormulaHtml(revealed, target(), TRIANGLE_RULES, res.ruleIdx, res.xs, res.ys, TRIANGLE_NAMES, probs));
+    } else if (animating) {
+      lines.push("<strong>Building the triangle: " + lib.fmtN(revealed) + " / " + lib.fmtN(target()) + " points</strong>");
+    } else {
+      lines.push("<strong>Points plotted:</strong> " + lib.fmtN(revealed));
+    }
+    summaryEl.innerHTML = lines.join("<br><br>");
+  }
+
+  var builder = lib.makeWatchBuilder({
+    slowPoints: SLOW_POINTS_2, slowDelay: SLOW_DELAY_2,
+    fastFrames: FAST_FRAMES_2, fastDelay: FAST_DELAY_2,
+    onReveal: onReveal, targetFn: target
+  });
+
+  nSlider.addEventListener("input", function () { builder.fastRebuild(1500); });
+  animateBtn.addEventListener("click", function () { builder.start(); });
+
+  builder.fastRebuild(1500);
+})();
+</script>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-fractal-sierpinski-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.3
+</figcaption>
+</figure>
 
 
 </section>
@@ -1524,17 +1621,30 @@ Figure&nbsp;5.1
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./symmetry.html" class="pagination-link" aria-label="Symmetry in Plants">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Symmetry in Plants</span></span>
+      <a href="./spirals.html" class="pagination-link" aria-label="Logarithmic Spiral ($e^x$)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Logarithmic Spiral (<span class="math inline">\(e^x\)</span>)</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./circadian.html" class="pagination-link" aria-label="Circadian Rhythm">
-        <span class="nav-page-text"><span class="chapter-title">Circadian Rhythm</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./circadian.html" class="pagination-link" aria-label="Circadian Rhythm ($\pi$)">
+        <span class="nav-page-text"><span class="chapter-title">Circadian Rhythm (<span class="math inline">\(\pi\)</span>)</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 

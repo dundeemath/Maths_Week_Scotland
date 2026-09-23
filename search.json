@@ -4,339 +4,289 @@
     "href": "index.html",
     "title": "Mathematics Trail at the University of Dundee Botanic Gardens",
     "section": "",
-    "text": "Welcome! This site was created in 2026 at the University of Dundee for our Maths Trail at the Dundee Botanic Gardens, as part of the wider Maths Week Scotland programme of events. It is designed to be used while exploring the Botanic Gardens and using a smart-phone to scan QR barcodes taking you to individual pages here.",
+    "text": "Welcome! While exploring the Botanic Garden, you can use a smart phone to scan QR codes that will take you to the appropriate Maths Trail webpage. This trail was created for the Maths Week Scotland 2026 programme of events.\n\n\n\nMaths Trail Map\n\n\nThere are 15 QR codes on blue posts scattered around the garden, including the start (marked “S” on the map above, which points to this page on the website) and end (marked “E”). The remainder can be visited in any order, and are labelled with various mathematical symbols.",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Maths Week Scotland - Dundee University</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Botanic Garden Maths Trail (S)</span>"
     ]
   },
   {
     "objectID": "phyllotaxis.html",
     "href": "phyllotaxis.html",
-    "title": "Phyllotaxis",
+    "title": "Phyllotaxis (\\(\\sigma\\))",
     "section": "",
-    "text": "Distichous (\\(180^\\circ\\))\nPlants arrange their leaves around a stem in regular patterns. The angle between one leaf and the next is called the divergence angle, and this pattern of leaf arrangement is known as phyllotaxis. Many different plant species share similar phyllotaxis patterns, and these can be described using a small number of mathematical patterns.\nWhich of the following leaf arrangement pattern do you find in this plant? Please record the number of each leaf arrangement pattern in the table provided on the Maths Trail map: distichous (\\(180^\\circ\\)), Fibonacci spiral (\\(137.5^\\circ\\)), decussate (\\(90^\\circ\\)), or tricussate (\\(60^\\circ\\)).\nLeaves grow on alternating sides of the stem, forming a flat, two-sided pattern.",
+    "text": "Build your own leaf system\nPlants arrange their leaves around a stem in regular patterns. The angle between one leaf and the next is called the divergence angle, and this pattern of leaf arrangement is known as phyllotaxis. Many different plant species share similar phyllotaxis patterns, and these can be described using a small number of mathematical patterns such as distichous (\\(180^\\circ\\)), Fibonacci spiral (\\(137.5^\\circ\\)), decussate (\\(90^\\circ\\)), or tricussate (\\(60^\\circ\\)).\nThese plants have the distichous (left) and decussate (right) patterns:\nThere are many plants in the garden, but just a few phyllotaxis patterns.\nYou can build your own leaf system using the app below. Two things control the pattern: how many leaves grow from each point on the stem (one, a pair, or a whorl of three), and the angle that each new leaf or whorl is rotated from the last. For a single leaf at a time, that angle is free to be anything. You can drag it to 180° for distichous, or to exactly 137.5°, the golden angle, for the Fibonacci spiral. For pairs and whorls, the angle is fixed by how many leaves share each point: 90° for pairs, 60° for whorls of three, matching the decussate and tricussate patterns.\nThe app provides four ways to look at the same pattern: from directly above the stem (how you’d actually classify a real plant), the stem’s surface unrolled flat (straight rows reveal how many columns of leaves line up), a side-view diagram of the stem itself, drawn the same way as the pictures above, and a fully 3D view you can rotate yourself.",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Phyllotaxis</span>"
-    ]
-  },
-  {
-    "objectID": "phyllotaxis.html#fibonacci-spiral-137.5circ",
-    "href": "phyllotaxis.html#fibonacci-spiral-137.5circ",
-    "title": "Phyllotaxis",
-    "section": "Fibonacci Spiral (\\(137.5^\\circ\\))",
-    "text": "Fibonacci Spiral (\\(137.5^\\circ\\))\nLeaves grow around the stem in a tight spiral, using the golden angle to make the best use of space and get as much light as possible.",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Phyllotaxis</span>"
-    ]
-  },
-  {
-    "objectID": "phyllotaxis.html#decussate-90circ",
-    "href": "phyllotaxis.html#decussate-90circ",
-    "title": "Phyllotaxis",
-    "section": "Decussate (\\(90^\\circ\\))",
-    "text": "Decussate (\\(90^\\circ\\))\nLeaves grow in pairs, with each pair turned at a right angle to the pair below.",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Phyllotaxis</span>"
-    ]
-  },
-  {
-    "objectID": "phyllotaxis.html#tricussate-60circ",
-    "href": "phyllotaxis.html#tricussate-60circ",
-    "title": "Phyllotaxis",
-    "section": "Tricussate (\\(60^\\circ\\))",
-    "text": "Tricussate (\\(60^\\circ\\))\nThree leaves grow from the same point on the stem, spaced evenly around it. Each group of three is rotated \\(60^\\circ\\) around the stem from the group below.",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Phyllotaxis</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Phyllotaxis ($\\sigma$)</span>"
     ]
   },
   {
     "objectID": "phyllotaxis.html#build-your-own-leaf-system",
     "href": "phyllotaxis.html#build-your-own-leaf-system",
-    "title": "Phyllotaxis",
-    "section": "Build your own leaf system",
-    "text": "Build your own leaf system\nTwo things control the pattern: how many leaves grow from each point on the stem (one, a pair, or a whorl of three), and the angle each new leaf or whorl is rotated from the last. For a single leaf at a time, that angle is free to be anything – drag it to 180° for distichous, or to exactly 137.5°, the golden angle, for the Fibonacci spiral. For pairs and whorls, the angle is fixed by how many leaves share each point: 90° for pairs, 60° for whorls of three, matching the decussate and tricussate patterns.\nFour ways to look at the same pattern: from directly above the stem (how you’d actually classify a real plant), the stem’s surface unrolled flat (straight rows reveal how many columns of leaves line up), a side-view diagram of the stem itself, drawn the same way as the pictures above, and a fully 3D view you can rotate yourself – watch how the same one rule produces four completely different-looking plants.\n\n\n\n  \n    Leaves per node\n    \n       1 – alternate\n       2 – opposite pairs\n       3 – whorls of three\n    \n\n    \n      Divergence angle (degrees)\n      \n        20\n        \n        180\n      \n      20.0°\n      137.5° (golden angle)\n      180° (distichous)\n    \n\n    \n    View\n    \n       Unrolled stem\n       Top-down\n       Leaf diagram (side view)\n       3D view (drag to rotate)\n    \n\n    \n      Rotate the plant\n      \n        0\n        \n        360\n      \n      Or click and drag directly on the plant to spin and tilt it.",
+    "title": "Phyllotaxis (\\(\\sigma\\))",
+    "section": "",
+    "text": "Leaves per node\n    \n       1 – alternate\n       2 – opposite pairs\n       3 – whorls of three\n    \n\n    \n      Divergence angle (degrees)\n      \n        20\n        \n        180\n      \n      20.0°\n      137.5° (golden angle)\n      180° (distichous)\n    \n\n    \n    View\n    \n       Unrolled stem\n       Top-down\n       Leaf diagram (side view)\n       3D view (drag to rotate)\n    \n\n    \n      Rotate the plant\n      \n        0\n        \n        360\n      \n      Or click and drag directly on the plant to spin and tilt it.",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Phyllotaxis</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Phyllotaxis ($\\sigma$)</span>"
     ]
   },
   {
     "objectID": "spirals.html",
     "href": "spirals.html",
-    "title": "Logarithmic Spiral",
+    "title": "Logarithmic Spiral (\\(e^x\\))",
     "section": "",
-    "text": "Spiralling Succulents\nLogarithmic spirals in plants are a striking example of geometry in nature, where botanical structures grow according to the Golden Ratio and the Fibonacci sequence.\nMany varieties of succulents arrange their leaves outward from a central point along an expanding logarithmic trajectry to ensure uniform access to sunlight and water collection.\nImage from the Fractal Dimensions in Circular and Spiral Phenomena that shows logarithmic spiral in Aloe Polyphylla:",
+    "text": "When a young fern sprout (known as a fiddlehead) is tightly coiled, it forms a logarithmic spiral. Logarithmic spirals often appear in nature, such as in nautilus shells, hurricanes, and spiral galaxies.\n   \nA special feature of a logarithmic spiral is that its shape always stays the same (it has complete self-similarity). If you shrink or enlarge the spiral by any amount, it is possible to rotate it so that it matches the original spiral.\n\n\n\nA logarithmic spiral is completely self-similar.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Logarithmic Spiral</span>"
-    ]
-  },
-  {
-    "objectID": "spirals.html#spiralling-succulents",
-    "href": "spirals.html#spiralling-succulents",
-    "title": "Logarithmic Spiral",
-    "section": "",
-    "text": "Logarithmic spiral in Aloe Polyphylla",
-    "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Logarithmic Spiral</span>"
-    ]
-  },
-  {
-    "objectID": "spirals.html#sunflower-seed-heads",
-    "href": "spirals.html#sunflower-seed-heads",
-    "title": "Logarithmic Spiral",
-    "section": "Sunflower Seed Heads",
-    "text": "Sunflower Seed Heads\nThe packing of seeds in a sunflower head features two sets of overlapping logarithmic spirals - one running clockwise and the other anticlockwise - maximising the number of seeds that can fit into the centre.",
-    "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Logarithmic Spiral</span>"
-    ]
-  },
-  {
-    "objectID": "spirals.html#pinecone-scale-arrangements",
-    "href": "spirals.html#pinecone-scale-arrangements",
-    "title": "Logarithmic Spiral",
-    "section": "Pinecone Scale Arrangements",
-    "text": "Pinecone Scale Arrangements\nPinecones exhibit steep logarithmic spirals formed by their scaling bracts, tightly safeguarding the seeds inside.",
-    "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Logarithmic Spiral</span>"
-    ]
-  },
-  {
-    "objectID": "symmetry.html",
-    "href": "symmetry.html",
-    "title": "Symmetry in Plants",
-    "section": "",
-    "text": "Group Theory\nPlant leaves display a remarkable variety of symmetrical arrangements. Many leaves exhibit bilateral symmetry, where a single line divides the leaf into two mirror-image halves. Other plant structures show radial symmetry, in which features are arranged around a central point. In some flowers and leaf rosettes, one observes higher-order rotational symmetries, where a rotation through a specific angle leaves the pattern unchanged. These recurring arrangements are not merely aesthetic; they often reflect underlying developmental processes that help plants maximize light capture, structural stability, and make efficient use of space.\nSymmetry occupies a central place in mathematics because it provides a way to describe order, regularity, and invariance. Mathematicians study the transformations that leave an object unchanged, such as reflections, rotations, and translations. By focusing on these invariant properties, mathematicians are able to classify shapes and patterns, compare biological structures, and uncover deeper relationships between seemingly different forms. The mathematical study of symmetry naturally leads to group theory, one of the most important branches of modern algebra.\nA group is a collection of transformations together with rules for combining them. For a trifold symmetric pattern, for instance, the set of rotations through 0°, 120°, and 240° forms a group because combining any two of these rotations produces another rotation from the same set. Group theory provides a powerful language for describing symmetry not only in plants, but also in crystals, molecules, physics, and art. What begins as the observation of a simple repeating pattern in nature thus develops into a rich mathematical framework that helps explain structure and order across many scientific disciplines.",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Symmetry in Plants</span>"
-    ]
-  },
-  {
-    "objectID": "symmetry.html#try-it-yourself",
-    "href": "symmetry.html#try-it-yourself",
-    "title": "Symmetry in Plants",
-    "section": "Try it yourself",
-    "text": "Try it yourself\nThe triangle’s three rotations described above – 0°, 120°, and 240° – are just one small example of a much bigger idea. Below, pick two turns and combine them, and watch where the shape lands: however you pick your two turns, you always end up back on one of the same allowed positions. Switch the shape to see the same pattern hold for a square, a pentagon, and a hexagon too.\n\n\n\n\n\n  \n    \n  \n  \n    Combine two turns\n\n    Shape\n    \n       Triangle\n       Square\n       Pentagon\n       Hexagon\n    \n\n    First turn\n    \n\n    Then turn by\n    \n\n    Combine\n    Reset\n\n    \n\n    \n      Allowed turns for this shape:\n      \n    \n\n     Show the formal rules (advanced)\n    \n      Why this is a \"group\":\n      \n        Closure -- combine any two turns from the set, and you always land on another turn from the same set. You never end up somewhere new.\n        Identity -- 0° is the \"do nothing\" turn. Combine it with anything and nothing changes.\n        Inverses -- every turn has a partner that undoes it. For the triangle, 120° and 240° cancel each other out back to 0°.\n        Associativity -- combining is just adding angles and wrapping around at 360°, and addition never cares how you group it: (120°+240°)+120° lands the same place as 120°+(240°+120°).\n      \n    \n  \n\n\n\n\n\nFigure 4.2: Try a pair that brings the shape all the way back around to 0° – can you predict which one, before you press Combine? Then switch to the square or hexagon and see whether the same trick still works.",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Symmetry in Plants</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Logarithmic Spiral ($e^x$)</span>"
     ]
   },
   {
     "objectID": "fractal.html",
     "href": "fractal.html",
-    "title": "Fractals",
+    "title": "Fractals (\\(\\pm\\))",
     "section": "",
-    "text": "Build a fractal fern yourself\nA fractal is a structure that possessed the property of self-similarity. Specifically, it refers to a structure where the exact same shape repeatedly appears when the entire figure is broken down into several smaller parts.\nWhile fractal patterns and shapes appear complex at first glance, they are actually the result of repeating simple rules and operations.\nWhile fractals are a concept rooted in geometry, the fractal approach can also be applied to analyse various phenomena, such as stock prices, currency fluctuations, and social structures.\nMany examples of fractals can also be observed in the natural world. These include a wide variety of examples, such as snowflakes, seashells (like turban shells and nautiluses), the shapes of cumulonimbus clouds, and the circulatory system in the human body (including the heart, blood vessels, and lymphatic vessels).\nBelow, build a fractal fern yourself, using exactly the same idea as the real fern pictured above: just four simple rules, each applied at random with its own fixed probability, plotting one point at a time. No fern shape is ever drawn directly – it emerges purely from repeating those four rules tens of thousands of times.\nEverything below is built from one idea, introduced in three steps: start with a single point and a single rule, then pick between a few different shrink-towards-a-corner rules at random, step by step, then use that same idea with Barnsley’s own four rules to build a fern.\nTurn on “By generating rule” to see the self-similarity directly: colour each point by which of the four rules drew it, and the largest green portion – on its own – already looks like a complete, smaller fern. That is exactly what it means to break a structure down into smaller parts that are the same shape as the whole.",
+    "text": "Build a fractal fern yourself\nA fractal is a structure that has the property of self-similarity. This means that the exact same shape repeatedly appears at smaller and smaller scales.\nFractal patterns can look very complicated at first glance, but they are actually created by repeating simple rules again and again.\nFractals come from geometry, but the same ideas can also be used to study patterns in things like stock prices, changes in currency values, and the way social groups are organised.\nMany examples of fractals can also be found in the natural world. Examples include snowflakes, seashells (such as turban shells and nautiluses), the shapes of cumulonimbus clouds, and the circulatory system in the human body (including the heart, blood vessels, and lymphatic vessels).\nIn the app below you can visualise the construction of a fractal fern pattern. In the simulation there are just four simple rules, each applied at random with its own fixed probability. No fern shape is ever instructed. Instead, it emerges purely from repeating those four rules tens of thousands of times.\nThe simulation has some parameters. If you adjust these you can see how the final pattern depends sensitively on the rules.",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Fractals</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Fractals ($\\pm$)</span>"
     ]
   },
   {
     "objectID": "fractal.html#build-a-fractal-fern-yourself",
     "href": "fractal.html#build-a-fractal-fern-yourself",
-    "title": "Fractals",
+    "title": "Fractals (\\(\\pm\\))",
     "section": "",
-    "text": "1. Start simple: one point, one rule\n    A rule takes a point (x, y) and maps it to a new point\n      (x′, y′) = (a·x + b·y + e, c·x + d·y + f).\n      That's it -- six numbers, one point in, one point out. Try the sliders, then press\n      \"Apply this rule again\" to feed the new point back into the same rule, and watch where it goes next.\n    \n      \n        Starting point\n        x\n        \n        y\n        \n        The rule\n        a: 0.70\n        \n        b: -0.50\n        \n        c: 0.50\n        \n        d: 0.70\n        \n        e: 0.40\n        \n        f: 0.20\n        \n        \n          Apply this rule again\n          Reset\n        \n        \n      \n      \n        \n      \n    \n  \n\n  \n    2. Add more rules -- and randomness\n    Fractals don't use one fixed rule -- they repeat a simple recipe, over and over:\n      start at any point; pick one of the triangle's three corners at random, each equally likely;\n      move the current point exactly halfway towards that corner, and plot the new point; then repeat,\n      tens of thousands of times. Do that, and out comes the famous Sierpinski triangle.\n      (This \"halfway to a random corner\" trick is special to the triangle -- try it on a square and you\n      just get a solidly filled square, not a fractal. The fern below gets its fractal structure a\n      different way, using rules that rotate and stretch as well as shrink.)\n    \n      \n        Number of points\n        \n        \n          Watch it build, point by point\n        \n        \n      \n      \n        \n      \n    \n  \n\n  \n    3. Barnsley's fern, simplified\n    Same idea again -- several rules, chosen at random, applied over and over -- but\n      now with Barnsley's own four published rules for a fern. All 28 of the raw numbers behind those\n      four rules matter, but that's too many to play with directly, so here are four knobs that each\n      nudge a meaningful part of the shape. All four start at the setting that reproduces Barnsley's\n      exact original fern; most other settings look nothing like a fern, and a few don't converge at all.\n    \n      \n        Number of points\n        \n        \n          Watch it build, point by point\n        \n        \n        Colour\n        \n           Natural green\n           By generating rule (see the self-similarity)\n        \n        \n        Shape\n        Leaflet rotation: 0°\n        \n        Leaflet size: 1.0\n        \n        Stem length: 1.0\n        \n        Overall lean: 0.0\n        \n        \n          Reset to Barnsley's fern\n        \n      \n      \n        \n        \n        \n          See the raw numbers these four knobs produce\n          \n        \n      \n    \n  \n\n\n\n\n\n\nFigure 5.1",
+    "text": "Number of points\n        \n        \n          Watch it build, point by point\n        \n        \n        Colour\n        \n           Natural green\n           By generating rule (see the self-similarity)\n        \n        \n        Shape\n        Leaflet rotation: 0°\n        \n        Leaflet size: 1.0\n        \n        Stem length: 1.0\n        \n        Overall lean: 0.0\n        \n        \n          Reset to Barnsley's fern\n        \n      \n      \n        \n        \n        \n          See the raw numbers these four knobs produce\n          \n        \n      \n    \n  \n\n\n\n\n\n\nFigure 4.1",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Fractals</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Fractals ($\\pm$)</span>"
+    ]
+  },
+  {
+    "objectID": "fractal.html#building-a-pattern-from-first-principles",
+    "href": "fractal.html#building-a-pattern-from-first-principles",
+    "title": "Fractals (\\(\\pm\\))",
+    "section": "Building a pattern from first principles",
+    "text": "Building a pattern from first principles\nIf you’re curious how the simulation above works, here’s the same idea unpacked in two simpler steps, starting with just one point and one rule.\nA rule takes a point (x, y) and maps it to a new point (x′, y′) = (a·x + b·y + e, c·x + d·y + f). That’s it – six numbers, one point in, one point out. Try the sliders, then press “Apply this rule again” to feed the new point back into the same rule, and watch where it goes next.\n\n\n\n\n  \n    \n      \n        Starting point\n        x\n        \n        y\n        \n        The rule\n        a: 0.70\n        \n        b: -0.50\n        \n        c: 0.50\n        \n        d: 0.70\n        \n        e: 0.40\n        \n        f: 0.20\n        \n        \n          Apply this rule again\n          Reset\n        \n        \n      \n      \n        \n      \n    \n  \n\n\n\n\n\n\nFigure 4.2",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Fractals ($\\pm$)</span>"
+    ]
+  },
+  {
+    "objectID": "fractal.html#extra-sierpinskis-triangle",
+    "href": "fractal.html#extra-sierpinskis-triangle",
+    "title": "Fractals (\\(\\pm\\))",
+    "section": "Extra: Sierpinski’s triangle",
+    "text": "Extra: Sierpinski’s triangle\nFractals don’t use one fixed rule – they repeat a simple recipe, over and over: start at any point; pick one of the triangle’s three corners at random, each equally likely; move the current point exactly halfway towards that corner, and plot the new point; then repeat, tens of thousands of times. Do that, and out comes the famous Sierpinski triangle.\n(This “halfway to a random corner” trick is special to the triangle – try it on a square and you just get a solidly filled square, not a fractal. The fern further up the page gets its fractal structure a different way, using rules that rotate and stretch as well as shrink.)\n\n\n\n\n  \n    \n      \n        Number of points\n        \n        \n          Watch it build, point by point\n        \n        \n      \n      \n        \n      \n    \n  \n\n\n\n\n\n\nFigure 4.3",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Fractals ($\\pm$)</span>"
     ]
   },
   {
     "objectID": "circadian.html",
     "href": "circadian.html",
-    "title": "Circadian Rhythm",
+    "title": "Circadian Rhythm (\\(\\pi\\))",
     "section": "",
-    "text": "Play with it: tune the lamp until it syncs\nIf you were to watch the water lily here through a full day you would see its flowers open in the morning and close again in the evening.\nHowever, if it was left in a room with the lights left on permanently, it would keep opening and closing on roughly the same rhythm for a while, gradually drifting out of step with real time. The water lily isn’t just reacting to light like a switch, it has its own internal molecular clock that is entrained to day-night cycle.\nYour cells also have an internal molecular clock. And if you’e ever experienced jet lag, your internal molecular clock has become out-of-sync with your new day-night cycle. It takes a number of days of light stimulus in your new environment before your body clock syncs with its environment.\nUnderstanding how oscillators can become entrained becomes mathematical problem and usually depends on the type of oscillator and it how it responds to the entraining stimulus.\nThe simulated water lily below has a fixed rhythm of its own – 24.6 hours, set by the plant, not by you. What you control is an artificial lamp shining on it: how long its day/night cycle lasts, and how strong (bright) it is.\nThe water lily needs to adjust it’s cycle so that its leaves are open in the morning as the sun comes up. Then it can maximise the amount of light that it receives.\nGet the lamp’s day length close enough to 24.6 hours, and strong enough, and the flower locks into a steady daily rhythm. Get it wrong – too far off, or too dim – and no amount of waiting fixes it: the flower keeps sliding in and out of step with your lamp, opening a little earlier or later each cycle, forever. Try to find the smallest strength that still gets it to lock.",
+    "text": "Play with it: tune the lamp until it syncs\nIf you were to watch the water lily here through a full day you would see its flowers open in the morning and close again in the evening.\nHowever, if it was left in a room with the lights left on permanently, it would keep opening and closing on roughly the same rhythm for a while, gradually drifting out of step with real time. The water lily doesn’t simply react to light like an on/off switch. It has its own internal molecular clock, which is kept in sync with the natural cycle of day and night.\nThe cells in your body also have an internal molecular clock. If you’ve ever experienced jet lag, your internal molecular clock has become out-of-sync with your new day-night cycle. It can take several days of exposure to the light and dark cycle in a new environment for your body clock to adjust and get back in sync.\nWorking out when an oscillator can become entrained, or synchronised with an outside rhythm, is a mathematical problem. It usually depends on the type of oscillator and how it responds to the signal that is trying to bring it into sync.\nThe simulated water lily below has a fixed rhythm of its own – 24.6 hours, set by the plant, not by you. What you control is an artificial lamp shining on it: how long its day/night cycle lasts, and how strong (bright) it is.\nThe water lily needs to adjust it’s cycle so that its leaves are open in the morning as the sun comes up. Then it can maximise the amount of light that it receives.\nGet the lamp’s day length close enough to 24.6 hours, and strong enough, and the flower locks into a steady daily rhythm. Get it wrong – too far off, or too dim – and no amount of waiting fixes it: the flower keeps sliding in and out of step with your lamp, opening a little earlier or later each cycle, forever. Try to find the smallest strength that still gets it to lock.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Circadian Rhythm</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Circadian Rhythm ($\\pi$)</span>"
     ]
   },
   {
     "objectID": "circadian.html#play-with-it-tune-the-lamp-until-it-syncs",
     "href": "circadian.html#play-with-it-tune-the-lamp-until-it-syncs",
-    "title": "Circadian Rhythm",
+    "title": "Circadian Rhythm (\\(\\pi\\))",
     "section": "",
-    "text": "Tune the lamp\n    Lamp day length (h): 20.0\n    \n    Lamp strength (K): 0.000\n    \n    \n    Elapsed: 0.0 h (day 0.0)\n    \n    \n      Play\n      Reset\n    \n    \n    \n  \n  \n    \n  \n\n\n\n\n\nFigure 6.1",
+    "text": "Tune the lamp\n    Lamp day length (h): 20.0\n    \n    Lamp strength (K): 0.000\n    \n    \n    Elapsed: 0.0 h (day 0.0)\n    \n    \n      Play\n      Reset\n    \n    \n    \n  \n  \n    \n  \n\n\n\n\n\nFigure 5.1",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Circadian Rhythm</span>"
-    ]
-  },
-  {
-    "objectID": "fibonacci.html",
-    "href": "fibonacci.html",
-    "title": "Fibonacci Numbers",
-    "section": "",
-    "text": "Why Fibonacci numbers appear?\nLook at a pinecone from the bottom. How many spirals go in the clockwise direction (green lines in the photo)? How many spirals go in the counter-clockwise direction (yellow lines)? Wouldn’t you expect that they would be the same?\nThe number of spirals found on pine cones are almost always Fibonacci numbers, which are\n\\(0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, \\ldots\\)\nHere’s a completely different place they turn up: the family tree of a honeybee.\nHoneybees are haplodiploid. A fertilised egg develops into a female – a worker or a queen – with two parents: a mother and a father. An unfertilised egg develops into a male drone, with only one parent: his mother. Drones have no father at all.\nFollow a single drone’s family tree back through the generations using that one rule, and count how many ancestors he has at each generation. The counts turn out to be exactly the Fibonacci sequence – no coincidence, and no approximation: it’s forced by the branching rule itself.",
-    "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Fibonacci Numbers</span>"
-    ]
-  },
-  {
-    "objectID": "fibonacci.html#the-bee-family-tree-count-the-dots-in-each-row",
-    "href": "fibonacci.html#the-bee-family-tree-count-the-dots-in-each-row",
-    "title": "Fibonacci Numbers",
-    "section": "The Bee Family Tree – count the dots in each row",
-    "text": "The Bee Family Tree – count the dots in each row\n\n\n\n\n\n  \n    Generations back: 6\n    \n    \n    \n  \n  \n    \n  \n\n\n\n\n\nFigure 7.1: Drag the slider to trace a drone’s family tree further back, and watch the ancestor count at each generation follow the Fibonacci sequence exactly.",
-    "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Fibonacci Numbers</span>"
-    ]
-  },
-  {
-    "objectID": "birdsong.html",
-    "href": "birdsong.html",
-    "title": "Bird Song",
-    "section": "",
-    "text": "Turning a sound into a picture\nListen to the birds around you on the trail. Each song is a pressure wave travelling through the air, picked up by your ear (or a microphone) as a single wiggling signal that changes moment to moment. Buried inside that one signal is a mixture of many pure tones at different frequencies, all layered on top of one another – a blackbird’s song is a fast, fluid run through dozens of them.\nA short window of any recorded sound can be decomposed into a sum of sine waves of different frequencies. The Fourier transform is the tool that performs this decomposition: feed it a chunk of samples, and it hands back how much of each frequency is present.\nDo this over and over on a sliding window as the recording plays out, and stack the results side by side, and you get a spectrogram – a picture with time along one axis, frequency along the other, and colour showing how strong each frequency is at each moment. A pure whistled note shows up as a single bright horizontal band. A complex trill, with several frequencies sliding around at once, shows up as a tangle of curved streaks. Birdsong is a particularly rich example: many species sing well above the pitch of human speech, and pack in rapid frequency sweeps that are hard to pick out by ear but leap out immediately in a spectrogram.\nPress record, then let a birdsong recording (or a whistle, or your own voice) play into the microphone for up to 10 seconds. The app then computes and displays the spectrogram of what it heard, entirely on your own device – nothing is uploaded anywhere.",
-    "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Bird Song</span>"
-    ]
-  },
-  {
-    "objectID": "birdsong.html#turning-a-sound-into-a-picture",
-    "href": "birdsong.html#turning-a-sound-into-a-picture",
-    "title": "Bird Song",
-    "section": "",
-    "text": "Whistle a single steady note – you should see one bright, mostly horizontal band.\nPlay a recording of a bird call (a phone speaker works fine) and look for rapid up-and-down sweeps – many songbirds glide between frequencies far faster than a human voice does.\nCompare a low-pitched call (e.g. a pigeon or crow) with a high-pitched one (e.g. a robin or a garden warbler) – notice how much of the picture is empty space once you’re looking at the wrong frequency band for a given bird.\nTry clapping or making a short sharp noise – broadband, non-tonal sounds like this light up across the whole frequency range at once, rather than concentrating in a narrow band.\n\n\n\n\n\n\n  \n    The raw recording -- amplitude vs time. One tangled wiggle, hard to read directly.\n    \n    The same recording, decomposed into the frequencies it's built from -- the spectrum.\n    \n    \n      \n      \n        quiet\n        Power\n        loud\n      \n    \n  \n  \n    Record & explore\n    Record (up to 10s)\n    \n    Tap Record, then let a sound (birdsong, a whistle, your voice) play into the microphone.\n\n    \n      Frequency scale\n       Linear\n       Logarithmic\n    \n  \n  \n    \n      Min frequency200 Hz\n      \n        \n      \n    \n    \n      Max frequency10000 Hz\n      \n        \n      \n    \n  \n\n\n\n\n\nFigure 8.1: Tap Record in the sidebar, then let a sound play into the microphone. The top strip fills in with the raw recording as it happens; the picture below it is the same recording run through the Fourier transform, filling in from left to right as it goes.",
-    "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Bird Song</span>"
-    ]
-  },
-  {
-    "objectID": "analemma.html",
-    "href": "analemma.html",
-    "title": "The Analemma Project",
-    "section": "",
-    "text": "Why doesn’t the Earth fall onto the Sun?\nArtist Lucy Smith created the Analemma Project sculpture. She completed her PhD “Making the Conceptual Tangible: The Role of Art in Communicating Science” here at the University of Dundee.\nThe Analemma is an unequal figure-of-eight shape, created by tracking the sun’s position in the sky at the same time each day over a period of one year.\nThe Analemma traces that figure-of-eight because the Earth’s orbit isn’t a perfect circle travelled at constant speed – it’s an ellipse, and Earth moves faster when it’s closer to the Sun. Working out exactly why orbits look like this took the better part of three centuries. Galileo discovered that not everything orbits the Earth; Kepler, worked out the precise shape of orbit based on observations; Newton explained why from a single law of gravity; and Einstein’s’ general relativity is needed to explain a tiny mismatch between Newton’s theory and Mercury’s orbit.",
-    "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>The Analemma Project</span>"
-    ]
-  },
-  {
-    "objectID": "analemma.html#why-doesnt-the-earth-fall-onto-the-sun",
-    "href": "analemma.html#why-doesnt-the-earth-fall-onto-the-sun",
-    "title": "The Analemma Project",
-    "section": "",
-    "text": "1. Galileo: evidence that not everything orbits the Earth\nIn 1610, Galileo pointed his new telescope at Jupiter and found four points of light that moved back and forth alongside it, night after night. They were not fixed stars: they were moons, clearly orbiting Jupiter and not the Earth. That alone was enough to break the ancient assumption that every heavenly body must circle the Earth. Press play below and watch Io, Europa, Ganymede and Callisto (Jupiter’s four largest moons, still called the “Galilean moons”) complete their real orbital periods, from under two days for Io up to nearly seventeen for Callisto.\n\n\n\n\n\n  \n    Days elapsed\n    Day: 0.0\n    \n    \n      Play / Pause\n    \n    \n    \n  \n  \n    \n  \n\n\n\n\n\nFigure 9.1\n\n\n\n\n2. Kepler: ellipses, equal areas, and a hidden pattern\nJohannes Kepler found that planets do not move in perfect circles, nor at constant speed. He distilled the pattern into three laws: orbits are ellipses with the Sun at one focus (not the centre); a planet sweeps out equal areas in equal times, moving faster when close to the Sun and slower when far away; and the square of the orbital period is proportional to the cube of the orbit’s size – the same constant of proportionality for every planet in the solar system. Explore all three below with Mercury, Earth, Mars and Jupiter’s real orbital data.\n\n\n\n\n\n  \n    \n      Years elapsed\n      Year: 0.00\n      \n      \n        Play / Pause\n      \n      \n      \n    \n    \n      \n    \n  \n\n  Kepler's first law: each orbit is an ellipse with the Sun at one focus -- not the centre. Kepler's third law: square a planet's orbital period and you get the cube of its distance from the Sun, for every planet, with the same constant of proportionality:\n  \n\n  Kepler's second law is the strangest-sounding one: a line from the Sun to a planet sweeps out equal areas in equal times, wherever it is on its orbit. Mercury (the most eccentric of the four above) makes this vivid -- below, the same time window is measured starting right at perihelion (closest to the Sun) and right at aphelion (farthest away).\n\n  \n    \n      Time window (fraction of Mercury's year)\n      Window: 0.08\n      \n      \n      \n    \n    \n      \n    \n  \n\n\n\n\n\nFigure 9.2\n\n\n\n\n3. Newton: why doesn’t it just fall in?\nKepler described what orbits look like; Newton explained why. His law of universal gravitation says the Sun pulls every planet straight towards itself, with a force that falls off as the square of the distance – and nothing more. So why doesn’t that pull simply drag every planet straight into the Sun? The answer is sideways motion: a planet is always “falling” towards the Sun, but it is also always moving sideways fast enough to keep missing it. Below, you control a planet’s launch speed and direction directly. Aim it steeply inward without enough sideways speed, and it crashes. Give it enough sideways speed, and the very same gravity that would have pulled it in instead bends its path into a closed ellipse – or, with enough speed, flings it away for good. The path is coloured by the planet’s instantaneous speed – watch it turn bright near the Sun and dark on the far side of an elliptical orbit, direct visual evidence of Kepler’s second law: the planet moves fastest exactly where it’s closest to the Sun.\n\n\n\n\n\n  \n    Launch speed (× circular speed)\n    Speed: 1.00\n    \n    1.0 = perfect circle; 1.41 = escapes the Sun entirely.\n    Launch angle from tangential\n    Angle: 0°\n    \n    0° = sideways (tangential); negative angles aim inward, towards the Sun.\n    Time\n    \n    \n      Play / Pause\n    \n    \n    \n  \n  \n    \n  \n\n\n\n\n\nFigure 9.3\n\n\n\n\n4. Bonus – Einstein: the ellipse itself slowly turns\nNewton’s theory predicts a perfectly closed ellipse, retraced forever. For most planets that is an excellent match to reality – but not quite perfect. Mercury’s orbit, observed over centuries, precesses: its ellipse itself slowly rotates, by about 43 arcseconds per century beyond what Newtonian gravity (accounting for the pull of the other planets) predicts. This tiny leftover puzzled astronomers for decades, until Einstein’s general relativity explained it as a consequence of gravity being, at heart, curved spacetime rather than a force acting instantly at a distance. The demo below adds a simplified correction to gravity with the right qualitative shape (it is not the exact general-relativistic formula) and turns the dial up far beyond Mercury’s real, tiny effect, so the precession becomes visible over a handful of orbits instead of centuries.\n\n\n\n\n\n  \n    Precession strength (exaggerated)\n    Strength: 0%\n    \n    Time\n    \n    \n      Play / Pause\n    \n    \n    \n  \n  \n    \n  \n\n\n\n\n\nFigure 9.4\n\n\nA note on accuracy: sections 1-3 use real orbital data and exact physics – the Galilean moons’ real periods, the four planets’ real semi-major axes and eccentricities, and an honest numerical simulation of Newton’s law of gravity (the same simulation used to classify every orbit as crashing, elliptical, or escaping, and to measure the equal-areas result directly rather than assume it). Section 4’s relativistic correction is deliberately simplified and exaggerated for visibility – it has the right qualitative behaviour (it explains why the orbit precesses at all) but is not the precise Schwarzschild correction, and the demo says so directly rather than presenting the exaggerated numbers as Mercury’s real effect.",
-    "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>The Analemma Project</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Circadian Rhythm ($\\pi$)</span>"
     ]
   },
   {
     "objectID": "trigonometry.html",
     "href": "trigonometry.html",
-    "title": "Estimating the Height of a Tree using Trigonometry",
+    "title": "Estimating the Height of a Tree using Trigonometry (\\(\\Omega\\))",
     "section": "",
-    "text": "The idea\nSuppose you need to measure the height of the tree in front of you, standing on the ground with nothing but your own two feet and the phone that you are using on this tour.\nEverything below comes down to one right-angled triangle:\nGiven this triangle, the vertical height of the tree can be estimated given the walking distance to the tree and the slope of the hypotenuse, i.e. \\[\\text{tree height} = \\text{eye height} + \\text{distance} \\times \\tan(\\text{angle})\\]\nThe distance is easy to estimate: pace it out.\nTo estimate the angle accurately we would use a clinometer. However, we can get a good approximation using your phone!\nHold your phone flat, in landscape orientation, right beside your eye, with its bottom edge level and its near-bottom corner at your eye (see diagram).\nNow you need to adjust your position so that the sight line across the diagonal of your phone extends to the tip of the tree.\nBecause the phone’s shape never changes, that sightline always makes exactly the same angle with the horizontal – fixed the moment you know its width and height, and the same every single time you use it:\n\\[\\text{angle} = \\arctan\\!\\left(\\frac{\\text{phone height}}{\\text{phone width}}\\right)\\]",
+    "text": "The idea\nYou need to measure the height of the large vertical tree in the open space beside you. You can do this standing on the ground with nothing but your own two feet and the phone that you are using.\nEverything below comes down to one right-angled triangle:\nBy measuring the walking distance ot the base of the tree we can estimate the height using trigonometry.",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Estimating the Height of a Tree using Trigonometry</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Estimating the Height of a Tree using Trigonometry ($\\Omega$)</span>"
     ]
   },
   {
     "objectID": "trigonometry.html#the-idea",
     "href": "trigonometry.html#the-idea",
-    "title": "Estimating the Height of a Tree using Trigonometry",
+    "title": "Estimating the Height of a Tree using Trigonometry (\\(\\Omega\\))",
     "section": "",
-    "text": "your eye,\nthe point on the tree that is at the same height as your eye,\nthe top of the tree.",
+    "text": "your eye,\nthe point on the tree that is at the same height as your eye,\nthe top of the tree.\n\n\n\n\n\nAn almost correct sight line.",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Estimating the Height of a Tree using Trigonometry</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Estimating the Height of a Tree using Trigonometry ($\\Omega$)</span>"
     ]
   },
   {
     "objectID": "trigonometry.html#try-it-yourself",
     "href": "trigonometry.html#try-it-yourself",
-    "title": "Estimating the Height of a Tree using Trigonometry",
+    "title": "Estimating the Height of a Tree using Trigonometry (\\(\\Omega\\))",
     "section": "Try it yourself",
-    "text": "Try it yourself\n\nStand facing the tree, somewhere with room to walk backwards.\nHold your phone flat, in landscape orientation, right beside your eye – bottom edge level, near-bottom corner at your eye.\nSight past that corner, along the phone’s diagonal, out towards the tree.\nStop looking at your phone and adjust your position by walking forwards or backwards. Repeat steps 1-4 until the treetop lines up exactly along the diagonal line.\nNow count the number of paces you needed to get to the base of the tree.\nEnter your pace count, your own pace length, and your eye height into the calculator below.\nHit Reveal the true height! and see how close you got.\n\n\n\n\n\n\n  \n    1. Your phone\n    Pick roughly your phone's shape\n    \n      Compact phone (~14.0 x 6.7 cm)\n      Standard phone (~14.7 x 7.1 cm)\n      Large phone (~16.0 x 7.7 cm)\n      Square card -- the classic 45° trick (10 x 10 cm)\n    \n    Width, landscape (cm): 14.7\n    \n    Height, landscape (cm): 7.1\n    \n    \n    2. You\n    Your eye height (cm): 150\n    \n    Measure straight up from the ground to the corner of your eye -- or roughly your height minus about 10 cm.\n    Your pace length (cm): 75\n    \n    Walk 10 natural paces, measure the total distance, and divide by 10 to find your own pace length.\n    \n    3. Your result\n    Paces walked to line up with the tree: 40\n    \n    \n    \n      Reveal the true height!\n      Try again\n    \n  \n  \n    \n  \n\n\n\n\n\nFigure 10.1\n\n\nA note on accuracy: the trigonometry here is exact – given a truly level sightline, a correctly measured pace length and eye height, and a phone held steadily, this method recovers the real height. In practice, all four of those introduce small errors (which is exactly why it’s a good estimate, not a laser rangefinder), so don’t be surprised if your first go is off by a metre or two either way – try pacing out your pace length carefully first, and see if your estimate improves.",
+    "text": "Try it yourself\n\nStand facing the tree, somewhere with room to walk backwards.\nHold your phone flat, in landscape orientation (see photo).\nSight across the phone’s diagonal and imagine a line extending towards the top of the tree.\nStop looking at your phone and adjust your position by walking forwards or backwards. Repeat steps 1-4 until the treetop lines up along the diagonal line.\nNow count the number of paces you needed to get to the base of the tree.\nEnter your pace count, your own pace length, and your eye height into the calculator below.\nHit Reveal the true height! and see how close you got.\n\n\n\n\n\n\n  \n    1. Your phone\n    Pick roughly your phone's shape\n    \n      Compact phone (~14.0 x 6.7 cm)\n      Standard phone (~14.7 x 7.1 cm)\n      Large phone (~16.0 x 7.7 cm)\n      Square card -- the classic 45° trick (10 x 10 cm)\n    \n    Width, landscape (cm): 14.7\n    \n    Height, landscape (cm): 7.1\n    \n    \n    2. You\n    Your eye height (cm): 150\n    \n    Measure straight up from the ground to the corner of your eye -- or roughly your height minus about 10 cm.\n    Your pace length (cm): 50\n    \n    Walk 10 natural paces, measure the total distance, and divide by 10 to find your own pace length.\n    \n    3. Your result\n    Paces walked to line up with the tree: 40\n    \n    \n    \n      Reveal the true height!\n      Try again\n    \n  \n  \n    \n  \n\n\n\n\n\nFigure 6.1\n\n\nA note on accuracy: the trigonometry here is exact – given a truly level sightline, a correctly measured pace length and eye height, and a phone held steadily, this method recovers the real height. In practice, all four of those introduce small errors (which is exactly why it’s a good estimate, not a laser rangefinder).\nTo estimate the angle accurately we would use a clinometer. Because the phone’s shape never changes, that sightline always makes exactly the same angle with the horizontal which is fixed the moment you know its width and height:\n\\[\\text{angle} = \\arctan\\!\\left(\\frac{\\text{phone height}}{\\text{phone width}}\\right)\\]\nGiven this triangle, the vertical height of the tree can be estimated given the walking distance to the tree and the slope of the hypotenuse, i.e. \\[\\text{tree height} = \\text{eye height} + \\text{distance} \\times \\tan(\\text{angle}).\\]",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Estimating the Height of a Tree using Trigonometry</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Estimating the Height of a Tree using Trigonometry ($\\Omega$)</span>"
+    ]
+  },
+  {
+    "objectID": "analemma.html",
+    "href": "analemma.html",
+    "title": "Why does the earth not fall into the sun? (√)",
+    "section": "",
+    "text": "Why doesn’t the Earth fall onto the Sun?\nThe sculpture in the middle of the grassy area behind you was created by artist Lucy Smith Analemma Project. She completed her PhD “Making the Conceptual Tangible: The Role of Art in Communicating Science” here at the University of Dundee.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Why does the earth not fall into the sun? (√)</span>"
+    ]
+  },
+  {
+    "objectID": "analemma.html#simulating-a-planet-orbiting-the-sun",
+    "href": "analemma.html#simulating-a-planet-orbiting-the-sun",
+    "title": "Why does the earth not fall into the sun? (√)",
+    "section": "Simulating a planet orbiting the sun?",
+    "text": "Simulating a planet orbiting the sun?\nThe app below demonstrates why the earth does not fall into the sun. Change the initial speed and direction of the orbiting object. Can you find conditions for which the planet crashes into the sun rather than stay in an elliptical orbit?\n\n\n\n\n\n  \n    Launch speed (× circular speed)\n    Speed: 1.00\n    \n    1.0 = perfect circle; 1.41 = escapes the Sun entirely.\n    Launch angle from tangential\n    Angle: 0°\n    \n    0° = sideways (tangential); negative angles aim inward, towards the Sun.\n    Time\n    \n    \n      Play / Pause\n    \n    \n    \n  \n  \n    \n  \n\n\n\n\n\nFigure 7.1\n\n\nTo understand how the simulations work we need to go back to the discoveries of Galileo, Kepler and Newton.\n\n1. Galileo: evidence that not everything orbits the Earth\nIn 1610, Galileo discovered four moons orbiting Jupiter. Press play below and watch Jupiter’s four largest moons complete their real orbital periods. Note that the inner-most moons orbit faster than the outer-most ones.\n\n\n\n\n\n  \n    Days elapsed\n    Day: 0.0\n    \n    \n      Play / Pause\n    \n    \n    \n  \n  \n    \n  \n\n\n\n\n\nFigure 7.2\n\n\n\n\n2. Kepler: ellipses, equal areas, and a hidden pattern\nJohannes Kepler found that planets in the solar system do not move in perfect circles, nor at constant speed. He distilled the pattern into three laws: - orbits are ellipses with the Sun at one focus (not the centre); - a planet sweeps out equal areas in equal times, moving faster when close to the Sun and slower when far away; - the square of the orbital period is proportional to the cube of the orbit’s size\nBelow you can explore all three below with Mercury, Earth, Mars and Jupiter’s real orbital data. Against note that inner-most planets orbit faster than outer-most ones.\n\n\n\n\n\n  \n    \n      Years elapsed\n      Year: 0.00\n      \n      \n        Play / Pause\n      \n      \n      \n    \n    \n      \n    \n  \n\n  Kepler's first law: each orbit is an ellipse with the Sun at one focus -- not the centre. Kepler's third law: square a planet's orbital period and you get the cube of its distance from the Sun, for every planet, with the same constant of proportionality:\n  \n\n  Kepler's second law is the strangest-sounding one: a line from the Sun to a planet sweeps out equal areas in equal times, wherever it is on its orbit. Mercury (the most eccentric of the four above) makes this vivid -- below, the same time window is measured starting right at perihelion (closest to the Sun) and right at aphelion (farthest away).\n\n  \n    \n      Time window (fraction of Mercury's year)\n      Window: 0.08\n      \n      \n      \n    \n    \n      \n    \n  \n\n\n\n\n\nFigure 7.3\n\n\n\n\n3. Newton: why doesn’t it just fall in?\nKepler described what orbits look like; Newton explained why. His law of universal gravitation says the Sun pulls every planet straight towards itself, with a force that falls off as the square of the distance – and nothing more. So why doesn’t that pull simply drag every planet straight into the Sun? The answer is sideways motion: a planet is always “falling” towards the Sun, but it is also always moving sideways fast enough to keep missing it. In the app at the top of the page, you control a planet’s launch speed and direction directly. Aim it steeply inward without enough sideways speed, and it crashes. Give it enough sideways speed, and the very same gravity that would have pulled it in instead bends its path into a closed ellipse – or, with enough speed, flings it away for good. The path is coloured by the planet’s instantaneous speed – watch it turn bright near the Sun and dark on the far side of an elliptical orbit, direct visual evidence of Kepler’s second law: the planet moves fastest exactly where it’s closest to the Sun.\n\n\n4. Bonus – Einstein: the ellipse itself slowly turns\nNewton’s theory predicts a perfectly closed ellipse, retraced forever. For most planets that is an excellent match to reality – but not quite perfect. Mercury’s orbit, observed over centuries, precesses: its ellipse itself slowly rotates, by about 43 arcseconds per century beyond what Newtonian gravity (accounting for the pull of the other planets) predicts. This tiny leftover puzzled astronomers for decades, until Einstein’s general relativity explained it as a consequence of gravity being, at heart, curved spacetime rather than a force acting instantly at a distance. The demo below adds a simplified correction to gravity with the right qualitative shape (it is not the exact general-relativistic formula) and turns the dial up far beyond Mercury’s real, tiny effect, so the precession becomes visible over a handful of orbits instead of centuries.\n\n\n\n\n\n  \n    Precession strength (exaggerated)\n    Strength: 0%\n    \n    Time\n    \n    \n      Play / Pause\n    \n    \n    \n  \n  \n    \n  \n\n\n\n\n\nFigure 7.4\n\n\nThe Analemma is an unequal figure-of-eight shape, created by tracking the sun’s position in the sky at the same time each day over a period of one year. The Analemma traces that figure-of-eight because the Earth’s orbit isn’t a perfect circle travelled at constant speed. Instead, it’s an ellipse, and Earth moves faster when it’s closer to the Sun. Working out exactly why orbits look like this took the better part of three centuries. Galileo discovered that not everything orbits the Earth; Kepler, worked out the precise shape of orbit based on observations; Newton explained why from a single law of gravity; and Einstein’s’ general relativity is needed to explain a tiny mismatch between Newton’s theory and Mercury’s orbit.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Why does the earth not fall into the sun? (√)</span>"
+    ]
+  },
+  {
+    "objectID": "birdsong.html",
+    "href": "birdsong.html",
+    "title": "Bird Song (\\(\\Sigma\\))",
+    "section": "",
+    "text": "How is the image generated?\nThe image below is a representation of a robin’s call that was made by a Dundee based local community project Biodiversidee that tracks bird song using the Cornell Birdnet-Pi software. This image was taken here at the Botanic Garden setup by David Martin of the University of Dundee.\nThe bursts of vertical lines capture the high frequency chirps whilst the gap between the bursts represents the time between calls.\nEach sound that you can hear is a pressure wave travelling through the air, picked up by your ear (or a microphone) as a single wiggling signal that changes moment to moment. Buried inside that one signal is a mixture of many pure tones at different frequencies, all layered on top of one another.\nPress record on the app, then let a birdsong recording (or a whistle, or your own voice) play into the microphone for up to 10 seconds. The app then computes and displays the spectrogram of what it heard, entirely on your own device – nothing is uploaded anywhere.\nA short window of any recorded sound can be decomposed into a sum of sine waves of different frequencies. The Fourier transform is the tool that performs this decomposition: feed it a chunk of samples, and it hands back how much of each frequency is present.\nDo this over and over on a sliding window as the recording plays out, and stack the results side by side, and you get a spectrogram – a picture with time along one axis, frequency along the other, and colour showing how strong each frequency is at each moment. A pure whistled note shows up as a single bright horizontal band. A complex trill, with several frequencies sliding around at once, shows up as a tangle of curved streaks. Birdsong is a particularly rich example: many species sing well above the pitch of human speech, and pack in rapid frequency sweeps that are hard to pick out by ear but leap out immediately in a spectrogram.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Bird Song ($\\Sigma$)</span>"
+    ]
+  },
+  {
+    "objectID": "fibonacci.html",
+    "href": "fibonacci.html",
+    "title": "Fibonacci Numbers (\\(\\varphi\\))",
+    "section": "",
+    "text": "Why Fibonacci numbers appear?\nLook at a pinecone from the bottom. How many spirals go in the clockwise direction (green lines in the photo)? How many spirals go in the counter-clockwise direction (yellow lines)? Wouldn’t you expect that they would be the same?\nThe number of spirals found on pine cones are almost always Fibonacci numbers, which appear in the Fibonacci sequence:\n\\(0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, \\ldots\\)\nNote that, in the Fibonacci sequence, the next number is found by adding the two previous ones.\nHere’s a completely different place they turn up: the family tree of a honeybee.\nHoneybees are haplodiploid. A fertilised egg develops into a female – a worker or a queen – with two parents: a mother and a father. An unfertilised egg develops into a male drone, with only one parent: his mother. Drones have no father at all.\nFollow a single drone’s family tree back through the generations using that one rule, and count how many ancestors he has at each generation. The counts turn out to be exactly the Fibonacci sequence – no coincidence, and no approximation: it’s forced by the branching rule itself.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Fibonacci Numbers ($\\varphi$)</span>"
+    ]
+  },
+  {
+    "objectID": "fibonacci.html#the-bee-family-tree-count-the-dots-in-each-row",
+    "href": "fibonacci.html#the-bee-family-tree-count-the-dots-in-each-row",
+    "title": "Fibonacci Numbers (\\(\\varphi\\))",
+    "section": "The Bee Family Tree – count the dots in each row",
+    "text": "The Bee Family Tree – count the dots in each row\n\n\n\n\n\n  \n    Generations back: 6\n    \n    \n    \n  \n  \n    \n  \n\n\n\n\n\nFigure 9.1: Drag the slider to trace a drone’s family tree further back, and watch the ancestor count at each generation follow the Fibonacci sequence exactly.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Fibonacci Numbers ($\\varphi$)</span>"
+    ]
+  },
+  {
+    "objectID": "symmetry.html",
+    "href": "symmetry.html",
+    "title": "Symmetry in Plants (\\(\\neq\\))",
+    "section": "",
+    "text": "Group Theory\nPlant leaves display a remarkable variety of symmetrical arrangements. Many leaves exhibit bilateral symmetry, where a single line divides the leaf into two mirror-image halves. Other plant structures show radial symmetry, in which features are arranged around a central point. In some flowers and leaf rosettes, one observes higher-order rotational symmetries, where a rotation through a specific angle leaves the pattern unchanged. These recurring arrangements are not merely aesthetic; they often reflect underlying developmental processes that help plants maximize light capture, structural stability, and make efficient use of space.\nSymmetry occupies a central place in mathematics because it provides a way to describe order, regularity, and invariance. Mathematicians study the transformations that leave an object unchanged, such as reflections, rotations, and translations. By focusing on these invariant properties, mathematicians are able to classify shapes and patterns, compare biological structures, and uncover deeper relationships between seemingly different forms. The mathematical study of symmetry naturally leads to group theory, one of the most important branches of modern algebra.\nA group is a collection of transformations together with rules for combining them. For a trifold symmetric pattern, for instance, the set of rotations through 0°, 120°, and 240° forms a group because combining any two of these rotations produces another rotation from the same set. Group theory provides a powerful language for describing symmetry not only in plants, but also in crystals, molecules, physics, and art. What begins as the observation of a simple repeating pattern in nature thus develops into a rich mathematical framework that helps explain structure and order across many scientific disciplines.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Symmetry in Plants ($\\neq$)</span>"
+    ]
+  },
+  {
+    "objectID": "symmetry.html#try-it-yourself",
+    "href": "symmetry.html#try-it-yourself",
+    "title": "Symmetry in Plants (\\(\\neq\\))",
+    "section": "Try it yourself",
+    "text": "Try it yourself\nThe triangle’s three rotations described above – 0°, 120°, and 240° – are just one small example of a much bigger idea. Below, pick two turns and combine them, and watch where the shape lands: however you pick your two turns, you always end up back on one of the same allowed positions. Switch the shape to see the same pattern hold for a square, a pentagon, and a hexagon too.\n\n\n\n\n\n  \n    \n  \n  \n    Combine two turns\n\n    Shape\n    \n       Triangle\n       Square\n       Pentagon\n       Hexagon\n    \n\n    First turn\n    \n\n    Then turn by\n    \n\n    Combine\n    Reset\n\n    \n\n    \n      Allowed turns for this shape:\n      \n    \n\n     Show the formal rules (advanced)\n    \n      Why this is a \"group\":\n      \n        Closure -- combine any two turns from the set, and you always land on another turn from the same set. You never end up somewhere new.\n        Identity -- 0° is the \"do nothing\" turn. Combine it with anything and nothing changes.\n        Inverses -- every turn has a partner that undoes it. For the triangle, 120° and 240° cancel each other out back to 0°.\n        Associativity -- combining is just adding angles and wrapping around at 360°, and addition never cares how you group it: (120°+240°)+120° lands the same place as 120°+(240°+120°).\n      \n    \n  \n\n\n\n\n\nFigure 10.2: Try a pair that brings the shape all the way back around to 0° – can you predict which one, before you press Combine? Then switch to the square or hexagon and see whether the same trick still works.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Symmetry in Plants ($\\neq$)</span>"
     ]
   },
   {
     "objectID": "curvature.html",
     "href": "curvature.html",
-    "title": "Why leaves crinkle?",
+    "title": "Why leaves crinkle? (\\(\\geq\\))",
     "section": "",
-    "text": "Figure 11.1: Diggers Speedwell and Kelanchoe Berharensis (in the greenhouse) are two example of plant species with crinklyleaves.\n\n\n\nWhy are some leaves more wrinkled than others? And what causes this to happen?\nConsider a circular disc of radius, \\(R\\).\nThe perimeter is \\(2\\pi R\\) whilst the area of the circle is \\(\\pi R^2\\). It can be shown that this circle is the minimal perimeter to contain the area \\(\\pi R^2\\).\nNow imagine distorting the disc so that the circumference is wrinkled. The circumference of the wrinkled perimeter is larger than \\(2 \\pi R\\)\nWhy does evolution find this shape for this particular plant and how does it happen?\nOne way to make a wrinkled surface is to have different regions of the surface grow at different rates. Essentially, take a circle and allow the outer region to grow at a faster rate than the inner region. This results in their being more material in the outer region which then wrinkles up.\n\n\n\n\n  \n    Growth\n    Rim growth rate, relative to the centre: 1.6\n    \n    Number of ripples around the rim: 7\n    \n    \n    \n  \n  \n    \n  \n\n\n\n\n\nFigure 11.2: A differential-growth leaf simulator: drag the rim growth rate up from 1.0 and a flat disc is forced to crinkle, exactly as a real leaf margin does when it grows faster than the tissue near its centre.",
+    "text": "Diggers Speedwell (left) and Kelanchoe Berharensis (right, in the greenhouse) are two example of plant species with crinkly leaves:\n \nWhy are some leaves more wrinkled than others? And what causes this to happen?\nConsider a circular disc of radius, \\(R\\). The perimeter of the circle is \\(2\\pi R\\) whilst the area is \\(\\pi R^2\\). It can be shown that this circle is the minimal perimeter needed to contain the area \\(\\pi R^2\\).\nNow imagine distorting the disc so that the circumference is wrinkled. Now the circumference of the wrinkled perimeter is larger than \\(2 \\pi R\\)\nOne way to make a wrinkled surface is to have different regions of the surface grow at different rates. Essentially, take a circle and allow the outer region to grow at a faster rate than the inner region. This results in there being more material in the outer region which then wrinkles up.\n\n\n\n\n  \n    Growth\n    Rim growth rate, relative to the centre: 1.6\n    \n    Number of ripples around the rim: 7\n    \n    \n    \n  \n  \n    \n  \n\n\n\n\n\nFigure 11.1: A differential-growth leaf simulator: drag the rim growth rate up from 1.0 and a flat disc is forced to crinkle, exactly as a real leaf margin does when it grows faster than the tissue near its centre.",
     "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Why leaves crinkle?</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Why leaves crinkle? ($\\geq$)</span>"
     ]
   },
   {
     "objectID": "salesman.html",
     "href": "salesman.html",
-    "title": "The Travelling Salesman problem",
+    "title": "The Travelling Salesman problem (\\(\\mu\\))",
     "section": "",
-    "text": "In the image below you can see a route that starts at Analemma and ends at this stop. Suppose you wanted to identify the route that goes through the same set of stops but minimises the total distance travelled.\n\nThis is the Travelling Salesman Problem (TSP) – one of the most famous problems in mathematics and computer science. It sounds simple: just try every order of stops and keep the shortest. With 5 stops there are only 12 distinct routes to check. With 10 stops there are already 181,440. With 20 stops there are over 60 quadrillion – so many that a computer checking a billion routes every single second would still need about two years to get through them all. Trying every option, which works fine for a handful of stops, becomes hopeless almost immediately – and no computer, however fast, escapes that by brute force alone.\nReal versions of this problem sit behind delivery route planning, circuit board drilling, and DNA sequencing.\nThe app below shows nine of the trail stops: √ (fixed as your start) and μ Travelling Salesman (fixed as your end), plus seven stops in between – Ω, ≤, ≥, Σ, ≠, φ and ∅. Tap those seven, in whichever order you think gives the shortest route from start to end, then use the toggle in the sidebar to compare:\n\nYour route – the order you tapped the seven middle stops in.\nOptimal route – the true shortest order, found by checking all 5040 possibilities exactly.\n\nWith seven stops to order there are 5040 possible routes in total – still few enough for a computer to check every single one in an instant, which is exactly what the app does for the optimal route. Switch between the two and see how close your guess got.\n\n\n\n\n\n  \n    \n  \n  \n    Plan the middle leg\n    Your route always starts at √ and ends at μ Travelling Salesman. Tap the seven stops in between (Ω, ≤, ≥, Σ, ≠, φ, ∅), in whatever order you think gives the shortest route.\n    Clear my route\n    \n       Show: your route\n       Show: optimal route\n    \n    \n  \n\n\n\n\n\nFigure 12.1: Tap the seven middle stops on the map above to build your route, then switch the sidebar toggle to compare it with the optimal one.",
+    "text": "In the image below you can see a route that starts at Analemma and ends at this stop. Suppose you wanted to identify the route that goes through the same set of stops but minimises the total distance travelled.\n\nThis is the Travelling Salesman Problem (TSP) – one of the most famous problems in mathematics and computer science. It sounds simple: just try every order of stops and keep the shortest. With 5 stops there are only 12 distinct routes to check. With 10 stops there are already 181,440. With 20 stops there are over 60 quadrillion – so many that a computer checking a billion routes every single second would still need about two years to get through them all. Trying every option, which works fine for a handful of stops, becomes hopeless almost immediately – and no computer, however fast, escapes that by brute force alone.\nReal versions of this problem sit behind delivery route planning, circuit board drilling, and DNA sequencing.\nThe app below shows nine of the trail stops: √ Analemma (fixed as your start) and μ Travelling Salesman (fixed as your end), plus seven stops in between – Ω Tree Height, ≤ Königsberg, ≥ Curvature, Σ Bird Song, ≠ Symmetry, φ Fibonacci and ∅ Helicopter Seeds. Tap those seven, in whichever order you think gives the shortest route from start to end, then use the toggle in the sidebar to compare:\n\nYour route – the order you tapped the seven middle stops in.\nOptimal route – the true shortest order, found by checking all 5040 possibilities exactly.\n\nWith seven stops to order there are 5040 possible routes in total – still few enough for a computer to check every single one in an instant, which is exactly what the app does for the optimal route. Switch between the two and see how close your guess got.\n\n\n\n\n\n  \n    \n  \n  \n    Plan the middle leg\n    Your route always starts at √ and ends at μ Travelling Salesman. Tap the seven stops in between (Ω, ≤, ≥, Σ, ≠, φ, ∅), in whatever order you think gives the shortest route.\n    Clear my route\n    \n       Show: your route\n       Show: optimal route\n    \n    \n  \n\n\n\n\n\nFigure 12.1: Tap the seven middle stops on the map above to build your route, then switch the sidebar toggle to compare it with the optimal one.",
     "crumbs": [
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>The Travelling Salesman problem</span>"
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>The Travelling Salesman problem ($\\mu$)</span>"
     ]
   },
   {
     "objectID": "helicopter.html",
     "href": "helicopter.html",
-    "title": "Helicopter Seeds",
+    "title": "Helicopter Seeds (\\(\\emptyset\\))",
     "section": "",
-    "text": "The seeds from maple, elm and ash trees have curved wings to let them stay in the air longer. The wind will pick up these seeds and carry them to suitable groud. These seeds twirl and spin around. They will then drop and sprount a new tree. Some people call these seeds helicopter seeds because they look like and can spin like a propeller.\nHere you will learn how to make your own spinner.\n\nFold the middle flap in the opposite direction of the other two flaps. Put the paper clip on the end of the middle flap.\nFind a maple seed spinner. Drop both spinners from the same height and compare how they spind. Does your spinner work as well as nature’s?",
+    "text": "The seeds from lime, maple, and other trees spin and fly a little bit like helicopters – helping the seeds travel further, giving the new plant the best chances of enough light, space and nutrients to grow. Precut origami paper and paper-clips are available at the Dundee Botanic Garden reception during Maths Week Scotland for you to make your own.\nDesign 1 (pink photos): Fasten the ends together with a paper clip into a kind of triangle shape.\n   \nDesign 2 (yellow photos):\n\nFold wing A and wing B down in opposite directions.\nFold up flap E at the bottom of the origami.\nFold flaps C and flap D inwards, onto the centre area.\nPaper clip the bottom of the helicopter (at E, C and D).\n\nNow find a spinning seed in the garden. Throw this and your own paper spinner high, and watch let them spin down. Is is the same, or different?",
     "crumbs": [
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Helicopter Seeds</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Helicopter Seeds ($\\emptyset$)</span>"
     ]
   },
   {
     "objectID": "konigsberg.html",
     "href": "konigsberg.html",
-    "title": "Seven Bridges of Königsberg",
+    "title": "Seven Bridges of Königsberg (\\(\\leq\\))",
     "section": "",
-    "text": "Find it in the gardens\nIn the 1700s the city of Königsberg was built around two branches of a river, with an island sitting where they met. Seven bridges connected the four separate pieces of land – and the people of the city had a favourite Sunday puzzle: could you walk through the city and cross every one of the seven bridges exactly once?\nNobody could ever do it. Nobody could ever explain why, either – until a mathematician called Leonhard Euler looked at the problem in 1736, and realised something surprising: it doesn’t matter how big the islands are, how long the bridges are, or what order you visit things in. All that matters is which pieces of land are joined to which, and by how many bridges. That single idea – throw away the shape and the distance, keep only the connections – was the birth of an entire branch of mathematics: graph theory, and later, topology.\nThis same puzzle has been laid out here in the Botanic Gardens. Look for four regions of the path network joined by logs standing in for the seven bridges. Before you read any further, go and try it for yourself: can you walk a route that crosses every log exactly once?",
+    "text": "Find it in the gardens\nIn the 1700s the city of Königsberg was built around two branches of a river, with an island sitting where they met. Seven bridges connected the four separate pieces of land – and the people of the city had a favourite Sunday puzzle: could you walk through the city and cross every one of the seven bridges exactly once?\nNobody could ever do it. Nobody could ever explain why, either – until a mathematician called Leonhard Euler looked at the problem in 1736, and realised something surprising: it doesn’t matter how big the islands are, how long the bridges are, or what order you visit things in. All that matters is which pieces of land are joined to which, and by how many bridges. That single idea – throw away the shape and the distance, keep only the connections – was the birth of an entire branch of mathematics: graph theory, and later, topology.\nIn this region of the Botanic Gardens there is a stream with some bridges? How many bridges can you find? HOw does the topology of the gridges compare to Königsberg?",
     "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Seven Bridges of Königsberg</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Seven Bridges of Königsberg ($\\leq$)</span>"
     ]
   },
   {
     "objectID": "konigsberg.html#try-it-here",
     "href": "konigsberg.html#try-it-here",
-    "title": "Seven Bridges of Königsberg",
+    "title": "Seven Bridges of Königsberg (\\(\\leq\\))",
     "section": "Try it here",
     "text": "Try it here\nTap (or click) a landmass on the map below to start your walk, then tap the bridges (numbered 1-7, matching the logs in the gardens) to cross them one at a time. Try to use all seven bridges exactly once.\n\n\n\n\n\n  \n    \n  \n  \n    Walk across every bridge\n    Tap a landmass on the map to start your walk.\n    Reset walk\n     Show bridge counts (and why it's impossible)\n    \n      Turn it into a graph. Shrink each landmass down to a dot (mathematicians call it a node), and each bridge down to a line joining two dots (an edge). The exact size and shape stop mattering -- only which dots are joined, and how many times.\n      Count the bridges at each dot -- its degree:\n      \n        North bank: 3\n        South bank: 3\n        Island: 5\n        East side: 3\n      \n      Euler's trick: every time your walk passes through a landmass (not starting or ending there), it uses up two of that landmass's bridges at once -- one to arrive, one to leave. So a landmass can only be a start or an end point if it has an odd number of bridges. A walk has exactly one start and one end, so at most 2 landmasses are allowed an odd degree.\n      Königsberg has 4 landmasses with an odd degree -- two more than is ever allowed. That's not bad luck: it's a proof that no route can ever cross every bridge exactly once, no matter how cleverly you try.\n    \n  \n\n\n\n\n\nFigure 14.1",
     "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Seven Bridges of Königsberg</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Seven Bridges of Königsberg ($\\leq$)</span>"
     ]
   },
   {
     "objectID": "konigsberg.html#turning-it-into-a-graph",
     "href": "konigsberg.html#turning-it-into-a-graph",
-    "title": "Seven Bridges of Königsberg",
+    "title": "Seven Bridges of Königsberg (\\(\\leq\\))",
     "section": "Turning it into a graph",
     "text": "Turning it into a graph\nShrink each landmass down to a single dot – mathematicians call it a node (or vertex) – and shrink each bridge down to a line joining two dots – an edge. That’s it: you’ve just drawn the same map above as a graph. The exact size and shape don’t matter any more, only which dots are joined, and how many times.",
     "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Seven Bridges of Königsberg</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Seven Bridges of Königsberg ($\\leq$)</span>"
     ]
   },
   {
     "objectID": "konigsberg.html#why-is-it-impossible",
     "href": "konigsberg.html#why-is-it-impossible",
-    "title": "Seven Bridges of Königsberg",
+    "title": "Seven Bridges of Königsberg (\\(\\leq\\))",
     "section": "Why is it impossible?",
     "text": "Why is it impossible?\nCount how many bridges touch each landmass – its degree:\n\nNorth bank: 3\nSouth bank: 3\nIsland: 5\nEast side: 3\n\nHere’s Euler’s trick. Every time your walk passes through a landmass in the middle of your route (not starting or ending there), you use up two of its bridges at once: one to arrive, one to leave. So a landmass can only be left with a single, unpaired bridge – which makes it usable only as a start or an end point – if it has an odd number of bridges. A walk has exactly one start and one end, so at most two landmasses in the whole map are allowed to have an odd degree.\nKönigsberg has four landmasses with an odd degree – two more than is ever allowed. That’s not bad luck, and it’s not that nobody was clever enough: it’s a mathematical proof that no route can ever cross every bridge exactly once, no matter how hard you try or how many times you attempt it.\nThis same idea – turning a real problem into dots and connections, then reasoning about the connections alone – now underpins everything from delivery-route planning to computer chip design to mapping how a disease spreads through a network of people. It all traces back to seven bridges over a river in Königsberg, and one mathematician who realised the shape never mattered at all.",
     "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Seven Bridges of Königsberg</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Seven Bridges of Königsberg ($\\leq$)</span>"
     ]
   },
   {
     "objectID": "questionnaire.html",
     "href": "questionnaire.html",
-    "title": "End of Maths Trail Questionnaire",
+    "title": "End of Maths Trail Questionnaire (E)",
     "section": "",
-    "text": "Share your trail on Instagram\nDisplay at the end of Maths Trail (near the reception?). Links to Microsoft form, which asks feedback and also asks to enter the counted numbers for Phyllotaxis patterns.\nSnap a photo of your favourite discovery from today’s trail and share it on Instagram. If you tag @dundeemaths then some of our undergrads will be able to answer any questions that you might have about the tour.\nIf you tag @dundeeuni you can let the University of Dundee know how much appreciate Mathematics and the Botanic Gardens!",
+    "text": "Feedback form\nWe hope that you have enjoyed the Mathematics Trail today. At the various stops we have provided an overview of an important principles and interactive widgets for you to explore a mathematical idea. Note that behind each widget is a set of mathematical equations that are being solved using your phone. The mathematical details in these widgets are important but there is not enough time to go into that today!\nPlease fill in our brief Maths Trail Questionnaire which will help us to improve future events:\nhttps://forms.cloud.microsoft/e/BfRM8a7rga",
     "crumbs": [
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>End of Maths Trail Questionnaire</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>End of Maths Trail Questionnaire (E)</span>"
     ]
   },
   {
     "objectID": "questionnaire.html#share-your-trail-on-instagram",
     "href": "questionnaire.html#share-your-trail-on-instagram",
-    "title": "End of Maths Trail Questionnaire",
-    "section": "",
-    "text": "📸 Post your photo on Instagram\n  \n  \n    Follow @dundeemaths\n  \n\n\n  On your phone, \"Post your photo\" jumps straight to Instagram's camera so you can snap and post right away --\n  Instagram doesn't let a website fill in the photo or the @dundeemaths tag for you, so just add that yourself\n  before you share.",
+    "title": "End of Maths Trail Questionnaire (E)",
+    "section": "Share your trail on Instagram",
+    "text": "Share your trail on Instagram\nIf you enjoyed the trail we would like you to post about it on your social networks so that other can too! Snap a photo of your favourite discovery from today’s trail and share it on Instagram. If you tag @dundeemaths then some of our undergraduate students will be able to answer any questions that you might have about the tour.\nIf you tag @dundeeuni you can let the University of Dundee know how much you appreciate both Mathematics and the Botanic Gardens!\n\n\n\n  \n    📸 Post your photo on Instagram\n  \n  \n    Follow @dundeemaths\n  \n\n\n  On your phone, \"Post your photo\" jumps straight to Instagram's camera so you can snap and post right away --\n  Instagram doesn't let a website fill in the photo or the @dundeemaths tag for you, so just add that yourself\n  before you share.",
     "crumbs": [
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>End of Maths Trail Questionnaire</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>End of Maths Trail Questionnaire (E)</span>"
     ]
   }
 ]
