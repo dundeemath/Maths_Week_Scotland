@@ -60,11 +60,10 @@ By measuring the walking distance to the base of the tree we can estimate the he
     text-align: left;
   }
   #tree-app .tree-sidebar {
-    flex: 2 1 320px;
+    flex: 0 0 240px;
   }
   #tree-app .canvas-wrap {
-    flex: 1 1 300px;
-    max-width: 400px;
+    flex: 1 1 400px;
     min-width: 0;
   }
   #tree-app h5 {
@@ -132,7 +131,7 @@ By measuring the walking distance to the base of the tree we can estimate the he
   @media (max-width: 520px) {
     #tree-app { gap: 8px; }
     #tree-app .tree-sidebar { flex-basis: 100%; }
-    #tree-app .canvas-wrap { flex-basis: 100%; max-width: none; }
+    #tree-app .canvas-wrap { flex-basis: 100%; }
     #tree-app h5 { font-size: 12px; }
     #tree-app label { font-size: 11px; margin: 8px 0 3px 0; }
     #tree-app button { padding: 5px 8px; font-size: 11px; }

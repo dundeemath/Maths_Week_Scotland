@@ -4,20 +4,11 @@ format: html
 code-fold: True
 ---
 
-Plants arrange their leaves around a stem in regular patterns. If you look directly down the stem of a plant, you can estimate the angle that the next leaf down is rotated through.
-
-::: {.content-hidden when-format="pdf"}
-
-![A rotation of the plant stem reveals the divergence angle. At the start of the movie the bottom branch points towards me. After a rotation of the stem by the divergence angle, the next branch up points towards me.](DivergenceAngleDemo.mov)
-
-:::
-
-The angle is called the divergence angle and the pattern of leaf arrangement is known as phyllotaxis. Many different plant species share similar phyllotaxis patterns.
-
-![Phyllotactic Patterns. Image from the [University of Tokyo](https://www.u-tokyo.ac.jp/focus/en/press/z0508_00047.html).](figures/phase-locking.jpg){width="5in" fig-pos="H"}
-
+Plants arrange their leaves around a stem in regular patterns. If you look directly down the stem of a plant, you can estimate the angle that the next leaf down is rotated through.  The angle is called the divergence angle and the pattern of leaf arrangement is known as phyllotaxis. Many different plant species share similar phyllotaxis patterns.
 
 When the leaves are on opposite sides of the stem, the divergence angle is $180^\circ$. This is known as **distichous** (see image below).  Other commonly found angles are $137.5^\circ$ (Fibonacci spiral), $90^\circ$ (**decussate**), or $60^\circ$ (**tricussate**).
+
+![Phyllotactic Patterns. Image from the [University of Tokyo](https://www.u-tokyo.ac.jp/focus/en/press/z0508_00047.html).](figures/phase-locking.jpg){width="5in" fig-pos="H"}
 
 The plants in the image below have distichous (left) and decussate (right) patterns:
 
@@ -29,12 +20,21 @@ There are many plants in the garden, but just a few phyllotaxis patterns.
 ::: {.content-hidden when-format="pdf"}
 
 
+| Name             | Divergence Angle | Description  |
+|------------------|:-----------------|-------------:|
+| Distichous       |            180   | Leaves grow on alternating sides of the stem, forming a flat, two-sided pattern |
+| Fibonacci Spiral |            137.5 | Leaves grow around the stem in a tight spiral, using the golden angle to make the best use of space and get as much light as possible  |
+| Decussate        |             90   | Leaves grow in pairs, with each pair turned at a right angle to the pair below |
+| Tricussate       |             60   | Three leaves grow from the same point on the stem, spaced evenly around it. Each group of three is rotated $60^\circ$ around the stem from the group below. |
+
+: Different divergence angle patterns
+
 ## Build your own leaf system
 
-You can simulate your own leaf system using the app below.
-Two things control the pattern: how many leaves grow from each point on the stem (one, a pair, or a whorl of three), and the divergence angle. For a single leaf at a time, that angle is free to be anything. You can drag it to 180° for distichous, or to exactly 137.5°, the golden angle, for the Fibonacci spiral. For pairs and whorls, the angle is fixed by how many leaves share each point: 90° for pairs, 60° for whorls of three, matching the decussate and tricussate patterns.
+You can build your own leaf system using the app below.
+Two things control the pattern: how many leaves grow from each point on the stem (one, a pair, or a whorl of three), and the angle that each new leaf or whorl is rotated from the last. For a single leaf at a time, that angle is free to be anything. You can drag it to 180° for distichous, or to exactly 137.5°, the golden angle, for the Fibonacci spiral. For pairs and whorls, the angle is fixed by how many leaves share each point: 90° for pairs, 60° for whorls of three, matching the decussate and tricussate patterns.
 
-The app provides three ways to look at the same pattern: from directly above the stem (how you'd actually classify a real plant), the stem's surface unrolled flat (straight rows reveal how many columns of leaves line up), and a fully 3D view you can rotate yourself.
+The app provides four ways to look at the same pattern: from directly above the stem (how you'd actually classify a real plant), the stem's surface unrolled flat (straight rows reveal how many columns of leaves line up), a side-view diagram of the stem itself, drawn the same way as the pictures above, and a fully 3D view you can rotate yourself.
 
 
 ::: {#fig-phyllotaxis .content-hidden when-format="pdf"}
@@ -65,6 +65,7 @@ The app provides three ways to look at the same pattern: from directly above the
     <div class="phyllo-radio-group" id="phyllo-view-group">
       <label><input type="radio" name="phyllo-view" value="unrolled"> Unrolled stem</label>
       <label><input type="radio" name="phyllo-view" value="topdown"> Top-down</label>
+      <label><input type="radio" name="phyllo-view" value="stem"> Leaf diagram (side view)</label>
       <label><input type="radio" name="phyllo-view" value="3d" checked> 3D view (drag to rotate)</label>
     </div>
 
@@ -486,6 +487,76 @@ The app provides three ways to look at the same pattern: from directly above the
   }
 
   // ---------------------------------------------------------------
+  // View: 2D leaf diagram (side view)
+  // ---------------------------------------------------------------
+  function drawStem2D(ctx, leaves, nNodes) {
+    const dz = 1.0;
+    const depthWobble = 0.35;
+    const leafLen = 1.5 * Math.sqrt(0.8);
+    const leafWidth = 0.55 * Math.sqrt(0.8);
+    const maxH = (nNodes - 1) * dz;
+
+    const s = makeEqualScaler(-2.3, 2.3, -0.5, maxH + 0.6, 30, CSS_W - 30, 40, CSS_H - 30);
+
+    // stem
+    const [sx0, sy0] = s(0, 0);
+    const [sx1, sy1] = s(0, maxH);
+    ctx.strokeStyle = "#6b4226";
+    ctx.lineWidth = 9;
+    ctx.lineCap = "round";
+    ctx.beginPath(); ctx.moveTo(sx0, sy0); ctx.lineTo(sx1, sy1); ctx.stroke();
+
+    // node ticks
+    ctx.strokeStyle = "#4a2d16";
+    ctx.lineWidth = 3;
+    for (let j = 0; j < nNodes; j++) {
+      const [x0, y0] = s(-0.07, j * dz);
+      const [x1, y1] = s(0.07, j * dz);
+      ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
+    }
+
+    const scaleFactor = Math.hypot(s(1, 0)[0] - s(0, 0)[0], s(1, 0)[1] - s(0, 0)[1]);
+
+    for (const leaf of leaves) {
+      const theta = leaf.theta, j = leaf.j;
+      const height = j * dz;
+      const thetaUp = Math.sin(theta) >= 0 ? theta : -theta;
+      const cosThetaUp = Math.cos(thetaUp);
+      let side;
+      if (cosThetaUp > 1e-9) side = 1;
+      else if (cosThetaUp < -1e-9) side = -1;
+      else side = 0;
+      const angleDeg = 90 - side * LEAF_TILT_FROM_VERTICAL;
+      const angleRad = (angleDeg * Math.PI) / 180;
+      const baseX = 0.0;
+      const baseY = height + Math.sin(thetaUp) * depthWobble;
+      const halfLen = leafLen / 2;
+      const centerX = baseX + halfLen * Math.cos(angleRad);
+      const centerY = baseY + halfLen * Math.sin(angleRad);
+      const color = ylgn(0.35 + (0.5 * j) / Math.max(nNodes - 1, 1));
+
+      const [px, py] = s(centerX, centerY);
+      ctx.save();
+      ctx.translate(px, py);
+      // canvas y is flipped relative to data y, so a positive data-space
+      // rotation appears as a negative canvas rotation
+      ctx.rotate(-angleRad);
+      ctx.globalAlpha = 0.8;
+      ctx.fillStyle = color;
+      ctx.strokeStyle = "#2f4f1f";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, (leafLen / 2) * scaleFactor, (leafWidth / 2) * scaleFactor, 0, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+      ctx.restore();
+    }
+
+    drawTitle(ctx, "Leaves on the stem, viewed from the side");
+  }
+
+  // ---------------------------------------------------------------
   // View: genuine 3D, camera controlled by azim/elev (drag or slider)
   // ---------------------------------------------------------------
   function project(x, y, z, azimRad, elevRad) {
@@ -608,10 +679,11 @@ The app provides three ways to look at the same pattern: from directly above the
   function render() {
     const ctx = getCtx();
     const view = state.view;
-    const nNodes = view === "3d" ? STEM_VIEW_NODES : N_NODES;
+    const nNodes = view === "stem" || view === "3d" ? STEM_VIEW_NODES : N_NODES;
     const leaves = generateLeaves(state.k, currentAngle(), nNodes);
 
     if (view === "unrolled") drawUnrolled(ctx, leaves, nNodes);
+    else if (view === "stem") drawStem2D(ctx, leaves, nNodes);
     else if (view === "3d") draw3D(ctx, leaves, nNodes, state.azim, state.elev);
     else drawTopdown(ctx, leaves, nNodes);
 
@@ -732,15 +804,6 @@ The app provides three ways to look at the same pattern: from directly above the
 
 :::
 
-
-
-| Name             | Divergence Angle | Description  |
-|------------------|:-----------------|-------------:|
-| Distichous       |            180   | Leaves grow on alternating sides of the stem, forming a flat, two-sided pattern |
-| Fibonacci Spiral |            137.5 | Leaves grow around the stem in a tight spiral, using the golden angle to make the best use of space and get as much light as possible  |
-| Decussate        |             90   | Leaves grow in pairs, with each pair turned at a right angle to the pair below |
-| Tricussate       |             60   | Three leaves grow from the same point on the stem, spaced evenly around it. Each group of three is rotated $60^\circ$ around the stem from the group below. |
-
-: Different divergence angle patterns
+Switch between "leaves per node" to compare alternate leaves against paired and whorled arrangements, and try all four views on the same pattern -- the leaf diagram is the most direct comparison to the picture above, the unrolled view makes the difference between a repeating and a non-repeating angle especially clear, and the 3D view is the one to spin around to see how the whorled patterns really wrap around the stem. On the 3D view, click (or touch) and drag directly on the plant to spin it and tilt the camera up or down -- the slider still works too, and the two stay in sync.
 
 :::

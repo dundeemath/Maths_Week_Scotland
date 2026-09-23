@@ -140,6 +140,19 @@ The simulation has some parameters. If you adjust these you can see how the fina
     margin: 4px 12px 4px 0;
   }
   .fractal-app .fern-radio input { margin: 0; }
+  .fractal-app details.fern-rules-table {
+    margin-top: 10px;
+    font-size: 12.5px;
+  }
+  .fractal-app details.fern-rules-table summary {
+    cursor: pointer;
+    font-size: 13px;
+    color: #2f7d4f;
+  }
+  .fractal-app details.fern-rules-table ul {
+    margin: 8px 0 0 0;
+    padding-left: 18px;
+  }
   @media (max-width: 520px) {
     .fractal-app .fern-card { padding: 10px; }
     .fractal-app .fern-card h4 { font-size: 14px; }
@@ -478,6 +491,10 @@ The simulation has some parameters. If you adjust these you can see how the fina
       <div class="fern-canvas-wrap">
         <canvas id="fern-canvas" width="640" height="700"></canvas>
         <div id="fern-s3-summary" class="fern-summary"></div>
+        <details class="fern-rules-table">
+          <summary>See the raw numbers these four knobs produce</summary>
+          <ul id="fern-s3-rules-list"></ul>
+        </details>
       </div>
     </div>
   </div>
@@ -511,6 +528,7 @@ The simulation has some parameters. If you adjust these you can see how the fina
   var animateBtn = $("fern-s3-animate");
   var resetBtn = $("fern-s3-reset");
   var summaryEl = $("fern-s3-summary");
+  var rulesListEl = $("fern-s3-rules-list");
   var rotationSlider = $("fern-s3-rotation"), leafletSlider = $("fern-s3-leaflet");
   var stemSlider = $("fern-s3-stem"), leanSlider = $("fern-s3-lean");
   var rotationVal = $("fern-s3-rotation-val"), leafletVal = $("fern-s3-leaflet-val");
@@ -554,6 +572,17 @@ The simulation has some parameters. If you adjust these you can see how the fina
     leanVal.textContent = parseFloat(leanSlider.value).toFixed(1);
   }
 
+  function updateRulesTable(rules, probs) {
+    var html = "";
+    for (var i = 0; i < RULE_NAMES.length; i++) {
+      var r = rules[i];
+      html += "<li><strong>" + RULE_NAMES[i] + "</strong>: a=" + r[0].toFixed(3) + ", b=" + r[1].toFixed(3) +
+        ", c=" + r[2].toFixed(3) + ", d=" + r[3].toFixed(3) + ", e=" + r[4].toFixed(3) + ", f=" + r[5].toFixed(3) +
+        ", p=" + Math.round(probs[i] * 100) + "%</li>";
+    }
+    rulesListEl.innerHTML = html;
+  }
+
   function onReveal(revealed, animating) {
     updateSliderLabels();
     var n = Math.max(revealed, 1);
@@ -562,12 +591,14 @@ The simulation has some parameters. If you adjust these you can see how the fina
     var highlightI = (animating && revealed >= 1) ? revealed - 1 : null;
     lib.drawPoints(ctx, canvas.width, canvas.height, res.xs, res.ys, res.ruleIdx, n, colorMode(), RULE_COLORS, "#2f7a3d", highlightI);
 
+    var probs = lib.normalizeProbs(rules);
     var lines = [];
     if (res.clipped) {
       lines.push("<strong>These settings don't contract</strong> -- points are shooting off to huge values and being capped so the app doesn't crash. Try a smaller leaflet size or a smaller lean, or press \"Reset to Barnsley's fern\".");
     }
 
     summaryEl.innerHTML = lines.join("<br><br>");
+    updateRulesTable(rules, probs);
   }
 
   var builder = lib.makeWatchBuilder({

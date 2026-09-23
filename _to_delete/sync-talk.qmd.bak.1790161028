@@ -161,14 +161,14 @@ no need to trigger it by hand, and it stops automatically on the way
 out. Let it run a beat in silence before advancing.
 </aside>
 
----
 
-<div class="fragment">
+
+<div class="r-fit-text fragment">
 Applause
 
 </div>
 
-<div class="fragment">
+<div class="r-fit-text fragment">
 Ragged at first.
 
 Then, one clap.
@@ -645,7 +645,7 @@ recognised.
 
 ### Complex analysis
 
-The order parameter *r* we have computed comes from a complex number. Its size captures how "in sync" the oscillators are. 
+The order parameter *r* we have computed comes from a complex number. Its size is "how in sync" the oscillators are. 
 
 $$r\,e^{i\psi} = \frac{1}{N}\sum_{j=1}^{N} e^{i\theta_j}$$
 
@@ -2118,9 +2118,8 @@ tracing out live by dragging K.
 
 ### Network science
 
-Real synchronising systems are all around us: power grids, neurons, cardiac tissue, the fireflies, circadian oscillators.
-
-Usually they are complex networks. Whether they
+Real synchronising systems -- power grids, neurons, cardiac tissue,
+the fireflies -- aren't tidy pairs. They're networks. Whether they
 sync at all depends on the properties of the network.
 
 ---

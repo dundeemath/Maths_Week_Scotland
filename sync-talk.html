@@ -107,6 +107,8 @@
   <link href="sync-talk_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="sync-talk_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="sync-talk_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="sync-talk_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="sync-talk_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
   <link href="sync-talk_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -370,9 +372,11 @@ The fireflies clip itself, full screen, nothing else on the slide. reveal.js’s
 </section>
 <section class="slide level2 center">
 
-<div class="r-fit-text">
+<div class="fragment">
 <p>Applause</p>
-<p>ragged at first.</p>
+</div>
+<div class="fragment">
+<p>Ragged at first.</p>
 <p>Then, one clap.</p>
 </div>
 <aside class="notes">
@@ -429,9 +433,6 @@ Story 4 – pacemaker cells in your heart, thousands of individually unreliable 
 </section>
 <section class="slide level2 center">
 
-<div class="r-fit-text">
-<p>Simulating synchronisation.</p>
-</div>
 <aside class="notes">
 9:00-18:00 – CENTREPIECE, longest section by design, don’t rush once running. Advance to the next slide – the Sync Dial is built straight into this deck now, so there’s no switching to another window or tab. Drag the coupling slider K from low to high, live, and let the room watch the order parameter r climb from near 0 toward 1 as the oscillators lock into phase. The “New starting phases” button gives you a fresh, unsynchronised starting point if you want to run it a second time. Come back to this deck for the next slide once the room has seen it happen.
 <style type="text/css">
@@ -448,7 +449,7 @@ Story 4 – pacemaker cells in your heart, thousands of individually unreliable 
 </section>
 <section class="slide level2 center">
 
-<h3 id="sync-dial">Sync Dial</h3>
+<h3 id="sync-simulation">Sync simulation</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-engine="python"><pre class="sourceCode numberSource shinylive-python number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href=""></a>#| '!! shinylive warning !!': |</span>
 <span id="cb1-2"><a href=""></a>#|   shinylive does not work in self-contained HTML documents.</span>
 <span id="cb1-3"><a href=""></a>#|   Please set `embed-resources: false` in your metadata.</span>
@@ -758,7 +759,7 @@ Point back at the physical metronomes on the table – ticking in step now, if t
 <span id="cb2-30"><a href=""></a>TICK_INTERVAL = 0.045</span>
 <span id="cb2-31"><a href=""></a>OMEGA_MEAN = 1.1</span>
 <span id="cb2-32"><a href=""></a>SPREAD = 0.7</span>
-<span id="cb2-33"><a href=""></a>K_FIXED = 0.2</span>
+<span id="cb2-33"><a href=""></a>K_FIXED = 0.6</span>
 <span id="cb2-34"><a href=""></a></span>
 <span id="cb2-35"><a href=""></a>CIRCLE_GREY = "#666666"</span>
 <span id="cb2-36"><a href=""></a>TEAL = "#4fd1c5"</span>
@@ -844,7 +845,7 @@ Point back at the physical metronomes on the table – ticking in step now, if t
 <span id="cb2-116"><a href=""></a></span>
 <span id="cb2-117"><a href=""></a>app = App(app_ui, server)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The metronomes’ motion can be described by a system of them:</p>
-<p><span class="math display">\[\frac{d\theta_i}{dt} = \omega_i + \frac{K}{N}\sum_{j=1}^{N} \sin(\theta_j - \theta_i)\]</span></p>
+<p><span class="math display">\[\frac{d\theta_i}{dt} = \omega_i + \frac{K}{N}\sum_{j=1}^{N} \sin(\theta_j - \theta_i), \ \ \ \ \ i=1,..,N\]</span></p>
 <aside class="notes">
 This is the equation the demo was running – and the little panel top right is that same system running live right now, no controls, fixed below the critical coupling so it keeps drifting rather than settling. Pause here and point at the moving dots: each one <em>is</em> a theta_i(t), and what you’re watching is this equation being numerically integrated in real time. How fast oscillator i’s phase moves – its own natural rhythm omega_i, plus a pull from everyone else, strength K. Frame the equation itself as “here’s the four-line description of what you just watched a few slides ago,” not a thing to be understood, just recognised.
 <style type="text/css">
@@ -862,7 +863,7 @@ This is the equation the demo was running – and the little panel top right is 
 <section class="slide level2 center">
 
 <h3 id="complex-analysis">Complex analysis</h3>
-<p>The order parameter <em>r</em> you just watched <em>is</em> a complex number – its size is “how in sync,” its angle is “the shared rhythm.”</p>
+<p>The order parameter <em>r</em> we have computed comes from a complex number. Its size captures how “in sync” the oscillators are.</p>
 <p><span class="math display">\[r\,e^{i\psi} = \frac{1}{N}\sum_{j=1}^{N} e^{i\theta_j}\]</span></p>
 <svg id="complex-analysis-diagram" xlink="http://www.w3.org/1999/xlink" width="420" height="420" viewbox="0 0 295.488 295.488" xmlns="http://www.w3.org/2000/svg" version="1.1" style="display:block;margin:0 auto;">
 <metadata> <rdf:rdf xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"> <cc:work> <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type> <dc:date>2026-09-22T17:51:06.594512</dc:date> <dc:format>image/svg+xml</dc:format> <dc:creator> <cc:agent> <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title> </cc:agent> </dc:creator> </cc:work> </rdf:rdf> </metadata> <defs> <style type="text/css">#complex-analysis-diagram *{stroke-linejoin: round; stroke-linecap: butt}</style> </defs> <g id="figure_1"> <g id="patch_1"> <path d="M -0 295.488 
@@ -1898,7 +1899,8 @@ Order parameter r at steady state, as a function of coupling K, for the same spr
 <section class="slide level2 center">
 
 <h3 id="network-science">Network science</h3>
-<p>Real synchronising systems – power grids, neurons, cardiac tissue, the fireflies – aren’t tidy pairs. They’re networks. Whether they sync at all depends on the properties of the network.</p>
+<p>Real synchronising systems are all around us: power grids, neurons, cardiac tissue, the fireflies, circadian oscillators.</p>
+<p>Usually they are complex networks. Whether they sync at all depends on the properties of the network.</p>
 </section>
 <section class="slide level2 center">
 
@@ -1982,6 +1984,7 @@ Rehearsal note: time the centrepiece section against the real simulator and the 
   <script src="sync-talk_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="sync-talk_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="sync-talk_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="sync-talk_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
   <script src="sync-talk_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -2003,7 +2006,8 @@ Rehearsal note: time the centrepiece section against the real simulator and the 
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -2174,7 +2178,7 @@ Rehearsal note: time the centrepiece section against the real simulator and the 
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
 
           RevealMath,
           RevealNotes,

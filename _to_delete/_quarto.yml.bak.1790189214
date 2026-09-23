@@ -1,0 +1,65 @@
+project:
+  type: book
+
+book:
+  title: "Mathematics Trail at the University of Dundee Botanic Gardens"
+  # Page-view tracking for the live site (dundeemath.github.io/Maths_Week_Scotland).
+  # This only affects the HTML build -- Quarto's website tools (google-analytics,
+  # cookie-consent) don't touch the PDF output at all, even though they live
+  # under the book: key here rather than a website: key (that's just how Quarto
+  # book projects are supposed to configure these -- same keys, different parent).
+  google-analytics:
+    tracking-id: "G-PVGXR5JFP0"
+    anonymize-ip: true
+  # Blocks the GA cookie until a visitor actively agrees -- required for a
+  # UK university site under UK GDPR/PECR rather than just being polite.
+  cookie-consent:
+    type: express
+  # Reorder this list for the exhibition -- it's the single source of
+  # truth for chapter order (no separate file to keep in sync).
+  chapters:
+    - index.qmd  
+    - phyllotaxis.qmd      # Phyllotaxis
+    - spirals.qmd           # Logarithmic Spiral
+    - fractal.qmd          # Fractal
+    - circadian.qmd
+    - trigonometry.qmd     # Estimating the Height of a Tree using Trigonometry
+    - analemma.qmd        # The Analemma Project
+    - birdsong.qmd         # Bird Song
+    - fibonacci.qmd
+    - symmetry.qmd         # Symmetry in Plants        # Fibonacci Numbers
+    - curvature.qmd        # Why leaves crinkle: differential growth in a disc
+    - salesman.qmd         # The Travelling Salesman Problem [pure JS app]
+    - helicopter.qmd       # Helicopter Seeds
+    - konigsberg.qmd       # Seven Bridges of Koenigsberg (currently just a stub, "Topic in Graph Theory.")
+    - questionnaire.qmd    # End of Maths Trail Questionnaire (interactive form -- drop, or paper version?)
+
+format:
+  html:
+    theme: cosmo
+    css: mobile.css
+    include-in-header: js_apps_switch.html
+    toc: false
+    number-sections: false
+  pdf:
+    documentclass: scrbook
+    # oneside: without this, scrbook's default twoside layout forces every
+    # chapter to start on a fresh right-hand (odd) page, which is what was
+    # inserting a blank page after every 1-page chapter. oneside makes
+    # chapters run straight on, back to back.
+    classoption: [oneside]
+    # Booklet will be printed and stapled, not bound - 2cm is plenty.
+    geometry: margin=3cm
+    toc: false
+    number-sections: false
+    # Figures were all printing as "Figure 1" -- scrbook resets its native
+    # figure counter at every \chapter, and since most chapters only have
+    # one figure, they all landed on the same number. Chapters and sections
+    # aren't numbered anywhere else in this book (number-sections: false,
+    # no toc), so a bare figure number wouldn't tie to anything -- simplest
+    # fix is to drop the "Figure N:" label entirely and keep just the
+    # caption text.
+    include-in-header:
+      text: |
+        \usepackage{caption}
+        \captionsetup[figure]{labelformat=empty}
