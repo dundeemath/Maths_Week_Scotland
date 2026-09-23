@@ -59,7 +59,7 @@ By measuring the walking distance ot the base of the tree we can estimate the he
   #tree-app #tree-summary {
     text-align: left;
   }
-  #tree-app .sidebar {
+  #tree-app .tree-sidebar {
     flex: 0 0 240px;
   }
   #tree-app .canvas-wrap {
@@ -130,7 +130,7 @@ By measuring the walking distance ot the base of the tree we can estimate the he
   }
   @media (max-width: 520px) {
     #tree-app { gap: 8px; }
-    #tree-app .sidebar { flex-basis: 100%; }
+    #tree-app .tree-sidebar { flex-basis: 100%; }
     #tree-app .canvas-wrap { flex-basis: 100%; }
     #tree-app h5 { font-size: 12px; }
     #tree-app label { font-size: 11px; margin: 8px 0 3px 0; }
@@ -141,7 +141,7 @@ By measuring the walking distance ot the base of the tree we can estimate the he
 </style>
 
 <div id="tree-app">
-  <div class="sidebar">
+  <div class="tree-sidebar">
     <h5>1. Your phone</h5>
     <label for="tree-phone-preset">Pick roughly your phone's shape</label>
     <select id="tree-phone-preset">
