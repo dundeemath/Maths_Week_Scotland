@@ -19,7 +19,7 @@ Nobody could ever do it. Nobody could ever explain *why*, either -- until a math
 
 ## Find it in the gardens
 
-In this region of the Botanic Gardens there is a stream with some bridges? How many bridges can you find? HOw does the topology of the gridges compare to Königsberg?
+In this region of the Botanic Gardens there is a stream with some bridges? How many bridges can you find? How does the topology of the bridges compare to Königsberg? Can you find a route back to this spot that crosses any bridge at most once?
 
 ## Try it here
 
