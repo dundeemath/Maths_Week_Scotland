@@ -19,7 +19,7 @@ Everything below comes down to one right-angled triangle:
 - the point on the tree that is at the same height as your eye,
 - the top of the tree.
 
-By measuring the walking distance ot the base of the tree we can estimate the height using trigonometry.
+By measuring the walking distance to the base of the tree we can estimate the height using trigonometry.
 
 
 
@@ -35,7 +35,7 @@ By measuring the walking distance ot the base of the tree we can estimate the he
 
 1. Stand facing the tree, somewhere with room to walk backwards.
 2. Hold your phone flat, in landscape orientation (see photo).
-3. Sight across the phone's diagonal and imagine a line extending towards the top of the tree.
+3. Sight across the phone's diagonal (see image above) and imagine a line extending towards the top of the tree.
 4. Stop looking at your phone and adjust your position by walking forwards or backwards. Repeat steps 1-4 until the treetop lines up along the diagonal line.
 5. Now count the number of paces you needed to get to the base of the tree.
 6. Enter your pace count, your own pace length, and your eye height into the calculator below.
