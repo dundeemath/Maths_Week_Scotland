@@ -339,7 +339,7 @@ window.Quarto = {
   #new-app h5,
   #new-app label,
   #new-app .summary-text { text-align: left; }
-  #new-app .sidebar { flex: 0 0 260px; min-width: 0; }
+  #new-app .new-sidebar { flex: 0 0 260px; min-width: 0; }
   #new-app .canvas-wrap { flex: 1 1 400px; min-width: 0; }
   #new-app h5 { margin: 12px 0 8px 0; font-size: 14px; }
   #new-app h5:first-child { margin-top: 0; }
@@ -365,7 +365,7 @@ window.Quarto = {
 </style>
 
 <div id="new-app">
-  <div class="sidebar">
+  <div class="new-sidebar">
     <h5 class="anchored">Launch speed (× circular speed)</h5>
     <label for="new-speed">Speed: <strong id="new-speed-val">1.00</strong></label>
     <input id="new-speed" type="range" min="0.1" max="2.0" step="0.02" value="1.0">
@@ -697,7 +697,7 @@ Figure&nbsp;7.1
   #gal-app h5,
   #gal-app label,
   #gal-app #gal-summary { text-align: left; }
-  #gal-app .sidebar { flex: 0 0 240px; min-width: 0; }
+  #gal-app .gal-sidebar { flex: 0 0 240px; min-width: 0; }
   #gal-app .canvas-wrap { flex: 1 1 380px; min-width: 0; }
   #gal-app h5 { margin: 0 0 8px 0; font-size: 14px; }
   #gal-app label { display: block; font-size: 13px; margin: 10px 0 4px 0; line-height: 1.3; }
@@ -720,7 +720,7 @@ Figure&nbsp;7.1
 </style>
 
 <div id="gal-app">
-  <div class="sidebar">
+  <div class="gal-sidebar">
     <h5 class="anchored">Days elapsed</h5>
     <label for="gal-day">Day: <strong id="gal-day-val">0.0</strong></label>
     <input id="gal-day" type="range" min="0" max="20" step="0.1" value="0">
@@ -870,7 +870,7 @@ Figure&nbsp;7.2
     align-items: flex-start;
     margin-bottom: 18px;
   }
-  #kep-app .sidebar { flex: 0 0 240px; min-width: 0; }
+  #kep-app .kep-sidebar { flex: 0 0 240px; min-width: 0; }
   #kep-app .canvas-wrap { flex: 1 1 340px; min-width: 0; }
   #kep-app h5 { margin: 0 0 8px 0; font-size: 14px; }
   #kep-app label { display: block; font-size: 13px; margin: 10px 0 4px 0; line-height: 1.3; }
@@ -900,7 +900,7 @@ Figure&nbsp;7.2
 
 <div id="kep-app">
   <div class="row">
-    <div class="sidebar">
+    <div class="kep-sidebar">
       <h5 class="anchored">Years elapsed</h5>
       <label for="kep-year">Year: <strong id="kep-year-val">0.00</strong></label>
       <input id="kep-year" type="range" min="0" max="12" step="0.02" value="0">
@@ -921,7 +921,7 @@ Figure&nbsp;7.2
   <p class="areas-intro"><strong>Kepler's second law</strong> is the strangest-sounding one: a line from the Sun to a planet sweeps out <em>equal areas in equal times</em>, wherever it is on its orbit. Mercury (the most eccentric of the four above) makes this vivid -- below, the same time window is measured starting right at perihelion (closest to the Sun) and right at aphelion (farthest away).</p>
 
   <div class="row">
-    <div class="sidebar">
+    <div class="kep-sidebar">
       <h5 class="anchored">Time window (fraction of Mercury's year)</h5>
       <label for="kep-window">Window: <strong id="kep-window-val">0.08</strong></label>
       <input id="kep-window" type="range" min="0.02" max="0.25" step="0.01" value="0.08">
@@ -1201,7 +1201,7 @@ Figure&nbsp;7.3
   #ein-app h5,
   #ein-app label,
   #ein-app .summary-text { text-align: left; }
-  #ein-app .sidebar { flex: 0 0 260px; min-width: 0; }
+  #ein-app .ein-sidebar { flex: 0 0 260px; min-width: 0; }
   #ein-app .canvas-wrap { flex: 1 1 400px; min-width: 0; }
   #ein-app h5 { margin: 12px 0 8px 0; font-size: 14px; }
   #ein-app h5:first-child { margin-top: 0; }
@@ -1225,7 +1225,7 @@ Figure&nbsp;7.3
 </style>
 
 <div id="ein-app">
-  <div class="sidebar">
+  <div class="ein-sidebar">
     <h5 class="anchored">Precession strength (exaggerated)</h5>
     <label for="ein-strength">Strength: <strong id="ein-strength-val">0</strong>%</label>
     <input id="ein-strength" type="range" min="0" max="100" step="1" value="0">
