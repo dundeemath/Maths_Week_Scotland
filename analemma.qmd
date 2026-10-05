@@ -7,16 +7,16 @@ categories: [Orbital mechanics, Astronomy, Calculus]
 ---
 
 The sculpture in the middle of the grassy area behind you was created
-by artist Lucy Smith [Analemma Project](https://artlucy.uk/index.php/the-analemma-project/). She completed her PhD "Making the Conceptual Tangible: The Role of Art in Communicating Science" here at the University of Dundee.
+by artist Lucy Smith ([Analemma Project](https://artlucy.uk/index.php/the-analemma-project/)). She completed her PhD "Making the Conceptual Tangible: The Role of Art in Communicating Science" here at the University of Dundee.
 
 ## Why doesn't the Earth fall onto the Sun?
 
 
 ::: {.content-hidden when-format="pdf"}
 
-## Simulating a planet orbiting the sun?
+## Simulating a planet orbiting the Sun?
 
-The app below demonstrates why the earth does not fall into the sun. Change the initial speed and direction of the orbiting object. Can you find conditions for which the planet crashes into the sun rather than stay in an elliptical orbit? 
+The app below demonstrates why the Earth does not fall into the sun. Change the initial speed and direction of the orbiting object. Can you find conditions for which the planet crashes into the Sun rather than staying in an elliptical orbit? 
 
 ::: {#fig-newton-gravity .content-hidden when-format="pdf"}
 ```{=html}
@@ -544,8 +544,9 @@ In 1610, Galileo discovered four moons orbiting Jupiter. Press play below and wa
 ### 2. Kepler: ellipses, equal areas, and a hidden pattern
 
 Johannes Kepler found that planets in the solar system do not move in perfect circles, nor at constant speed. He distilled the pattern into three laws: 
-- orbits are **ellipses** with the Sun at one focus (not the centre); - a planet **sweeps out equal areas in equal times**, moving faster when close to the Sun and slower when far away; 
-- the **square of the orbital period is proportional to the cube of the orbit's size** 
+- orbits are **ellipses** with the Sun at one focus (not the centre); 
+- a planet **sweeps out equal areas in equal times**, moving faster when close to the Sun and slower when far away; 
+- the **square of the orbital period is proportional to the cube of the orbit's size**.
 
 Below you can explore all three below with Mercury, Earth, Mars and Jupiter's real orbital data. Against note that inner-most planets orbit faster than outer-most ones.
 
@@ -615,7 +616,7 @@ Below you can explore all three below with Mercury, Earth, Mars and Jupiter's re
   <p><strong>Kepler's first law:</strong> each orbit is an ellipse with the Sun at one <em>focus</em> -- not the centre. <strong>Kepler's third law:</strong> square a planet's orbital period and you get the cube of its distance from the Sun, for every planet, with the same constant of proportionality:</p>
   <div class="table-wrap" id="kep-third-law-table"></div>
 
-  <p class="areas-intro"><strong>Kepler's second law</strong> is the strangest-sounding one: a line from the Sun to a planet sweeps out <em>equal areas in equal times</em>, wherever it is on its orbit. Mercury (the most eccentric of the four above) makes this vivid -- below, the same time window is measured starting right at perihelion (closest to the Sun) and right at aphelion (farthest away).</p>
+  <p class="areas-intro"><strong>Kepler's second law</strong> is the strangest-sounding one: a line from the Sun to a planet sweeps out <em>equal areas in equal times</em>, wherever it is on its orbit. This can be seen clearly with Mercury (the most eccentric of the four above) -- below, the same time window is measured starting right at perihelion (closest to the Sun) and right at aphelion (farthest away).</p>
 
   <div class="row">
     <div class="kep-sidebar">
@@ -1194,6 +1195,6 @@ Newton's theory predicts a perfectly closed ellipse, retraced forever. For most 
 :::
 
 
-The [Analemma](https://en.wikipedia.org/wiki/Analemma) is an unequal figure-of-eight shape, created by tracking the sun's position in the sky at the same time each day over a period of one year. The Analemma traces that figure-of-eight because the Earth's orbit isn't a perfect circle travelled at constant speed. Instead, it's an ellipse, and Earth moves faster when it's closer to the Sun. Working out exactly *why* orbits look like this took the better part of three centuries. **Galileo** discovered  that not everything orbits the Earth; **Kepler**,  worked out the precise shape of orbit based on observations; **Newton** explained *why*  from a single law of gravity; and **Einstein**'s' general relativity is needed to explain a tiny mismatch between Newton's theory and Mercury's orbit.
+The [Analemma](https://en.wikipedia.org/wiki/Analemma) is an unequal figure-of-eight shape, created by tracking the Sun's position in the sky at the same time each day over a period of one year. The Analemma traces that figure-of-eight because the Earth's orbit isn't a perfect circle travelled at constant speed. Instead, it's an ellipse, and Earth moves faster when it's closer to the Sun. Working out exactly *why* orbits look like this took the better part of three centuries. **Galileo** discovered  that not everything orbits the Earth; **Kepler**,  worked out the precise shape of orbit based on observations; **Newton** explained *why*  from a single law of gravity; and **Einstein**'s' general relativity is needed to explain a tiny mismatch between Newton's theory and Mercury's orbit.
 
 
